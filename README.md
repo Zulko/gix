@@ -1,4 +1,4 @@
-# lool
+# gix
 
 > Online video-to-gif
 

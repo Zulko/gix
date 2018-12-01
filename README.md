@@ -1,6 +1,6 @@
 # gix
 
-> Online video-to-gif
+> In-browser GIF captioning
 
 ## Build Setup
 

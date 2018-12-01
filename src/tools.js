@@ -1,3 +1,11 @@
+exports.generateRandomID = function () {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0
+    var v = c === 'x' ? r : (r & 0x3 | 0x8)
+    return v.toString(16)
+  })
+}
+
 function computedStyle (element) {
   var cSSStyleDeclarationComputed = getComputedStyle(element)
   var i, len, key, value
@@ -12,9 +20,12 @@ function computedStyle (element) {
   }
   return computedStyleStr
 }
+
 function cloneWithInlineStyle (node) {
   var newNode = node.cloneNode(false)
-  newNode.setAttribute('style', computedStyle(node))
+  if (!(['defs', 'style'].some(tagName => tagName === node.tagName))) {
+    newNode.setAttribute('style', computedStyle(node))
+  }
   while (newNode.firstChild) {
     newNode.removeChild(newNode.firstChild)
   }

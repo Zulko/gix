@@ -1,0 +1,278 @@
+{
+  "entrances": [{
+    "value": "none",
+    "label": "No animation"
+  }, {
+    "value": "animation-category-bounce",
+    "label": "Bounce",
+    "children": [{
+      "value": "bounceIn",
+      "label": "In"
+    }, {
+      "value": "bounceInDown",
+      "label": "Down"
+    }, {
+      "value": "bounceInUp",
+      "label": "Up"
+    }, {
+      "value": "bounceInLeft",
+      "label": "Left"
+    }, {
+      "value": "bounceInRight",
+      "label": "Right"
+    }]
+  }, {
+    "value": "animation-category-fade",
+    "label": "Fade",
+    "children": [{
+      "value": "fadeIn",
+      "label": "In"
+    }, {
+      "value": "fadeInDown",
+      "label": "Down"
+    }, {
+      "value": "fadeInDownBig",
+      "label": "Down (big)"
+    }, {
+      "value": "fadeInUp",
+      "label": "Up"
+    }, {
+      "value": "fadeInUpBig",
+      "label": "Up (big)"
+    }, {
+      "value": "fadeInLeft",
+      "label": "Left"
+    }, {
+      "value": "fadeInLeftBig",
+      "label": "Left (big)"
+    }, {
+      "value": "fadeInRight",
+      "label": "Right"
+    }, {
+      "value": "fadeInRightBig",
+      "label": "Right (big)"
+    }]
+  }, {
+    "value": "animation-category-flip",
+    "label": "Flip",
+    "children": [{
+      "value": "flipInX",
+      "label": "Horizontal"
+    }, {
+      "value": "flipInY",
+      "label": "Vertical"
+    }]
+  }, {
+    "value": "animation-category-rotate",
+    "label": "Rotate",
+    "children": [{
+      "value": "rotateIn",
+      "label": "In"
+    }, {
+      "value": "rotateInDownLeft",
+      "label": "Down-Left"
+    }, {
+      "value": "rotateInDownRight",
+      "label": "Down-Right"
+    }, {
+      "value": "rotateInUpLeft",
+      "label": "Up-Left"
+    }, {
+      "value": "rotateInUpRight",
+      "label": "Up-Right"
+    }]
+  }, {
+    "value": "animation-category-slide",
+    "label": "Slide",
+    "children": [{
+      "value": "slideIn",
+      "label": "In"
+    }, {
+      "value": "slideInDown",
+      "label": "Down"
+    }, {
+      "value": "slideInUp",
+      "label": "Up"
+    }, {
+      "value": "slideInLeft",
+      "label": "Left"
+    }, {
+      "value": "slideInRight",
+      "label": "Right"
+    }]
+  }, {
+    "value": "animation-category-zoom",
+    "label": "Zoom",
+    "children": [{
+      "value": "zoomIn",
+      "label": "In"
+    }, {
+      "value": "zoomInDown",
+      "label": "Down"
+    }, {
+      "value": "zoomInUp",
+      "label": "Up"
+    }, {
+      "value": "zoomInLeft",
+      "label": "Left"
+    }, {
+      "value": "zoomInRight",
+      "label": "Right"
+    }]
+  }, {
+    "value": "lightSpeedIn",
+    "label": "Light Speed"
+  }, {
+    "value": "rollIn",
+    "label": "Roll"
+  }, {
+    "value": "jackInTheBox",
+    "label": "Jack In the Box"
+  }, {
+    "value": "tada",
+    "label": "Tada!"
+  }],
+  "exits": [{
+    "value": "none",
+    "label": "No animation"
+  }, {
+    "value": "animation-category-bounce",
+    "label": "Bounce",
+    "children": [{
+      "value": "bounceOut",
+      "label": "Out"
+    }, {
+      "value": "bounceOutDown",
+      "label": "Down"
+    }, {
+      "value": "bounceOutUp",
+      "label": "Up"
+    }, {
+      "value": "bounceOutLeft",
+      "label": "Left"
+    }, {
+      "value": "bounceOutRight",
+      "label": "Right"
+    }]
+  }, {
+    "value": "animation-category-fade",
+    "label": "Fade",
+    "children": [{
+      "value": "fadeOut",
+      "label": "Out"
+    }, {
+      "value": "fadeOutDown",
+      "label": "Down"
+    }, {
+      "value": "fadeOutDownBig",
+      "label": "Down (big)"
+    }, {
+      "value": "fadeOutUp",
+      "label": "Up"
+    }, {
+      "value": "fadeOutUpBig",
+      "label": "Up (big)"
+    }, {
+      "value": "fadeOutLeft",
+      "label": "Left"
+    }, {
+      "value": "fadeOutLeftBig",
+      "label": "Left (big)"
+    }, {
+      "value": "fadeOutRight",
+      "label": "Right"
+    }, {
+      "value": "fadeOutRightBig",
+      "label": "Right (big)"
+    }]
+  }, {
+    "value": "animation-category-flip",
+    "label": "Flip",
+    "children": [{
+      "value": "flipOutX",
+      "label": "Horizontal"
+    }, {
+      "value": "flipOutY",
+      "label": "Vertical"
+    }]
+  }, {
+    "value": "lightSpeedOut",
+    "label": "Light Speed"
+  }, {
+    "value": "rollOut",
+    "label": "Roll"
+  }, {
+    "value": "animation-category-rotate",
+    "label": "Rotate",
+    "children": [{
+      "value": "rotateOut",
+      "label": "Out"
+    }, {
+      "value": "rotateOutDown",
+      "label": "Down"
+    }, {
+      "value": "rotateOutUp",
+      "label": "Up"
+    }, {
+      "value": "rotateOutLeft",
+      "label": "Left"
+    }, {
+      "value": "rotateOutRight",
+      "label": "Right"
+    }]
+  }, {
+    "value": "animation-category-slide",
+    "label": "Slide",
+    "children": [{
+      "value": "slideOut",
+      "label": "Out"
+    }, {
+      "value": "slideOutDown",
+      "label": "Down"
+    }, {
+      "value": "slideOutUp",
+      "label": "Up"
+    }, {
+      "value": "slideOutLeft",
+      "label": "Left"
+    }, {
+      "value": "slideOutRight",
+      "label": "Right"
+    }]
+  }, {
+    "value": "animation-category-zoom",
+    "label": "Zoom",
+    "children": [{
+      "value": "zoomOut",
+      "label": "Out"
+    }, {
+      "value": "zoomOutDown",
+      "label": "Down"
+    }, {
+      "value": "zoomOutUp",
+      "label": "Up"
+    }, {
+      "value": "zoomOutLeft",
+      "label": "Left"
+    }, {
+      "value": "zoomOutRight",
+      "label": "Right"
+    }]
+  }, {
+    "value": "hinge",
+    "label": "Hinge Out"
+  }],
+  "loops": [{
+    "value": "none",
+    "label": "No animation"
+  },{
+    "value": "bounce",
+    "label": "Bounce"
+  }, {
+    "value": "flash",
+    "label": "Flash"
+  }, {
+    "value": "pulse",
+    "label": "Pulse"
+  }]
+}

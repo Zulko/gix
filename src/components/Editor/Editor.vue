@@ -3,18 +3,19 @@ el-container.editor
   el-aside(width="540px")
     captions-settings-list
   el-main(style="padding: 1cm; padding-top: 0cm; overflow-x: hidden;")
-    h2 GIF
     captioned-frames-wrapper
     gix-toolbar
 </template>
 
 <script>
-
+import CaptionedFramesWrapper from '../CaptionedFrames/CaptionedFramesWrapper'
+import CaptionsSettingsList from './CaptionSettings/CaptionsSettingsList'
+import Toolbar from './Toolbar/Toolbar'
 export default {
   components: {
-    'captioned-frames-wrapper': require('./CaptionedFrames/CaptionedFramesWrapper.vue').default,
-    'captions-settings-list': require('./CaptionSettings/CaptionsSettingsList.vue').default,
-    'gix-toolbar': require('./Toolbar/Toolbar.vue').default
+    'captioned-frames-wrapper': CaptionedFramesWrapper,
+    'captions-settings-list': CaptionsSettingsList,
+    'gix-toolbar': Toolbar
   }
 }
 </script>

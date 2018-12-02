@@ -2,13 +2,15 @@
   #app
     navbar
     router-view
+    app-footer
 </template>
 
 <script>
 export default {
   name: 'App',
   components: {
-    navbar: require('./Navbar.vue').default
+    navbar: require('./Navbar.vue').default,
+    'app-footer': require('./Footer.vue').default
   }
 }
 </script>
@@ -45,7 +47,20 @@ export default {
 }
 
 body {
-  background: rgb(230, 233, 236, 0.02)
+  position: relative;
+  background-color: #ffffff;
+  background-image: url(/static/img/background.svg);
+  background-size: cover;
+  background-repeat: repeat-y;
+  min-height: 100%;
+}
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 h1, h2 {

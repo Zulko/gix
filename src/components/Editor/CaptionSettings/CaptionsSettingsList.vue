@@ -1,7 +1,7 @@
 <template lang="pug">
 .caption-settings-list-container(:style="{maxHeight: (0.6 * windowHeight) + 'px'}")
   .caption-settings-list
-    h2 Captions
+    h2.title Captions
     transition-group(name='caption-settings-list'
                     tag='div')
       caption-settings(v-for='caption, i in $store.state.project.captions',
@@ -55,6 +55,9 @@ export default {
   direction: rtl;
   .caption-settings-list {
     direction: ltr;
+  }
+  h2.title {
+    margin-top: 0;
   }
 }
 .caption-settings-list-enter, .caption-settings-list-leave-active {

@@ -1,7 +1,6 @@
 <template lang="pug">
 .navbar
   img(src='/static/img/title.svg')
-  h2.subtitle GIF / SHARE / REMIX
 </template>
 <script>
 export default {

@@ -1,7 +1,8 @@
 <template lang="pug">
 .emoji-picker
-  el-tooltip(effect='light' placement='right-start', v-model='catalogVisible')
+  el-tooltip(effect='light' placement='right-start', v-model='catalogVisible' manual)
     .emojis-catalog-tooltip(slot='content')
+      p.close(@click='catalogVisible = false') close
       .emojis-search-input
         el-input(v-model='search')
       .search-results(v-if='search.length')
@@ -21,9 +22,10 @@
             v-for='(emoji, emojiName) in emojiGroup',
             :key='emojiName', @click="$emit('pick', emoji)",
             :title='emojiName') {{ emoji }}
-    .invoker
-      span(v-if='catalogVisible') 😃
-      span(v-else style='opacity: 0.75; font-size: 0.9em;') 😊
+    el-tooltip(placement='left-start' content='toggle emojis menu')
+      .invoker(@click='catalogVisible = !catalogVisible')
+        span(v-if='catalogVisible') 😃
+        span(v-else style='opacity: 0.75; font-size: 0.9em;') 😊
 </template>
 
 <script>
@@ -87,6 +89,14 @@ export default {
     margin: 2px;
     cursor: pointer;
   }
+}
+.close {
+  font-size: 14px;
+  margin-right: 1em;
+  color: grey;
+  margin-top: 0;
+  text-align: right;
+  cursor: pointer;
 }
 
 </style>

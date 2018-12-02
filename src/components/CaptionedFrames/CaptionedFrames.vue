@@ -3,13 +3,12 @@
 <template lang='pug'>
 .captioned-frames-generator
   .unshown
-    video#video(v-show='false' muted loop autoplay crossOrigin="Anonymous")
-      source(:src=" project.source.url" type="video/mp4")
     svg#svgEffects(
       :width="sourceWidth", :height="sourceHeight"
       :viewbox="`0 0 ${sourceWidth} ${sourceHeight}`",
       xmlns="http://www.w3.org/2000/svg",
       :style="videoSizeCSS")
+      image(:width="sourceWidth", :height="sourceHeight", :xlink:href="currentFrameData")
       svg-caption(v-for='caption in project.captions', :key='caption.id',
                   :caption='caption', :currentTime='currentTime')
     img#svgEffectsImage(:style="videoSizeCSS", crossOrigin="Anonymous",
@@ -24,6 +23,7 @@
 
 <script>
 import tools from '../../tools.js'
+import { VideoFrameServer, GifFrameServer } from './FrameServer'
 const canvg = require('canvg-browser')
 
 function b64EncodeUnicode (str) {
@@ -40,6 +40,8 @@ export default {
   },
   data () {
     return {
+      frameServer: null,
+      currentFrameData: null,
       previousClickTime: null,
       canvas: null,
       svgCanvas: null,
@@ -55,49 +57,42 @@ export default {
       sourceStats: {
         width: 100,
         height: 100,
-        fps: 10,
+        fps: 5,
         duration: 20
       },
       once: true
     }
   },
   methods: {
-    generateCaptionsFrame () {
+    async generateCaptionsFrame () {
       if (this.someAnimation) {
         var newSvg = tools.cloneWithInlineStyle(this.svgEffects)
         var xml = new XMLSerializer().serializeToString(newSvg)
         this.svgEffectsImage.src = 'data:image/svg+xml;base64,' + b64EncodeUnicode(xml)
-        if ((this.once) && (this.currentTime > 1.5)) {
-          this.once = false
-          console.log(this.svgEffectsImage)
-        }
       } else {
         var svg = new XMLSerializer().serializeToString(this.svgEffects)
         canvg(this.svgCanvas, svg)
         this.generateCaptionedGifFrame({svgCanvas: this.svgCanvas})
       }
     },
-    generateCaptionedGifFrame ({ svgCanvas }) {
-      this.canvasCtx.drawImage(this.video, 0, 0)
+    async generateCaptionedGifFrame ({ svgCanvas }) {
       this.canvasCtx.drawImage(svgCanvas, 0, 0)
-      if (this.once && (this.currentTime > 1.2)) {
-        console.log(this.canvasCtx, svgCanvas)
-        this.once = false
-      }
       if (this.emitFrames) {
         var data = this.canvas.toDataURL()
         this.$emit('newFrame', {time: this.currentTime, data})
       }
     },
-    refresh () {
-      this.currentTime = this.video.currentTime
-      this.generateCaptionsFrame()
+    async refresh () {
+      let fps = this.project.gifOptions.fps
+      this.currentTime += 1.0 / fps
+      this.currentFrameData = await this.frameServer.getFrame(this.currentTime)
+      await this.generateCaptionsFrame()
       if (this.currentTime > this.project.source.transform.timeSegment.end) {
         this.rewind()
       }
     },
     rewind () {
-      this.video.currentTime = this.project.source.transform.timeSegment.start
+      this.currentTime = this.project.source.transform.timeSegment.start
     },
     startRefreshLoop () {
       if (this.refreshLoop) clearInterval(this.refreshLoop)
@@ -134,27 +129,26 @@ export default {
       }
     }
   },
-  mounted () {
-    var self = this
-    this.video = document.getElementById('video')
+  async mounted () {
+    if (this.project.source.url.endsWith('.gif')) {
+      this.frameServer = new GifFrameServer(this.project.source.url)
+    } else {
+      this.frameServer = new VideoFrameServer(this.project.source.url)
+    }
+    await this.frameServer.init()
+    this.sourceStats = Object.assign({}, this.frameServer.sourceStats)
+    this.$emit('sourceStats', this.sourceStats)
     this.canvas = document.getElementById('canvas')
-    this.svgCanvas = document.getElementById('svgCanvas')
+    this.canvas.width = this.sourceStats.width
+    this.canvas.height = this.sourceStats.height
     this.canvasCtx = this.canvas.getContext('2d')
+    this.svgCanvas = document.getElementById('svgCanvas')
     this.svgEffects = document.getElementById('svgEffects')
     this.svgEffectsImage = document.getElementById('svgEffectsImage')
+    var self = this
     this.svgEffectsImage.onload = function () {
       self.generateCaptionedGifFrame({svgCanvas: self.svgEffectsImage})
     }
-    this.video.addEventListener('canplay', function (e) {
-      self.sourceStats = {
-        height: e.target.videoHeight,
-        width: e.target.videoWidth,
-        duration: e.target.duration,
-        fps: e.target.fps
-      }
-      self.$emit('sourceStats', self.sourceStats)
-    })
-    this.video.play()
     this.startRefreshLoop()
   },
   components: {

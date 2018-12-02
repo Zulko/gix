@@ -16,7 +16,10 @@ export const state = {
   },
   project: {
     source: {
-      url: 'https://i.imgur.com/S8QQRI4.mp4',
+      // url: 'https://i.imgur.com/S8QQRI4.gif',
+      // url: 'https://i.imgur.com/DZWTwH1.gif',
+      url: 'https://help.imgur.com/hc/en-us/article_attachments/115000241146/mindblown.gif',
+      // url: 'https://i.imgur.com/h1gYzMv.mp4',
       transform: {
         timeSegment: {
           start: 0,
@@ -31,7 +34,7 @@ export const state = {
       }
     },
     gifOptions: {
-      fps: 20,
+      fps: 10,
       quality: 10
     },
     captions: [

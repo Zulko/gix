@@ -40,6 +40,7 @@ export default {
   },
   data () {
     return {
+      localElementsData: {},
       frameServer: null,
       currentFrameData: null,
       previousClickTime: null,

@@ -49,7 +49,7 @@ export default {
 body {
   position: relative;
   background-color: #ffffff;
-  background-image: url(/static/img/background.svg);
+  /* background-image: url(/static/img/background.svg); */
   background-size: cover;
   background-repeat: repeat-y;
   min-height: 100%;

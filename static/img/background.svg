@@ -2,11 +2,11 @@
   <defs>
     <linearGradient id='a' gradientUnits='userSpaceOnUse' x1='0' x2='0' y1='0' y2='100%' gradientTransform='rotate(0)'>
       <stop offset='0' stop-color='#ffffff'/>
-      <stop offset='20%' stop-color='#fbfffe'/>
+      <stop offset='20%' stop-color='#fefffe'/>
       <stop offset='100%' stop-color='#ffffff'/>
     </linearGradient>
     <pattern patternUnits='userSpaceOnUse' id='b' width='606' height='505' x='0' y='0' viewBox='0 0 1080 900'>
-      <g fill-opacity='0.01'>
+      <g fill-opacity='0.006'>
         <polygon fill='#444' points='90 150 0 300 180 300'/><polygon points='90 150 180 0 0 0'/>
         <polygon fill='#AAA' points='270 150 360 0 180 0'/><polygon fill='#DDD' points='450 150 360 300 540 300'/>
         <polygon fill='#999' points='450 150 540 0 360 0'/><polygon points='630 150 540 300 720 300'/>

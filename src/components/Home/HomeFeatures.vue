@@ -49,7 +49,8 @@ export default {
   }
   .feature-text {
     .feature-title {
-      font-family: 'Permanent Marker';
+      font-family: 'Caveat Brush';
+      text-transform: uppercase;
       margin-bottom: 0.2em;
     }
   }

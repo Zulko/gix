@@ -16,9 +16,9 @@ export default {
 </script>
 
 <style>
-@import 'https://fonts.googleapis.com/css?family=Raleway';
+@import 'https://fonts.googleapis.com/css?family=Raleway|Kalam|Caveat+Brush';
 #app {
-  font-family: 'Raleway', Helvetica, Arial, sans-serif !important;
+  font-family: 'Lato', Helvetica, Arial, sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
@@ -73,6 +73,8 @@ h1 {
   margin: 0em;
 }
 h2 {
+  font-family: "Caveat Brush";
+  text-transform: uppercase;
   font-size: 2em;
 }
 </style>

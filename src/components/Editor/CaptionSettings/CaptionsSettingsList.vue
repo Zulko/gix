@@ -1,15 +1,16 @@
 <template lang="pug">
-.caption-settings-list-container(:style="{maxHeight: (0.6 * windowHeight) + 'px'}")
-  .caption-settings-list
-    h2.title Captions
-    transition-group(name='caption-settings-list'
-                    tag='div')
-      caption-settings(v-for='caption, i in $store.state.project.captions',
-                      :key='caption.id',
-                      :caption='caption')
-      .add-caption(align='center' key='add-caption')
-        el-tooltip(content='Add another caption')
-          el-button(icon='el-icon-plus' circle, @click='addCaptionAndScroll()')
+.caption-settings-list
+  h2.title Captions
+  .settings-list-container(:style="{maxHeight: (0.6 * windowHeight) + 'px'}")
+    .settings-list
+      transition-group(name='caption-settings-list'
+                      tag='div')
+        caption-settings(v-for='caption, i in $store.state.project.captions',
+                        :key='caption.id',
+                        :caption='caption')
+        .add-caption(align='center' key='add-caption')
+          el-tooltip(content='Add another caption')
+            el-button(icon='el-icon-plus' circle, @click='addCaptionAndScroll()')
 </template>
 
 <script>
@@ -48,17 +49,19 @@ export default {
 </script>
 
 <style lang='scss'>
-.caption-settings-list-container {
-  padding-left: 10px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  direction: rtl;
-  .caption-settings-list {
-    direction: ltr;
+.caption-settings-list {
+  .settings-list-container {
+    padding-left: 10px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    direction: rtl;
+    .settings-list {
+      direction: ltr;
+    }
   }
-  h2.title {
-    margin-top: 0;
-  }
+}
+h2.title {
+  margin-top: 0;
 }
 .caption-settings-list-enter, .caption-settings-list-leave-active {
   opacity: 0;

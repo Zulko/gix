@@ -37,9 +37,40 @@ export const state = {
       fps: 10,
       quality: 10
     },
-    captions: [
+    elements: [
       {
         id: '0',
+        type: 'asset',
+        url: 'https://help.imgur.com/hc/en-us/article_attachments/115000241146/mindblown.gif',
+        assetTransform: {
+          timeSegment: {
+            start: 0,
+            end: 3
+          },
+          crop: {
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0
+          }
+        },
+        animation: {
+          in: {
+            class: 'none',
+            speed: 'normal-speed'
+          },
+          out: {
+            class: 'none',
+            speed: 'normal-speed'
+          },
+          loop: {
+            class: 'none',
+            speed: 'normal-speed'
+          }
+        }
+      },
+      {
+        id: '1',
         timeSegment: {
           start: 1,
           end: 2
@@ -78,7 +109,7 @@ export const state = {
         }
       },
       {
-        id: '1',
+        id: '2',
         timeSegment: {
           start: 2,
           end: 3

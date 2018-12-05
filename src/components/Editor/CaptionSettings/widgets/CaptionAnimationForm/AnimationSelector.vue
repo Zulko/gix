@@ -13,22 +13,48 @@
 <script>
 
 const animations = require('./animations.json')
+var invertedAnimations = {}
+for (var category in animations) {
+  var categoryData = {}
+  for (var group in animations[category]) {
+    categoryData[group.value] = [group.value]
+    if (group.children) {
+      for (var child in group.children) {
+        categoryData[child.value] = [group.value, child.value]
+      }
+    }
+  }
+  invertedAnimations[category] = categoryData
+}
 export default {
   props: {
     value: {default: () => (['none'])},
     category: {default: 'entrances'}
   },
   data () {
+    var valueCopy = Object.assign({}, this.value)
+    valueCopy.animation = invertedAnimations[valueCopy.animation]
     return {
-      animation: Object.assign({}, this.value),
-      animations
+      animation: valueCopy,
+      animations,
+      invertedAnimations
     }
   },
   watch: {
     animation: {
       deep: true,
       handler (val) {
+        val = Object.assign({}, val)
+        val.animation = val.animation[val.animation.length - 1]
         this.$emit('input', val)
+      }
+    },
+    value: {
+      deep: true,
+      handler (val) {
+        val = Object.assign({}, val)
+        val.animation = this.invertedAnimations[this.category][val.animation]
+        this.animation = val
       }
     }
   }

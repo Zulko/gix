@@ -1,63 +1,63 @@
 import lodash from 'lodash'
 import { generateRandomID } from '../tools'
-import defaultCaption from './data/default_caption.json'
+import { defaultElements } from './data/default_elements.js'
 
-function captionAndIndex (captionId, state) {
-  var index = state.project.captions.map(c => c.id).indexOf(captionId)
-  return [state.project.captions[index], index]
+function elementAndIndex (elementId, state) {
+  var index = state.project.elements.map(c => c.id).indexOf(elementId)
+  return [state.project.elements[index], index]
 }
 function deepcopy (obj) {
   return JSON.parse(JSON.stringify(obj))
 }
 
 export const mutations = {
-  updateCaption (state, {captionId, update}) {
-    var [caption, index] = captionAndIndex(captionId, state)
-    var newCaptions = state.project.captions.slice()
-    var newCaption = deepcopy(caption)
-    lodash.merge(newCaption, update)
-    newCaptions[index] = newCaption
-    state.project.captions = newCaptions
-    // state.project.captions[index] = newCaption
+  updateElement (state, {elementId, update}) {
+    var [element, index] = elementAndIndex(elementId, state)
+    var newElements = state.project.elements.slice()
+    var newElement = deepcopy(element)
+    lodash.merge(newElement, update)
+    newElements[index] = newElement
+    state.project.elements = newElements
+    // state.project.elements[index] = newElement
   },
   updateGlobals (state, update) {
     var newGlobals = deepcopy(state.globals)
     lodash.merge(newGlobals, update)
     state.globals = newGlobals
   },
-  addCaption (state) {
-    var newCaption = deepcopy(defaultCaption)
-    newCaption.id = generateRandomID()
-    state.project.captions = [...state.project.captions, newCaption]
+  addElement (state, elementType) {
+    var newElement = deepcopy(defaultElements[elementType])
+    newElement.id = generateRandomID()
+    state.project.elements = [...state.project.elements, newElement]
   },
-  duplicateCaption (state, captionId) {
-    var newCaptions = state.project.captions.slice()
-    var [caption, index] = captionAndIndex(captionId, state)
-    var newCaption = deepcopy(caption)
-    newCaption.id = generateRandomID()
-    newCaptions.splice(index + 1, 0, newCaption)
-    state.project.captions = newCaptions
+  duplicateElement (state, elementId) {
+    var newElements = state.project.elements.slice()
+    var [element, index] = elementAndIndex(elementId, state)
+    var newElement = deepcopy(element)
+    newElement.id = generateRandomID()
+    newElements.splice(index + 1, 0, newElement)
+    state.project.elements = newElements
   },
-  deleteCaption (state, captionId) {
-    var newCaptions = state.project.captions.slice()
-    var index = captionAndIndex(captionId, state)[1]
-    newCaptions.splice(index, 1)
-    state.project.captions = newCaptions
+  deleteElement (state, elementId) {
+    var newElements = state.project.elements.slice()
+    var index = elementAndIndex(elementId, state)[1]
+    newElements.splice(index, 1)
+    state.project.elements = newElements
   },
-  moveCaptionUp (state, captionId) {
-    var [caption, index] = captionAndIndex(captionId, state)
+  moveElementUp (state, elementId) {
+    var [element, index] = elementAndIndex(elementId, state)
     var indexUp = Math.max(0, index - 1)
-    var newCaptions = state.project.captions.slice()
-    newCaptions[index] = state.project.captions[indexUp]
-    newCaptions[indexUp] = caption
-    state.project.captions = newCaptions
+    var newElements = state.project.elements.slice()
+    newElements[index] = state.project.elements[indexUp]
+    newElements[indexUp] = element
+    state.project.elements = newElements
   },
-  moveCaptionDown (state, captionId) {
-    var [caption, index] = captionAndIndex(captionId, state)
-    var indexDown = Math.min(state.project.captions.length - 1, index + 1)
-    var newCaptions = state.project.captions.slice()
-    newCaptions[index] = state.project.captions[indexDown]
-    newCaptions[indexDown] = caption
-    state.project.captions = newCaptions
+  moveElementDown (state, elementId) {
+    var [element, index] = elementAndIndex(elementId, state)
+    var indexDown = Math.min(state.project.elements.length - 1, index + 1)
+    var newElements = state.project.elements.slice()
+    newElements[index] = state.project.elements[indexDown]
+    newElements[indexDown] = element
+    state.project.elements = newElements
   }
 }

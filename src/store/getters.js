@@ -1,8 +1,8 @@
 export const getters = {
-  getCaption: (state) => (captionId) => {
-    return state.project.captions.filter(c => c.id === captionId)[0]
+  getElement: (state) => (elementId) => {
+    return state.project.elements.filter(c => c.id === elementId)[0]
   },
-  getCaptionIndex: (state) => (captionId) => {
-    return state.project.captions.map(c => c.id).indexOf(captionId)
+  getElementIndex: (state) => (elementId) => {
+    return state.project.elements.map(c => c.id).indexOf(elementId)
   }
 }

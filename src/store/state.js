@@ -11,28 +11,28 @@ export const state = {
     },
     gifClickMode: {
       mode: 'none',
-      targetCaption: null
+      targetElement: null
     }
   },
   project: {
-    source: {
-      // url: 'https://i.imgur.com/S8QQRI4.gif',
-      // url: 'https://i.imgur.com/DZWTwH1.gif',
-      url: 'https://help.imgur.com/hc/en-us/article_attachments/115000241146/mindblown.gif',
-      // url: 'https://i.imgur.com/h1gYzMv.mp4',
-      transform: {
-        timeSegment: {
-          start: 0,
-          end: 3
-        },
-        crop: {
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: 0
-        }
-      }
-    },
+    // source: {
+    //   // url: 'https://i.imgur.com/S8QQRI4.gif',
+    //   // url: 'https://i.imgur.com/DZWTwH1.gif',
+    //   url: 'https://help.imgur.com/hc/en-us/article_attachments/115000241146/mindblown.gif',
+    //   // url: 'https://i.imgur.com/h1gYzMv.mp4',
+    //   transform: {
+    //     timeSegment: {
+    //       start: 0,
+    //       end: 3
+    //     },
+    //     crop: {
+    //       top: 0,
+    //       bottom: 0,
+    //       left: 0,
+    //       right: 0
+    //     }
+    //   }
+    // },
     gifOptions: {
       fps: 10,
       quality: 10
@@ -41,8 +41,13 @@ export const state = {
       {
         id: '0',
         type: 'asset',
+        animated: true,
+        // url: 'https://i.imgur.com/S8QQRI4.gif',
+        // url: 'https://i.imgur.com/DZWTwH1.gif',
+        // url: 'https://help.imgur.com/hc/en-us/article_attachments/115000241146/mindblown.gif',
+        // url: 'https://i.imgur.com/h1gYzMv.mp4',
         url: 'https://help.imgur.com/hc/en-us/article_attachments/115000241146/mindblown.gif',
-        assetTransform: {
+        edit: {
           timeSegment: {
             start: 0,
             end: 3

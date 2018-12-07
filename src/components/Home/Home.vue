@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import HomeFeatures from './HomeFeatures'
-import HomeGallery from './HomeGallery'
-import HomeNewProject from './HomeNewProject'
-import HomeRemixProject from './HomeRemixProject'
-import HomeSavedProjects from './HomeSavedProjects'
+import HomeFeatures from './sections/Features'
+import HomeGallery from './sections/Gallery'
+import HomeNewProject from './sections/NewProject'
+import HomeRemixProject from './sections/RemixProject'
+import HomeSavedProjects from './sections/SavedProjects'
 export default {
   components: {
     'home-features': HomeFeatures,

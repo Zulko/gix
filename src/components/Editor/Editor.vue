@@ -1,20 +1,20 @@
 <template lang="pug">
 el-container.editor
   el-aside(width="540px")
-    captions-settings-list
+    elements-settings-menu
   el-main(style="padding: 1cm; padding-top: 0cm; overflow-x: hidden;")
-    captioned-frames-wrapper
-    gix-toolbar
+    gix-animation-wrapper
+    //- gix-toolbar
 </template>
 
 <script>
-import CaptionedFramesWrapper from '../CaptionedFrames/CaptionedFramesWrapper'
-import CaptionsSettingsList from './CaptionSettings/CaptionsSettingsList'
+import GixAnimationWrapper from './GixAnimationWrapper/GixAnimationWrapper'
+import ElementsSettingsMenu from './ElementsSettingsMenu/ElementsSettingsMenu'
 import Toolbar from './Toolbar/Toolbar'
 export default {
   components: {
-    'captioned-frames-wrapper': CaptionedFramesWrapper,
-    'captions-settings-list': CaptionsSettingsList,
+    'gix-animation-wrapper': GixAnimationWrapper,
+    'elements-settings-menu': ElementsSettingsMenu,
     'gix-toolbar': Toolbar
   }
 }

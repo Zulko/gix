@@ -1,45 +1,92 @@
-var defaultBase = {
-  'id': '0',
-  'timeSegment': {
-    'start': 0,
-    'end': 2
+var defaultElementBase = {
+  id: '0',
+  isMaster: false,
+  timeSegment: {
+    start: 0,
+    end: 2,
+    alwaysShow: true
   },
-  'position': {
-    'x': 50,
-    'y': 50,
-    'xAlign': 'left',
-    'yAlign': 'top',
-    'lineHeight': 50
+  position: {
+    x: 0,
+    y: 0,
+    scale: 1.0,
+    rotation: 0
   },
-  'animation': {
-    'in': {
-      'class': 'none',
-      'speed': 'normal-speed'
+  alignment: {
+    x: 'center',
+    y: 'center'
+  },
+  stroke: {
+    width: 1,
+    color: 'rgba(0, 0, 0, 1)'
+  },
+  cssAnimation: {
+    in: {
+      class: 'none',
+      speed: 'normal-speed'
     },
-    'out': {
-      'class': 'none',
-      'speed': 'normal-speed'
+    out: {
+      class: 'none',
+      speed: 'normal-speed'
     },
-    'loop': {
-      'class': 'none',
-      'speed': 'normal-speed'
+    loop: {
+      class: 'none',
+      speed: 'normal-speed'
     }
   }
 }
 
 export const defaultElements = {
-  text: Object.assign({}, defaultBase, {
-    'type': 'text',
-    'text': 'Hey',
-    'font': {
-      'family': 'Impact',
-      'bold': false,
-      'color': 'rgba(235, 247, 8, 1)',
-      'stroke': {
-        'width': 1,
-        'color': 'rgba(0, 0, 0, 1)'
-      },
-      'size': 40
+  project: {
+    infos: {
+      title: 'Unnamed Project',
+      author: 'Anonymous giffer'
+    },
+    canvas: {
+      width: 300,
+      height: 200
+    },
+    duration: 4,
+    gifOptions: {
+      fps: 10,
+      quality: 10
+    },
+    elements: [],
+    extends: null
+  },
+  text: Object.assign({}, defaultElementBase, {
+    type: 'text',
+    text: 'Hey!',
+    font: {
+      family: 'Impact',
+      bold: false,
+      color: 'rgba(235, 247, 8, 1)',
+      size: 40
     }
+  }),
+  asset: Object.assign({}, defaultElementBase, {
+    type: 'asset',
+    subtype: 'image',
+    url: '',
+    stroke: {
+      width: 1,
+      color: 'rgba(0, 0, 0, 1)'
+    }
+  }),
+  shape: Object.assign({}, defaultElementBase, {
+    type: 'shape',
+    subtype: 'rectangle',
+    rectangleProps: {
+      width: 100,
+      height: 40
+    },
+    circleProps: {
+      r: 0
+    },
+    path: []
+  }),
+  group: Object.assign({}, defaultElementBase, {
+    type: 'groups',
+    elements: []
   })
 }

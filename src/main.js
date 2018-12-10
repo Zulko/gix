@@ -9,9 +9,11 @@ import locale from 'element-ui/lib/locale/lang/en'
 import 'element-ui/lib/theme-chalk/index.css'
 import Icon from 'vue-awesome/components/Icon'
 import 'vue-awesome/icons'
+import ClickOutside from 'vue-click-outside'
 
 Vue.use(ElementUI, {locale})
 Vue.component('icon', Icon)
+Vue.use(ClickOutside)
 
 const notifyOnceSeenKeys = {}
 Vue.prototype.$notifyOnce = function (key, params) {

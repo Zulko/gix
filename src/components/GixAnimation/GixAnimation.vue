@@ -4,14 +4,6 @@
 .elemented-frames-generator
   .unshown
     svg-composition(:svgElements='svgElements')
-    //- svg#svgEffects(
-    //-   :width="sourceWidth", :height="sourceHeight"
-    //-   :viewbox="`0 0 ${sourceWidth} ${sourceHeight}`",
-    //-   xmlns="http://www.w3.org/2000/svg",
-    //-   :style="videoSizeCSS")
-    //-   image(:width="sourceWidth", :height="sourceHeight", :xlink:href="currentFrameData")
-    //-   svg-element(v-for='element in project.elements', :key='element.id',
-    //-               :element='element', :currentTime='currentTime')
     img#svgEffectsImage(:style="videoSizeCSS", crossOrigin="Anonymous",
                         :width="sourceWidth", :height="sourceHeight")
     canvas#svgCanvas(:style="videoSizeCSS", :width="sourceWidth", :height="sourceHeight")

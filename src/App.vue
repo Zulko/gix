@@ -47,20 +47,10 @@ export default {
 }
 
 body {
-  position: relative;
   background-color: #ffffff;
-  /* background-image: url(/static/img/background.svg); */
   background-size: cover;
   background-repeat: repeat-y;
   min-height: 100%;
-}
-html {
-  box-sizing: border-box;
-}
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
 }
 
 h1, h2 {

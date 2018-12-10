@@ -39,6 +39,7 @@ var defaultElementBase = {
 export const defaultElements = {
   project: {
     infos: {
+      gixVersion: '0.1.0',
       title: 'Unnamed Project',
       author: 'Anonymous giffer'
     },
@@ -71,6 +72,11 @@ export const defaultElements = {
     stroke: {
       width: 1,
       color: 'rgba(0, 0, 0, 1)'
+    },
+    size: {
+      width: 500,
+      height: 300,
+      preserveOriginalRatio: true
     }
   }),
   shape: Object.assign({}, defaultElementBase, {

@@ -8,9 +8,8 @@
     span(slot='header')
       element-toolbar(:element='element')
     slot(name='alwaysVisible')
-
     transition(enter-active-class='animated flipInX fast')
-      el-tabs(v-show='showToolbar')
+      .tabs(v-show='showToolbar')
         slot(name='tabs')
 </template>
 
@@ -77,6 +76,15 @@ export default {
   .el-input-number.is-controls-right .el-input__inner {
     padding-left: 2px;
      padding-right: 30px;
+  }
+  .el-tabs__item {
+    padding-top: 5px !important ;
+    svg {
+      height: 20px;
+    }
+  }
+  .icon svg {
+    height: 20px;
   }
 }
 </style>

@@ -4,15 +4,16 @@
     .hourglass-button
       el-button(size='mini' circle,
                 @click="awaitTimeSegmentClick()")
-        icon(name='hourglass-half')
+        timer-icon
   el-slider(range, :step='0.01',
             :value='timeSegment',
             @change='updateTimeSegment'
-            :min='$store.state.project.source.transform.timeSegment.start',
-            :max='$store.state.project.source.transform.timeSegment.end')
+            :min='0',
+            :max='$store.state.project.duration')
 </template>
 
 <script>
+import AvTimer from 'vue-material-design-icons/AvTimer.vue'
 export default {
   extends: require('../ElementComponentMixin.vue').default,
   methods: {
@@ -33,6 +34,9 @@ export default {
     timeSegment () {
       return [this.element.timeSegment.start, this.element.timeSegment.end]
     }
+  },
+  components: {
+    'timer-icon': AvTimer
   }
 }
 </script>
@@ -44,11 +48,11 @@ export default {
     vertical-align: middle;
   }
   .el-slider {
-    width: 90%;
+    width: 85%;
   }
   .hourglass-button {
-    width: 10%;
-    text-align: center;
+    width: 15%;
+    text-align: left;
   }
 }
 </style>

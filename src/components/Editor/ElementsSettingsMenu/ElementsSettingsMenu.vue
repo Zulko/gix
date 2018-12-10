@@ -4,18 +4,17 @@
   .settings-list-container(:style="{maxHeight: (0.6 * windowHeight) + 'px'}")
     .settings-list
       transition-group(name='element-settings-list'
-                      tag='div')
+                       tag='div')
         .element-settings(v-for='element, i in $store.state.project.elements',
                           :key='element.id',
                           :is='settingsComponents[element.type]',
                           :element='element')
-        .add-element(align='center' key='add-element')
-          el-tooltip(content='Add another element')
-            el-button(icon='el-icon-plus' circle, @click='addElementAndScroll()')
+        element-adder(key='add-element' @addElement='addElementAndScroll')
 </template>
 
 <script>
 import ElementSettings from './ElementSettings'
+import ElementAdder from './ElementAdder'
 import TextElementSettings from './TextElementSettings/TextElementSettings'
 import { mapMutations } from 'vuex'
 
@@ -29,7 +28,8 @@ export default {
     }
   },
   components: {
-    'element-settings': ElementSettings
+    'element-settings': ElementSettings,
+    'element-adder': ElementAdder
   },
   methods: {
     ...mapMutations([
@@ -38,8 +38,8 @@ export default {
     handleResize () {
       this.windowHeight = document.documentElement.clientHeight
     },
-    addElementAndScroll () {
-      this.addElement()
+    addElementAndScroll (elementType) {
+      this.addElement(elementType)
       var el = this.$el
       setTimeout(function () {
         el.scrollTop = el.scrollHeight
@@ -57,6 +57,7 @@ export default {
 <style lang='scss'>
 .element-settings-list {
   .settings-list-container {
+    padding-top: 20px;
     padding-left: 10px;
     overflow-x: hidden;
     overflow-y: auto;
@@ -73,11 +74,7 @@ h2.title {
   opacity: 0;
   transform: translateX(-500px);
 }
-.add-element, .element-settings {
+.element-adder, .element-settings {
   transition: all 0.4s;
-}
-
-.add-element i {
-  font-size: 30px !important;
 }
 </style>

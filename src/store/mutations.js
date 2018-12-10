@@ -11,6 +11,14 @@ function deepcopy (obj) {
 }
 
 export const mutations = {
+  updateProject (state, update) {
+    var newProject = deepcopy(state.project)
+    lodash.merge(newProject, update)
+    state.project = newProject
+  },
+  newEmptyProject (state) {
+    state.project = deepcopy(defaultElements.project)
+  },
   updateElement (state, {elementId, update}) {
     var [element, index] = elementAndIndex(elementId, state)
     var newElements = state.project.elements.slice()
@@ -28,7 +36,10 @@ export const mutations = {
   addElement (state, elementType) {
     var newElement = deepcopy(defaultElements[elementType])
     newElement.id = generateRandomID()
-    state.project.elements = [...state.project.elements, newElement]
+    console.log(newElement)
+    state.project = Object.assign({}, state.project, {
+      elements: [...state.project.elements, newElement]
+    })
   },
   duplicateElement (state, elementId) {
     var newElements = state.project.elements.slice()
@@ -46,6 +57,7 @@ export const mutations = {
   },
   moveElementUp (state, elementId) {
     var [element, index] = elementAndIndex(elementId, state)
+    console.log(element, index, elementId)
     var indexUp = Math.max(0, index - 1)
     var newElements = state.project.elements.slice()
     newElements[index] = state.project.elements[indexUp]

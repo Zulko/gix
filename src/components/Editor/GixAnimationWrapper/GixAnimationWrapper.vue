@@ -6,12 +6,12 @@
                leave-active-class="animated fadeOutUp absolute-position")
       .message(:key='message.key') {{ message.text }}
 
-  .gix-animation-and-layer(:style='gifSize')
-    gix-animation(:project='project', @newFrame='onNewFrame',
-                  :time.sync='currentTime'
-                  @sourceStats="val => $store.commit('updateGlobals', {source: val})")
-    clickable-layer(:style='gifSize', :clickMode='clickMode', :lastFrame='lastFrame'
-                    :currentTime='currentTime')
+  //- .gix-animation-and-layer(:style='gifSize')
+  //-   gix-animation(:project='project', @newFrame='onNewFrame',
+  //-                 :time.sync='currentTime'
+  //-                 @sourceStats="val => $store.commit('updateGlobals', {source: val})")
+  //-   clickable-layer(:style='gifSize', :clickMode='clickMode', :lastFrame='lastFrame'
+  //-                   :currentTime='currentTime')
 </template>
 
 <script>
@@ -69,12 +69,15 @@ export default {
 }
 </script>
 <style lang='scss'>
-.elemented-frames-wrapper {
+.gix-animation-wrapper {
   margin: 0 auto;
   .message-container {
     height: 1.1em;
     font-size: 1em;
     margin-bottom: 0.5em;
+    .message {
+      min-width: 500px;
+    }
   }
   .gix-animation-and-layer {
     position: relative;

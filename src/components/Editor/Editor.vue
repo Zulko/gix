@@ -11,11 +11,25 @@ el-container.editor
 import GixAnimationWrapper from './GixAnimationWrapper/GixAnimationWrapper'
 import ElementsSettingsMenu from './ElementsSettingsMenu/ElementsSettingsMenu'
 import Toolbar from './Toolbar/Toolbar'
+import { mapMutations } from 'vuex'
 export default {
   components: {
     'gix-animation-wrapper': GixAnimationWrapper,
     'elements-settings-menu': ElementsSettingsMenu,
     'gix-toolbar': Toolbar
+  },
+  methods: {
+    ...mapMutations([
+      'newEmptyProject',
+      'addElement',
+      'updateElement'
+    ])
+  },
+  mounted () {
+    this.newEmptyProject()
+    this.addElement('text')
+    // var elementId = this.$store.state.project.elements[0].id
+    // this.updateElement({elementId, {subset: 'animated'} })
   }
 }
 </script>

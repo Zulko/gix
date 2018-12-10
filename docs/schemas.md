@@ -38,12 +38,43 @@ element: {
     x: float || interpolation
     y: float || interpolation
   }
-  angle: float || interpolation
+  angle: float || interpolation,
+  anchor: {
+    horizontal: 'left',
+    vertical: 'top'
+  }
 }
 ```
+
+### element: asset
+
+```javascript
+asset: {
+  ...element
+  transform: {
+    segment: {
+      start:
+      end:
+    }
+    crop: {
+      left:
+      top:
+      right:
+      bottom
+    },
+    scale: 1.0,
+
+  }
+}
+```
+
 ### interpolation
+
+```javascript
 interpolation: [
     { t: 0, value: 10},
     { t: 0, value: 10},
-    
 ]
+```
+
+

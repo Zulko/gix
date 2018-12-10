@@ -1,37 +1,64 @@
 <template lang="pug">
-element-settings.text-element-settings
+element-settings(:element='element').text-element-settings
   .main(slot='alwaysVisible')
     text-input(:element='element')
-
-  .tabs(slot='tabs')
-    pane(icon='map-pin', title='Text position')
-      position-form(slot='content', :element='element')
-
-    pane(icon='palette', title='Color')
-      color-form(slot='content', :element='element')
-
-    pane(icon='font', title='Text font')
-      font-form(slot='content', :element='element')
-
-    pane(icon='hourglass-half', title='Time segment')
-      time-segment-form(slot='content', :element='element')
-
-    pane(icon='film', title='Animations')
-      animation-form(slot='content', :element='element')
+  template(slot='tabs')
+    el-tabs
+      el-tab-pane(v-for='pane in panes', :key='pane.tooltip')
+        span(slot='label')
+          el-tooltip(:content='pane.tooltip')
+            .icon(:is='pane.icon')
+        div(:is='pane.form', :element='element')
 </template>
 
 <script>
+import ElementsSettings from '../ElementSettings.vue'
+import PositionForm from '../common_forms/PositionForm'
+import TextInput from './forms/TextInput/TextInput'
+import FontForm from './forms/FontForm/FontForm.vue'
+import AnimationForm from '../common_forms/CssAnimationForm/CssAnimationForm.vue'
+import TimeSegmentForm from '../common_forms/TimeSegmentForm.vue'
+
+import FormatFont from 'vue-material-design-icons/FormatFont.vue'
+import MapMarker from 'vue-material-design-icons/MapMarker.vue'
+import AvTimer from 'vue-material-design-icons/AvTimer.vue'
+import AnimationOutline from 'vue-material-design-icons/AnimationOutline.vue'
+
 export default {
   extends: require('../ElementComponentMixin.vue').default,
+  data () {
+    return {
+      panes: [
+        {
+          tooltip: 'Position',
+          title: 'Text position',
+          icon: MapMarker,
+          form: PositionForm
+        },
+        {
+          tooltip: 'Time segment',
+          title: 'Time segment',
+          icon: AvTimer,
+          form: TimeSegmentForm
+        },
+        {
+          tooltip: 'Font',
+          title: 'Text Font',
+          icon: FormatFont,
+          form: FontForm
+        },
+        {
+          tooltip: 'Animation',
+          title: 'Text animation',
+          icon: AnimationOutline,
+          form: AnimationForm
+        }
+      ]
+    }
+  },
   components: {
-    'pane': require('../SettingsTabPane.vue').default,
-    'element-settings': require('../ElementSettings.vue').default,
-    'position-form': require('../common_forms/PositionForm').default,
-    'text-input': require('./forms/TextInput/TextInput').default,
-    'font-form': require('./forms/FontForm/FontForm').default,
-    'color-form': require('../common_forms/ColorForm').default,
-    'animation-form': require('../common_forms/CssAnimationForm/CssAnimationForm.vue').default,
-    'time-segment-form': require('../common_forms/TimeSegmentForm.vue').default
+    'element-settings': ElementsSettings,
+    'text-input': TextInput
   }
 }
 </script>

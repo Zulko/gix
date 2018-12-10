@@ -1,8 +1,8 @@
 <template lang="pug">
 .emoji-picker
-  el-tooltip(effect='light' placement='right-start', v-model='catalogVisible' manual)
+  el-tooltip(effect='light' placement='right-start', v-model='catalogVisible' manual
+             v-click-outside='closeCatalog')
     .emojis-catalog-tooltip(slot='content')
-      p.close(@click='catalogVisible = false') close
       .emojis-search-input
         el-input(v-model='search')
       .search-results(v-if='search.length')
@@ -30,6 +30,7 @@
 
 <script>
 import emojisList from 'vue-emoji-picker/src/emojis.js'
+import ClickOutside from 'vue-click-outside'
 export default {
   data () {
     return {
@@ -41,6 +42,9 @@ export default {
   methods: {
     append (emoji) {
       this.input += emoji
+    },
+    closeCatalog () {
+      this.catalogVisible = false
     }
   },
   computed: {
@@ -51,6 +55,9 @@ export default {
         return Object.entries(group).filter(e => e[0].indexOf(search) > -1)
       }))
     }
+  },
+  directives: {
+    ClickOutside
   }
 }
 </script>

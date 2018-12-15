@@ -7,10 +7,10 @@ el-row.element-adder
           .element-adder-icon(:is='adder.icon', title='')
 </template>
 <script>
-import Text from 'vue-material-design-icons/MessageTextOutline.vue'
-import Shape from 'vue-material-design-icons/Shape.vue'
-import Image from 'vue-material-design-icons/Image.vue'
-import Group from 'vue-material-design-icons/Group.vue'
+import textIcon from 'vue-material-design-icons/MessageTextOutline.vue'
+import shapeIcon from 'vue-material-design-icons/Shape.vue'
+import imageIcon from 'vue-material-design-icons/Image.vue'
+import groupIcon from 'vue-material-design-icons/Group.vue'
 
 export default {
   data () {
@@ -18,22 +18,22 @@ export default {
       adders: [
         {
           tooltip: 'Add a text',
-          icon: Text,
+          icon: textIcon,
           type: 'text'
         },
         {
-          tooltip: 'Add a shape',
-          icon: Shape,
-          type: 'shape'
-        },
-        {
           tooltip: 'Add a picture or animation',
-          icon: Image,
+          icon: imageIcon,
           type: 'asset'
         },
         {
+          tooltip: 'Add a shape',
+          icon: shapeIcon,
+          type: 'shape'
+        },
+        {
           tooltip: 'Add a group',
-          icon: Group,
+          icon: groupIcon,
           type: 'group'
         }
       ]

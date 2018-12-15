@@ -19,10 +19,10 @@ import FontForm from './forms/FontForm/FontForm.vue'
 import AnimationForm from '../common_forms/CssAnimationForm/CssAnimationForm.vue'
 import TimeSegmentForm from '../common_forms/TimeSegmentForm.vue'
 
-import FormatFont from 'vue-material-design-icons/FormatFont.vue'
-import MapMarker from 'vue-material-design-icons/MapMarker.vue'
-import AvTimer from 'vue-material-design-icons/AvTimer.vue'
-import AnimationOutline from 'vue-material-design-icons/AnimationOutline.vue'
+import formatIcon from 'vue-material-design-icons/FormatFont.vue'
+import mapMarkerIcon from 'vue-material-design-icons/MapMarker.vue'
+import timerIcon from 'vue-material-design-icons/AvTimer.vue'
+import animationIcon from 'vue-material-design-icons/AnimationOutline.vue'
 
 export default {
   extends: require('../ElementComponentMixin.vue').default,
@@ -32,25 +32,25 @@ export default {
         {
           tooltip: 'Position',
           title: 'Text position',
-          icon: MapMarker,
+          icon: mapMarkerIcon,
           form: PositionForm
         },
         {
           tooltip: 'Time segment',
           title: 'Time segment',
-          icon: AvTimer,
+          icon: timerIcon,
           form: TimeSegmentForm
         },
         {
           tooltip: 'Font',
           title: 'Text Font',
-          icon: FormatFont,
+          icon: formatIcon,
           form: FontForm
         },
         {
           tooltip: 'Animation',
           title: 'Text animation',
-          icon: AnimationOutline,
+          icon: animationIcon,
           form: AnimationForm
         }
       ]

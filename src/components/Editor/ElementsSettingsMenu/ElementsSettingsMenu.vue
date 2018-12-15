@@ -15,7 +15,8 @@
 <script>
 import ElementSettings from './ElementSettings'
 import ElementAdder from './ElementAdder'
-import TextElementSettings from './TextElementSettings/TextElementSettings'
+import TextSettings from './TextSettings/TextSettings'
+import AssetSettings from './AssetSettings/AssetSettings'
 import { mapMutations } from 'vuex'
 
 export default {
@@ -23,7 +24,8 @@ export default {
     return {
       windowHeight: '1000px',
       settingsComponents: {
-        'text': TextElementSettings
+        'text': TextSettings,
+        'asset': AssetSettings
       }
     }
   },

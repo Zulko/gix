@@ -1,6 +1,6 @@
 <template lang='pug'>
 .file-or-url-form
-  el-input(v-model='url')
+  el-input(v-model='url' placeholder='Enter a url and click the button.')
     el-button(slot='append' icon='el-icon-check' @click="val => $emit('urlInput', url)")
   file-uploader(@input="val => $emit('fileInput', val)", :tip='filetip')
 </template>

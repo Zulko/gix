@@ -25,7 +25,7 @@
         .icon(:is="icons[`format-align-${element.alignment.x}`]" , title='')
     el-tooltip(effect='light')
       span(slot='content')
-        el-button(v-for="align in yAligns", :key='align' size='mini',
+        el-button.alignment-button(v-for="align in yAligns", :key='align' size='mini',
                   :type="element.position.yAlign === align ? 'primary' : 'normal'"
                   @click="v => updateElement({position: {yAlign: align}})")
           el-tooltip(:content="`Vertical align ${align}`")
@@ -87,7 +87,10 @@ export default {
 <style lang="scss">
 .text-position-form {
   .el-input-number {
-    width: 80px;
+    width: 70px;
+  }
+  button {
+    padding: 8px !important;
   }
 }
 </style>

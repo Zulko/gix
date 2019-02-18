@@ -1,8 +1,8 @@
 <template lang="pug">
 g.svg-element(:transform='`translate(${element.position.x} ${element.position.y})`')
   transition(name="custom-classes-transition"
-             :enter-active-class="animationClass(element.animation.in)"
-             :leave-active-class="animationClass(element.animation.out)")
+             :enter-active-class="animationClass(element.cssAnimation.in)",
+             :leave-active-class="animationClass(element.cssAnimation.out)")
     template(v-if="element.type === 'group'")
       svg-element(v-for="subElement in element.elements"
                   :key='subElement.id'
@@ -11,8 +11,8 @@ g.svg-element(:transform='`translate(${element.position.x} ${element.position.y}
     template(v-else)
       .element-content(
         v-if="showElement"
-        is='svgElementComponents[element.type]'
-        :class="animationClass(element.animation.loop) + ' infinite'"
+        :is='svgElementComponents[element.type]'
+        :class="animationClass(element.cssAnimation.loop) + ' infinite'"
         :element='element')
 </template>
 
@@ -46,7 +46,7 @@ export default {
       if (animation.class[0] === 'none') {
         return ''
       } else {
-        return `animated ${animation.class.join(' ')} ${animation.speed}`
+        return `animated ${animation.class} ${animation.speed}`
       }
     }
   }

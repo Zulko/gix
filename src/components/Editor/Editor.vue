@@ -3,7 +3,7 @@ el-container.editor
   el-aside(width="540px")
     elements-settings-menu
   el-main(style="padding: 1cm; padding-top: 0cm; overflow-x: hidden;")
-    gix-animation-wrapper
+    gix-animation-wrapper(v-if='this.$store.state.project.elements')
     //- gix-toolbar
 </template>
 
@@ -27,7 +27,9 @@ export default {
   },
   mounted () {
     this.newEmptyProject()
+    console.log('BLA', this.$store.state.project)
     this.addElement('text')
+    this.addElement('asset')
     // var elementId = this.$store.state.project.elements[0].id
     // this.updateElement({elementId, {subset: 'animated'} })
   }

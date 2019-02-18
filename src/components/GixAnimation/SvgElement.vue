@@ -2,10 +2,10 @@
 g.svg-element(:transform='`translate(${element.position.x} ${element.position.y})`')
   transition(
     name="custom-classes-transition"
-    :enter-active-class="animationClass(element.animation.in)"
-    :leave-active-class="animationClass(element.animation.out)")
+    :enter-active-class="animationClass(element.cssAnimation.in)"
+    :leave-active-class="animationClass(element.cssAnimation.out)")
     text(
-      :class="animationClass(element.animation.loop) + ' infinite'"
+      :class="animationClass(element.cssAnimation.loop) + ' infinite'"
       v-if="showText"
       :style="textStyle") {{element.text}}
 </template>
@@ -53,7 +53,7 @@ export default {
       if (animation.class[0] === 'none') {
         return ''
       } else {
-        return `animated ${animation.class.join(' ')} ${animation.speed}`
+        return `animated ${animation.class} ${animation.speed}`
       }
     }
   }

@@ -2,17 +2,21 @@
 .element-animation-form
   .inline-setting-text
     icon(name='sign-in-alt')
-  css-animation-selector(:value='element.animation.in'
-                         @input='val => updateElement({animation: {in: val}})'
+  css-animation-selector(:value='element.cssAnimation.in'
+                         @input='val => updateElement({cssAnimation: {in: val}})'
                          category='entrances')
   br
   .inline-setting-text
     icon(name='infinity')
-  animation-selector(v-model='element.animation.loop', category='loops')
+  css-animation-selector(:value='element.cssAnimation.loop',
+                         @input='val => updateElement({cssAnimation: {loop: val}})',
+                         category='loops')
   br
   .inline-setting-text
     icon(name='infinity')
-  animation-selector(v-model='element.animation.out', category='exits')
+  css-animation-selector(:value='element.cssAnimation.out',
+                         @input='val => updateElement({cssAnimation: {out: val}})',
+                         category='exits')
 </template>
 
 <script>

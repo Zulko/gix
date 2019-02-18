@@ -6,8 +6,7 @@
                 @click="awaitTimeSegmentClick()")
         timer-icon
   el-slider(range, :step='0.01',
-            :value='timeSegment',
-            @change='updateTimeSegment'
+            v-model='range',
             :min='0',
             :max='$store.state.project.duration')
 </template>
@@ -16,6 +15,11 @@
 import AvTimer from 'vue-material-design-icons/AvTimer.vue'
 export default {
   extends: require('../ElementComponentMixin.vue').default,
+  data () {
+    return {
+      range: [this.element.timeSegment.start, this.element.timeSegment.end]
+    }
+  },
   methods: {
     updateTimeSegment (val) {
       console.log('asdasdasd', val)
@@ -37,6 +41,24 @@ export default {
   },
   components: {
     'timer-icon': AvTimer
+  },
+  watch: {
+    'element.timeSegment': {
+      deep: true,
+      handler (val, oldval) {
+        if ((val.start !== oldval.start) || (val.end !== oldval.end)) {
+          this.range = [this.element.timeSegment.start, this.element.timeSegment.end]
+        }
+      }
+    },
+    range: {
+      deep: true,
+      handler (val, oldval) {
+        if ((val[0] !== oldval[0]) || (val[1] !== oldval[1])) {
+          this.updateTimeSegment(val)
+        }
+      }
+    }
   }
 }
 </script>

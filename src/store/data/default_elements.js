@@ -67,8 +67,8 @@ export const defaultElements = {
   }),
   asset: Object.assign({}, defaultElementBase, {
     type: 'asset',
-    subtype: 'image',
-    url: '',
+    subtype: 'gif',
+    url: 'https://help.imgur.com/hc/en-us/article_attachments/115000241146/mindblown.gif',
     stroke: {
       width: 1,
       color: 'rgba(0, 0, 0, 1)'

@@ -22,6 +22,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  position: relative;
 }
 .el-tooltip__popper,
 .el-cascader-menu__item,
@@ -48,7 +49,9 @@ export default {
 
 body {
   background-color: #ffffff;
-  background-size: cover;
+  background-image: url(/static/img/background2.svg);
+  background-size: contain;
+  background-position: top right;
   background-repeat: repeat-y;
   min-height: 100%;
 }

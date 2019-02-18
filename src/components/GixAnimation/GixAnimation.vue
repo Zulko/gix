@@ -2,20 +2,23 @@
 
 <template lang='pug'>
 .elemented-frames-generator
-  .unshown
-    svg-composition(:svgElements='svgElements')
+  .shown
+    svg-composition(:svgElements='svgElements', @newFrame='handleNewFrame',
+                    :currentTime='currentTime',
+                    :svgWidth='project.canvas.width',
+                    :svgHeight='project.canvas.height')
     img#svgEffectsImage(:style="videoSizeCSS", crossOrigin="Anonymous",
                         :width="sourceWidth", :height="sourceHeight")
-    canvas#svgCanvas(:style="videoSizeCSS", :width="sourceWidth", :height="sourceHeight")
+    canvas#svgCanvas(:style="videoSizeCSS", :width="project.canvas.width", :height="project.canvas.height")
   .shown(style='padding: 0')
     canvas#canvas(:style="videoSizeCSS",
                   style='margin: 0; max-width:100%;',
                   crossorigin="anonymous",
-                  :width="sourceWidth", :height="sourceHeight")
+                  :width="project.canvas.width", :height="project.canvas.height")
 </template>
 
 <script>
-import tools from '../../tools.js'
+// import tools from '../../tools.js'
 import { VideoFrameServer, GifFrameServer } from './FrameServer'
 import SvgComposition from './SvgComposition/SvgComposition'
 const canvg = require('canvg-browser')
@@ -34,6 +37,7 @@ export default {
   },
   data () {
     return {
+      svgElements: [],
       frameServers: {},
       localElementsData: {},
       frameServer: null,
@@ -60,17 +64,25 @@ export default {
     }
   },
   methods: {
-    async generateElementsFrame () {
-      if (this.someAnimation) {
-        var newSvg = tools.cloneWithInlineStyle(this.svgEffects)
-        var xml = new XMLSerializer().serializeToString(newSvg)
-        this.svgEffectsImage.src = 'data:image/svg+xml;base64,' + b64EncodeUnicode(xml)
+    handleNewFrame (svg) {
+      if (this.thereIsSomeAnimation) {
+        this.svgEffectsImage.src = 'data:image/svg+xml;base64,' + b64EncodeUnicode(svg)
       } else {
-        var svg = new XMLSerializer().serializeToString(this.svgEffects)
         canvg(this.svgCanvas, svg)
         this.generateElementedGifFrame({svgCanvas: this.svgCanvas})
       }
     },
+    // async generateElementsFrame () {
+    //   if (this.thereIsSomeAnimation) {
+    //     var newSvg = tools.cloneWithInlineStyle(this.svgEffects)
+    //     var xml = new XMLSerializer().serializeToString(newSvg)
+    //     this.svgEffectsImage.src = 'data:image/svg+xml;base64,' + b64EncodeUnicode(xml)
+    //   } else {
+    //     var svg = new XMLSerializer().serializeToString(this.svgEffects)
+    //     canvg(this.svgCanvas, svg)
+    //     this.generateElementedGifFrame({svgCanvas: this.svgCanvas})
+    //   }
+    // },
     async generateElementedGifFrame ({ svgCanvas }) {
       this.canvasCtx.drawImage(svgCanvas, 0, 0)
       if (this.emitFrames) {
@@ -79,16 +91,27 @@ export default {
       }
     },
     async refresh () {
+      // if (this.currentTime > 0.5) return
       let fps = this.project.gifOptions.fps
       this.currentTime += 1.0 / fps
-      this.currentFrameData = await this.frameServer.getFrame(this.currentTime)
-      await this.generateElementsFrame()
-      if (this.currentTime > this.project.source.transform.timeSegment.end) {
+      var svgElements = []
+      for (var element of this.project.elements) {
+        if (this.frameServers[element.id]) {
+          var frame = this.frameServers[element.id].getFrame(this.currentTime)
+          svgElements.push(Object.assign({}, element, {type: 'image', src: frame}))
+        } else {
+          svgElements.push(element)
+        }
+        this.svgElements = svgElements
+      }
+      // this.currentFrameData = await this.frameServer.getFrame(this.currentTime)
+      // await this.generateElementsFrame()
+      if (this.currentTime > this.project.duration) {
         this.rewind()
       }
     },
     rewind () {
-      this.currentTime = this.project.source.transform.timeSegment.start
+      this.currentTime = 0
     },
     startRefreshLoop () {
       if (this.refreshLoop) clearInterval(this.refreshLoop)
@@ -101,15 +124,31 @@ export default {
       } else {
         this.video.pause()
       }
+    },
+    async initiateMissingFrameServers () {
+      var assetElements = this.project.elements.filter(e => (e.type === 'asset'))
+      for (var element of assetElements) {
+        var frameServer
+        if (!this.frameServers[element.id]) {
+          if (element.url.endsWith('.gif')) {
+            frameServer = new GifFrameServer(element.url)
+          } else {
+            frameServer = new VideoFrameServer(element.url)
+          }
+          await frameServer.init()
+          this.frameServers[element.id] = frameServer
+          if (element.isMaster) {
+            this.sourceStats = Object.assign({}, this.frameServer.sourceStats)
+            this.$emit('sourceStats', this.sourceStats)
+          }
+        }
+      }
     }
   },
   computed: {
-    svgElements () {
-      return []
-    },
-    someAnimation () {
+    thereIsSomeAnimation () {
       return this.project.elements.some(function (element) {
-        return ['in', 'out', 'loop'].some(e => element.animation[e].class[0] !== 'none')
+        return ['in', 'out', 'loop'].some(e => element.cssAnimation[e].class[0] !== 'none')
       })
     },
     sourceHeight () {
@@ -123,25 +162,13 @@ export default {
     },
     videoSizeCSS () {
       return {
-        width: this.sourceWidth + 'px',
-        height: this.sourceHeight + 'px'
+        width: this.project.canvas.width + 'px',
+        height: this.project.canvas.height + 'px'
       }
     }
   },
   async mounted () {
-    var assetElements = this.project.elements.filter(e => (e.type === 'asset'))
-    for (var element in assetElements) {
-      if (element.url.endsWith('.gif')) {
-        this.frameServer = new GifFrameServer(element.url)
-      } else {
-        this.frameServer = new VideoFrameServer(element.url)
-      }
-      await this.frameServer.init()
-      if (element.isMaster) {
-        this.sourceStats = Object.assign({}, this.frameServer.sourceStats)
-        this.$emit('sourceStats', this.sourceStats)
-      }
-    }
+    await this.initiateMissingFrameServers()
     this.canvas = document.getElementById('canvas')
     this.canvas.width = this.sourceStats.width
     this.canvas.height = this.sourceStats.height
@@ -168,6 +195,12 @@ export default {
     },
     'projectFps': function (val) {
       this.startRefreshLoop()
+    },
+    'project.elements': {
+      deep: true,
+      handler: function (val) {
+        this.initiateMissingFrameServers()
+      }
     }
   }
 }

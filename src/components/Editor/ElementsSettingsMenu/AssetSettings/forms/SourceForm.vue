@@ -1,9 +1,9 @@
 <template lang="pug">
 .source-form
-  p Provide a picture, GIF or Video, either as a 
   p.current-url(v-if='element.url.length')
-    span Current URL: {{element.url.substring(1, 20)}}
-    span(v-if='element.url.length > 20') ...
+    span Current URL:&nbsp;
+    a(:href='element.url' target='_blank') {{element.url.substring(0, 50)}} {{ element.url.length > 50 ? '...': ''}}
+  p Provide {{element.url.length ? 'another' : 'a'}} picture, GIF or Video (URL of local file)
   file-or-url-form(@update='handleUpdate')
 
 </template>
@@ -17,7 +17,7 @@ export default {
       urlInput: ''
     }
   },
-  method: {
+  methods: {
     handleUpdate () {
       console.log('hey')
     }
@@ -30,5 +30,8 @@ export default {
 
 <style lang='scss'>
 .source-form {
+  .current-url {
+    font-size: 0.8em;
+  }
 }
 </style>

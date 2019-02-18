@@ -1,10 +1,11 @@
 <template lang="pug">
-svg.svg-composition(
-      :width="svgWidth", :height="svgHeight"
-      :viewbox="`0 0 ${svgWidth} ${svgHeight}`",
-      xmlns="http://www.w3.org/2000/svg",
-      :style="style")
-      svg-element(v-for='element in svgElements', :key='element.id',
+.svg-composition
+  svg(
+    :width="svgWidth", :height="svgHeight"
+    :viewbox="`0 0 ${svgWidth} ${svgHeight}`",
+    xmlns="http://www.w3.org/2000/svg",
+    :style="style")
+    svg-element(v-for='element in svgElements', :key='element.id',
                   :element='element', :currentTime='currentTime')
 </template>
 <script>
@@ -15,13 +16,20 @@ export default {
     inlineStyles: {default: true},
     svgElements: {default: ([])},
     svgWidth: {default: 100},
-    svgHeight: {default: 100}
+    svgHeight: {default: 100},
+    currentTime: {default: 0}
+  },
+  data () {
+    return {
+      svgDomElement: null
+    }
   },
   mounted () {
     this.svgDomElement = this.$el.getElementsByTagName('svg')[0]
+    console.log(this.svgDomElement)
   },
   watch: {
-    elements: {
+    svgElements: {
       deep: true,
       handler () {
         var svgElement
@@ -31,7 +39,7 @@ export default {
           svgElement = this.svgDomElement
         }
         var svg = new XMLSerializer().serializeToString(svgElement)
-        this.$emit('@input', svg)
+        this.$emit('newFrame', svg)
       }
     }
   },

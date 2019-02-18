@@ -67,7 +67,6 @@ export class GifFrameServer {
         function (err, frameData) {
           if (err) { console.log(err) }
           var cumulativeTime = 0
-          console.log(frameData)
           for (var frame of frameData) {
             cumulativeTime += frame.frameInfo.delay / 100
             frame.untilTime = cumulativeTime

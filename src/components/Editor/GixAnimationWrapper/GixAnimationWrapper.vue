@@ -6,12 +6,12 @@
                leave-active-class="animated fadeOutUp absolute-position")
       .message(:key='message.key') {{ message.text }}
 
-  //- .gix-animation-and-layer(:style='gifSize')
-  //-   gix-animation(:project='project', @newFrame='onNewFrame',
-  //-                 :time.sync='currentTime'
-  //-                 @sourceStats="val => $store.commit('updateGlobals', {source: val})")
-  //-   clickable-layer(:style='gifSize', :clickMode='clickMode', :lastFrame='lastFrame'
-  //-                   :currentTime='currentTime')
+  .gix-animation-and-layer(:style='gifSize')
+    gix-animation(:project='project', @newFrame='onNewFrame',
+                  :time.sync='currentTime'
+                  @sourceStats="val => $store.commit('updateGlobals', {source: val})")
+    clickable-layer(:style='gifSize', :clickMode='clickMode', :lastFrame='lastFrame'
+                    :currentTime='currentTime')
 </template>
 
 <script>

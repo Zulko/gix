@@ -14,9 +14,11 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "canvg-browser": "^1.0.0",
     "element-ui": "^2.4.11",
     "gif-frames": "^1.0.0",
+    "gif-info": "^1.0.1",
     "gif.js": "^0.2.0",
     "lodash": "^4.17.11",
     "vue": "^2.5.17",
@@ -26,7 +28,8 @@
     "vue-material-design-icons": "^2.4.0",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
-    "vuex-persistedstate": "^2.5.4"
+    "vuex-persistedstate": "^2.5.4",
+    "xhr": "^2.5.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

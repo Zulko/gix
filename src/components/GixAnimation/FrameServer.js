@@ -1,4 +1,6 @@
 var gifFrames = require('gif-frames')
+var axios = require('axios')
+var gifInfo = require('gif-info')
 
 export class VideoFrameServer {
   constructor (url) {
@@ -54,9 +56,26 @@ export class GifFrameServer {
   constructor (url) {
     this.url = url
   }
+
+  async getInfos () {
+    var response = await axios({url: this.url, method: 'GET', responseType: 'arraybuffer'})
+    var infos = gifInfo(response.data)
+    console.log('infos', infos)
+    var duration = infos.durationChrome / 1000
+    return {
+      height: infos.height,
+      width: infos.width,
+      duration: duration,
+      nFrames: infos.images.length,
+      defaultDelay: duration / infos.images.length,
+      fps: infos.images.length / duration
+    }
+  }
   init () {
     var self = this
-    return new Promise((resolve, reject) => {
+    return new Promise(async function (resolve, reject) {
+      self.sourceStats = await self.getInfos()
+      console.log('asyncInfos', self.sourceStats)
       gifFrames(
         {
           url: self.url,
@@ -68,18 +87,13 @@ export class GifFrameServer {
           if (err) { console.log(err) }
           var cumulativeTime = 0
           for (var frame of frameData) {
-            cumulativeTime += frame.frameInfo.delay / 100
+            var delay = frame.frameInfo.delay
+            cumulativeTime += (delay === 0 ? self.sourceStats.defaultDelay : (delay / 100))
             frame.untilTime = cumulativeTime
             frame.canvas = frame.getImage()
             frame.png = frame.canvas.toDataURL()
           }
           self.frameData = frameData
-          self.sourceStats = {
-            width: frameData[0].frameInfo.width,
-            height: frameData[0].frameInfo.height,
-            duration: cumulativeTime,
-            fps: 100 / frameData[0].frameInfo.delay
-          }
           resolve()
         }
       )
@@ -96,11 +110,30 @@ export class GifFrameServer {
     var canvas = this.getCanvasFrame(t)
     targetCanvasCtx.drawImage(canvas, 0, 0)
   }
-  getFrame (t) {
+  getFrame (t, endBehaviour = 'loop') {
+    if (t > this.duration) {
+      if (endBehaviour === 'loop') {
+        t = t % this.sourceStats.duration
+      } else if (endBehaviour === 'freeze') {
+        return this.frameData[this.frameData.length - 1].png
+      } else {
+        return null
+      }
+    }
     for (var frame of this.frameData) {
       if (frame.untilTime > t) {
         return frame.png
       }
     }
   }
+}
+
+export function autoFrameServer (url) {
+  var frameServer
+  if (url.endsWith('.gif')) {
+    frameServer = new GifFrameServer(url)
+  } else {
+    frameServer = new VideoFrameServer(url)
+  }
+  return frameServer
 }

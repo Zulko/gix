@@ -14,6 +14,7 @@ element-settings(:element='element').text-element-settings
 <script>
 import ElementsSettings from '../ElementSettings.vue'
 import PositionForm from '../common_forms/PositionForm'
+import ColorForm from '../common_forms/ColorForm.vue'
 import TextInput from './forms/TextInput/TextInput'
 import FontForm from './forms/FontForm/FontForm.vue'
 import AnimationForm from '../common_forms/CssAnimationForm/CssAnimationForm.vue'
@@ -23,7 +24,7 @@ import formatIcon from 'vue-material-design-icons/FormatFont.vue'
 import mapMarkerIcon from 'vue-material-design-icons/MapMarker.vue'
 import timerIcon from 'vue-material-design-icons/AvTimer.vue'
 import animationIcon from 'vue-material-design-icons/AnimationOutline.vue'
-
+import colorIcon from 'vue-material-design-icons/FormatColorFill.vue'
 export default {
   extends: require('../ElementComponentMixin.vue').default,
   data () {
@@ -46,6 +47,12 @@ export default {
           title: 'Text Font',
           icon: formatIcon,
           form: FontForm
+        },
+        {
+          tooltip: 'Color',
+          title: 'Text color',
+          icon: colorIcon,
+          form: ColorForm
         },
         {
           tooltip: 'Animation',

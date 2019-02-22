@@ -45,11 +45,12 @@ export const defaultElements = {
     },
     canvas: {
       width: 300,
-      height: 200
+      height: 200,
+      bgColor: '#000000'
     },
     duration: 4,
     gifOptions: {
-      fps: 10,
+      fps: 15,
       quality: 10
     },
     elements: [],
@@ -61,8 +62,12 @@ export const defaultElements = {
     font: {
       family: 'Impact',
       bold: false,
-      color: 'rgba(235, 247, 8, 1)',
       size: 40
+    },
+    color: 'rgba(235, 247, 8, 1)',
+    position: {
+      x: 50,
+      y: 50
     }
   }),
   asset: Object.assign({}, defaultElementBase, {

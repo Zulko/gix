@@ -1,7 +1,7 @@
 <template lang="pug">
 element-settings(:element='element').text-element-settings
   .main(slot='alwaysVisible')
-    asset-preview(:element='element')
+    asset-preview(:element='element', :infos='assetInfos')
   template(slot='tabs')
     el-tabs
       el-tab-pane(v-for='pane in panes', :key='pane.tooltip')
@@ -25,11 +25,13 @@ import mapMarkerIcon from 'vue-material-design-icons/MapMarker.vue'
 import timerIcon from 'vue-material-design-icons/AvTimer.vue'
 import animationIcon from 'vue-material-design-icons/AnimationOutline.vue'
 import cropIcon from 'vue-material-design-icons/Crop.vue'
+import { autoFrameServer } from '../../../GixAnimation/FrameServer'
 
 export default {
   extends: require('../ElementComponentMixin.vue').default,
   data () {
     return {
+      assetInfos: {},
       panes: [
         {
           tooltip: 'Source',
@@ -67,6 +69,25 @@ export default {
   components: {
     'element-settings': ElementsSettings,
     'asset-preview': AssetPreview
+  },
+  methods: {
+    async updateInfos () {
+      this.assetInfos = await autoFrameServer(this.element.url).getInfos()
+    }
+  },
+  mounted () {
+    this.updateInfos()
+  },
+  watch: {
+    'element.url': async function (url) {
+      await this.updateInfos()
+      this.updateElement({
+        size: {
+          width: this.assetInfos.width,
+          height: this.assetInfos.height
+        }
+      })
+    }
   }
 }
 </script>

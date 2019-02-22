@@ -1,6 +1,6 @@
 <template lang="pug">
 .element-color-form
-  .inline-setting-text Text:
+  .inline-setting-text Fill:
   el-color-picker.inline-setting-widget(v-model='element.color' show-alpha)
   .inline-setting-text Stroke:
   el-color-picker.inline-setting-widget(v-model='element.stroke.color' show-alpha)

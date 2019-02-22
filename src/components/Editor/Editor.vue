@@ -28,8 +28,8 @@ export default {
   mounted () {
     this.newEmptyProject()
     console.log('BLA', this.$store.state.project)
-    this.addElement('text')
     this.addElement('asset')
+    this.addElement('text')
     // var elementId = this.$store.state.project.elements[0].id
     // this.updateElement({elementId, {subset: 'animated'} })
   }

@@ -1,5 +1,5 @@
 <template lang="pug">
-g.svg-element(:transform='`translate(${element.position.x} ${element.position.y})`')
+g.svg-element(:transform='`translate(${element.position.x}, ${element.position.y})`')
   transition(name="custom-classes-transition"
              :enter-active-class="animationClass(element.cssAnimation.in)",
              :leave-active-class="animationClass(element.cssAnimation.out)")

@@ -1,5 +1,6 @@
 <template lang="pug">
-text(:style="textStyle") {{element.text}}
+text(:style="textStyle")
+  tspan(v-for='line, i in textLines' x="0" :dy="i + 'em'" :key='i') {{line}}
 </template>
 <script>
 export default {
@@ -33,6 +34,9 @@ export default {
         'text-anchor': this.textAnchorsTable[el.position.xAlign],
         'alignment-baseline': this.alignmentBaselinesTable[el.position.yAlign]
       }
+    },
+    textLines () {
+      return this.element.text.split('\n')
     }
   }
 }

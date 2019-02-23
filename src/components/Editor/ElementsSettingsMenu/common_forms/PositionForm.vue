@@ -6,11 +6,11 @@
                 @click="awaitPositionClick()")
         .icon(:is="icons.map", title='')
   el-input-number.inline-setting-widget(
-    size='mini', controls-position="right", :min='0',
+    size='mini', controls-position="right",
     :value='element.position.x',
     @input='v => updateElement({position: {x: v}})')
   el-input-number.inline-setting-widget(
-    size='mini', controls-position="right", :min='0',
+    size='mini', controls-position="right",
     :value='element.position.y',
     @input='v => updateElement({position: {y: v}})')
   .inline-setting-text
@@ -22,7 +22,7 @@
                   @click="v => updateElement({position: {xAlign: align}})")
           .icon(:is="icons[`format-align-${align}`]" , title='')
       el-button(size='mini')
-        .icon(:is="icons[`format-align-${element.alignment.x}`]" , title='')
+        .icon(:is="icons[`format-align-${element.xAlign}`]" , title='')
     el-tooltip(effect='light')
       span(slot='content')
         el-button.alignment-button(v-for="align in yAligns", :key='align' size='mini',
@@ -31,7 +31,7 @@
           el-tooltip(:content="`Vertical align ${align}`")
             .icon(:is="icons[`format-vertical-align-${align}`]" , title='')
       el-button(size='mini')
-        .icon(:is="icons[`format-vertical-align-${element.alignment.y}`]" , title='')
+        .icon(:is="icons[`format-vertical-align-${element.yAlign}`]" , title='')
   .inline-setting-text
     .icon(:is="icons.linespacing" , title='')
   el-input-number.inline-setting-widget(

@@ -19,6 +19,7 @@
 <script>
 // import tools from '../../tools.js'
 import { autoFrameServer } from './FrameServer'
+import data from './data'
 import SvgComposition from './SvgComposition/SvgComposition'
 const canvg = require('canvg-browser')
 
@@ -70,17 +71,6 @@ export default {
         this.generateElementedGifFrame({svgCanvas: this.canvas})
       }
     },
-    // async generateElementsFrame () {
-    //   if (this.thereIsSomeAnimation) {
-    //     var newSvg = tools.cloneWithInlineStyle(this.svgEffects)
-    //     var xml = new XMLSerializer().serializeToString(newSvg)
-    //     this.svgEffectsImage.src = 'data:image/svg+xml;base64,' + b64EncodeUnicode(xml)
-    //   } else {
-    //     var svg = new XMLSerializer().serializeToString(this.svgEffects)
-    //   comp
-    //   compe({svgCanvas: this.svgCanvas})
-    //   comp
-    // },comp
     async generateElementedGifFrame ({ svgCanvas }) {
       this.canvasCtx.fillRect(0, 0, this.project.canvas.width, this.project.canvas.height)
       this.canvasCtx.drawImage(svgCanvas, 0, 0)
@@ -90,69 +80,24 @@ export default {
       }
     },
     async refresh () {
-      // if (this.currentTime > 0.5) return
       var elements = this.project.elements
       if (this.loading.inProgress) {
-        elements = [{
-          type: 'text',
-          text: 'Loading',
-          font: {
-            family: 'Impact',
-            bold: false,
-            size: 40
-          },
-          position: {
-            x: this.project.canvas.width / 2,
-            y: this.project.canvas.height / 2,
-            scale: 1.0,
-            rotation: 0
-          },
-          alignment: {
-            x: 'center',
-            y: 'center'
-          },
-          timeSegment: {
-            start: 0,
-            end: 1000000
-          },
-          color: 'rgba(235, 247, 8, 1)',
-          stroke: {
-            width: 3,
-            color: 'rgb(0, 0, 0)'
-          },
-          cssAnimation: {
-            in: {
-              class: 'none',
-              speed: 'normal-speed'
-            },
-            out: {
-              class: 'none',
-              speed: 'normal-speed'
-            },
-            loop: {
-              class: 'pulse',
-              speed: 'normal-speed'
-            }
-          }
-        }]
+        elements = data.loadingElements(this.project, this.loading.current, this.loading.total)
+        console.log(elements)
+        this.currentTime = 0
       }
-      let fps = this.project.gifOptions.fps
-      this.currentTime += 1.0 / fps
+      this.currentTime += 1.0 / this.project.fps
       var svgElements = []
       for (var element of elements) {
         var start = element.timeSegment.start
-        if ((start <= this.currentTime) && (element.timeSegment.end >= this.currentTime)) {
-          if (this.frameServers[element.id]) {
-            var frame = this.frameServers[element.id].getFrame(this.currentTime - start)
-            svgElements.push(Object.assign({}, element, {type: 'image', src: frame}))
-          } else {
-            svgElements.push(element)
-          }
+        if (this.frameServers[element.id]) {
+          var frame = this.frameServers[element.id].getFrame(this.currentTime - start)
+          svgElements.push(Object.assign({}, element, {type: 'image', src: frame}))
+        } else {
+          svgElements.push(element)
         }
       }
       this.svgElements = svgElements
-      // this.currentFrameData = await this.frameServer.getFrame(this.currentTime)
-      // await this.generateElementsFrame()
       if (this.currentTime > this.project.duration) {
         this.rewind()
       }
@@ -162,8 +107,7 @@ export default {
     },
     startRefreshLoop () {
       if (this.refreshLoop) clearInterval(this.refreshLoop)
-      let fps = this.project.gifOptions.fps
-      this.refreshLoop = setInterval(this.refresh, 1000.0 / fps)
+      this.refreshLoop = setInterval(this.refresh, 1000.0 / this.project.fps)
     },
     startOrPause () {
       if (this.video.paused) {

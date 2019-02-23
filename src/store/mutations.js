@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 import { generateRandomID } from '../tools'
-import { defaultElements } from './data/default_elements.js'
+import { defaultElements, defaultStartingProject } from './data/default_elements.js'
 
 function elementAndIndex (elementId, state) {
   var index = state.project.elements.map(c => c.id).indexOf(elementId)
@@ -71,5 +71,8 @@ export const mutations = {
     newElements[index] = state.project.elements[indexDown]
     newElements[indexDown] = element
     state.project.elements = newElements
+  },
+  setDefaultStartingProject (state) {
+    state.project = { ...defaultStartingProject }
   }
 }

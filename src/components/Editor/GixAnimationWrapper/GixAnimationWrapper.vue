@@ -8,10 +8,10 @@
 
   .gix-animation-and-layer(:style='gifSize')
     gix-animation(:project='project', @newFrame='onNewFrame',
-                  :time.sync='currentTime'
-                  @sourceStats="val => $store.commit('updateGlobals', {source: val})")
+                  :time.sync='currentTime')
     clickable-layer(:style='gifSize', :clickMode='clickMode', :lastFrame='lastFrame'
                     :currentTime='currentTime')
+  .progress-bar(:style='{width: progress}')
 </template>
 
 <script>
@@ -54,12 +54,15 @@ export default {
     },
     gifSize () {
       return {
-        width: this.$store.state.globals.source.width + 'px',
-        height: this.$store.state.globals.source.height + 'px'
+        width: this.project.canvas.width + 'px',
+        height: this.project.canvas.height + 'px'
       }
     },
     clickMode () {
       return this.$store.state.globals.gifClickMode
+    },
+    progress () {
+      return Math.round(100 * this.currentTime / this.project.duration) + '%'
     }
   },
   components: {
@@ -73,7 +76,7 @@ export default {
   margin: 0 auto;
   .message-container {
     height: 1.1em;
-    font-size: 1em;
+    font-size: 0.8em;
     margin-bottom: 0.5em;
     .message {
       min-width: 500px;
@@ -89,6 +92,12 @@ export default {
   }
   .absolute-position {
     position: absolute;
+  }
+  .progress-bar {
+    height: 3px;
+    background-color: blue;
+    opacity: 0.3;
+    transition: width 0.05s;
   }
 }
 

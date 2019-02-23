@@ -1,5 +1,5 @@
 <template lang="pug">
-.click-layer(@click='handleClick')
+.clickable-layer(@click='handleClick')
 </template>
 
 <script>
@@ -16,6 +16,7 @@ export default {
   },
   methods: {
     handleClick (e) {
+      console.log('e')
       var clickStats = {
         position: {
           x: e.offsetX, // e.pageX - e.target.offsetLeft,
@@ -53,7 +54,7 @@ export default {
     },
     handleTimeSegmentClick (clickStats) {
       if (this.previousClickTime) {
-        var maxTime = this.$store.state.project.source.transform.timeSegment.end
+        var maxTime = this.$store.state.project.duration
         this.$store.commit('updateElement', {
           elementId: this.clickMode.element.id,
           update: {
@@ -74,8 +75,7 @@ export default {
 </script>
 
 <style lang='scss'>
-.elemented-frames {
-  background-color: yellow;
+.clickable-layer {
   cursor: pointer;
 }
 </style>

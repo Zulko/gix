@@ -1,3 +1,5 @@
+export const defaultStartingProject = require('./defaultStartingProject')
+
 var defaultElementBase = {
   id: '0',
   isMaster: false,
@@ -11,10 +13,6 @@ var defaultElementBase = {
     y: 0,
     scale: 1.0,
     rotation: 0
-  },
-  alignment: {
-    x: 'center',
-    y: 'center'
   },
   stroke: {
     width: 1,
@@ -45,14 +43,11 @@ export const defaultElements = {
     },
     canvas: {
       width: 300,
-      height: 200,
+      height: 125,
       bgColor: '#000000'
     },
     duration: 4,
-    gifOptions: {
-      fps: 15,
-      quality: 10
-    },
+    fps: 15,
     elements: [],
     extends: null
   },
@@ -67,7 +62,11 @@ export const defaultElements = {
     color: 'rgba(235, 247, 8, 1)',
     position: {
       x: 50,
-      y: 50
+      y: 50,
+      scale: 1.0,
+      rotation: 0,
+      xAlign: 'center',
+      yAlign: 'center'
     }
   }),
   asset: Object.assign({}, defaultElementBase, {
@@ -79,8 +78,8 @@ export const defaultElements = {
       color: 'rgba(0, 0, 0, 1)'
     },
     size: {
-      width: 500,
-      height: 300,
+      width: 300,
+      height: 125,
       preserveOriginalRatio: true
     }
   }),

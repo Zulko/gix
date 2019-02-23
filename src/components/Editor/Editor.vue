@@ -2,9 +2,9 @@
 el-container.editor
   el-aside(width="540px")
     elements-settings-menu
-  el-main(style="padding: 1cm; padding-top: 0cm; overflow-x: hidden;")
+  el-main(style="padding: 1cm; padding-top: 1cm; overflow-x: hidden;")
     gix-animation-wrapper(v-if='this.$store.state.project.elements')
-    //- gix-toolbar
+    gix-toolbar
 </template>
 
 <script>
@@ -21,6 +21,7 @@ export default {
   methods: {
     ...mapMutations([
       'newEmptyProject',
+      'setDefaultStartingProject',
       'addElement',
       'updateElement'
     ])
@@ -28,8 +29,7 @@ export default {
   mounted () {
     this.newEmptyProject()
     console.log('BLA', this.$store.state.project)
-    this.addElement('asset')
-    this.addElement('text')
+    this.setDefaultStartingProject()
     // var elementId = this.$store.state.project.elements[0].id
     // this.updateElement({elementId, {subset: 'animated'} })
   }

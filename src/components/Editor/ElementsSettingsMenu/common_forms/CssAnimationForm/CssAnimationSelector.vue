@@ -45,7 +45,6 @@ export default {
       deep: true,
       handler (val) {
         val = Object.assign({}, val)
-        console.log('AAAAAA', val)
         val.class = val.animation[val.animation.length - 1]
         this.$emit('input', val)
       }

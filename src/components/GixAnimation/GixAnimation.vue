@@ -53,11 +53,10 @@ export default {
       video: null,
       activeTab: 'settings',
       showVideo: false,
-      sourceStats: {
-        width: 100,
-        height: 100,
-        fps: 5,
-        duration: 20
+      loading: {
+        inProgress: false,
+        total: 0,
+        current: 0
       },
       once: true
     }
@@ -92,10 +91,55 @@ export default {
     },
     async refresh () {
       // if (this.currentTime > 0.5) return
+      var elements = this.project.elements
+      if (this.loading.inProgress) {
+        elements = [{
+          type: 'text',
+          text: 'Loading',
+          font: {
+            family: 'Impact',
+            bold: false,
+            size: 40
+          },
+          position: {
+            x: this.project.canvas.width / 2,
+            y: this.project.canvas.height / 2,
+            scale: 1.0,
+            rotation: 0
+          },
+          alignment: {
+            x: 'center',
+            y: 'center'
+          },
+          timeSegment: {
+            start: 0,
+            end: 1000000
+          },
+          color: 'rgba(235, 247, 8, 1)',
+          stroke: {
+            width: 3,
+            color: 'rgb(0, 0, 0)'
+          },
+          cssAnimation: {
+            in: {
+              class: 'none',
+              speed: 'normal-speed'
+            },
+            out: {
+              class: 'none',
+              speed: 'normal-speed'
+            },
+            loop: {
+              class: 'pulse',
+              speed: 'normal-speed'
+            }
+          }
+        }]
+      }
       let fps = this.project.gifOptions.fps
       this.currentTime += 1.0 / fps
       var svgElements = []
-      for (var element of this.project.elements) {
+      for (var element of elements) {
         var start = element.timeSegment.start
         if ((start <= this.currentTime) && (element.timeSegment.end >= this.currentTime)) {
           if (this.frameServers[element.id]) {
@@ -129,18 +173,19 @@ export default {
       }
     },
     async initiateMissingFrameServers () {
-      var assetElements = this.project.elements.filter(e => (e.type === 'asset'))
-      for (var element of assetElements) {
-        if (!(this.frameServers[element.id] && (this.frameServers[element.id].url === element.url))) {
+      var assetElementsWithoutFrameServer = this.project.elements.filter(e => ((
+        (e.type === 'asset') && !(this.frameServers[e.id] && (this.frameServers[e.id].url === e.url)))
+      ))
+      var nAssets = assetElementsWithoutFrameServer.length
+      if (nAssets > 0) {
+        this.loading = {inProgress: true, total: nAssets, current: 0}
+        for (var element of assetElementsWithoutFrameServer) {
+          this.loading = {...this.loading, current: this.loading.current + 1}
           var frameServer = autoFrameServer(element.url)
           await frameServer.init()
           this.frameServers[element.id] = frameServer
-          console.log('boya', frameServer)
-          // if (element.isMaster) {
-          //   this.sourceStats = Object.assign({}, this.frameServer.sourceStats)
-          //   this.$emit('sourceStats', {url: url, stats: this.sourceStats})
-          // }
         }
+        this.loading = {...this.loading, inProgress: false}
       }
     }
   },
@@ -150,15 +195,6 @@ export default {
         return ['in', 'out', 'loop'].some(e => element.cssAnimation[e].class[0] !== 'none')
       })
     },
-    sourceHeight () {
-      return this.sourceStats.height
-    },
-    sourceWidth () {
-      return this.sourceStats.width
-    },
-    projectFps () {
-      return this.sourceStats.fps
-    },
     videoSizeCSS () {
       return {
         width: this.project.canvas.width + 'px',
@@ -167,7 +203,6 @@ export default {
     }
   },
   async mounted () {
-    await this.initiateMissingFrameServers()
     this.canvas = document.getElementById('canvas')
     this.canvasCtx = this.canvas.getContext('2d')
     this.canvasCtx.fillStyle = this.project.canvas.bgColor
@@ -179,6 +214,7 @@ export default {
       self.generateElementedGifFrame({svgCanvas: self.svgEffectsImage})
     }
     this.startRefreshLoop()
+    await this.initiateMissingFrameServers()
   },
   components: {
     'svg-composition': SvgComposition

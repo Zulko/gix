@@ -75,15 +75,15 @@ export default {
       this.canvasCtx.fillRect(0, 0, this.project.canvas.width, this.project.canvas.height)
       this.canvasCtx.drawImage(svgCanvas, 0, 0)
       if (this.emitFrames) {
-        var data = this.canvas.toDataURL()
-        this.$emit('newFrame', {time: this.currentTime, data})
+        // var data = this.canvas.toDataURL()
+        var data = null
+        this.$emit('newFrame', {time: this.currentTime, data, ctx: this.canvasCtx})
       }
     },
     async refresh () {
       var elements = this.project.elements
       if (this.loading.inProgress) {
         elements = data.loadingElements(this.project, this.loading.current, this.loading.total)
-        console.log(elements)
         this.currentTime = 0
       }
       this.currentTime += 1.0 / this.project.fps

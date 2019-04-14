@@ -2,7 +2,8 @@
   "infos": {
     "gixVersion": "0.1.0",
     "title": "Unnamed Project",
-    "author": "Anonymous giffer"
+    "author": "Anonymous giffer",
+    "tags": ["example", "Mind Blown"]
   },
   "canvas": {
     "width": 300,
@@ -10,7 +11,7 @@
     "bgColor": "#000000"
   },
   "duration": 4,
-  "fps": 15,
+  "fps": 20,
   "elements": [{
     "id": "457fa5ce-2119-4987-937f-76c9bf23d8d8",
     "isMaster": false,
@@ -65,7 +66,8 @@
       "scale": 1,
       "rotation": 0,
       "xAlign": "center",
-      "yAlign": "center"
+      "yAlign": "center",
+      "lineHeight": 1.0
     },
     "stroke": {
       "width": 1,
@@ -73,14 +75,14 @@
     },
     "cssAnimation": {
       "in": {
-        "class": "bounceInDown",
+        "class": "flipInY",
         "speed": "normal-speed",
-        "animation": ["animation-category-bounce", "bounceInDown"]
+        "animation": ["animation-category-flip", "flipInY"]
       },
       "out": {
-        "class": "hinge",
+        "class": "zoomOutUp",
         "speed": "fast",
-        "animation": ["hinge"]
+        "animation": ["animation-category-flip", "zoomOutUp"]
       },
       "loop": {
         "class": "none",

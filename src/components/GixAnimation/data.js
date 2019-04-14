@@ -15,7 +15,8 @@ export default {
           scale: 1.0,
           rotation: 0,
           xAlign: 'center',
-          yAlign: 'center'
+          yAlign: 'center',
+          lineHeight: 1
         },
         stroke: {
           width: 0

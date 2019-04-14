@@ -22,7 +22,7 @@
                   @click="v => updateElement({position: {xAlign: align}})")
           .icon(:is="icons[`format-align-${align}`]" , title='')
       el-button(size='mini')
-        .icon(:is="icons[`format-align-${element.xAlign}`]" , title='')
+        .icon(:is="icons[`format-align-${element.position.xAlign}`]" , title='')
     el-tooltip(effect='light')
       span(slot='content')
         el-button.alignment-button(v-for="align in yAligns", :key='align' size='mini',
@@ -31,13 +31,14 @@
           el-tooltip(:content="`Vertical align ${align}`")
             .icon(:is="icons[`format-vertical-align-${align}`]" , title='')
       el-button(size='mini')
-        .icon(:is="icons[`format-vertical-align-${element.yAlign}`]" , title='')
-  .inline-setting-text
-    .icon(:is="icons.linespacing" , title='')
-  el-input-number.inline-setting-widget(
-    size='mini', :min='0', controls-position="right"
-    :value='element.position.lineHeight'
-    @input='v => updateElement({position: {lineHeight: v}})')
+        .icon(:is="icons[`format-vertical-align-${element.position.yAlign}`]" , title='')
+  div(v-if='element.position.lineHeight')
+    .inline-setting-text
+      .icon(:is="icons.linespacing" , title='')
+    el-input-number.inline-setting-widget(
+      size='mini', :min='0', controls-position="right", :step='0.05',
+      :value='element.position.lineHeight'
+      @input='v => updateElement({position: {lineHeight: v}})')
 </template>
 
 <script>
@@ -90,7 +91,7 @@ export default {
     width: 70px;
   }
   button {
-    padding: 8px !important;
+    padding: 4px !important;
   }
 }
 </style>

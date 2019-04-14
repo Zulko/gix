@@ -8,7 +8,7 @@
 
   .gix-animation-and-layer(:style='gifSize')
     gix-animation(:project='project', @newFrame='onNewFrame',
-                  :time.sync='currentTime')
+                  :time.sync='currentTime' :emitFrames='true')
     clickable-layer(:style='gifSize', :clickMode='clickMode', :lastFrame='lastFrame'
                     :currentTime='currentTime')
   .progress-bar(:style='{width: progress}')
@@ -17,18 +17,68 @@
 <script>
 import GixAnimation from '../../GixAnimation/GixAnimation'
 import ClickableLayer from './ClickableLayer'
+import GIF from 'gif.js'
+import { mapMutations } from 'vuex'
+import workerScript from './gif.worker.js.txt'
+console.log('SCRIPT', workerScript)
+var blob
+try {
+  blob = new Blob([workerScript], {
+    type: 'application/javascript'
+  })
+} catch (e) { // Backwards-compatibility
+  window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder
+  blob = new window.BlobBuilder()
+  blob.append(workerScript)
+  blob = blob.getBlob()
+}
+var workerScriptBlobURL = URL.createObjectURL(blob)
 
 export default {
   data () {
     return {
-      lastFrame: null,
+      lastFrame: {time: 0},
       previousClickTime: null,
-      currentTime: 0
+      currentTime: 0,
+      recordFrames: true,
+      allFramesRecorded: false,
+      recordingVoided: true
+      // gifFrames: []
     }
   },
   methods: {
+    ...mapMutations([
+      'setGifFramesReady'
+    ]),
     onNewFrame (frame) {
+      var isRewind = frame.time < this.lastFrame.time
+      if (!this.recordingVoided && !this.$store.state.globals.gifFramesReady && !isRewind) {
+        // this.gifFrames.push(frame)
+        // console.log('lol', this.$store.state.globals.gifWriter)
+        window.gifWriter.addFrame(
+          frame.ctx.canvas,
+          {delay: 100 * (frame.time - this.lastFrame.time), copy: true}
+        )
+        // this.$store.state.globals.gifWriter.addFrame(frame.ctx, )
+      }
+      if ((this.lastFrame) && (isRewind)) {
+        if (!this.recordingVoided) {
+          this.setGifFramesReady(true)
+        }
+        // this.gifFrames = []
+        this.recordingVoided = false
+      }
       this.lastFrame = frame
+    },
+    initializeGifWriter () {
+      if (window.gifWriter) {
+        window.gifWriter.abort()
+      }
+      window.gifWriter = new GIF({
+        workers: 3,
+        quality: 10,
+        workerScript: workerScriptBlobURL
+      })
     }
   },
   computed: {
@@ -68,6 +118,19 @@ export default {
   components: {
     'gix-animation': GixAnimation,
     'clickable-layer': ClickableLayer
+  },
+  mounted () {
+    this.initializeGifWriter()
+  },
+  watch: {
+    project: {
+      deep: true,
+      handler () {
+        this.recordingVoided = true
+        this.setGifFramesReady(false)
+        this.initializeGifWriter()
+      }
+    }
   }
 }
 </script>

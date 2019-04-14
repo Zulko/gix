@@ -3,12 +3,8 @@ export const STORAGE_KEY = 'gix-settings'
 export const state = {
   savedProjects: [],
   globals: {
-    source: {
-      height: 0,
-      width: 0,
-      duration: 0,
-      fps: 0
-    },
+    gifFramesReady: false,
+    gifWriter: null,
     gifClickMode: {
       mode: 'none',
       targetElement: null

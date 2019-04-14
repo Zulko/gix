@@ -11,7 +11,6 @@
 </template>
 
 <script>
-
 const animations = require('./animations.json')
 var invertedAnimations = {}
 for (var category in animations) {

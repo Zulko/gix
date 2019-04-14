@@ -13,7 +13,7 @@
                          category='loops')
   br
   .inline-setting-text
-    icon(name='infinity')
+    icon(name='sign-out-alt')
   css-animation-selector(:value='element.cssAnimation.out',
                          @input='val => updateElement({cssAnimation: {out: val}})',
                          category='exits')

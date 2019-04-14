@@ -39,7 +39,8 @@ export const defaultElements = {
     infos: {
       gixVersion: '0.1.0',
       title: 'Unnamed Project',
-      author: 'Anonymous giffer'
+      author: 'Anonymous giffer',
+      tags: []
     },
     canvas: {
       width: 300,
@@ -66,7 +67,8 @@ export const defaultElements = {
       scale: 1.0,
       rotation: 0,
       xAlign: 'center',
-      yAlign: 'center'
+      yAlign: 'center',
+      lineHeight: 1.0
     }
   }),
   asset: Object.assign({}, defaultElementBase, {

@@ -59,7 +59,7 @@ export default {
         total: 0,
         current: 0
       },
-      once: true
+      dateOfLastEmittedFrame: 0
     }
   },
   methods: {
@@ -72,12 +72,19 @@ export default {
       }
     },
     async generateElementedGifFrame ({ svgCanvas }) {
+      var self = this
       this.canvasCtx.fillRect(0, 0, this.project.canvas.width, this.project.canvas.height)
       this.canvasCtx.drawImage(svgCanvas, 0, 0)
       if (this.emitFrames) {
         // var data = this.canvas.toDataURL()
         var data = null
-        this.$emit('newFrame', {time: this.currentTime, data, ctx: this.canvasCtx})
+        var seconds = new Date().getTime() / 1000
+        var delta = 1000 * ((1.0 / this.project.fps) - (seconds - this.dateOfLastEmittedFrame))
+        setTimeout(function () {
+          self.$emit('newFrame', {time: self.currentTime, data, ctx: self.canvasCtx})
+          self.dateOfLastEmittedFrame = new Date().getTime() / 1000
+          self.refresh()
+        }, delta)
       }
     },
     async refresh () {
@@ -157,7 +164,12 @@ export default {
     this.svgEffectsImage.onload = function () {
       self.generateElementedGifFrame({svgCanvas: self.svgEffectsImage})
     }
-    this.startRefreshLoop()
+    // this.times = []
+    // for(var i=0; i < this.project.duration * this.project.fps; i++) {
+    //   this.times.push(i / this.project.fps)
+    // }
+    // console.log(times)
+    this.refresh()
     await this.initiateMissingFrameServers()
   },
   components: {

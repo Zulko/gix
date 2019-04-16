@@ -72,7 +72,9 @@ export default {
   },
   methods: {
     async updateInfos () {
-      this.assetInfos = await autoFrameServer(this.element.url).getInfos()
+      var server = autoFrameServer(this.element.url)
+      this.assetInfos = await server.getInfos()
+      console.log({assetInfos: this.assetInfos})
     }
   },
   mounted () {

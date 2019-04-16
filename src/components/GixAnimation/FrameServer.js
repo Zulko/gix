@@ -52,15 +52,55 @@ export class VideoFrameServer {
   }
 }
 
+export class ImageServer {
+  constructor (url) {
+    this.url = url
+  }
+  init () {
+    var self = this
+    return new Promise(async function (resolve, reject) {
+      self.base_image = new Image()
+      self.base_image.crossOrigin = ''
+      // self.canvas.crossorigin = 'anonymous'
+      self.base_image.onload = function () {
+        var stats = {
+          width: self.base_image.width,
+          height: self.base_image.height
+        }
+        self.sourceStats = stats
+        console.log(stats)
+        var canvas = document.createElement('canvas')
+        canvas.crossorigin = 'anonymous'
+        self.base_image.crossOrigin = 'anonymous'
+        canvas.width = stats.width
+        canvas.height = stats.height
+        var context = canvas.getContext('2d')
+        context.drawImage(self.base_image, 0, 0)
+        self.imgData = canvas.toDataURL()
+        console.log(self.imgData)
+        resolve()
+      }
+      self.base_image.src = self.url
+    })
+  }
+  getFrame () {
+    return this.imgData
+  }
+  async getInfos () {
+    if (!this.sourceStats) {
+      await this.init()
+    }
+    return this.sourceStats
+  }
+}
+
 export class GifFrameServer {
   constructor (url) {
     this.url = url
   }
-
   async getInfos () {
     var response = await axios({url: this.url, method: 'GET', responseType: 'arraybuffer'})
     var infos = gifInfo(response.data)
-    console.log('infos', infos)
     var duration = infos.durationChrome / 1000
     return {
       height: infos.height,
@@ -128,12 +168,26 @@ export class GifFrameServer {
   }
 }
 
+export function urlToSubtype (url) {
+  var extension = url.split('.').pop()
+  return {
+    'mp4': 'video',
+    'webv': 'video',
+    'webp': 'image',
+    'png': 'image',
+    'jpeg': 'image',
+    'jpg': 'image',
+    'gif': 'gif'
+  }[extension]
+}
+
 export function autoFrameServer (url) {
-  var frameServer
-  if (url.endsWith('.gif')) {
-    frameServer = new GifFrameServer(url)
-  } else {
-    frameServer = new VideoFrameServer(url)
-  }
-  return frameServer
+  var subtype = urlToSubtype(url)
+  var FrameServerClass = {
+    gif: GifFrameServer,
+    video: VideoFrameServer,
+    image: ImageServer
+  }[subtype]
+  console.log(FrameServerClass)
+  return new FrameServerClass(url)
 }

@@ -1,7 +1,8 @@
 <script>
 export default {
   props: {
-    element: {default: () => ({})}
+    element: {default: () => ({})},
+    showOptions: {default: false}
   },
   methods: {
     updateElement (update) {

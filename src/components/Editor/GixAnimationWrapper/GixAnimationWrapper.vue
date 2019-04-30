@@ -5,13 +5,18 @@
     transition(enter-active-class="animated bounceIn absolute-position"
                leave-active-class="animated fadeOutUp absolute-position")
       .message(:key='message.key') {{ message.text }}
-
-  .gix-animation-and-layer(:style='gifSize')
-    gix-animation(:project='project', @newFrame='onNewFrame',
-                  :time.sync='currentTime' :emitFrames='true')
-    clickable-layer(:style='gifSize', :clickMode='clickMode', :lastFrame='lastFrame'
-                    :currentTime='currentTime')
+  .gix-animation-and-layer-container(style='border: 0.5px solid gray')
+    .gix-animation-and-layer(:style='gifSize')
+      gix-animation(:project='project', @newFrame='onNewFrame',
+                    :time.sync='currentTime' :emitFrames='true',
+                    :interactive='interactiveMode',
+                    @dragged='onElementDragged')
+      clickable-layer(v-if='!interactiveMode'
+                      :style='gifSize',
+                      :clickMode='clickMode', :lastFrame='lastFrame'
+                      :currentTime='currentTime')
   .progress-bar(:style='{width: progress}')
+  el-switch(size='tiny', v-model='interactiveMode')
 </template>
 
 <script>
@@ -42,13 +47,15 @@ export default {
       currentTime: 0,
       recordFrames: true,
       allFramesRecorded: false,
-      recordingVoided: true
+      recordingVoided: true,
+      interactiveMode: false
       // gifFrames: []
     }
   },
   methods: {
     ...mapMutations([
-      'setGifFramesReady'
+      'setGifFramesReady',
+      'updateElement'
     ]),
     onNewFrame (frame) {
       var isRewind = frame.time < this.lastFrame.time
@@ -69,6 +76,18 @@ export default {
         this.recordingVoided = false
       }
       this.lastFrame = frame
+    },
+    onElementDragged (e) {
+      console.log(e)
+      this.updateElement({
+        elementId: e.element.id,
+        update: {
+          position: {
+            x: e.element.position.x + e.drag.x,
+            y: e.element.position.y + e.drag.y
+          }
+        }
+      })
     },
     initializeGifWriter () {
       if (window.gifWriter) {

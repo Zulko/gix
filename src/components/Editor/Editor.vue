@@ -1,6 +1,6 @@
 <template lang="pug">
 el-container.editor
-  el-aside(width="540px")
+  el-aside(width="800px")
     elements-settings-menu
   el-main(style="padding: 1cm; padding-top: 1cm; overflow-x: hidden;")
     gix-animation-wrapper(v-if='this.$store.state.project.elements')

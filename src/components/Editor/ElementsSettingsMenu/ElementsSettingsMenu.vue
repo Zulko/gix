@@ -1,15 +1,15 @@
 <template lang="pug">
 .element-settings-list
   h2.title Elements
-  .settings-list-container(:style="{maxHeight: (0.6 * windowHeight) + 'px'}")
-    .settings-list
-      transition-group(name='element-settings-list'
-                       tag='div')
-        .element-settings(v-for='element, i in $store.state.project.elements',
-                          :key='element.id',
-                          :is='settingsComponents[element.type]',
-                          :element='element')
-        element-adder(key='add-element' @addElement='addElementAndScroll')
+  .element-adder
+    element-adder(key='add-element' @addElement='addElementAndScroll')
+  .elements-carousel
+    el-carousel(type='card', height="500px" :autoplay='false',
+                :loop='false' ref="elementssettingscarousel", @change='onCarouselChange')
+      el-carousel-item(v-for='element, i in $store.state.project.elements',
+                        :key='i', :name='element.id')
+        .element-settings(:is='settingsComponents[element.type]',
+                          :element='element', :showOptions='i === currentCarouselIndex')
 </template>
 
 <script>
@@ -22,7 +22,7 @@ import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
-      windowHeight: '1000px',
+      currentCarouselIndex: 0,
       settingsComponents: {
         'text': TextSettings,
         'asset': AssetSettings
@@ -37,21 +37,19 @@ export default {
     ...mapMutations([
       'addElement'
     ]),
-    handleResize () {
-      this.windowHeight = document.documentElement.clientHeight
-    },
     addElementAndScroll (elementType) {
       this.addElement(elementType)
-      var el = this.$el
+      var self = this
       setTimeout(function () {
-        el.scrollTop = el.scrollHeight
-        console.log(el.scrollTop, el.scrollHeight)
-      }, 200)
+        var len = self.$store.state.project.elements.length
+        var lastElement = self.$store.state.project.elements[len - 1]
+        self.$refs.elementssettingscarousel.setActiveItem(lastElement.id)
+      })
+    },
+    onCarouselChange (index, oldIndex) {
+      this.currentCarouselIndex = index
+      console.log(index, oldIndex)
     }
-  },
-  mounted () {
-    window.addEventListener('resize', this.handleResize)
-    this.handleResize()
   }
 }
 </script>
@@ -72,11 +70,7 @@ export default {
 h2.title {
   margin-top: 0;
 }
-.element-settings-list-enter, .element-settings-list-leave-active {
-  opacity: 0;
-  transform: translateX(-500px);
-}
-.element-adder, .element-settings {
-  transition: all 0.4s;
+.elements-carousel {
+  margin-top: 1cm;
 }
 </style>

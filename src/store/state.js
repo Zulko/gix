@@ -8,7 +8,8 @@ export const state = {
     gifClickMode: {
       mode: 'none',
       targetElement: null
-    }
+    },
+    lastClickedElement: null
   },
   project: {}
 }

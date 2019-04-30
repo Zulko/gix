@@ -1,21 +1,20 @@
 <template lang="pug">
 .element-settings
-  el-tooltip(content='Toggle options' placement="right")
-    .options-toggle
-      el-button(circle @click='showToolbar = !showToolbar')
-        icon(name='sliders-h' scale="1.1")
   el-card
     span(slot='header')
-      element-toolbar(:element='element')
+      element-toolbar(:showOptions='showOptions', :element='element')
     slot(name='alwaysVisible')
     transition(enter-active-class='animated flipInX fast')
-      .tabs(v-show='showToolbar')
+      .tabs(v-show='showOptions')
         slot(name='tabs')
 </template>
 
 <script>
 export default {
   extends: require('./ElementComponentMixin.vue').default,
+  props: {
+    showOptions: {default: true}
+  },
   data () {
     return {
       showToolbar: false

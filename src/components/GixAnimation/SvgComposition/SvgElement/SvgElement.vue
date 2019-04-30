@@ -1,5 +1,7 @@
 <template lang="pug">
-g.svg-element(:transform='`translate(${element.position.x}, ${element.position.y})`')
+g.svg-element(:transform='`translate(${element.position.x + (drag ? drag.x : 0)}, ${element.position.y + (drag ? drag.y : 0)})`',
+              @mousedown="evt => $emit('startdragging', {element, evt})"
+              )
   transition(name="custom-classes-transition"
              :enter-active-class="animationClass(element.cssAnimation.in)",
              :leave-active-class="animationClass(element.cssAnimation.out)")
@@ -10,7 +12,7 @@ g.svg-element(:transform='`translate(${element.position.x}, ${element.position.y
                   :element='element')
     template(v-else)
       .element-content(
-        v-if="showElement"
+        v-if="showElement || drag"
         :is='svgElementComponents[element.type]'
         :class="animationClass(element.cssAnimation.loop) + ' infinite'"
         :element='element')
@@ -24,7 +26,8 @@ export default {
   name: 'svg-element',
   props: {
     currentTime: {default: 0},
-    element: {default: () => ({})}
+    element: {default: () => ({})},
+    drag: null
   },
   data () {
     return {
@@ -52,3 +55,13 @@ export default {
   }
 }
 </script>
+<style>
+.svg-element {
+  cursor: pointer;
+  user-select: none; /* supported by Chrome and Opera */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+}
+</style>

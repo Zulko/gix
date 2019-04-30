@@ -2,15 +2,17 @@
 
 <template lang='pug'>
 .elemented-frames-generator
-  .unshown
+  .svg-composition(:class="interactive ? 'shown' : 'unshown'")
     svg-composition(:svgElements='svgElements', @newFrame='handleNewFrame',
                     :currentTime='currentTime',
                     :svgWidth='project.canvas.width',
-                    :svgHeight='project.canvas.height')
+                    :svgHeight='project.canvas.height'
+                    @dragged="onElementDrag")
+  .unshown
     img#svgEffectsImage(:style="videoSizeCSS", crossOrigin="Anonymous",
                         :width="project.canvas.width", :height="project.canvas.height")
     canvas#svgCanvas(:style="videoSizeCSS", :width="project.canvas.width", :height="project.canvas.height")
-  .shown(style='padding: 0;')
+  .canvas(style='padding: 0;' :class="interactive ? 'unshown' : 'shown'")
     canvas#canvas(:style="videoSizeCSS",
                   crossorigin="Anonymous",
                   :width="project.canvas.width", :height="project.canvas.height")
@@ -33,7 +35,8 @@ export default {
   props: {
     project: {default: () => ({})},
     emitFrames: {default: false},
-    time: {default: 0}
+    time: {default: 0},
+    interactive: false
   },
   data () {
     return {
@@ -138,6 +141,10 @@ export default {
         }
         this.loading = {...this.loading, inProgress: false}
       }
+    },
+    onElementDrag (evt) {
+      console.log('gixanim', evt)
+      this.$emit('dragged', evt)
     }
   },
   computed: {

@@ -26,6 +26,7 @@
     "pako": "^1.0.10",
     "vue": "^2.5.17",
     "vue-awesome": "^3.2.0",
+    "vue-carousel-3d": "^0.2.0",
     "vue-click-outside": "^1.0.7",
     "vue-emoji-picker": "^1.0.1",
     "vue-material-design-icons": "^3.1.0",

@@ -1,5 +1,5 @@
 <template lang="pug">
-element-settings(:element='element').text-element-settings
+element-settings(:element='element', :showOptions='showOptions').text-element-settings
   .main(slot='alwaysVisible')
     asset-preview(:element='element', :infos='assetInfos')
   template(slot='tabs')

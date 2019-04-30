@@ -1,6 +1,6 @@
 <template lang="pug">
 .element-toolbar
-  .element-toolbar-icons
+  .element-toolbar-icons(v-if='showOptions')
     el-tooltip(content='Move element up' placement='top')
       span.element-toolbar-icon(@click='moveElementUp(element.id)')
         icon(name='arrow-up')
@@ -34,10 +34,7 @@ export default {
       'deleteElement',
       'moveElementUp',
       'moveElementDown'
-    ]),
-    bla () {
-      console.log('bla')
-    }
+    ])
   }
 }
 </script>

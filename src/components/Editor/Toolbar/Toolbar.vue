@@ -47,11 +47,13 @@ el-tabs.gix-toolbar
 import TimeForm from './forms/TimeForm.vue'
 import SaveAndShareForm from './forms/SaveAndShareForm.vue'
 import GifGenerationForm from './forms/GifGenerationForm.vue'
+import SizeForm from './forms/SizeForm.vue'
 // import linkIcon from 'vue-material-design-icons/LinkVariant.vue'
 // import mapMarkerIcon from 'vue-material-design-icons/MapMarker.vue'
 import timerIcon from 'vue-material-design-icons/AvTimer.vue'
 import cloudDownloadOutline from 'vue-material-design-icons/CloudDownloadOutline.vue'
 import gifIcon from 'vue-material-design-icons/Gif.vue'
+import ResizeIcon from 'vue-material-design-icons/Resize'
 // import animationIcon from 'vue-material-design-icons/AnimationOutline.vue'
 // import cropIcon from 'vue-material-design-icons/Crop.vue'
 // import gifIcon from 'vue-material-design-icons/Gif'
@@ -66,6 +68,12 @@ export default {
           title: 'Duration',
           icon: timerIcon,
           form: TimeForm
+        },
+        {
+          tooltip: 'GIF size',
+          title: 'GIF size',
+          icon: ResizeIcon,
+          form: SizeForm
         },
         {
           tooltip: 'Save and Share',

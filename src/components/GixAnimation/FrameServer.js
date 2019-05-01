@@ -188,6 +188,6 @@ export function autoFrameServer (url) {
     video: VideoFrameServer,
     image: ImageServer
   }[subtype]
-  console.log(FrameServerClass)
+  console.log('server class', FrameServerClass)
   return new FrameServerClass(url)
 }

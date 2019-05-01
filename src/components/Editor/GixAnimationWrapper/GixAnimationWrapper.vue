@@ -11,7 +11,7 @@
                     :time.sync='currentTime' :emitFrames='true',
                     :interactive='interactiveMode',
                     @dragged='onElementDragged')
-      clickable-layer(v-if='!interactiveMode'
+      clickable-layer(v-if="(!interactiveMode || (clickMode.mode !== 'none'))"
                       :style='gifSize',
                       :clickMode='clickMode', :lastFrame='lastFrame'
                       :currentTime='currentTime')
@@ -62,6 +62,7 @@ export default {
       if (!this.recordingVoided && !this.$store.state.globals.gifFramesReady && !isRewind) {
         // this.gifFrames.push(frame)
         // console.log('lol', this.$store.state.globals.gifWriter)
+        console.log(100 * (frame.time - this.lastFrame.time))
         window.gifWriter.addFrame(
           frame.ctx.canvas,
           {delay: 100 * (frame.time - this.lastFrame.time), copy: true}

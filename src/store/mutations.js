@@ -47,7 +47,7 @@ export const mutations = {
     var newElement = deepcopy(element)
     newElement.id = generateRandomID()
     newElements.splice(index + 1, 0, newElement)
-    state.project.elements = newElements
+    state.project = Object.assign({}, state.project, {elements: newElements})
   },
   deleteElement (state, elementId) {
     var newElements = state.project.elements.slice()
@@ -57,12 +57,11 @@ export const mutations = {
   },
   moveElementUp (state, elementId) {
     var [element, index] = elementAndIndex(elementId, state)
-    console.log(element, index, elementId)
     var indexUp = Math.max(0, index - 1)
     var newElements = state.project.elements.slice()
     newElements[index] = state.project.elements[indexUp]
     newElements[indexUp] = element
-    state.project.elements = newElements
+    state.project = Object.assign({}, state.project, {elements: newElements})
   },
   moveElementDown (state, elementId) {
     var [element, index] = elementAndIndex(elementId, state)
@@ -70,7 +69,7 @@ export const mutations = {
     var newElements = state.project.elements.slice()
     newElements[index] = state.project.elements[indexDown]
     newElements[indexDown] = element
-    state.project.elements = newElements
+    state.project = Object.assign({}, state.project, {elements: newElements})
   },
   setDefaultStartingProject (state) {
     state.project = { ...defaultStartingProject }

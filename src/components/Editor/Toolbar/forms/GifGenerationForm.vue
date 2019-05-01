@@ -7,11 +7,15 @@
   div(v-if='framesReady')
     p Frames are ready!
     el-button(v-if='!autogenerate' @click='makeGIF()') Generate GIF
-    p(v-if='makingGIF') GIF generation in progress...
+    p(v-if='makingGIF')
+      i(class='el-icon-loading' style='margin-right:0.5em;')
+      span GIF generation in progress...
     p
       img(v-if='gifData' :src='gifData')
   div(v-else)
-    p Recording Frames...
+    p
+      i(class='el-icon-loading' style='margin-right:0.5em;')
+      span Recording Frames...
 </template>
 
 <script>

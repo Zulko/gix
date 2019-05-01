@@ -130,10 +130,12 @@ export default {
       var assetElementsWithoutFrameServer = this.project.elements.filter(e => ((
         (e.type === 'asset') && !(this.frameServers[e.id] && (this.frameServers[e.id].url === e.url)))
       ))
+      console.log('noserver', assetElementsWithoutFrameServer)
       var nAssets = assetElementsWithoutFrameServer.length
       if (nAssets > 0) {
         this.loading = {inProgress: true, total: nAssets, current: 0}
         for (var element of assetElementsWithoutFrameServer) {
+          console.log(nAssets, element, assetElementsWithoutFrameServer)
           this.loading = {...this.loading, current: this.loading.current + 1}
           var frameServer = autoFrameServer(element.url)
           await frameServer.init()

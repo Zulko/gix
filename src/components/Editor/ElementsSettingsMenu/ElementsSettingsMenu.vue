@@ -119,9 +119,9 @@ export default {
   .el-card__body {
     padding: 1mm 4mm 4mm 4mm;
   }
-  .el-tabs__content {
-    padding: 0em 0.8em 0em 0.8em !important;
-  }
+  // .el-tabs__content {
+  //   padding: 0em 0.8em 0em 0.8em !important;
+  // }
   .property-title {
     font-weight: bold;
     text-transform: capitalize;
@@ -139,27 +139,33 @@ export default {
       height: 20px;
     }
   }
+  .el-carousel__item--card.is-in-stage.is-active {
+    cursor: inherit;
+  }
   .icon svg {
     height: 20px;
   }
   .element-toolbar {
-  position: relative;
-  height:5mm;
-  color: #fff;
-  .element-toolbar-icons {
-    float: right;
+    position: relative;
+    height:5mm;
+    color: #fff;
+    .element-toolbar-icons {
+      float: right;
+    }
+    .color-circle {
+      float:left;
+      width: 12px;
+      height: 12px;
+      border-radius: 12px;
+    }
+    .element-toolbar-icon {
+      cursor: pointer;
+      margin-left: 4mm;
+    }
   }
-  .color-circle {
-    float:left;
-    width: 12px;
-    height: 12px;
-    border-radius: 12px;
+  .el-form-item {
+    margin-bottom: 0px !important;
   }
-  .element-toolbar-icon {
-    cursor: pointer;
-    margin-left: 4mm;
-  }
-}
 }
 h2.title {
   margin-top: 0;

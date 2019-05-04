@@ -8,6 +8,7 @@
   "canvas": {
     "width": 300,
     "height": 125,
+    "aspectRatio": 2.4,
     "bgColor": "#000000"
   },
   "duration": 4,
@@ -15,6 +16,7 @@
   "elements": [{
     "id": "457fa5ce-2119-4987-937f-76c9bf23d8d8",
     "isMaster": false,
+    "isDraggable": false,
     "timeSegment": {
       "start": 0,
       "end": 4,
@@ -24,7 +26,8 @@
       "x": 0,
       "y": 0,
       "scale": 1,
-      "rotation": 0
+      "rotation": 0,
+      "isMoving": false
     },
     "stroke": {
       "width": 1,
@@ -50,11 +53,12 @@
     "size": {
       "width": 300,
       "height": 125,
-      "preserveOriginalRatio": true
+      "aspectRatio": 2.4
     }
   }, {
     "id": "d639acdd-96c0-4a0f-9cfc-58e8b48e1a1e",
     "isMaster": false,
+    "isDraggable": true,
     "timeSegment": {
       "start": 0,
       "end": 2,
@@ -67,22 +71,24 @@
       "rotation": 0,
       "xAlign": "center",
       "yAlign": "center",
-      "lineHeight": 1.0
+      "isMoving": false
     },
     "stroke": {
+      "width": 0,
+      "color": "rgba(0, 0, 0, 1)"
+    },
+    "outline": {
       "width": 1,
       "color": "rgba(0, 0, 0, 1)"
     },
     "cssAnimation": {
       "in": {
-        "class": "flipInY",
-        "speed": "normal-speed",
-        "animation": ["animation-category-flip", "flipInY"]
+        "class": "none",
+        "speed": "normal-speed"
       },
       "out": {
-        "class": "zoomOutUp",
-        "speed": "fast",
-        "animation": ["animation-category-flip", "zoomOutUp"]
+        "class": "none",
+        "speed": "normal-speed"
       },
       "loop": {
         "class": "none",
@@ -94,7 +100,8 @@
     "font": {
       "family": "Impact",
       "bold": false,
-      "size": 33
+      "size": 33,
+      "lineHeight": 1.0
     },
     "color": "rgba(235, 247, 8, 1)"
   }],

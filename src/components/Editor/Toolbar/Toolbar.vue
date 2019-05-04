@@ -1,10 +1,11 @@
 <template lang="pug">
-el-tabs.gix-toolbar
-  el-tab-pane(v-for='pane in panes', :key='pane.tooltip')
-    span(slot='label')
-      el-tooltip(:content='pane.tooltip')
-        .icon(:is='pane.icon')
-    div(:is='pane.form')
+.gix-toolbar
+  el-tabs
+    el-tab-pane(v-for='pane in panes', :key='pane.tooltip')
+      span(slot='label')
+        el-tooltip(:content='pane.tooltip')
+          .icon(:is='pane.icon')
+      div(:is='pane.form')
 //- el-tabs.gix-toolbar
 //-   el-tab-pane
 //-     span(slot='label')
@@ -117,9 +118,12 @@ export default {
 }
 </script>
 
-<style>
+<style lang='scss'>
 .gix-toolbar {
   max-width: 80%;
   margin: 1.5em auto;
+  .el-form-item {
+    margin-bottom: 0px !important;
+  }
 }
 </style>

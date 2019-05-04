@@ -31,10 +31,6 @@
         .icon(:is="icons[`format-vertical-align-${element.yAlign}`]" , title='')
   .inline-setting-text
     .icon(:is="icons.linespacing" , title='')
-  el-input-number.inline-setting-widget(
-    size='mini', :min='0', controls-position="right"
-    :value='element.position.lineHeight'
-    @input='v => updateElement({position: {lineHeight: v}})')
 </template>
 
 <script>

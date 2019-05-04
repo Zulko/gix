@@ -1,5 +1,7 @@
 <template lang="pug">
-.svg-composition(@mouseup='stopDragging', @mousemove='updateDrag' @mouseleave='cancelDragging')
+.svg-composition(@mouseup='stopDragging',
+                 @mousemove='updateDrag'
+                 @mouseleave='cancelDragging')
   svg(
     :width="svgWidth", :height="svgHeight"
     :viewbox="`0 0 ${svgWidth} ${svgHeight}`",
@@ -15,11 +17,13 @@ import { cloneWithInlineStyle } from './inlineSvgStyles'
 import SvgElement from './SvgElement/SvgElement'
 export default {
   props: {
-    inlineStyles: {default: true},
+    inlineStylesInEmittedSVG: {default: true},
     svgElements: {default: ([])},
     svgWidth: {default: 100},
     svgHeight: {default: 100},
-    currentTime: {default: 0}
+    currentTime: {default: 0},
+    backgroundColor: {default: 'black'},
+    emitSVG: true
   },
   data () {
     return {
@@ -72,13 +76,17 @@ export default {
       deep: true,
       handler () {
         var svgElement
-        if (this.inlineStyles) {
-          svgElement = cloneWithInlineStyle(this.svgDomElement)
+        if (!this.emitSVG) {
+          this.$emit('newFrame', {})
         } else {
-          svgElement = this.svgDomElement
+          if (this.inlineStylesInEmittedSVG) {
+            svgElement = cloneWithInlineStyle(this.svgDomElement)
+          } else {
+            svgElement = this.svgDomElement
+          }
+          var svg = new XMLSerializer().serializeToString(svgElement)
+          this.$emit('newFrame', svg)
         }
-        var svg = new XMLSerializer().serializeToString(svgElement)
-        this.$emit('newFrame', svg)
       }
     }
   },
@@ -86,7 +94,8 @@ export default {
     style () {
       return {
         width: this.svgWidth + 'px',
-        height: this.svgHeight + 'px'
+        height: this.svgHeight + 'px',
+        backgroundColor: this.backgroundColor
       }
     }
   },

@@ -1,12 +1,11 @@
 <template lang="pug">
 g
-  text(v-for="style in (element.stroke.width ? ['stroke', 'fill'] : ['fill'])"
+  text(v-for="style in (element.outline.width ? ['outline', 'fill'] : ['fill'])"
        :style="textStyle[style]",
        :key='style'
-       :transform='yTranslation'
-       )
+       :transform='yTranslation')
     tspan(v-for='line, i in textLines' x="0"
-          :key='i' :dy="element.position.lineHeight + 'em'") {{line}}
+          :key='i' :dy="element.font.lineHeight + 'em'") {{line}}
 </template>
 <script>
 export default {
@@ -35,14 +34,16 @@ export default {
         'font-size': el.font.size + 'px',
         'font-weight': el.font.bold ? 'bold' : 'normal',
         'fill': el.color,
-        'text-anchor': this.textAnchorsTable[el.position.xAlign]
+        'text-anchor': this.textAnchorsTable[el.position.xAlign],
+        'stroke': el.stroke.color,
+        'strokeWidth': el.stroke.width
         // 'alignment-baseline': this.alignmentBaselinesTable[el.position.yAlign]
       }
-      var stroke = Object.assign({}, fill, {
-        'stroke': el.stroke.color,
-        'strokeWidth': 2 * el.stroke.width
+      var outline = Object.assign({}, fill, {
+        'stroke': el.outline.color,
+        'strokeWidth': 2 * el.outline.width
       })
-      return {stroke, fill}
+      return {outline, fill}
     },
     textLines () {
       return this.element.text.split('\n')
@@ -55,7 +56,7 @@ export default {
         center: nLines / 2.0,
         bottom: nLines
       }[this.element.position.yAlign]
-      var value = -offset * this.element.position.lineHeight * this.element.font.size
+      var value = -offset * this.element.font.lineHeight * this.element.font.size
       return `translate(0, ${value})`
     }
   }

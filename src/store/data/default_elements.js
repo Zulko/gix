@@ -3,6 +3,7 @@ export const defaultStartingProject = require('./defaultStartingProject')
 var defaultElementBase = {
   id: '0',
   isMaster: false,
+  isDraggable: true,
   timeSegment: {
     start: 0,
     end: 2,
@@ -12,7 +13,8 @@ var defaultElementBase = {
     x: 0,
     y: 0,
     scale: 1.0,
-    rotation: 0
+    rotation: 0,
+    isMoving: false
   },
   stroke: {
     width: 1,
@@ -45,6 +47,7 @@ export const defaultElements = {
     canvas: {
       width: 300,
       height: 125,
+      aspectRatio: 2.4,
       bgColor: '#000000'
     },
     duration: 4,
@@ -58,17 +61,21 @@ export const defaultElements = {
     font: {
       family: 'Impact',
       bold: false,
-      size: 40
+      size: 40,
+      lineHeight: 1.0
     },
     color: 'rgba(235, 247, 8, 1)',
+    outline: {
+      width: 0,
+      color: 'rgba(0, 0, 0, 1)'
+    },
     position: {
       x: 50,
       y: 50,
       scale: 1.0,
       rotation: 0,
       xAlign: 'center',
-      yAlign: 'center',
-      lineHeight: 1.0
+      yAlign: 'center'
     }
   }),
   asset: Object.assign({}, defaultElementBase, {
@@ -82,6 +89,7 @@ export const defaultElements = {
     size: {
       width: 300,
       height: 125,
+      aspectRatio: 2.4,
       preserveOriginalRatio: true
     }
   }),
@@ -91,6 +99,10 @@ export const defaultElements = {
     rectangleProps: {
       width: 100,
       height: 40
+    },
+    outline: {
+      width: 0,
+      color: 'rgba(0, 0, 0, 1)'
     },
     circleProps: {
       r: 0

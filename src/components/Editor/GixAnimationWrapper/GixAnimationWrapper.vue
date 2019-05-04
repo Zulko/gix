@@ -8,7 +8,8 @@
   .gix-animation-and-layer-container(style='border: 0.5px solid gray')
     .gix-animation-and-layer(:style='gifSize')
       gix-animation(:project='project', @newFrame='onNewFrame',
-                    :time.sync='currentTime' :emitFrames='true',
+                    :time.sync='currentTime',
+                    :emitFrames='$store.state.globals.recordFrames',
                     :interactive='interactiveMode',
                     @dragged='onElementDragged')
       clickable-layer(v-if="(!interactiveMode || (clickMode.mode !== 'none'))"
@@ -16,7 +17,7 @@
                       :clickMode='clickMode', :lastFrame='lastFrame'
                       :currentTime='currentTime')
   .progress-bar(:style='{width: progress}')
-  el-switch(size='tiny', v-model='interactiveMode')
+  //- el-switch(size='tiny', v-model='interactiveMode')
 </template>
 
 <script>
@@ -25,7 +26,6 @@ import ClickableLayer from './ClickableLayer'
 import GIF from 'gif.js'
 import { mapMutations } from 'vuex'
 import workerScript from './gif.worker.js.txt'
-console.log('SCRIPT', workerScript)
 var blob
 try {
   blob = new Blob([workerScript], {
@@ -48,13 +48,13 @@ export default {
       recordFrames: true,
       allFramesRecorded: false,
       recordingVoided: true,
-      interactiveMode: false
+      interactiveMode: true
       // gifFrames: []
     }
   },
   methods: {
     ...mapMutations([
-      'setGifFramesReady',
+      'updateGlobals',
       'updateElement'
     ]),
     onNewFrame (frame) {
@@ -71,7 +71,7 @@ export default {
       }
       if ((this.lastFrame) && (isRewind)) {
         if (!this.recordingVoided) {
-          this.setGifFramesReady(true)
+          this.updateGlobals({gifFramesReady: true})
         }
         // this.gifFrames = []
         this.recordingVoided = false
@@ -147,7 +147,7 @@ export default {
       deep: true,
       handler () {
         this.recordingVoided = true
-        this.setGifFramesReady(false)
+        this.updateGlobals({gifFramesReady: false})
         this.initializeGifWriter()
       }
     }
@@ -177,7 +177,7 @@ export default {
     position: absolute;
   }
   .progress-bar {
-    height: 3px;
+    height: 5px;
     background-color: blue;
     opacity: 0.3;
     transition: width 0.05s;

@@ -73,9 +73,6 @@ export const mutations = {
   },
   setDefaultStartingProject (state) {
     state.project = { ...defaultStartingProject }
-  },
-  setGifFramesReady (state, value) {
-    state.globals.gifFramesReady = value
   }
   // setGifWriter (state, value) {
   //   // state.globals.gifWriter.frames = []

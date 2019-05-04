@@ -3,15 +3,22 @@
 <template lang='pug'>
 .elemented-frames-generator
   .svg-composition(:class="interactive ? 'shown' : 'unshown'")
-    svg-composition(:svgElements='svgElements', @newFrame='handleNewFrame',
+    svg-composition(:svgElements='svgElements',
                     :currentTime='currentTime',
                     :svgWidth='project.canvas.width',
-                    :svgHeight='project.canvas.height'
-                    @dragged="onElementDrag")
+                    :svgHeight='project.canvas.height',
+                    :emitSVG='emitFrames',
+                    :inlineStylesInEmittedSVG='useBrowserSvgRendering',
+                    :backgroundColor='project.canvas.bgColor',
+                    @dragged="onElementDrag",
+                    @newFrame='handleNewFrame')
   .unshown
     img#svgEffectsImage(:style="videoSizeCSS", crossOrigin="Anonymous",
                         :width="project.canvas.width", :height="project.canvas.height")
-    canvas#svgCanvas(:style="videoSizeCSS", :width="project.canvas.width", :height="project.canvas.height")
+    div(style='border: 2px solid black')
+      canvas#svgCanvas(:style="videoSizeCSS",
+                        :width="project.canvas.width",
+                        :height="project.canvas.height")
   .canvas(style='padding: 0;' :class="interactive ? 'unshown' : 'shown'")
     canvas#canvas(:style="videoSizeCSS",
                   crossorigin="Anonymous",
@@ -23,7 +30,7 @@
 import { autoFrameServer } from './FrameServer'
 import data from './data'
 import SvgComposition from './SvgComposition/SvgComposition'
-const canvg = require('canvg-browser')
+const canvg = require('canvg')
 
 function b64EncodeUnicode (str) {
   return btoa(encodeURIComponent(str).replace(
@@ -67,28 +74,31 @@ export default {
   },
   methods: {
     handleNewFrame (svg) {
-      if (this.thereIsSomeAnimation) {
+      if (!this.emitFrames) {
+        this.refreshAfterAWait()
+      } else if (this.useCanvg) {
         this.svgEffectsImage.src = 'data:image/svg+xml;base64,' + b64EncodeUnicode(svg)
       } else {
-        canvg(this.canvas, svg)
-        this.generateElementedGifFrame({svgCanvas: this.canvas})
+        canvg(this.svgCanvas, svg)
+        this.generateElementedGifFrame({svgCanvas: this.svgCanvas})
       }
     },
     async generateElementedGifFrame ({ svgCanvas }) {
-      var self = this
       this.canvasCtx.fillRect(0, 0, this.project.canvas.width, this.project.canvas.height)
       this.canvasCtx.drawImage(svgCanvas, 0, 0)
-      if (this.emitFrames) {
-        // var data = this.canvas.toDataURL()
-        var data = null
-        var seconds = new Date().getTime() / 1000
-        var delta = 1000 * ((1.0 / this.project.fps) - (seconds - this.dateOfLastEmittedFrame))
-        setTimeout(function () {
-          self.$emit('newFrame', {time: self.currentTime, data, ctx: self.canvasCtx})
-          self.dateOfLastEmittedFrame = new Date().getTime() / 1000
-          self.refresh()
-        }, delta)
-      }
+      this.$emit('newFrame', {time: this.currentTime, ctx: this.canvasCtx})
+      this.refreshAfterAWait()
+    },
+    refreshAfterAWait () {
+      var self = this
+      var seconds = new Date().getTime() / 1000
+      var delta = 1000 * ((1.0 / this.project.fps) - (seconds - this.dateOfLastEmittedFrame))
+      this.dateOfLastEmittedFrame = new Date().getTime() / 1000
+      delta = Math.max(0, delta)
+      setTimeout(function () {
+        self.dateOfLastEmittedFrame = new Date().getTime() / 1000
+        self.refresh()
+      }, delta)
     },
     async refresh () {
       var elements = this.project.elements
@@ -135,7 +145,6 @@ export default {
       if (nAssets > 0) {
         this.loading = {inProgress: true, total: nAssets, current: 0}
         for (var element of assetElementsWithoutFrameServer) {
-          console.log(nAssets, element, assetElementsWithoutFrameServer)
           this.loading = {...this.loading, current: this.loading.current + 1}
           var frameServer = autoFrameServer(element.url)
           await frameServer.init()
@@ -145,14 +154,13 @@ export default {
       }
     },
     onElementDrag (evt) {
-      console.log('gixanim', evt)
       this.$emit('dragged', evt)
     }
   },
   computed: {
-    thereIsSomeAnimation () {
+    useBrowserSvgRendering () {
       return this.project.elements.some(function (element) {
-        return ['in', 'out', 'loop'].some(e => element.cssAnimation[e].class[0] !== 'none')
+        return ['in', 'out', 'loop'].some(e => element.cssAnimation[e].class !== 'none')
       })
     },
     videoSizeCSS () {

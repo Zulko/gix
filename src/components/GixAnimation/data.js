@@ -7,7 +7,8 @@ export default {
         font: {
           family: 'Impact',
           bold: false,
-          size: 20
+          size: 20,
+          lineHeight: 1
         },
         position: {
           x: project.canvas.width / 2,
@@ -15,11 +16,14 @@ export default {
           scale: 1.0,
           rotation: 0,
           xAlign: 'center',
-          yAlign: 'center',
-          lineHeight: 1
+          yAlign: 'center'
         },
         stroke: {
           width: 0
+        },
+        outline: {
+          width: 1,
+          color: 'rgba(0, 0, 0, 1)'
         },
         timeSegment: {
           start: 0,

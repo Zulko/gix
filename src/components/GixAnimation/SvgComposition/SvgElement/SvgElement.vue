@@ -1,7 +1,6 @@
 <template lang="pug">
-g.svg-element(:transform='`translate(${element.position.x + (drag ? drag.x : 0)}, ${element.position.y + (drag ? drag.y : 0)})`',
-              @mousedown="evt => $emit('startdragging', {element, evt})"
-              )
+g.svg-element(:transform='transform',  @mousedown="onMouseDown",
+              :style="{cursor: mouseCursorType}")
   transition(name="custom-classes-transition"
              :enter-active-class="animationClass(element.cssAnimation.in)",
              :leave-active-class="animationClass(element.cssAnimation.out)")
@@ -42,6 +41,18 @@ export default {
     showElement () {
       let segment = this.element.timeSegment
       return (this.currentTime >= segment.start) && (this.currentTime <= segment.end)
+    },
+    transform () {
+      var x = this.element.position.x + (this.drag ? this.drag.x : 0)
+      var y = this.element.position.y + (this.drag ? this.drag.y : 0)
+      return `translate(${x}, ${y})`
+    },
+    mouseCursorType () {
+      if (this.element.isDraggable) {
+        return this.drag ? 'move' : 'pointer'
+      } else {
+        return 'default'
+      }
     }
   },
   methods: {
@@ -51,17 +62,24 @@ export default {
       } else {
         return `animated ${animation.class} ${animation.speed}`
       }
+    },
+    onMouseDown (evt) {
+      if (this.element.isDraggable) {
+        this.$emit('startdragging', {element: this.element, evt})
+      }
     }
   }
 }
 </script>
-<style>
+<style lang='scss'>
 .svg-element {
-  cursor: pointer;
   user-select: none; /* supported by Chrome and Opera */
   -webkit-user-select: none; /* Safari */
   -khtml-user-select: none; /* Konqueror HTML */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
+  &.cursor-pointer {
+    cursor: pointer;
+  }
 }
 </style>

@@ -8,7 +8,7 @@
                     :svgWidth='project.canvas.width',
                     :svgHeight='project.canvas.height',
                     :emitSVG='emitFrames',
-                    :inlineStylesInEmittedSVG='useBrowserSvgRendering',
+                    :inlineStylesInEmittedSVG='true',
                     :backgroundColor='project.canvas.bgColor',
                     @dragged="onElementDrag",
                     @newFrame='handleNewFrame')
@@ -76,7 +76,7 @@ export default {
     handleNewFrame (svg) {
       if (!this.emitFrames) {
         this.refreshAfterAWait()
-      } else if (this.useCanvg) {
+      } else if (this.useBrowserSvgRendering) {
         this.svgEffectsImage.src = 'data:image/svg+xml;base64,' + b64EncodeUnicode(svg)
       } else {
         canvg(this.svgCanvas, svg)
@@ -107,6 +107,7 @@ export default {
         this.currentTime = 0
       }
       this.currentTime += 1.0 / this.project.fps
+      // console.log(this.currentTime)
       var svgElements = []
       for (var element of elements) {
         var start = element.timeSegment.start

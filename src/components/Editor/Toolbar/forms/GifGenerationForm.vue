@@ -18,7 +18,7 @@
     p(v-if='makingGIF')
       i(class='el-icon-loading' style='margin-right:0.5em;')
       span GIF generation in progress...
-    p(v-if='gifData && !makingGIF')
+    div(v-if='gifData')
       img(:src='gifData')
       p.copy-to-clipboard Copy to clipboard
       el-input(v-model='gifTitle')

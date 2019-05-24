@@ -112,7 +112,18 @@ export default {
       for (var element of elements) {
         var start = element.timeSegment.start
         if (this.frameServers[element.id]) {
-          var frame = this.frameServers[element.id].getFrame(this.currentTime - start)
+          // function timeToMediaTime (t, {timeCrop, speedFactor, endBehaviour}) {
+          var t = this.currentTime - start
+          if (element.timeCrop) {
+            var duration = element.timeCrop.end - element.timeCrop.start
+            if (element.endBehavior === 'freeze') {
+              t = element.timeCrop.start + Math.min((element.speedFactor * t), duration)
+            } else {
+              t = element.timeCrop.start + ((element.speedFactor * t) % duration)
+              // console.log(t)
+            }
+          }
+          var frame = this.frameServers[element.id].getFrame(t)
           svgElements.push(Object.assign({}, element, {type: 'image', src: frame}))
         } else {
           svgElements.push(element)

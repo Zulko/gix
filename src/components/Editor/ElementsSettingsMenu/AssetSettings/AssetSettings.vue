@@ -6,9 +6,9 @@ element-settings(:element='element', :showOptions='showOptions').text-element-se
     el-tabs
       el-tab-pane(v-for='pane in panes', :key='pane.tooltip')
         span(slot='label')
-          el-tooltip(:content='pane.tooltip')
+          el-tooltip(:content='pane.tooltip', placement='top')
             .icon(:is='pane.icon')
-        div(:is='pane.form', :element='element')
+        div(:is='pane.form', :element='element', :infos='assetInfos')
 </template>
 
 <script>
@@ -73,6 +73,7 @@ export default {
   methods: {
     async updateInfos () {
       var server = autoFrameServer(this.element.url)
+      console.log({server})
       this.assetInfos = await server.getInfos()
       console.log({assetInfos: this.assetInfos})
     }

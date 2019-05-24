@@ -20,7 +20,6 @@
       span GIF generation in progress...
     div(v-if='gifData')
       img(:src='gifData')
-      p.copy-to-clipboard Copy to clipboard
       el-input(v-model='gifTitle')
         el-button-group(slot="append")
           el-button(icon="el-icon-download" @click='downloadGIF')
@@ -36,6 +35,7 @@ export default {
       autogenerate: false,
       makingGIF: false,
       gifData: null,
+      gifBlob: null,
       gifTitle: 'awesome_gix.gif'
     }
   },
@@ -54,6 +54,7 @@ export default {
       this.gifData = null
       var gif = window.gifWriter
       gif.on('finished', function (blob) {
+        self.gifBlob = blob
         self.makingGIF = false
         var reader = new window.FileReader()
         reader.readAsDataURL(blob)
@@ -89,6 +90,10 @@ export default {
   }
   .el-input__inner {
     text-align: center !important;
+  }
+  .clipboard-link {
+    color: #0e84ffff;
+    cursor: pointer;
   }
 }
 </style>

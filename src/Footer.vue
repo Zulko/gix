@@ -9,6 +9,7 @@ export default {}
 </script>
 <style lang='scss'>
 .footer {
+  color: #cecece;
   position: absolute;
   right: 0;
   bottom: 0;

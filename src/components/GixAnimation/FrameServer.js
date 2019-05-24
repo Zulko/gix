@@ -181,13 +181,30 @@ export function urlToSubtype (url) {
   }[extension]
 }
 
+export function mimetypeToSubtype (mimetype) {
+  mimetype = mimetype.toLowerCase()
+  if (mimetype.indexOf('gif') > -1) {
+    return 'gif'
+  }
+  if (mimetype.indexOf('image') > -1) {
+    return 'image'
+  }
+  return 'video'
+}
+
 export function autoFrameServer (url) {
-  var subtype = urlToSubtype(url)
+  var subtype
+  if (url.startsWith('data:')) {
+    var mimetype = url.substring(5, url.indexOf(';'))
+    console.log({mimetype})
+    subtype = mimetypeToSubtype(mimetype)
+  } else {
+    subtype = urlToSubtype(url)
+  }
   var FrameServerClass = {
     gif: GifFrameServer,
     video: VideoFrameServer,
     image: ImageServer
   }[subtype]
-  console.log('server class', FrameServerClass)
   return new FrameServerClass(url)
 }

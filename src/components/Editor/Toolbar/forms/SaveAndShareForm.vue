@@ -68,7 +68,7 @@ export default {
         URL: this.url,
         Markdown: `[${this.$store.state.project.infos.title}](${this.url})`
       }
-      tools.copyToClipboard(links[mode])
+      tools.copyStrToClipboard(links[mode])
       this.$notify({
         duration: 3000,
         title: 'Copied',

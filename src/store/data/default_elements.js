@@ -14,7 +14,9 @@ var defaultElementBase = {
     y: 0,
     scale: 1.0,
     rotation: 0,
-    isMoving: false
+    isMoving: false,
+    xAlign: 'center',
+    yAlign: 'center'
   },
   stroke: {
     width: 1,
@@ -71,11 +73,7 @@ export const defaultElements = {
     },
     position: {
       x: 50,
-      y: 50,
-      scale: 1.0,
-      rotation: 0,
-      xAlign: 'center',
-      yAlign: 'center'
+      y: 50
     }
   }),
   asset: Object.assign({}, defaultElementBase, {
@@ -91,7 +89,18 @@ export const defaultElements = {
       height: 125,
       aspectRatio: 2.4,
       preserveOriginalRatio: true
-    }
+    },
+    crop: {
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0
+    },
+    timeCrop: {
+      start: 0,
+      end: 10
+    },
+    speedFactor: 1.0
   }),
   shape: Object.assign({}, defaultElementBase, {
     type: 'shape',

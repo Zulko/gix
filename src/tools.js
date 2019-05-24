@@ -6,7 +6,7 @@ exports.generateRandomID = function () {
   })
 }
 
-exports.copyToClipboard = function (str) {
+exports.copyStrToClipboard = function (str) {
   const el = document.createElement('textarea')
   el.value = str
   el.setAttribute('readonly', '')
@@ -14,6 +14,23 @@ exports.copyToClipboard = function (str) {
   el.style.left = '-9999px'
   document.body.appendChild(el)
   el.select()
+  document.execCommand('copy')
+  document.body.removeChild(el)
+}
+exports.copyImgToClipboard = function (src) {
+  const el = document.createElement('img')
+  el.src = src
+  el.setAttribute('readonly', '')
+  el.style.position = 'absolute'
+  el.style.left = '-9999px'
+  document.body.appendChild(el)
+  var r = document.createRange()
+  r.setStartBefore(el)
+  r.setEndAfter(el)
+  r.selectNode(el)
+  var sel = window.getSelection()
+  sel.addRange(r)
+  console.log(sel)
   document.execCommand('copy')
   document.body.removeChild(el)
 }

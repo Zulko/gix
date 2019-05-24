@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     animationClass (animation) {
-      if (animation.class[0] === 'none') {
+      if (animation.class === 'none') {
         return ''
       } else {
         return `animated ${animation.class} ${animation.speed}`

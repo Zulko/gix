@@ -54,7 +54,18 @@
       "width": 300,
       "height": 125,
       "aspectRatio": 2.4
-    }
+    },
+    "crop": {
+      "left": 0,
+      "right": 0,
+      "top": 0,
+      "bottom": 0
+    },
+    "timeCrop": {
+      "start": 0,
+      "end": 10
+    },
+    "speedFactor": 1.0
   }, {
     "id": "d639acdd-96c0-4a0f-9cfc-58e8b48e1a1e",
     "isMaster": false,

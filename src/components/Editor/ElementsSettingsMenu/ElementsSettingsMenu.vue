@@ -1,6 +1,6 @@
 <template lang="pug">
 .element-settings-list
-  h2.title Elements
+  //- h2.title Elements
   .element-adder
     element-adder(key='add-element' @addElement='addElementAndScroll')
   .elements-carousel
@@ -102,6 +102,7 @@ export default {
 
 <style lang='scss'>
 .element-settings-list {
+  position: relative;
   .settings-list-container {
     padding-top: 20px;
     padding-left: 10px;
@@ -165,6 +166,13 @@ export default {
   }
   .el-form-item {
     margin-bottom: 0px !important;
+  }
+  .element-adder {
+    position: absolute;
+    width: 150px;
+    top: 0px;
+    right: 0;
+    z-index: 300
   }
 }
 h2.title {

@@ -11,7 +11,7 @@ export default {
   img {
     height: 100px;
     display: block;
-    margin: 2em auto 0em;
+    margin: 2em auto 2em;
   }
 }
 </style>

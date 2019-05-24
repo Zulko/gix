@@ -16,6 +16,7 @@
     el-form-item(label='Keep aspect ratio')
       el-checkbox(:value='aspectRatioCheckboxValue',
                   @change='changeAspectRatioCheckbox')
+    hr
     el-form-item(label='Add margins')
       el-button(v-for="direction in ['Up', 'Down', 'Left', 'Right']"
                 :key='direction'

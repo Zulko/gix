@@ -2,6 +2,7 @@
 export default {
   props: {
     element: {default: () => ({})},
+    infos: {default: () => ({})},
     showOptions: {default: false}
   },
   methods: {

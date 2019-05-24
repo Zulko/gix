@@ -1,36 +1,27 @@
 <template lang="pug">
 .text-position-form
-  .inline-setting-text
-    .icon(:is="icons.resize", title='')
-  el-input-number.inline-setting-widget(
-    size='mini', controls-position="right", :min='0',
-    :value='element.size.width',
-    @input='v => updateElement({size: {width: v}})')
-  el-input-number.inline-setting-widget(
-    size='mini', controls-position="right", :min='0',
-    :value='element.size.height',
-    @input='v => updateElement({size: {height: v}})')
-  .inline-setting-text
-  el-button-group.inline-setting-widget
-    el-tooltip(effect='light')
-      span(slot='content')
-        el-button(v-for="align in xAligns", :key='align', size='mini',
-                  :type="element.position.xAlign === align ? 'primary' : 'normal'"
-                  @click="v => updateElement({position: {xAlign: align}})")
-          .icon(:is="icons[`format-align-${align}`]" , title='')
-      el-button(size='mini')
-        .icon(:is="icons[`format-align-${element.xAlign}`]" , title='')
-    el-tooltip(effect='light')
-      span(slot='content')
-        el-button.alignment-button(v-for="align in yAligns", :key='align' size='mini',
-                  :type="element.position.yAlign === align ? 'primary' : 'normal'"
-                  @click="v => updateElement({position: {yAlign: align}})")
-          el-tooltip(:content="`Vertical align ${align}`")
-            .icon(:is="icons[`format-vertical-align-${align}`]" , title='')
-      el-button(size='mini')
-        .icon(:is="icons[`format-vertical-align-${element.yAlign}`]" , title='')
-  .inline-setting-text
-    .icon(:is="icons.linespacing" , title='')
+  el-form(label-width='120px')
+    el-form-item(label='Dimensions WxH')
+      el-input-number.inline-setting-widget(
+        size='mini', controls-position="right", :min='0',
+        :value='element.size.width',
+        @input='v => updateElement({size: {width: v}})')
+      el-input-number.inline-setting-widget(
+        size='mini', controls-position="right", :min='0',
+        :value='element.size.height',
+        @input='v => updateElement({size: {height: v}})')
+    el-form-item(label='Keep aspect ratio')
+      el-checkbox(:value='aspectRatioCheckboxValue',
+                  @change='changeAspectRatioCheckbox')
+    hr
+    el-form-item(label='Crop')
+      div(v-for="direction in ['Top', 'Bottom', 'Left', 'Right']",
+          style='display: inline-block; margin-right: 1em')
+        span {{direction}}&nbsp;
+        el-input-number.inline-setting-widget(
+            size='mini', controls-position="right", :min='0',
+            :value='element.crop[direction.toLowerCase()]',
+            @input='v => updateCrop(v, direction)')
 </template>
 
 <script>
@@ -64,6 +55,11 @@ export default {
     }
   },
   methods: {
+    updateCrop (v, direction) {
+      var data = {crop: {}}
+      data[direction.toLowerCase()] = v
+      this.updateElement(data)
+    },
     awaitPositionClick () {
       this.$store.commit('updateGlobals', {
         gifClickMode: {

@@ -2,14 +2,13 @@
 .asset-preview
   img(v-if="element.subtype === 'image' || element.subtype === 'gif'"
       :src='element.url')
-  p.asset-infos(v-if='infos') {{infos.width}}x{{infos.height}}, {{Math.round(infos.duration)}}s @{{Math.round(infos.fps)}}fps
+  p.asset-infos(v-if='infos')
+    span {{infos.width}}x{{infos.height}}
+    span(v-if='infos.duration') , {{Math.round(infos.duration)}}s @{{Math.round(infos.fps)}}fps
 </template>
 <script>
 export default {
-  extends: require('../ElementComponentMixin.vue').default,
-  props: {
-    infos: {default: null}
-  }
+  extends: require('../ElementComponentMixin.vue').default
 }
 </script>
 <style lang='scss'>

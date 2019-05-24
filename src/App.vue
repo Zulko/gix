@@ -27,7 +27,8 @@ export default {
 .el-tooltip__popper,
 .el-cascader-menu__item,
 .el-select-dropdown__item,
-.el-notification {
+.el-notification,
+.el-upload__text {
   font-family: 'Lato' !important;
 }
 
@@ -69,5 +70,11 @@ h2 {
   font-family: "Caveat Brush";
   text-transform: uppercase;
   font-size: 2em;
+}
+
+hr {
+  height: 1.5px;
+  border: none;
+  background-color: #eee;
 }
 </style>

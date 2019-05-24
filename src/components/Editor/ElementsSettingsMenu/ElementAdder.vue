@@ -1,8 +1,9 @@
 <template lang="pug">
 el-row.element-adder
-  el-col(:xs='6', :sm='6' v-for='adder in adders', :key='adder.type')
-    el-tooltip(:content='adder.tooltip', placement='bottom')
-      el-button(@click="$emit('addElement', adder.type)" circle)
+  //- el-col(:xs='6', :sm='6' v-for='adder in adders', :key='adder.type')
+  .element-adder-div(v-for='adder in adders', :key='adder.type')
+    el-tooltip(:content='adder.tooltip', placement='top')
+      el-button.flat-button(@click="$emit('addElement', adder.type)" size='mini' circle)
         .icon-container
           .element-adder-icon(:is='adder.icon', title='')
 </template>
@@ -10,7 +11,8 @@ el-row.element-adder
 import textIcon from 'vue-material-design-icons/MessageTextOutline.vue'
 import shapeIcon from 'vue-material-design-icons/Shape.vue'
 import imageIcon from 'vue-material-design-icons/Image.vue'
-import groupIcon from 'vue-material-design-icons/Group.vue'
+import pasteIcon from 'vue-material-design-icons/ContentPaste.vue'
+// import groupIcon from 'vue-material-design-icons/Group.vue'
 
 export default {
   data () {
@@ -32,9 +34,9 @@ export default {
           type: 'shape'
         },
         {
-          tooltip: 'Add a group',
-          icon: groupIcon,
-          type: 'group'
+          tooltip: 'Paste from clipboard',
+          icon: pasteIcon,
+          type: 'clipboard'
         }
       ]
     }
@@ -43,7 +45,16 @@ export default {
 </script>
 <style lang="scss">
 .element-adder {
-  width: 50%;
-  margin: 0 auto;
+  // width: 50%;
+  // margin: 0 auto;
+  .element-adder-div {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .flat-button {
+    border: none;
+    background: none;
+    width: 25px;
+  }
 }
 </style>

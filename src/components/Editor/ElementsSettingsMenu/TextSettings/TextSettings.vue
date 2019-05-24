@@ -6,7 +6,7 @@ element-settings(:element='element' :showOptions='showOptions').text-element-set
     el-tabs
       el-tab-pane(v-for='pane in panes', :key='pane.tooltip')
         span(slot='label')
-          el-tooltip(:content='pane.tooltip')
+          el-tooltip(:content='pane.tooltip', placement='top')
             .icon(:is='pane.icon')
         div(:is='pane.form', :element='element')
 </template>

@@ -1,20 +1,17 @@
 <template lang="pug">
-.footer-container
+footer.footer
   div(style='height: 50px')
   .footer
-    p GIX - Copyright Zulko 2018 - MIT licenced
+    p GIX - Copyright Zulko 2020 - MIT licenced
 </template>
 <script>
-export default {}
+export default {};
 </script>
 <style lang='scss'>
 .footer {
   color: #cecece;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  // background-color: #efefef;
   text-align: center;
+  background: none;
 }
 </style>
+https://www.npmjs.com/package/video-url-link

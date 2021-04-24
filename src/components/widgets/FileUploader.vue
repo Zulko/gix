@@ -1,63 +1,55 @@
 <template lang='pug'>
-.file-uploader
-  el-upload(drag :file-list="fileList", :on-change='onNew',
-            action='false', :auto-upload="false", :multiple='multiple')
-    .file-uploader-icon
-      cloud-icon
-    .el-upload__text ... Or provide a {{fileDescription}} file#[br] (drop or <em>click to upload)</em>
-    .el-upload__tip(slot="tip") {{tip}}
+b-upload.file-uploader(@input='onInput' :multiple='false' :drag-drop='true')
+  section.section
+    .content.has-text-centered
+      p
+        b-icon(icon='upload' size='is-large')
+      p {{ uploadText }}
 </template>
 <script>
-import cloudIcon from 'vue-material-design-icons/CloudUploadOutline'
+
 export default {
   props: {
-    fileDescription: {default: ''},
-    tip: {default: ''},
-    multiple: {default: false}
+    fileDescription: { default: '', type: String },
+    tip: { default: '', type: String },
+    uploadText: { default: 'Drop a file or click to upload', type: String },
+    multiple: { default: false, type: Boolean },
   },
-  data () {
+  data() {
     return {
-      fileList: []
-    }
+      fileList: [],
+    };
   },
   methods: {
-    onNew (file, fileList) {
-      var self = this
-      var reader = new window.FileReader()
-      reader.onloadend = function (ev) {
+    onInput(file) {
+      const self = this;
+      const reader = new window.FileReader();
+      reader.onloadend = function f(ev) {
         if (ev.target.readyState === window.FileReader.DONE) {
-          file.content = ev.target.result
-          file.status = 'success'
-          self.$emit('input', file)
+          // file.content = ev.target.result;
+          // file.status = 'success';
+          self.$emit(
+            'input',
+            Object.assign(file, {
+              content: ev.target.result,
+              status: 'success',
+            }),
+          );
         }
+      };
+      if (file.raw) {
+        reader.readAsDataURL(file.raw);
+      } else {
+        reader.readAsText(file);
       }
-      reader.readAsDataURL(file.raw)
-    }
+    },
   },
-  components: {
-    'cloud-icon': cloudIcon
-  }
-}
+};
 </script>
 <style lang='scss'>
 .file-uploader {
   display: block;
-  .el-upload-dragger, .el-upload {
-    display: block;
-    width: 100%;
-  }
   text-align: center;
-  margin-bottom: 1em;
-  .file-uploader-icon {
-     svg {
-      path {
-        fill: #aaa;
-      }
-      margin-top: 30px;
-      // margin-bottom: -20px;
-      height: auto;
-      width: 80px;
-    }
-  }
+  width: 100%;
 }
 </style>

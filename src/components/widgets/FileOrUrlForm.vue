@@ -1,30 +1,56 @@
 <template lang='pug'>
 .file-or-url-form
-  el-input(v-model='url' placeholder='Enter a url and click the button.')
-    el-button(slot='append' icon='el-icon-check' @click="val => $emit('urlInput', url)")
-  file-uploader(@input="val => $emit('fileInput', val)", :tip='filetip')
+  .url-form
+    b-field(:label='label')
+      b-input(
+        style='width: 100%;'
+        v-model='url',
+        :placeholder='`URL of a public ${fileDescription}`'
+      )
+      p.control
+        b-button(
+          icon-left='check',
+          @click='(val) => $emit("urlInput", url)'
+        )
+  file-uploader(
+    @input='(val) => $emit("fileInput", val)',
+    :fileDescription='fileDescription',
+    :tip='fileTip'
+  )
 </template>
 <script>
-import FileUploader from '../widgets/FileUploader'
+import FileUploader from './FileUploader.vue';
+
 export default {
   props: {
-    filetip: {default: ''}
+    fileTip: { default: '', type: String },
+    fileDescription: { default: '', type: String },
+    label: { type: String, default: '' },
   },
   components: {
-    'file-uploader': FileUploader
+    'file-uploader': FileUploader,
   },
-  data () {
+  data() {
     return {
       url: '',
       rules: {
         name: [
-          { required: true, message: 'Please input Activity name', trigger: 'blur' },
-          { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' }
-        ]
-      }
-    }
-  }
-}
+          {
+            required: true,
+            message: 'Please input Activity name',
+            trigger: 'blur',
+          },
+          {
+            min: 3,
+            max: 5,
+            message: 'Length should be 3 to 5',
+            trigger: 'blur',
+          },
+        ],
+      },
+    };
+  },
+};
 </script>
 <style lang='scss'>
 .file-or-url-form {
@@ -33,10 +59,6 @@ export default {
     width: 100%;
     margin: 1em auto;
     display: block;
-  }
-  .el-upload, .el-upload-dragger {
-    border-radius: 2em;
-    width: 100%;
   }
 }
 </style>

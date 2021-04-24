@@ -2,21 +2,23 @@
   "infos": {
     "gixVersion": "0.1.0",
     "title": "Unnamed Project",
-    "author": "Anonymous giffer",
+    "author": "Anonymous gixer",
     "tags": ["example", "Mind Blown"]
   },
   "canvas": {
     "width": 300,
     "height": 125,
-    "aspectRatio": 2.4,
-    "bgColor": "#000000"
+    "backgroundColor": "#000000"
   },
+  "isAnimated": true,
   "duration": 4,
   "fps": 20,
   "elements": [{
     "id": "457fa5ce-2119-4987-937f-76c9bf23d8d8",
-    "isMaster": false,
-    "isDraggable": false,
+    "editorSettings":{
+      "isMainElement": false,
+      "isDraggable": false
+    },
     "timeSegment": {
       "start": 0,
       "end": 4,
@@ -27,25 +29,13 @@
       "y": 0,
       "scale": 1,
       "rotation": 0,
-      "isMoving": false
+      "isMoving": false,
+      "xAlign": "left",
+      "yAlign": "top"
     },
     "stroke": {
       "width": 1,
-      "color": "rgba(0, 0, 0, 1)"
-    },
-    "cssAnimation": {
-      "in": {
-        "class": "none",
-        "speed": "normal-speed"
-      },
-      "out": {
-        "class": "none",
-        "speed": "normal-speed"
-      },
-      "loop": {
-        "class": "none",
-        "speed": "normal-speed"
-      }
+      "color": "#000000"
     },
     "type": "asset",
     "subtype": "gif",
@@ -63,12 +53,12 @@
     },
     "timeCrop": {
       "start": 0,
-      "end": 10
+      "end": 4
     },
     "speedFactor": 1.0
   }, {
     "id": "d639acdd-96c0-4a0f-9cfc-58e8b48e1a1e",
-    "isMaster": false,
+    "isMainElement": false,
     "isDraggable": true,
     "timeSegment": {
       "start": 0,
@@ -86,35 +76,21 @@
     },
     "stroke": {
       "width": 0,
-      "color": "rgba(0, 0, 0, 1)"
+      "color": "#000000"
     },
     "outline": {
       "width": 1,
-      "color": "rgba(0, 0, 0, 1)"
-    },
-    "cssAnimation": {
-      "in": {
-        "class": "none",
-        "speed": "normal-speed"
-      },
-      "out": {
-        "class": "none",
-        "speed": "normal-speed"
-      },
-      "loop": {
-        "class": "none",
-        "speed": "normal-speed"
-      }
+      "color": "#000000"
     },
     "type": "text",
     "text": "Mind\nBlown",
     "font": {
-      "family": "Impact",
+      "family": "Anton",
       "bold": false,
       "size": 33,
       "lineHeight": 1.0
     },
-    "color": "rgba(235, 247, 8, 1)"
+    "color": "#EEEE20"
   }],
   "extends": null
 }

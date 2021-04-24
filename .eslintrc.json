@@ -1,0 +1,56 @@
+{
+  "root": true,
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  "extends": [
+    "plugin:vue/strongly-recommended",
+    "@vue/airbnb"
+  ],
+  "parserOptions": {
+    "parser": "babel-eslint",
+    "sourceType": "module",
+    "allowImportExportEverywhere": true,
+    "ecmaVersion": 2019
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/__tests__/*.{j,t}s?(x)",
+        "**/tests/unit/**/*.spec.{j,t}s?(x)"
+      ],
+      "env": {
+        "mocha": true
+      }
+    }
+  ],
+  "rules": {
+    "comma-dangle": "error",
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "array-bracket-spacing": [
+      "error",
+      "always"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "eol-last": [
+      "error",
+      "always"
+    ],
+    "indent": [
+      "error",
+      2
+    ],
+    "operator-linebreak": ["error", "before", { "overrides": { "?": "after" } }]
+  }
+}

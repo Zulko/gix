@@ -1,16 +1,14 @@
-export const STORAGE_KEY = 'gix-settings'
+export const STORAGE_KEY = 'gix-settings';
 
 export const state = {
-  savedProjects: [],
+  savedProjects: {},
+  assetStats: {},
+  project: {},
   globals: {
-    recordFrames: false,
-    gifFramesReady: false,
-    gifWriter: null,
     gifClickMode: {
       mode: 'none',
-      targetElement: null
+      targetElement: null,
     },
-    lastClickedElement: null
+    lastClickedElement: null,
   },
-  project: {}
-}
+};

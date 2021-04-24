@@ -1,87 +1,108 @@
-import lodash from 'lodash'
-import { generateRandomID } from '../tools'
-import { defaultElements, defaultStartingProject } from './data/default_elements.js'
+import lodash from 'lodash';
+import { defaultElements, defaultStartingProject } from './data/default_elements';
 
-function elementAndIndex (elementId, state) {
-  var index = state.project.elements.map(c => c.id).indexOf(elementId)
-  return [state.project.elements[index], index]
+/*eslint-disable */
+function generateRandomID() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+    const r = (Math.random() * 16) | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
 }
-function deepcopy (obj) {
-  return JSON.parse(JSON.stringify(obj))
+/* eslint-enable */
+
+function elementAndIndex(elementId, state) {
+  const index = state.project.elements.map(c => c.id).indexOf(elementId);
+  return [state.project.elements[index], index];
 }
 
-export const mutations = {
-  updateProject (state, update) {
-    var newProject = deepcopy(state.project)
-    lodash.merge(newProject, update)
-    state.project = newProject
+function deepcopy(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
+export default {
+  updateEditorPlayerTime(state, update) {
+    state.editorPlayerTime = update;
   },
-  newEmptyProject (state) {
-    state.project = deepcopy(defaultElements.project)
+  updateAssetStats(state, update) {
+    state.assetStats = update;
   },
-  updateElement (state, {elementId, update}) {
-    var [element, index] = elementAndIndex(elementId, state)
-    var newElements = state.project.elements.slice()
-    var newElement = deepcopy(element)
-    lodash.merge(newElement, update)
-    newElements[index] = newElement
-    state.project.elements = newElements
+  updateProject(state, update) {
+    const newProject = deepcopy(state.project);
+    lodash.merge(newProject, update);
+    state.project = newProject;
+  },
+  newEmptyProject(state) {
+    state.project = deepcopy(defaultElements.project);
+  },
+  updateElement(state, { elementId, update }) {
+    const [element, index] = elementAndIndex(elementId, state);
+    const newElements = state.project.elements.slice();
+    const newElement = deepcopy(element);
+    lodash.merge(newElement, update);
+    newElements[index] = newElement;
+    state.project.elements = newElements;
     // state.project.elements[index] = newElement
   },
-  updateGlobals (state, update) {
-    var newGlobals = deepcopy(state.globals)
-    lodash.merge(newGlobals, update)
-    state.globals = newGlobals
+  updateGlobals(state, update) {
+    const newGlobals = deepcopy(state.globals);
+    lodash.merge(newGlobals, update);
+    state.globals = newGlobals;
   },
-  addElement (state, elementType) {
-    var newElement = deepcopy(defaultElements[elementType])
-    newElement.id = generateRandomID()
-    console.log(newElement)
-    state.project = Object.assign({}, state.project, {
+  addElement(state, elementType) {
+    const newElement = deepcopy(defaultElements[elementType]);
+    newElement.timeSegment.end = state.project.duration;
+    newElement.id = generateRandomID();
+    state.project = {
+      ...state.project,
       elements: [...state.project.elements, newElement]
-    })
+    };
   },
-  duplicateElement (state, elementId) {
-    var newElements = state.project.elements.slice()
-    var [element, index] = elementAndIndex(elementId, state)
-    var newElement = deepcopy(element)
-    newElement.id = generateRandomID()
-    newElements.splice(index + 1, 0, newElement)
-    state.project = Object.assign({}, state.project, {elements: newElements})
+  duplicateElement(state, elementId) {
+    const newElements = state.project.elements.slice();
+    const [element, index] = elementAndIndex(elementId, state);
+    const newElement = deepcopy(element);
+    newElement.id = generateRandomID();
+    newElements.splice(index + 1, 0, newElement);
+    state.project = {
+      ...state.project,
+      elements: newElements
+    };
   },
-  deleteElement (state, elementId) {
-    var newElements = state.project.elements.slice()
-    var index = elementAndIndex(elementId, state)[1]
-    newElements.splice(index, 1)
-    state.project.elements = newElements
+  deleteElement(state, elementId) {
+    const newElements = state.project.elements.slice();
+    const index = elementAndIndex(elementId, state)[1];
+    newElements.splice(index, 1);
+    state.project.elements = newElements;
   },
-  moveElementUp (state, elementId) {
-    var [element, index] = elementAndIndex(elementId, state)
-    var indexUp = Math.max(0, index - 1)
-    var newElements = state.project.elements.slice()
-    newElements[index] = state.project.elements[indexUp]
-    newElements[indexUp] = element
-    state.project = Object.assign({}, state.project, {elements: newElements})
+  moveElementUp(state, elementId) {
+    const [element, index] = elementAndIndex(elementId, state);
+    const indexUp = Math.max(0, index - 1);
+    const newElements = state.project.elements.slice();
+    newElements[index] = state.project.elements[indexUp];
+    newElements[indexUp] = element;
+    state.project = {
+      ...state.project,
+      elements: newElements
+    };
   },
-  moveElementDown (state, elementId) {
-    var [element, index] = elementAndIndex(elementId, state)
-    var indexDown = Math.min(state.project.elements.length - 1, index + 1)
-    var newElements = state.project.elements.slice()
-    newElements[index] = state.project.elements[indexDown]
-    newElements[indexDown] = element
-    state.project = Object.assign({}, state.project, {elements: newElements})
+  moveElementDown(state, elementId) {
+    const [element, index] = elementAndIndex(elementId, state);
+    const indexDown = Math.min(state.project.elements.length - 1, index + 1);
+    const newElements = state.project.elements.slice();
+    newElements[index] = state.project.elements[indexDown];
+    newElements[indexDown] = element;
+    state.project = {
+      ...state.project,
+      elements: newElements
+    };
   },
-  setDefaultStartingProject (state) {
-    state.project = { ...defaultStartingProject }
+  setDefaultStartingProject(state) {
+    state.project = {
+      ...defaultStartingProject
+    };
+  },
+  setProject(state, newProject) {
+    state.project = newProject;
   }
-  // setGifWriter (state, value) {
-  //   // state.globals.gifWriter.frames = []
-  //   state.globals.gifWriter = value
-  // },
-  // addFrameToGifWriter (state, value) {
-  //   state.globals.gifWriter.addFrame(value.ctx, {delay: value.delay, copy: true})
-  // }
-  // addFrameToGifWriter (state, value) {
-  //   state.globals.gifWriter.addFrame(value.ctx, {delay: value.delay, copy: true})
-  // }
-}
+};

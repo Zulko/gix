@@ -9,12 +9,12 @@ el-carousel.elemented-gif-carousel(:interval="4000" type="card" height="250px")
 <script>
 export default {
   props: {
-    projects: {default: () => ([])}
+    projects: { default: () => ([]), type: Array },
   },
   method: {
-    handleSlideChange () {}
-  }
-}
+    handleSlideChange() {},
+  },
+};
 </script>
 
 <style lang='scss' scoped>

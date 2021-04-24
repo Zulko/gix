@@ -1,17 +1,25 @@
 <template lang="pug">
-.navbar
-  img(src='/static/img/title.svg')
+b-navbar.navbar(:mobile-burger='false')
+  template(slot='brand')
+    b-navbar-item(tag='router-link'  :to="{ path: '/' }")
+      img(src='@/assets/title.svg')
+  template(slot='start')
+    b-navbar-item(tag='router-link', to='home') Home
+    b-navbar-item(tag='router-link', to='editor' v-if='showEditor') Editor
+    b-navbar-item(tag='router-link', to='docs') Docs
 </template>
 <script>
 export default {
-}
+  computed: {
+    showEditor() {
+      return this.$store.state.project;
+    },
+  },
+};
 </script>
 <style lang='scss'>
 .navbar {
-  img {
-    height: 100px;
-    display: block;
-    margin: 2em auto 2em;
-  }
+  margin: 1em auto 1em 90px;
+  background: none
 }
 </style>

@@ -1,106 +1,91 @@
 <template lang="pug">
-.svg-composition(@mouseup='stopDragging',
-                 @mousemove='updateDrag'
-                 @mouseleave='cancelDragging')
+.svg-composition(
+  @mouseup='stopDragging',
+  @mousemove='updateDrag'
+  @mouseleave='cancelDragging'
+)
   svg(
-    :width="svgWidth", :height="svgHeight"
-    :viewbox="`0 0 ${svgWidth} ${svgHeight}`",
+    :viewBox="`0 0 ${svgWidth} ${svgHeight}`",
     xmlns="http://www.w3.org/2000/svg",
-    :style="style")
-    svg-element(v-for='element in svgElements', :key='element.id',
-                :element='element', :currentTime='currentTime'
-                :drag='(draggedElement && (element.id === draggedElement.id)) ? drag : null'
-                @startdragging='startDragging')
+    :style="style"
+  )
+    svg-element(
+      v-for='element in svgElements', :key='element.id',
+      :element='element'
+      :drag='(draggedElement && (element.id === draggedElement.id)) ? drag : null'
+      @startdragging='startDragging'
+    )
 </template>
 <script>
-import { cloneWithInlineStyle } from './inlineSvgStyles'
-import SvgElement from './SvgElement/SvgElement'
+// import { cloneWithInlineStyle } from './inlineSvgStyles';
+import SvgElement from './SvgElement.vue';
+
 export default {
   props: {
-    inlineStylesInEmittedSVG: {default: true},
-    svgElements: {default: ([])},
-    svgWidth: {default: 100},
-    svgHeight: {default: 100},
-    currentTime: {default: 0},
-    backgroundColor: {default: 'black'},
-    emitSVG: true
+    inlineStylesInEmittedSVG: { default: true, type: Boolean },
+    svgElements: { default: () => ([]), type: Array },
+    svgWidth: { default: 100, type: Number },
+    svgHeight: { default: 100, type: Number },
+    scale: { default: 1, type: Number },
+    backgroundColor: { default: 'black', type: String },
+    emitSVG: { default: true, type: Boolean },
   },
-  data () {
+  data() {
     return {
       svgDomElement: null,
       draggedElement: null,
       dragInit: null,
       drag: {
         x: 0,
-        y: 0
-      }
-    }
+        y: 0,
+      },
+    };
   },
-  mounted () {
-    this.svgDomElement = this.$el.getElementsByTagName('svg')[0]
-    console.log(this.svgDomElement)
+  mounted() {
+    this.svgDomElement = this.$el.getElementsByTagName('svg')[0]; //eslint-disable-line
   },
   methods: {
-    startDragging (e) {
-      this.draggedElement = e.element
+    startDragging(e) {
+      this.draggedElement = e.element;
       this.dragInit = {
         x: e.evt.clientX,
-        y: e.evt.clientY
-      }
+        y: e.evt.clientY,
+      };
     },
-    cancelDragging (e) {
-      this.dragInit = null
-      this.draggedElement = null
+    cancelDragging() {
+      this.dragInit = null;
+      this.draggedElement = null;
       this.drag = {
         x: 0,
-        y: 0
-      }
+        y: 0,
+      };
     },
-    updateDrag (e) {
+    updateDrag(e) {
       if (this.dragInit) {
         this.drag = {
-          x: e.clientX - this.dragInit.x,
-          y: e.clientY - this.dragInit.y
-        }
+          x: (e.clientX - this.dragInit.x) / this.scale,
+          y: (e.clientY - this.dragInit.y) / this.scale,
+        };
       }
     },
-    stopDragging (e) {
+    stopDragging() {
       if (this.dragInit) {
-        this.$emit('dragged', {element: this.draggedElement, drag: this.drag})
+        this.$emit('dragged', { element: this.draggedElement, drag: this.drag });
       }
-      this.cancelDragging()
-    }
-  },
-  watch: {
-    svgElements: {
-      deep: true,
-      handler () {
-        var svgElement
-        if (!this.emitSVG) {
-          this.$emit('newFrame', {})
-        } else {
-          if (this.inlineStylesInEmittedSVG) {
-            svgElement = cloneWithInlineStyle(this.svgDomElement)
-          } else {
-            svgElement = this.svgDomElement
-          }
-          var svg = new XMLSerializer().serializeToString(svgElement)
-          this.$emit('newFrame', svg)
-        }
-      }
-    }
+      this.cancelDragging();
+    },
   },
   computed: {
-    style () {
+    style() {
       return {
-        width: this.svgWidth + 'px',
-        height: this.svgHeight + 'px',
-        backgroundColor: this.backgroundColor
-      }
-    }
+        width: `${this.svgWidth * this.scale}px`,
+        height: `${this.svgHeight * this.scale}px`,
+        backgroundColor: this.backgroundColor,
+      };
+    },
   },
   components: {
-    'svg-element': SvgElement
-  }
-}
+    'svg-element': SvgElement,
+  },
+};
 </script>

@@ -1,22 +1,27 @@
-<template lang='pug'>
-  #app
-    navbar
-    router-view
-    app-footer
+<template lang="pug">
+#app
+  navbar
+  router-view
+  app-footer
 </template>
 
 <script>
+import Navbar from './Navbar.vue';
+import Footer from './Footer.vue';
+
 export default {
   name: 'App',
   components: {
-    navbar: require('./Navbar.vue').default,
-    'app-footer': require('./Footer.vue').default
-  }
-}
+    navbar: Navbar,
+    'app-footer': Footer,
+  },
+  mounted() {
+  },
+};
 </script>
 
-<style>
-@import 'https://fonts.googleapis.com/css?family=Raleway|Kalam|Caveat+Brush';
+<style lang="scss">
+@import 'https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Caveat+Brush';
 #app {
   font-family: 'Lato', Helvetica, Arial, sans-serif !important;
   -webkit-font-smoothing: antialiased;
@@ -24,22 +29,12 @@ export default {
   color: #2c3e50;
   position: relative;
 }
-.el-tooltip__popper,
-.el-cascader-menu__item,
-.el-select-dropdown__item,
-.el-notification,
-.el-upload__text {
-  font-family: 'Lato' !important;
-}
 
-/* .el-cascader__label {
-  font-family: 'Oswald';
-} */
-
-.inline-setting-text, .inline-setting-widget {
+.inline-setting-text,
+.inline-setting-widget {
   display: inline-block;
   vertical-align: middle;
-  }
+}
 .inline-setting-text {
   margin-left: 15px;
   margin-right: 5px;
@@ -48,17 +43,20 @@ export default {
   }
 }
 
-body {
+html {
+  margin: 0;
   background-color: #ffffff;
-  background-image: url(/static/img/background2.svg);
-  background-size: contain;
+  background-image: url(/img/background-2.svg);
+  background-size: cover;
   background-position: top right;
   background-repeat: repeat-y;
   min-height: 100%;
 }
 
-h1, h2 {
-  font-family: 'Permanent Marker';
+h1,
+h2,
+h3 {
+  font-family: 'Caveat Brush';
   text-align: center;
   font-weight: normal;
 }
@@ -67,7 +65,6 @@ h1 {
   margin: 0em;
 }
 h2 {
-  font-family: "Caveat Brush";
   text-transform: uppercase;
   font-size: 2em;
 }
@@ -77,4 +74,16 @@ hr {
   border: none;
   background-color: #eee;
 }
+.progress {
+  transition: none
+}
+
+// .field {
+//   text-align: center;
+// }
+// .field.is-floating-label .label {
+//   left: none;
+//   text-align: center;
+//   margin: 0 auto;
+// }
 </style>

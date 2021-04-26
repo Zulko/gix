@@ -2,12 +2,12 @@
 b-field.font-picker
   b-autocomplete(
     :value='font',
-    open-on-focus
-    :data="fontsInSelectMenu"
-    group-field="type"
-    group-options="items"
-    @select="selectFont"
-    @typing="v => {font = v}"
+    open-on-focus,
+    :data='fontsInSelectMenu',
+    group-field='type',
+    group-options='items',
+    @select='selectFont',
+    @typing='(v) => { font = v; }',
     :style='fontStyle(font)'
   )
     template(slot-scope='props')
@@ -15,7 +15,6 @@ b-field.font-picker
 </template>
 
 <script>
-
 import WebFont from 'webfontloader';
 
 export default {
@@ -32,11 +31,11 @@ export default {
   },
   computed: {
     fontsInProject() {
-      const fonts = this.$store.state.project.elements.map(
-        (e) => (e.type === 'text' ? e.font.family : null),
-      ).filter((e) => e != null);
+      const fonts = this.$store.state.project.elements
+        .map((e) => (e.type === 'text' ? e.font.family : null))
+        .filter((e) => e != null);
       fonts.sort();
-      return [ ...new Set(fonts) ];
+      return [...new Set(fonts)];
     },
     fontsInUserFavorites() {
       return [];
@@ -49,11 +48,14 @@ export default {
       return [
         {
           type: 'New font',
-          items: [
-            ...this.fontsInProject,
-            ...this.fontsInUserFavorites,
-            this.fontsInRecentlyUsed,
-          ].indexOf(this.font) >= 0 ? [] : [ this.font ],
+          items:
+            [
+              ...this.fontsInProject,
+              ...this.fontsInUserFavorites,
+              this.fontsInRecentlyUsed,
+            ].indexOf(this.font) >= 0
+              ? []
+              : [this.font],
         },
         {
           type: 'In this project',
@@ -84,7 +86,7 @@ export default {
         console.log(`loading ${font}...`); //eslint-disable-line
         WebFont.load({
           google: {
-            families: [ font ],
+            families: [font],
           },
           active() {
             self.isFetching = false;

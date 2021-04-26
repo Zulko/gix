@@ -3,41 +3,48 @@
   asset-preview(:element='element', :assetInfos='assetInfos')
   .current-url(v-if='!usesDataUrl', :title='element.url')
     center
-      p {{simplifiedUrl}}
-    b-field(grouped position='is-centered')
+      p {{ simplifiedUrl }}
+    b-field(grouped, position='is-centered')
       p.control
         b-field
-          a(:href='element.url' target='_blank')
+          a(:href='element.url', target='_blank')
             b-button(icon-left='open-in-new') Go to link
       p.control
         b-field
-          b-button(icon-left='pencil' @click='dialogIsVisible = true') Change
+          b-button(icon-left='pencil', @click='dialogIsVisible = true') Change
       p.control
         b-field
           b-select(
-            :value='element.subtype'
-            @input='v => updateElement({subtype: v})' size='mini'
+            :value='element.subtype',
+            @input='(v) => updateElement({ subtype: v })',
+            size='mini'
           )
             option(
-              v-for="label, subtype  in subtypes"
+              v-for='(label, subtype in subtypes)',
               :value='subtype',
               :key='subtype',
               :label='label'
             )
-  p.click-me(v-if='usesDataUrl' @click='dialogIsVisible = true') Embedded asset
-  b-dialog(v-if='dialogIsVisible' append-to-body @cancel='dialogIsVisible = false')
+  p.click-me(v-if='usesDataUrl', @click='dialogIsVisible = true') Embedded asset
+  b-dialog(
+    v-if='dialogIsVisible',
+    append-to-body,
+    @cancel='dialogIsVisible = false'
+  )
     center
       h2 Load a new asset
       file-or-url-form(
-        label='GIF/Image/Video URL or file'
+        label='GIF/Image/Video URL or file',
         @urlInput='handleUrlInput',
         @fileInput='handleFileInput'
       )
-
 </template>
 
 <script>
-import { autoDetectedFrameServer, urlToSubtype } from '@/gix-renderer/FrameServer/autoDetectedFrameServer';
+import {
+  autoDetectedFrameServer,
+  urlToSubtype,
+} from '@/gix-renderer/FrameServer/autoDetectedFrameServer';
 import FileOrUrlForm from '@/components/widgets/FileOrUrlForm.vue';
 
 import ElementComponentMixin from '../../ElementComponentMixin.vue';
@@ -62,7 +69,10 @@ export default {
       return this.element.url.startsWith('data:');
     },
     simplifiedUrl() {
-      let url = this.element.url.replace('https://', '').replace('http://', '').replace('www.', '');
+      let url = this.element.url
+        .replace('https://', '')
+        .replace('http://', '')
+        .replace('www.', '');
       if (url.length > 30) {
         url = `${url.substring(0, 15)}…${url.substring(url.length - 15, url.length)}`;
       }
@@ -71,7 +81,10 @@ export default {
   },
   methods: {
     async handleUrlInput(url) {
-      const extension = url.split('.').pop().toLowerCase();
+      const extension = url
+        .split('.')
+        .pop()
+        .toLowerCase();
       const subtype = urlToSubtype(extension) || 'image';
       this.dialogIsVisible = false;
       this.updateElement({ url, subtype });
@@ -95,7 +108,8 @@ export default {
     this.updateInfos();
   },
   watch: {
-    'element.url': async function (url) { //eslint-disable-line
+    'element.url': async function(url) {
+      //eslint-disable-line
       await this.updateInfos();
       this.updateElement({
         size: {

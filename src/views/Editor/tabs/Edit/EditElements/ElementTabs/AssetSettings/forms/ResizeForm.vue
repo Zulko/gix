@@ -1,34 +1,40 @@
 <template lang="pug">
 .text-position-form
   b-field(
-    grouped group-multiline
-    label='Resize'
-    message="Changing the size of this element will resize the whole project")
-
+    grouped,
+    group-multiline,
+    label='Resize',
+    message='Changing the size of this element will resize the whole project'
+  )
     p.control
-      b-field(label='Width' label-position='on-border')
+      b-field(label='Width', label-position='on-border')
         b-numberinput.number-input(
-          size='mini', controls-position="compact", :min='0',
+          size='mini',
+          controls-position='compact',
+          :min='0',
           v-model='elementWidth'
         )
     p.control
-      b-field(label='Height' label-position='on-border')
+      b-field(label='Height', label-position='on-border')
         b-numberinput.number-input(
-          controls-position='compact'
-          size='mini', :min='0',
+          controls-position='compact',
+          size='mini',
+          :min='0',
           v-model='elementHeight'
         )
     p.control(style='margin-top: -0.4em') Keep aspect ratio
       br
-      b-checkbox(:value='keepAspectRatio',
-                 @change='changeAspectRatioCheckbox')
-  b-field(grouped group-multiline label='Crop')
-    p.control(v-for="direction in ['top', 'bottom', 'left', 'right']")
-      b-field(:label="direction" label-position='on-border')
+      b-checkbox(:value='keepAspectRatio', @change='changeAspectRatioCheckbox')
+  b-field(grouped, group-multiline, label='Crop')
+    p.control(v-for='direction in ["top", "bottom", "left", "right"]')
+      b-field(:label='direction', label-position='on-border')
         b-numberinput.number-input(
-            size='mini', controls-position="compact", :min='0',
-            :value='element.crop[direction]',
-            @input='v => updateCrop(v, direction)')
+          size='mini',
+          controls-position='compact',
+          :min='0',
+          :value='element.crop[direction]',
+          @input='(v) => updateCrop(v, direction)'
+        )
 </template>
 
 <script>
@@ -43,7 +49,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations([ 'updateProject' ]),
+    ...mapMutations(['updateProject']),
     updateCrop(v, direction) {
       const oldValue = this.element.crop[direction];
       const change = v - oldValue;
@@ -53,7 +59,7 @@ export default {
       const data = { crop: {} };
       data.crop[direction] = v;
       const assetStats = this.$store.state.assetStats[this.element.id];
-      if ((direction === 'top') || (direction === 'bottom')) {
+      if (direction === 'top' || direction === 'bottom') {
         const currentHeight = assetStats.height - this.element.crop.top - this.element.crop.bottom;
         const propHeightChange = change / currentHeight;
         data.size = {

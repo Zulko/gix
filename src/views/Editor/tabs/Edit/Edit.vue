@@ -3,11 +3,11 @@
   .gix-preview
     gix-player(
       v-if='this.$store.state.project.elements',
-      :project="this.$store.state.project"
+      :project='this.$store.state.project',
       :showStats='true',
       :showControls='true',
       :freeze='!isActive',
-      @dragged='onElementDragged'
+      @dragged='onElementDragged',
       :time.sync='playerTime'
     )
   edit-elements(v-if='$store.state.project.canvas')
@@ -41,9 +41,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations([
-      'updateElement',
-    ]),
+    ...mapMutations(['updateElement']),
     onElementDragged(e) {
       this.updateElement({
         elementId: e.element.id,
@@ -63,7 +61,8 @@ export default {
   .gix-preview {
     margin-bottom: 4em;
   }
-  .el-input-number.is-controls-right .el-input__inner, .el-input__inner {
+  .el-input-number.is-controls-right .el-input__inner,
+  .el-input__inner {
     padding-left: 5px;
     padding-right: 5px;
     text-align: left;

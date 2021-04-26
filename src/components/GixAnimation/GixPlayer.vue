@@ -10,16 +10,15 @@
     :time='currentTime',
     :includeSVGInEmittedFrames='false',
     :project='project',
-    @new-frame='handleNewFrame'
-    @dragged="evt => $emit('dragged', evt)",
-    @started-loading='isLoading = true'
+    @new-frame='handleNewFrame',
+    @dragged='(evt) => $emit("dragged", evt)',
+    @started-loading='isLoading = true',
     @finished-loading='isLoading = false',
     :scale='parameters.scale'
   )
   .gix-player-stats(v-if='showStats')
-    | {{project.canvas.width}}x{{project.canvas.height}}
-    | @{{parseInt(currentFrameRate)}}/{{parameters.fps}}fps
-
+    | {{ project.canvas.width }}x{{ project.canvas.height }}
+    | @{{ parseInt(currentFrameRate) }}/{{ parameters.fps }}fps
 </template>
 
 <script>
@@ -41,7 +40,7 @@ export default {
     const parameters = {
       ...this.params,
       fps: this.project.fps,
-      playTimeCrop: [ 0, this.project.duration ],
+      playTimeCrop: [0, this.project.duration],
       speedFactor: 1.0,
       loop: true,
       status: 'play',
@@ -59,19 +58,19 @@ export default {
   },
   methods: {
     handleNewFrame() {
-      if (!this.isLoading && (this.parameters.status === 'play') && !this.isBusy && !this.freeze) {
+      if (!this.isLoading && this.parameters.status === 'play' && !this.isBusy && !this.freeze) {
         this.incrementTimeAfterWait();
         this.isBusy = true;
       }
     },
     incrementTimeAfterWait() {
       const seconds = new Date().getTime() / 1000;
-      const delta = 1000 * ((1.0 / this.parameters.fps) - (seconds - this.dateOfLastEmittedFrame));
+      const delta = 1000 * (1.0 / this.parameters.fps - (seconds - this.dateOfLastEmittedFrame));
       setTimeout(this.incrementTime, Math.max(0, delta));
     },
     incrementTime() {
       let newTime = this.currentTime + this.parameters.speedFactor / this.parameters.fps;
-      const [ start, end ] = this.parameters.playTimeCrop;
+      const [start, end] = this.parameters.playTimeCrop;
       if (newTime >= end) {
         if (this.parameters.loop) {
           newTime = start;
@@ -86,7 +85,7 @@ export default {
     },
     updateTimeStats() {
       this.dateOfLastEmittedFrame = new Date().getTime() / 1000;
-      this.lastFramesEmitted = [ this.dateOfLastEmittedFrame ].concat(this.lastFramesEmitted);
+      this.lastFramesEmitted = [this.dateOfLastEmittedFrame].concat(this.lastFramesEmitted);
       if (this.lastFramesEmitted.length === 20) {
         const timeXframesAgo = this.lastFramesEmitted.pop();
         this.currentFrameRate = 19.0 / (this.dateOfLastEmittedFrame - timeXframesAgo);
@@ -102,7 +101,7 @@ export default {
       self.fontsInProject.forEach((font) => {
         WebFont.load({
           google: {
-            families: [ font ],
+            families: [font],
           },
         });
       });
@@ -114,11 +113,11 @@ export default {
   },
   computed: {
     fontsInProject() {
-      const fonts = this.$store.state.project.elements.map(
-        (e) => (e.type === 'text' ? e.font.family : null),
-      ).filter((e) => e != null);
+      const fonts = this.$store.state.project.elements
+        .map((e) => (e.type === 'text' ? e.font.family : null))
+        .filter((e) => e != null);
       fonts.sort();
-      return [ ...new Set(fonts) ];
+      return [...new Set(fonts)];
     },
     displayStyle() {
       return {
@@ -135,7 +134,7 @@ export default {
     },
     'parameters.status': {
       handler(val) {
-        if ((val === 'play') && !this.isLoading) {
+        if (val === 'play' && !this.isLoading) {
           this.play();
         }
       },

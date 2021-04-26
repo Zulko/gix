@@ -2,65 +2,63 @@
 .gix-player-controls
   section
     b-button.control(
-      style='margin-right: 1em;'
-      @click="parameters = {...parameters, status: playButtonAction}"
-      :icon-right="playButtonAction"
+      style='margin-right: 1em',
+      @click='parameters = { ...parameters, status: playButtonAction }',
+      :icon-right='playButtonAction'
     )
     b-button.show-more(
-      size='mini'
+      size='mini',
       @click='showAllControls = !showAllControls'
-    ) {{showAllControls ? 'Hide' : 'Show' }} player controls
-  b-field.optional-controls(v-if='showAllControls' position='is-centered')
-      p.control
-        b-field(label='speed' label-position='on-border')
-          b-select(v-model='parameters.speedFactor')
-              option(
-                v-for='value, i in [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3, 5]'
-                :value='value'
-                :key='i'
-                :label='`${parseInt(100 * value)}` + "%"'
-              )
-      p.control
-        b-field(label='scale' label-position='on-border')
-          b-select(v-model='parameters.scale')
-            option(
-              v-for='value, i in [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3, 5]'
-              :value='value'
-              :key='i'
-              :label='`${parseInt(100 * value)}` + "%"'
-            )
-      p.control
-        b-field(label='fps' label-position='on-border')
-          b-select(v-model='parameters.fps')
-              option(
-                v-for='value, i in [project.fps, 5, 10, 15, 20, 25]'
-                :value='value'
-                :key='i'
-                :label='`${value}`'
-              )
-  .control-time-sliders(:style='{width: playerWidth + "px"}')
+    ) {{ showAllControls ? "Hide" : "Show" }} player controls
+  b-field.optional-controls(v-if='showAllControls', position='is-centered')
+    p.control
+      b-field(label='speed', label-position='on-border')
+        b-select(v-model='parameters.speedFactor')
+          option(
+            v-for='(value, i in [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3, 5])',
+            :value='value',
+            :key='i',
+            :label='`${parseInt(100 * value)}` + "%"'
+          )
+    p.control
+      b-field(label='scale', label-position='on-border')
+        b-select(v-model='parameters.scale')
+          option(
+            v-for='(value, i in [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3, 5])',
+            :value='value',
+            :key='i',
+            :label='`${parseInt(100 * value)}` + "%"'
+          )
+    p.control
+      b-field(label='fps', label-position='on-border')
+        b-select(v-model='parameters.fps')
+          option(
+            v-for='(value, i in [project.fps, 5, 10, 15, 20, 25])',
+            :value='value',
+            :key='i',
+            :label='`${value}`'
+          )
+  .control-time-sliders(:style='{ width: playerWidth + "px" }')
     b-slider.time-crop-bar(
-      v-if='showAllControls'
+      v-if='showAllControls',
       v-model='playTimeCrop',
-      range
-      :min="0",
-      :max="project.duration",
+      range,
+      :min='0',
+      :max='project.duration',
       :step='0.05'
     )
 
     b-slider.time-bar(
       :value='time',
-      :min="0",
-      :max="project.duration",
-      :step='0.05'
-      size='is-small'
-      @input="val => $emit('update:time', val)"
+      :min='0',
+      :max='project.duration',
+      :step='0.05',
+      size='is-small',
+      @input='(val) => $emit("update:time", val)'
     )
-
 </template>
 
 <script>
-
 export default {
   props: {
     project: { default: () => ({}), type: Object },
@@ -85,10 +83,10 @@ export default {
         this.$emit('update:params', val);
       },
     },
-    'project.duration': function (val, oldVal) {
-      const [ start, end ] = this.playTimeCrop;
+    'project.duration': function(val, oldVal) {
+      const [start, end] = this.playTimeCrop;
       if (end === oldVal) {
-        this.playTimeCrop = [ start, val ];
+        this.playTimeCrop = [start, val];
       }
     },
   },

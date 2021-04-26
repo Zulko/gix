@@ -12,7 +12,7 @@ function generateRandomID() {
 /* eslint-enable */
 
 function elementAndIndex(elementId, state) {
-  const index = state.project.elements.map(c => c.id).indexOf(elementId);
+  const index = state.project.elements.map((c) => c.id).indexOf(elementId);
   return [state.project.elements[index], index];
 }
 
@@ -55,7 +55,7 @@ export default {
     newElement.id = generateRandomID();
     state.project = {
       ...state.project,
-      elements: [...state.project.elements, newElement]
+      elements: [...state.project.elements, newElement],
     };
   },
   duplicateElement(state, elementId) {
@@ -66,7 +66,7 @@ export default {
     newElements.splice(index + 1, 0, newElement);
     state.project = {
       ...state.project,
-      elements: newElements
+      elements: newElements,
     };
   },
   deleteElement(state, elementId) {
@@ -83,7 +83,7 @@ export default {
     newElements[indexUp] = element;
     state.project = {
       ...state.project,
-      elements: newElements
+      elements: newElements,
     };
   },
   moveElementDown(state, elementId) {
@@ -94,15 +94,15 @@ export default {
     newElements[indexDown] = element;
     state.project = {
       ...state.project,
-      elements: newElements
+      elements: newElements,
     };
   },
   setDefaultStartingProject(state) {
     state.project = {
-      ...defaultStartingProject
+      ...defaultStartingProject,
     };
   },
   setProject(state, newProject) {
     state.project = newProject;
-  }
+  },
 };

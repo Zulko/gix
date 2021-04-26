@@ -187,7 +187,7 @@ async function renderGixToGif(gix, params, progressCallback) {
   const timeBetweenFrames = 1.0 / fps;
   const duration = gix.duration / (params.speedFactor || 1);
   const numberOfFrames = Math.floor(duration / timeBetweenFrames);
-  const frameTimes = [ ...Array(numberOfFrames).keys() ].map(
+  const frameTimes = [...Array(numberOfFrames).keys()].map(
     (e) => timeBetweenFrames * e * (params.speedFactor || 1),
   );
   for (const [i, time] of frameTimes.entries()) { //eslint-disable-line

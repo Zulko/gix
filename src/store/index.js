@@ -12,7 +12,7 @@ const store = new Vuex.Store({
   mutations,
   getters,
   strict: true,
-  plugins
+  plugins,
 });
 
 if (module.hot) {
@@ -23,7 +23,7 @@ if (module.hot) {
     const newMutations = require('./mutations').default; // eslint-disable-line
     // swap in the new modules and mutations
     store.hotUpdate({
-      mutations: newMutations
+      mutations: newMutations,
     });
   });
 }

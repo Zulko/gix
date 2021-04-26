@@ -9,4 +9,8 @@ parserOptions:
   sourceType: module
 plugins:
   - vue
-rules: {}
+rules:
+  {
+    'no-param-reassign':
+      ['error', { 'props': true, 'ignorePropertyModificationsFor': ['state'] }],
+  }

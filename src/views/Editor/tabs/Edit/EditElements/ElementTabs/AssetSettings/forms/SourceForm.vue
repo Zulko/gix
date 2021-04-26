@@ -20,7 +20,7 @@
             size='mini'
           )
             option(
-              v-for='(label, subtype in subtypes)',
+              v-for='(label, subtype) in subtypes',
               :value='subtype',
               :key='subtype',
               :label='label'
@@ -44,8 +44,8 @@
 import {
   autoDetectedFrameServer,
   urlToSubtype,
-} from '@/gix-renderer/FrameServer/autoDetectedFrameServer';
-import FileOrUrlForm from '@/components/widgets/FileOrUrlForm.vue';
+} from '../../../../../../../../gix-renderer/FrameServer/autoDetectedFrameServer';
+import FileOrUrlForm from '../../../../../../../../components/widgets/FileOrUrlForm.vue';
 
 import ElementComponentMixin from '../../ElementComponentMixin.vue';
 import AssetPreview from './AssetPreview.vue';
@@ -108,7 +108,7 @@ export default {
     this.updateInfos();
   },
   watch: {
-    'element.url': async function(url) {
+    'element.url': async function elementURL() {
       //eslint-disable-line
       await this.updateInfos();
       this.updateElement({

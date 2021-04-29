@@ -173,7 +173,7 @@ async function renderGixToGif(gix, params, progressCallback) {
   const fps = params.fps || gix.fps;
   const gif = new GIF({
     workers: 2,
-    workerScript: '/gif.worker.js',
+    workerScript: '/gix/gif.worker.js',
     quality: params.gifQuality || 1,
     width: Math.round(gix.canvas.width * params.scale),
     height: Math.round(gix.canvas.height * params.scale),

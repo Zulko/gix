@@ -13,8 +13,8 @@
   edit-elements(v-if='$store.state.project.canvas')
 </template>
 <script>
-import GixPlayer from '@/components/GixAnimation/GixPlayer.vue';
 import { mapMutations } from 'vuex';
+import GixPlayer from '../../../../components/GixAnimation/GixPlayer.vue';
 import EditElements from './EditElements/EditElements.vue';
 
 export default {

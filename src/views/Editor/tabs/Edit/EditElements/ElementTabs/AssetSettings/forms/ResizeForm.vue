@@ -76,7 +76,6 @@ export default {
       }
       this.updateElement(data);
       if (this.element.editorSettings.isMainElement) {
-        console.log('here');
         this.updateProject({ canvas: { width: data.size.width, height: data.size.height } });
       }
     },

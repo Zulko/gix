@@ -15,7 +15,7 @@
       b-field(label='speed', label-position='on-border')
         b-select(v-model='parameters.speedFactor')
           option(
-            v-for='(value, i in [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3, 5])',
+            v-for='(value, i) in [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3, 5]',
             :value='value',
             :key='i',
             :label='`${parseInt(100 * value)}` + "%"'
@@ -24,7 +24,7 @@
       b-field(label='scale', label-position='on-border')
         b-select(v-model='parameters.scale')
           option(
-            v-for='(value, i in [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3, 5])',
+            v-for='(value, i) in [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3, 5]',
             :value='value',
             :key='i',
             :label='`${parseInt(100 * value)}` + "%"'
@@ -33,7 +33,7 @@
       b-field(label='fps', label-position='on-border')
         b-select(v-model='parameters.fps')
           option(
-            v-for='(value, i in [project.fps, 5, 10, 15, 20, 25])',
+            v-for='(value, i) in [project.fps, 5, 10, 15, 20, 25]',
             :value='value',
             :key='i',
             :label='`${value}`'
@@ -83,7 +83,7 @@ export default {
         this.$emit('update:params', val);
       },
     },
-    'project.duration': function(val, oldVal) {
+    'project.duration': function projectDuration(val, oldVal) {
       const [start, end] = this.playTimeCrop;
       if (end === oldVal) {
         this.playTimeCrop = [start, val];

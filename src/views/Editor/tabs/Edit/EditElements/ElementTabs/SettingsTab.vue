@@ -76,12 +76,10 @@ export default {
             ? Math.round(width / this.aspectRatio)
             : this.canvasHeight
         );
-        console.log(width, height);
         this.updateProject({ canvas: { width, height } });
         const self = this;
         this.$store.state.project.elements.forEach((e) => {
           if (e.editorSettings.isMainElement) {
-            console.log(width, height);
             self.updateElement({
               elementId: e.id,
               update: { size: { width, height } },

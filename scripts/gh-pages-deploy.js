@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 const execa = require('execa');
 const fs = require('fs');
+
 (async () => {
   try {
     await execa('git', ['checkout', '--orphan', 'gh-pages']);
@@ -15,7 +16,7 @@ const fs = require('fs');
     console.log('Pushing to gh-pages...');
     await execa('git', ['push', 'origin', 'HEAD:gh-pages', '--force']);
     await execa('rm', ['-r', folderName]);
-    await execa('git', ['checkout', '-f', 'main']);
+    await execa('git', ['checkout', '-f', 'master']);
     await execa('git', ['branch', '-D', 'gh-pages']);
     console.log('Successfully deployed, check your settings');
   } catch (e) {

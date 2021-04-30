@@ -1,84 +1,84 @@
 <template lang="pug">
 section.export-gif
   h2 Export as GIF
-  section.section
-    b-field(grouped, multiline-group)
-      p.control
-        b-field(label='GIF speed', label-position='on-border')
-          b-select(v-model='gifParams.speedFactor')
-            option(
-              v-for='(value, i) in [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3, 5]',
-              :value='value',
-              :key='i',
-              :label='`${parseInt(100 * value)}` + "%"'
-            )
-      p.control
-        b-field(label='GIF scale', label-position='on-border')
-          b-select(v-model='gifParams.scale')
-            option(
-              v-for='(value, i) in [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3, 5]',
-              :value='value',
-              :key='i',
-              :label='`${parseInt(100 * value)}` + "%"'
-            )
-      p.control
-        b-field(label='GIF FPS', label-position='on-border')
-          b-select(v-model='gifParams.useDefaultFps')
-            option(
-              :value='true',
-              :label='`Project FPS (${$store.state.project.fps})`'
-            )
-            option(:value='false', label='Custom FPS')
-      p.control(v-if='!gifParams.useDefaultFps')
-        b-numberinput(
-          v-model='gifParams.fps',
-          controls-position='compact',
-          style='width: 130px'
-        )
-    b-field(grouped, multiline-group)
-      p.control
-        b-field(label='Transparency', label-position='on-border')
-          b-select(v-model='gifParams.transparency')
-            option(value='None', label='None')
-            option(value='#00FF00', label='Green')
-      p.control
-        b-field(label='Dithering', label-position='on-border')
-          b-select(v-model='gifParams.dithering')
-            option(
-              v-for='dithering in ditherings',
-              :key='dithering',
-              :value='dithering',
-              :label='dithering'
-            )
-            option(value='floyd', label='Custom FPS')
 
   section.section
     p
-      b-button(
-        v-if='!gifGeneration.inProgress',
-        @click='generateGif',
-        type='is-primary'
-      ) Generate the GIF
+      div(v-if='!gifGeneration.inProgress')
+        b-button(
+          @click='generateGif',
+          type='is-primary'
+        ) Generate the GIF
+        div(style='margin: 1cm auto auto;')
+          b-field(multiline-group)
+            p.control
+              b-field(label='GIF speed', label-position='on-border')
+                b-select(v-model='gifParams.speedFactor')
+                  option(
+                    v-for='(value, i) in [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3, 5]',
+                    :value='value',
+                    :key='i',
+                    :label='`${parseInt(100 * value)}` + "%"'
+                  )
+            p.control
+              b-field(label='GIF scale', label-position='on-border')
+                b-select(v-model='gifParams.scale')
+                  option(
+                    v-for='(value, i) in [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3, 5]',
+                    :value='value',
+                    :key='i',
+                    :label='`${parseInt(100 * value)}` + "%"'
+                  )
+            p.control
+              b-field(label='GIF FPS', label-position='on-border')
+                b-select(v-model='gifParams.useDefaultFps')
+                  option(
+                    :value='true',
+                    :label='`Project FPS (${$store.state.project.fps})`'
+                  )
+                  option(:value='false', label='Custom FPS')
+            p.control(v-if='!gifParams.useDefaultFps')
+              b-numberinput(
+                v-model='gifParams.fps',
+                controls-position='compact',
+                style='width: 130px'
+              )
+            p.control
+              b-field(label='Transparency', label-position='on-border')
+                b-select(v-model='gifParams.transparency')
+                  option(value='None', label='None')
+                  option(value='#00FF00', label='Green')
+            p.control
+              b-field(label='Dithering', label-position='on-border')
+                b-select(v-model='gifParams.dithering')
+                  option(
+                    v-for='dithering in ditherings',
+                    :key='dithering',
+                    :value='dithering',
+                    :label='dithering'
+                  )
+                  option(value='floyd', label='Custom FPS')
 
-    div(v-if='gifGeneration.inProgress', style='margin-bottom: 2em')
-      p
-        b-field.gif-export-progress-bars
-          b-progress(
-            format='percent',
-            :max='100',
-            show-value,
-            :value='progressBarValue',
-            :type='progressBarValue === 100 ? "is-success" : "is-info"'
-          ) Frames rendering
-      p
-        b-field.gif-export-progress-bars
-          b-progress(
-            format='percent',
-            :max='100',
-            show-value,
-            :value='100 * (gifGeneration.progress.gif || 0)',
-            :type='gifGeneration.progress.gif === 1 ? "is-success" : "is-info"'
+      div(v-else, style='margin-bottom: 2em')
+        p
+          b-field.gif-export-progress-bars
+            b-progress(
+              format='percent',
+              :max='100',
+              show-value,
+              :value='progressBarValue',
+              :type='progressBarValue === 100 ? "is-success" : "is-info"'
+            ) Frames rendering
+        p
+          b-field.gif-export-progress-bars
+            b-progress(
+              format='percent',
+              :max='100',
+              show-value,
+              :value='100 * (gifGeneration.progress.gif || 0)',
+              :type='gifGeneration.progress.gif === 1 ? "is-success" : "is-info"'
           ) GIF creation
+
   section.result(v-if='gifDataURL && !gifGeneration.inProgress')
     h2 Your GIF
     .rendered-gif

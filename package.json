@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "base64url": "^3.0.1",
     "buefy": "^0.9.4",
     "canvg": "^3.0.7",
     "core-js": "^3.6.5",

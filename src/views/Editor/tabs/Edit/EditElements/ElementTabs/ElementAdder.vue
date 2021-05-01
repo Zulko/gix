@@ -1,15 +1,15 @@
 <template lang="pug">
 .element-adder
-  h2 Add a new element
   section.section
-    b-field(grouped multiline-group position='is-centered')
-      p.control(v-for='adder in adders')
-        b-button(
-          :key='adder.type'
-          @click='addElement(adder.type)'
-          :icon-left="adder.icon"
-          round
-        ) {{adder.tooltip}}
+   div.buttons( style='width: 300px; margin: 0 auto')
+      b-button.is-fullwidth(
+        v-for='adder in adders'
+
+        :key='adder.type'
+        @click='addElement(adder.type)'
+        :icon-left="adder.icon"
+        round
+      ) New {{adder.tooltip}}
 </template>
 <script>
 import { mapMutations } from 'vuex';

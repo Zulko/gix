@@ -1,5 +1,5 @@
 <template lang='pug'>
-b-tabs.editor-page(v-model='activeTab' class="block")
+b-tabs.editor-page(v-model='activeTab' class="block" :animated='false')
   b-tab-item(label='Edit', name='edit')
     edit(:isActive="activeTab === 0")
   b-tab-item(
@@ -16,19 +16,26 @@ b-tabs.editor-page(v-model='activeTab' class="block")
     :lazy='true'
   )
     export-image
-  b-tab-item(label='Save / share', name='save')
+  b-tab-item(label='Save / share', name='share')
     share
 </template>
 
 <script>
+import base64url from 'base64url';
+import pako from 'pako';
 import { mapMutations } from 'vuex';
 import Edit from './tabs/Edit/Edit.vue';
 import ExportGif from './tabs/ExportGif.vue';
 import ExportImage from './tabs/ExportImage.vue'; //eslint-disable-line
-import Save from './tabs/Save.vue';
 import Share from './tabs/Share.vue';
 
 export default {
+  props: {
+    query: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
   data() {
     return {
       activeTab: 0,
@@ -36,17 +43,22 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'setDefaultStartingProject',
+      'setProject',
     ]),
   },
   mounted() {
-    // this.setDefaultStartingProject();
+    if (this.query.projectData) {
+      const byteCharacters = base64url.decode(this.query.projectData);
+      const jsonData = pako.inflate(byteCharacters, { to: 'string' });
+      const projectData = JSON.parse(jsonData);
+      this.setProject(projectData);
+      this.$router.push({ name: 'editor' });
+    }
   },
   components: {
     edit: Edit,
     'export-gif': ExportGif,
     'export-image': ExportImage,
-    save: Save,
     share: Share,
   },
 };

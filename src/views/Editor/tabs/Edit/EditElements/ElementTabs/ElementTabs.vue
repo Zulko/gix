@@ -1,9 +1,5 @@
 <template lang="pug">
-b-tabs.element-tabs(tab-position='top' :multiline='true')
-  b-tab-item.element-adder(key="settings" icon='cog' label='Project settings')
-    settings-tab
-  b-tab-item.element-adder(key="adder" icon='plus-circle-outline' label='New element')
-    element-adder
+b-tabs.element-tabs(tab-position='top' :multiline='true', :animated='false')
   b-tab-item.element-tab-pane(
     v-for='element, i in $store.state.project.elements',
     :key='element.id',
@@ -21,6 +17,10 @@ b-tabs.element-tabs(tab-position='top' :multiline='true')
       :element='element',
       :showOptions='i === currentCarouselIndex'
     )
+  b-tab-item.element-adder(key="adder" icon='plus-circle-outline' label='New element')
+    element-adder
+  b-tab-item.element-adder(key="settings" icon='cog' label='Project settings')
+    settings-tab
 </template>
 
 <script>

@@ -31,6 +31,7 @@
 
 <script>
 // import GixAnimation from '@/components/GixAnimation/GixAnimation.vue';
+import base64url from 'base64url';
 import downloadjs from 'downloadjs';
 import pako from 'pako';
 import { mapMutations } from 'vuex';
@@ -78,7 +79,7 @@ export default {
       const { project } = this.$store.state;
       const compressed = pako.deflate(JSON.stringify(project), { to: 'string' });
       const baseUrl = window.location.href.split('?')[0];
-      const url = `${baseUrl}?data=${btoa(compressed)}`;
+      const url = `${baseUrl}?projectData=${encodeURI(base64url.encode(compressed))}`;
       this.urls = {
         URL: url,
         Markdown: `[${this.$store.state.project.infos.title}](${url})`,

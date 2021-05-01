@@ -19,7 +19,7 @@ export default {
     return {
       adders: [
         {
-          tooltip: 'Text',
+          tooltip: 'text',
           icon: 'format-font',
           type: 'text',
         },
@@ -29,12 +29,12 @@ export default {
           type: 'asset',
         },
         {
-          tooltip: 'Shape',
+          tooltip: 'shape',
           icon: 'shape',
           type: 'shape',
         },
         {
-          tooltip: 'From clipboard',
+          tooltip: 'pasted from clipboard',
           icon: 'content-paste',
           type: 'clipboard',
         },

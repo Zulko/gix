@@ -42,7 +42,6 @@ export default {
     lodash.merge(newElement, update);
     newElements[index] = newElement;
     state.project.elements = newElements;
-    // state.project.elements[index] = newElement
   },
   updateGlobals(state, update) {
     const newGlobals = deepcopy(state.globals);
@@ -62,6 +61,11 @@ export default {
     const newElements = state.project.elements.slice();
     const [element, index] = elementAndIndex(elementId, state);
     const newElement = deepcopy(element);
+    newElement.editorSettings = {
+      isMainElement: false,
+      isDefaultFocus: false,
+      isDraggable: true,
+    };
     newElement.id = generateRandomID();
     newElements.splice(index + 1, 0, newElement);
     state.project = {
@@ -104,5 +108,9 @@ export default {
   },
   setProject(state, newProject) {
     state.project = newProject;
+  },
+
+  saveProject(state, newProject) {
+    state.savedProjects[newProject.infos.title] = newProject;
   },
 };

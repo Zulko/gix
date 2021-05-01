@@ -3,10 +3,12 @@
   .share-form(style='width: 60%; margin: 1cm auto;')
     b-field(label='Project title', label-position='on-border')
       b-input(v-model='title', size='small')
+    b-field(label='Author', label-position='on-border')
+      b-input(v-model='author', size='small')
     b-field(label='Project tags', label-position='on-border')
       b-taginput(
         v-model='tags',
-        :data='filteredInputTags',
+        :data='tagsInSavedProjects',
         :autocomplete='true',
         :allow-new='true',
         :open-on-focus='true',
@@ -14,14 +16,15 @@
         placeholder='tags',
       )
     .buttons
-      b-button.is-fullwidth(@click='downloadProjectJson') Save project in your browser
-      b-button.is-fullwidth(@click='downloadProjectJson') Download Project as JSON file
+      b-button.is-fullwidth(@click='saveProjectAfterCheck') Save project in your browser
+      b-button.is-fullwidth(@click='downloadProjectJson') Download project as JSON file
       b-button.is-fullwidth(@click='createDirectLink').
         {{ urls ? 'Update' :  'Create' }} web sharing link
     .web-link-fields(v-if='urls')
       p Created a {{ urls.URL.length }}-character link.
       b-field(
         v-for='(url, mode) in urls'
+        :key='url'
         :label='`${mode} (${url.length} characters)`',
         label-position='on-border')
         b-input(expanded :value='url' disabled)
@@ -34,7 +37,7 @@
 import base64url from 'base64url';
 import downloadjs from 'downloadjs';
 import pako from 'pako';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 import tools from '../../../clipboard_tools';
 
 export default {
@@ -45,6 +48,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['tagsInSavedProjects']),
     title: {
       get() {
         if (this.$store.state.project.infos) {
@@ -54,6 +58,17 @@ export default {
       },
       set(value) {
         this.$store.commit('updateProject', { infos: { title: value } });
+      },
+    },
+    author: {
+      get() {
+        if (this.$store.state.project.infos) {
+          return this.$store.state.project.infos.author;
+        }
+        return 1;
+      },
+      set(value) {
+        this.$store.commit('updateProject', { infos: { author: value } });
       },
     },
     tags: {
@@ -69,7 +84,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['updateProject']),
+    ...mapMutations(['updateProject', 'saveProject']),
     downloadProjectJson() {
       const { project } = this.$store.state;
       const projectJSON = JSON.stringify(project, null, 2);
@@ -91,6 +106,23 @@ export default {
         message: `${mode} copied to clipboard`,
         type: 'is-success',
       });
+    },
+    saveProjectAfterCheck() {
+      const { project } = this.$store.state;
+      const { title } = project.infos;
+      if (this.$store.state.savedProjects[title]) {
+        this.$buefy.dialog.confirm({
+          message: `There is already a project named "${title}" in your library
+                      and it will be overwritten. Are you sure?`,
+          onConfirm: () => this.saveProjectAndToast(project, `Updated project "${title}"`),
+        });
+      } else {
+        this.saveProjectAndToast(project, `New project "${title}" saved`);
+      }
+    },
+    saveProjectAndToast(project, message) {
+      this.saveProject(project);
+      this.$buefy.toast.open({ message, type: 'is-success' });
     },
   },
   watch: {

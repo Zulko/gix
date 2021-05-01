@@ -9,8 +9,18 @@ function getElementIndex(state) {
 function assetStats(state) {
   return state.assetStats;
 }
+
+function tagsInSavedProjects(state) {
+  const allTags = [
+    ...Object.keys(state.savedProjects).map(
+      (name) => state.savedProjects[name].infos.tags,
+    ),
+  ];
+  return [...new Set(allTags)];
+}
 export default {
   getElement,
   getElementIndex,
   assetStats,
+  tagsInSavedProjects,
 };

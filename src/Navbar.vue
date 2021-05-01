@@ -12,7 +12,7 @@ b-navbar.navbar(:mobile-burger='false')
 export default {
   computed: {
     showEditor() {
-      return this.$store.state.project;
+      return this.$store.state.project.infos;
     },
   },
 };

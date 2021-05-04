@@ -25,6 +25,8 @@
     "pako": "^1.0.11",
     "pug": "^3.0.1",
     "register-service-worker": "^1.7.1",
+    "twitter-url-direct": "^1.0.1",
+    "video-url-link": "^0.1.5",
     "vue": "^2.6.11",
     "vue-color": "^2.7.1",
     "vue-emoji-picker": "^1.0.1",

@@ -1,9 +1,10 @@
 import FrameServer from './FrameServer';
 
 class VideoFrameServer extends FrameServer {
-  constructor(url) {
+  constructor(url, resolvedUrl) {
     super();
     this.url = url;
+    this.resolvedUrl = resolvedUrl || url;
     this.type = 'video';
     this.video = document.createElement('video');
     this.video.muted = true;
@@ -38,7 +39,7 @@ class VideoFrameServer extends FrameServer {
         resolve(canPlayEvent);
         self.video.oncanplay = null;
       };
-      self.video.setAttribute('src', self.url);
+      self.video.setAttribute('src', self.resolvedUrl);
     });
   }
 

@@ -2,11 +2,11 @@
 .home-new-project
   h2 New project
   file-or-url-form(
-    label='Start from a picture, GIF or video',
-    @urlInput='handleUrl',
-    @fileInput='handleFileInput',
-    fileDescription='GIF/image/video',
-    fileTip='Prefer URLs over uploads to make your projects easier to share'
+    label="Start from a picture, GIF or video",
+    @urlInput="handleUrl",
+    @fileInput="handleFileInput",
+    fileDescription="GIF/image/video",
+    fileTip="Prefer URLs over uploads to make your projects easier to share"
   )
 </template>
 <script>
@@ -32,7 +32,7 @@ export default {
     ...mapMutations(['setProject']),
 
     async handleUrl(url) {
-      const server = autoDetectedFrameServer(url);
+      const server = await autoDetectedFrameServer(url);
       const sourceStats = await server.getInfos();
       const newProject = {
         infos: {

@@ -1,42 +1,42 @@
 <template lang="pug">
 .source-form
-  asset-preview(:element='element', :assetInfos='assetInfos')
-  .current-url(v-if='!usesDataUrl', :title='element.url')
+  asset-preview(:element="element", :assetInfos="assetInfos")
+  .current-url(v-if="!usesDataUrl", :title="element.url")
     center
       p {{ simplifiedUrl }}
-    b-field(grouped, position='is-centered')
+    b-field(grouped, position="is-centered")
       p.control
         b-field
-          a(:href='element.url', target='_blank')
-            b-button(icon-left='open-in-new') Go to link
+          a(:href="element.url", target="_blank")
+            b-button(icon-left="open-in-new") Go to link
       p.control
         b-field
-          b-button(icon-left='pencil', @click='dialogIsVisible = true') Change
+          b-button(icon-left="pencil", @click="dialogIsVisible = true") Change
       p.control
         b-field
           b-select(
-            :value='element.subtype',
-            @input='(v) => updateElement({ subtype: v })',
-            size='mini'
+            :value="element.subtype",
+            @input="(v) => updateElement({ subtype: v })",
+            size="mini"
           )
             option(
-              v-for='(label, subtype) in subtypes',
-              :value='subtype',
-              :key='subtype',
-              :label='label'
+              v-for="(label, subtype) in subtypes",
+              :value="subtype",
+              :key="subtype",
+              :label="label"
             )
-  p.click-me(v-if='usesDataUrl', @click='dialogIsVisible = true') Embedded asset
+  p.click-me(v-if="usesDataUrl", @click="dialogIsVisible = true") Embedded asset
   b-dialog(
-    v-if='dialogIsVisible',
+    v-if="dialogIsVisible",
     append-to-body,
-    @cancel='dialogIsVisible = false'
+    @cancel="dialogIsVisible = false"
   )
     center
       h2 Load a new asset
       file-or-url-form(
-        label='GIF/Image/Video URL or file',
-        @urlInput='handleUrlInput',
-        @fileInput='handleFileInput'
+        label="GIF/Image/Video URL or file",
+        @urlInput="handleUrlInput",
+        @fileInput="handleFileInput"
       )
 </template>
 
@@ -96,7 +96,7 @@ export default {
       this.updateElement({ url, subtype });
     },
     async updateInfos() {
-      const server = autoDetectedFrameServer(this.element.url);
+      const server = await autoDetectedFrameServer(this.element.url);
       this.assetInfos = await server.getInfos();
     },
   },

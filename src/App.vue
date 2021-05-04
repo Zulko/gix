@@ -15,15 +15,14 @@ export default {
     navbar: Navbar,
     'app-footer': Footer,
   },
-  mounted() {
-  },
+  mounted() {},
 };
 </script>
 
 <style lang="scss">
-@import 'https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Caveat+Brush';
+@import "https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Caveat+Brush";
 #app {
-  font-family: 'Lato', Helvetica, Arial, sans-serif !important;
+  font-family: "Lato", Helvetica, Arial, sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
@@ -46,7 +45,7 @@ export default {
 html {
   margin: 0;
   background-color: #ffffff;
-  background-image: url(/img/background-2.svg);
+  background-image: url(/gix/img/background-2.svg);
   background-size: cover;
   background-position: top right;
   background-repeat: repeat-y;
@@ -56,7 +55,7 @@ html {
 h1,
 h2,
 h3 {
-  font-family: 'Caveat Brush';
+  font-family: "Caveat Brush";
   text-align: center;
   font-weight: normal;
 }
@@ -75,7 +74,7 @@ hr {
   background-color: #eee;
 }
 .progress {
-  transition: none
+  transition: none;
 }
 
 // .field {

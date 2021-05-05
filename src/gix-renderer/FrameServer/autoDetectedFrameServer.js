@@ -1,5 +1,4 @@
 import videoUrlLink from 'video-url-link';
-import twitterGetUrl from 'twitter-url-direct';
 import GifFrameServer from './GifFrameServer';
 import ImageServer from './ImageServer';
 import VideoFrameServer from './VideoFrameServer';
@@ -44,8 +43,16 @@ async function autoDetectedFrameServer(url) {
     });
   }
   if (url.includes('twitter.com')) {
-    const response = await twitterGetUrl(url);
-    return new VideoFrameServer(url, response.url);
+    return new Promise((resolve, reject) => {
+      videoUrlLink.twitter.getInfo(url, { hl: 'en' }, (error, infos) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolvedUrl = infos.formats[6].url;
+          resolve(new VideoFrameServer(url, resolvedUrl));
+        }
+      });
+    });
   }
   if (url.startsWith('data:')) {
     const mimetype = url.substring(5, url.indexOf(';'));

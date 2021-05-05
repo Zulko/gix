@@ -27,3 +27,6 @@ from origin 'http://localhost:8080' has been blocked by CORS policy
 
 https://twitter.com/VideosDoSeuDia/status/1367431296604078082
 https://youtu.be/nrRcmDxMLKc
+
+
+https://twitter.com/YouTube/status/1389468372870385665

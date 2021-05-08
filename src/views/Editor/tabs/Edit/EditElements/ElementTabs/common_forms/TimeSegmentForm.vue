@@ -1,72 +1,72 @@
 <template lang="pug">
 .element-time-segment-form
-  b-field(label='Time segment in the GIX', grouped)
+  b-field(label="Time segment in the GIX", grouped)
     p.control
-      b-field(label-position='on-border', label='Start')
+      b-field(label-position="on-border", label="Start")
         b-numberinput.number-input(
-          :step='0.01',
-          :value='range[0]',
-          controls-position='compact',
-          @input='(v) => (range = [v, range[1]])'
+          :step="0.01",
+          :value="range[0]",
+          controls-position="compact",
+          @input="(v) => (range = [v, range[1]])"
         )
     p.control
-      b-field(label-position='on-border', label='End')
+      b-field(label-position="on-border", label="End")
         b-numberinput.number-input(
-          controls-position='compact',
-          :step='0.01',
-          :value='range[1]',
-          @input='(v) => (range = [range[0], v])'
+          controls-position="compact",
+          :step="0.01",
+          :value="range[1]",
+          @input="(v) => (range = [range[0], v])"
         )
     br
   b-field.slider
     b-slider(
       range,
-      :step='0.01',
-      size='mini',
-      v-model='range',
-      :min='0',
-      :max='$store.state.project.duration'
+      :step="0.01",
+      size="mini",
+      v-model="range",
+      :min="0",
+      :max="$store.state.project.duration"
     )
 
-  b-field(label='Crop to a time region', grouped)
+  b-field(label="Crop to a time region", grouped)
     p.control
-      b-field(label-position='on-border', label='Start')
+      b-field(label-position="on-border", label="Start")
         b-numberinput.number-input(
-          controls-position='compact',
-          :step='0.01',
-          :value='crop[0]',
-          @input='(v) => (crop = [v, crop[1]])'
+          controls-position="compact",
+          :step="0.01",
+          :value="crop[0]",
+          @input="(v) => (crop = [v, crop[1]])"
         )
     p.control
-      b-field(label-position='on-border', label='End')
+      b-field.end-time(label-position="on-border", label="End")
         b-numberinput.number-input(
-          controls-position='compact',
-          :step='0.01',
-          :value='crop[1]',
-          :max='assetDuration',
-          @input='(v) => (crop = [crop[0], v])'
+          controls-position="compact",
+          :step="0.01",
+          :value="crop[1]",
+          :max="assetDuration",
+          @input="(v) => (crop = [crop[0], v])"
         )
   b-field.slider
     b-slider(
       range,
-      :step='0.01',
-      size='mini',
-      v-model='crop',
-      :min='0',
-      :max='assetDuration'
+      :step="0.01",
+      size="mini",
+      v-model="crop",
+      :min="0",
+      :max="assetDuration"
     )
 
-  b-field(label='Speed factor', grouped)
+  b-field.end-time(label="Speed factor", grouped)
     b-select(
-      :value='element.speedFactor',
-      @input='(v) => updateElement({ speedFactor: v })',
-      size='mini'
+      :value="element.speedFactor",
+      @input="(v) => updateElement({ speedFactor: v })",
+      size="mini"
     )
       option(
-        v-for='(value, i) in [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3, 5]',
-        :value='value',
-        :key='i',
-        :label='`${parseInt(100 * value)}` + "%"'
+        v-for="(value, i) in [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3, 5]",
+        :value="value",
+        :key="i",
+        :label="`${parseInt(100 * value)}` + '%'"
       )
 </template>
 
@@ -152,10 +152,13 @@ export default {
 <style lang='scss'>
 .element-time-segment-form {
   .slider {
-    width: 320px;
+    width: 100%;
   }
   .number-input {
     width: 150px;
+  }
+  .number-input.end-time {
+    margin: 0 0;
   }
 }
 </style>

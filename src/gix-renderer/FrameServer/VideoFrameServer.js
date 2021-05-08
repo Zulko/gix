@@ -24,7 +24,8 @@ class VideoFrameServer extends FrameServer {
 
   init() {
     const self = this;
-    return new Promise((resolve) => {
+    console.log({ resolvedUrl: self.resolvedUrl });
+    return new Promise((resolve, reject) => {
       self.video.oncanplay = (canPlayEvent) => {
         self.sourceStats = {
           height: canPlayEvent.target.videoHeight,
@@ -39,7 +40,11 @@ class VideoFrameServer extends FrameServer {
         resolve(canPlayEvent);
         self.video.oncanplay = null;
       };
+
       self.video.setAttribute('src', self.resolvedUrl);
+      self.video.onerror = (e) => {
+        reject(e);
+      };
     });
   }
 

@@ -33,7 +33,9 @@ export default {
 
     async handleUrl(url) {
       const server = await autoDetectedFrameServer(url);
+      console.log(server);
       const sourceStats = await server.getInfos();
+      console.log(sourceStats);
       const newProject = {
         infos: {
           gixVersion: '0.1.0',

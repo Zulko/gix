@@ -34,7 +34,9 @@ export default {
   h2 {
     margin-top: 0;
   }
-  .url-form, .file-uploader, .project-search-bar {
+  .url-form,
+  .file-uploader,
+  .project-search-bar {
     width: 90%;
     max-width: 600px;
     margin: 1em auto;

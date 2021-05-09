@@ -34,7 +34,18 @@ async function httpRequest(options) {
   });
 }
 
-async function generateYoutubeResponse(youtubeId) {
+async function getYoutubeStreamingData(youtubeId) {
+  const response = await httpRequest({
+    hostname: 'www.youtube.com',
+    path: `/watch?v=${youtubeId}&pbj=1`,
+    method: 'POST',
+  });
+  const jsonResponse = JSON.parse(response);
+  const videoParams = jsonResponse.reduce((a, x) => ({ ...a, ...x }), {});
+  return videoParams.playerResponse.streamingData;
+}
+
+async function getYoutubeVideoInfo(youtubeId) {
   const response = await httpRequest({
     hostname: 'www.youtube.com',
     path: `/get_video_info?video_id=${youtubeId}`,
@@ -45,8 +56,12 @@ async function generateYoutubeResponse(youtubeId) {
     decodeURIComponent(jsonResponse.player_response),
   );
   const { title } = playerResponse.videoDetails;
+  let { streamingData } = playerResponse;
+  if (!streamingData) {
+    streamingData = await getYoutubeStreamingData(youtubeId);
+  }
   const isMp4 = (f) => f.mimeType.startsWith('video/mp4');
-  const mp4Formats = playerResponse.streamingData.adaptiveFormats.filter(isMp4);
+  const mp4Formats = streamingData.adaptiveFormats.filter(isMp4);
   return { title, mp4Formats };
 }
 
@@ -65,7 +80,7 @@ async function generateTwitterResponse(youtubeId) {
 
 async function generateResponse(inputParams) {
   if (inputParams.youtubeId) {
-    return generateYoutubeResponse(inputParams.youtubeId);
+    return getYoutubeVideoInfo(inputParams.youtubeId);
   }
   if (inputParams.twitterId) {
     return generateTwitterResponse(inputParams.youtubeId);
@@ -73,7 +88,7 @@ async function generateResponse(inputParams) {
   return {};
 }
 
-exports.generateYoutubeResponse = generateYoutubeResponse;
+exports.generateYoutubeResponse = getYoutubeVideoInfo;
 
 exports.handler = async (event) => {
   let body;

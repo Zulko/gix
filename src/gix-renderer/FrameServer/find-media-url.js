@@ -3,7 +3,7 @@ import axios from 'axios';
 import { generateYoutubeResponse } from './url-fetcher';
 
 async function lambdaRequest(requestData) {
-  const response = axios({
+  const response = await axios({
     url:
       'https://6ul0vlrhze.execute-api.us-east-2.amazonaws.com/default/url-fetcher',
     data: JSON.stringify(requestData),
@@ -23,6 +23,7 @@ async function findYoutubeMediaUrl(youtubeId) {
   let response;
   try {
     response = await generateYoutubeResponse(youtubeId);
+    throw Error('bla');
   } catch {
     response = await lambdaRequest({ youtubeId });
   }

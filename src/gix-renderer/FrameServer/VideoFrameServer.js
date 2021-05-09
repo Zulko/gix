@@ -24,7 +24,6 @@ class VideoFrameServer extends FrameServer {
 
   init() {
     const self = this;
-    console.log({ resolvedUrl: self.resolvedUrl });
     return new Promise((resolve, reject) => {
       self.video.oncanplay = (canPlayEvent) => {
         self.sourceStats = {

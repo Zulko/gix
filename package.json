@@ -17,6 +17,7 @@
     "canvg": "^3.0.7",
     "core-js": "^3.6.5",
     "downloadjs": "^1.4.7",
+    "get-youtube-id": "^1.0.1",
     "gif-frames": "^1.0.1",
     "gif-info": "^1.0.1",
     "gif.js": "^0.2.0",

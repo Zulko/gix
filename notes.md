@@ -30,3 +30,6 @@ https://youtu.be/nrRcmDxMLKc
 
 
 https://twitter.com/YouTube/status/1389468372870385665
+
+
+https://techcrunch.com/wp-content/uploads/2014/10/toygwpw-imgur.gif

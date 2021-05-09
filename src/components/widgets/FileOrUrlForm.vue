@@ -1,25 +1,24 @@
 <template lang='pug'>
 .file-or-url-form
   .url-form
-    b-field(:label='label')
+    b-field(:label="label")
       b-input(
-        style='width: 100%;'
-        v-model='url',
-        :placeholder='`URL of a public ${fileDescription}`'
+        style="width: 100%",
+        v-model="url",
+        :placeholder="`URL of a public ${fileDescription}`"
       )
       p.control
-        b-button(
-          icon-left='check',
-          @click='(val) => $emit("urlInput", url)'
-        )
+        b-button(icon-left="check", @click="processAndEmitUrl")
   file-uploader(
-    @input='(val) => $emit("fileInput", val)',
-    :fileDescription='fileDescription',
-    :tip='fileTip'
+    @input="(val) => $emit('fileInput', val)",
+    :fileDescription="fileDescription",
+    :tip="fileTip"
   )
 </template>
+
 <script>
 import FileUploader from './FileUploader.vue';
+import findMediaUrl from '../../gix-renderer/FrameServer/find-media-url';
 
 export default {
   props: {
@@ -49,6 +48,17 @@ export default {
         ],
       },
     };
+  },
+  methods: {
+    async processAndEmitUrl() {
+      const { url } = this;
+      const urlMetadata = await findMediaUrl.findMediaUrl(url);
+      if (urlMetadata) {
+        this.$emit('urlInput', { url, mediaUrl: urlMetadata.url, title: urlMetadata.title });
+      } else {
+        this.$emit('urlInput', { url });
+      }
+    },
   },
 };
 </script>

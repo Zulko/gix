@@ -31,9 +31,12 @@ export default {
   methods: {
     ...mapMutations(['setProject']),
 
-    async handleUrl(url) {
-      const server = await autoDetectedFrameServer(url);
+    async handleUrl(urlData) {
+      console.log('AAAAAAAAAAAAAAAA', urlData);
+      const server = await autoDetectedFrameServer(urlData);
+      console.log(urlData);
       const sourceStats = await server.getInfos();
+      console.log(sourceStats);
       const newProject = {
         infos: {
           gixVersion: '0.1.0',
@@ -77,7 +80,7 @@ export default {
             },
             type: 'asset',
             subtype: server.type,
-            url,
+            ...urlData,
             size: {
               width: sourceStats.width,
               height: sourceStats.height,

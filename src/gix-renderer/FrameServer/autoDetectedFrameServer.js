@@ -1,7 +1,17 @@
-import videoUrlLink from 'video-url-link';
 import GifFrameServer from './GifFrameServer';
 import ImageServer from './ImageServer';
 import VideoFrameServer from './VideoFrameServer';
+
+// async function findMimeType(url) {
+//   return new Promise((resolve) => {
+//     const xhttp = new XMLHttpRequest();
+//     xhttp.open('HEAD', url);
+//     xhttp.onreadystatechange = () => {
+//       resolve(xhttp.getResponseHeader('Content-Type'));
+//     };
+//     xhttp.send();
+//   });
+// }
 
 function urlToSubtype(url) {
   const extension = url.split('.').pop();
@@ -27,45 +37,23 @@ function mimetypeToSubtype(mimetype) {
   return 'video';
 }
 
-async function autoDetectedFrameServer(url) {
-  let resolvedUrl = url;
+async function autoDetectedFrameServer(urlData) {
   let subtype;
-  if (url.includes('youtu.be')) {
-    return new Promise((resolve, reject) => {
-      videoUrlLink.youtube.getInfo(url, { hl: 'en' }, (error, infos) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolvedUrl = infos.formats[6].url;
-          resolve(new VideoFrameServer(url, resolvedUrl));
-        }
-      });
-    });
-  }
-  if (url.includes('twitter.com')) {
-    return new Promise((resolve, reject) => {
-      videoUrlLink.twitter.getInfo(url, { hl: 'en' }, (error, infos) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolvedUrl = infos.formats[6].url;
-          resolve(new VideoFrameServer(url, resolvedUrl));
-        }
-      });
-    });
-  }
-  if (url.startsWith('data:')) {
-    const mimetype = url.substring(5, url.indexOf(';'));
+  const mediaUrl = urlData.mediaUrl || urlData.url;
+  if (mediaUrl.includes('googlevideo')) {
+    subtype = 'video';
+  } else if (mediaUrl.startsWith('data:')) {
+    const mimetype = mediaUrl.substring(5, mediaUrl.indexOf(';'));
     subtype = mimetypeToSubtype(mimetype);
   } else {
-    subtype = urlToSubtype(url);
+    subtype = urlToSubtype(mediaUrl);
   }
   const FrameServerClass = {
     gif: GifFrameServer,
     video: VideoFrameServer,
     image: ImageServer,
   }[subtype];
-  return new FrameServerClass(resolvedUrl, url);
+  return new FrameServerClass(urlData.url, mediaUrl);
 }
 
 async function initiateMissingFrameServers(gix, frameServers, loadingCallback) {
@@ -85,7 +73,7 @@ async function initiateMissingFrameServers(gix, frameServers, loadingCallback) {
             loaded: i,
           });
         }
-        const frameServer = await autoDetectedFrameServer(element.url);
+        const frameServer = await autoDetectedFrameServer(element);
         await frameServer.init();
         newFrameServers[element.id] = frameServer;
       }),

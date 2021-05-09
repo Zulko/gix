@@ -80,14 +80,17 @@ export default {
     },
   },
   methods: {
-    async handleUrlInput(url) {
-      const extension = url
+    async handleUrlInput(urlData) {
+      const extension = urlData.url
         .split('.')
         .pop()
         .toLowerCase();
-      const subtype = urlToSubtype(extension) || 'image';
+      let subtype = urlToSubtype(extension);
+      if (!subtype) {
+        subtype = 'image';
+      }
       this.dialogIsVisible = false;
-      this.updateElement({ url, subtype });
+      this.updateElement({ url: urlData.url, mediaUrl: urlData.mediaUrl, subtype });
     },
     handleFileInput(file) {
       const url = file.content;
@@ -96,7 +99,7 @@ export default {
       this.updateElement({ url, subtype });
     },
     async updateInfos() {
-      const server = await autoDetectedFrameServer(this.element.url);
+      const server = await autoDetectedFrameServer(this.element);
       this.assetInfos = await server.getInfos();
     },
   },

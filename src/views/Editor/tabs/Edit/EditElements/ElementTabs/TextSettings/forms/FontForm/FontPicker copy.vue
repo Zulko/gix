@@ -22,7 +22,7 @@ import fonts from 'google-fonts-complete';
 import WebFont from 'webfontloader';
 
 const googleFonts = Object.entries(fonts).map((entry) => {
-  const [ name, props ] = entry;
+  const [name, props] = entry;
   return { ...props, name };
 });
 
@@ -56,7 +56,7 @@ export default {
         console.log(`loading ${font}...`); //eslint-disable-line
         WebFont.load({
           google: {
-            families: [ font ],
+            families: [font],
           },
           active() {
             self.isFetching = false;
@@ -90,7 +90,7 @@ export default {
       for (var font of nextFonts) {  //eslint-disable-line
         await this.loadFont(font.name); //eslint-disable-line
       }
-      this.fontsInSelectMenu = [ ...this.fontsInSelectMenu, ...nextFonts ];
+      this.fontsInSelectMenu = [...this.fontsInSelectMenu, ...nextFonts];
     },
     selectFont(option) {
       this.font = option.name;
@@ -124,7 +124,6 @@ Londrina Solid
 Frijole
 Permanent marker
 Patrick Hand SC
-
 
 Dynamically remove categories if empty.
 "select" adds font to ""recently used"

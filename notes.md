@@ -33,3 +33,11 @@ https://twitter.com/YouTube/status/1389468372870385665
 
 
 https://techcrunch.com/wp-content/uploads/2014/10/toygwpw-imgur.gif
+
+https://www.youtube.com/watch?v=2qxp6SBBI3c
+
+https://www.youtube.com/watch?v=2qxp6SBBI3c&pbj=1
+
+http://localhost:8080/gix/#/home
+
+default-src blob: data: filesystem: ws: http: https: 'unsafe-eval' 'unsafe-inline'

@@ -23,9 +23,9 @@
 export default {
   extends: require('../../ElementComponentMixin.vue').default,
   components: {
-    'css-animation-selector': require('./CssAnimationSelector.vue').default
-  }
-}
+    'css-animation-selector': require('./CssAnimationSelector.vue').default,
+  },
+};
 </script>
 
 <style lang='scss'>

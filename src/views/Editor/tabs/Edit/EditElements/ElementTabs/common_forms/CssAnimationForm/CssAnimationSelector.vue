@@ -11,53 +11,54 @@
 </template>
 
 <script>
-const animations = require('./animations.json')
-var invertedAnimations = {}
-for (var category in animations) {
-  var categoryData = {}
-  for (var group of animations[category]) {
-    categoryData[group.value] = [group.value]
+const animations = require('./animations.json');
+
+const invertedAnimations = {};
+for (const category in animations) {
+  const categoryData = {};
+  for (const group of animations[category]) {
+    categoryData[group.value] = [group.value];
     if (group.children) {
-      for (var child of group.children) {
-        categoryData[child.value] = [group.value, child.value]
+      for (const child of group.children) {
+        categoryData[child.value] = [group.value, child.value];
       }
     }
   }
-  invertedAnimations[category] = categoryData
+  invertedAnimations[category] = categoryData;
 }
 export default {
   props: {
-    value: {default: () => (['none'])},
-    category: {default: 'entrances'}
+    value: { default: () => (['none']) },
+    category: { default: 'entrances' },
   },
-  data () {
-    var valueCopy = Object.assign({}, this.value)
-    valueCopy.animation = invertedAnimations[this.category][this.value.class]
+  data() {
+    const valueCopy = { ...this.value };
+    valueCopy.animation = invertedAnimations[this.category][this.value.class];
     return {
       animation: valueCopy,
       animations,
-      invertedAnimations
-    }
+      invertedAnimations,
+    };
   },
   watch: {
     animation: {
       deep: true,
-      handler (val) {
-        val = Object.assign({}, val)
-        val.class = val.animation[val.animation.length - 1]
-        this.$emit('input', val)
-      }
+      handler(val) {
+        val = { ...val };
+        val.class = val.animation[val.animation.length - 1];
+        this.$emit('input', val);
+      },
     },
     value: {
       deep: true,
-      handler (val) {
+      handler(val) {
         if (val.class !== this.animation.class) {
-          val = Object.assign({}, val)
-          val.animation = this.invertedAnimations[this.category][val.class]
-          this.animation = val
+          val = { ...val };
+          val.animation = this.invertedAnimations[this.category][val.class];
+          this.animation = val;
         }
-      }
-    }
-  }
-}
+      },
+    },
+  },
+};
 </script>

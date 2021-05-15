@@ -1,14 +1,19 @@
 <template lang="pug">
 .element-time-segment-form
-  b-field(label="Time segment in the GIX", grouped)
-    p.control
-      b-field(label-position="on-border", label="Start")
-        b-numberinput.number-input(
-          :step="0.01",
-          :value="range[0]",
-          controls-position="compact",
-          @input="(v) => (range = [v, range[1]])"
-        )
+  div(v-if="element.editorSettings.isMainElement")
+    b-message.
+      The gix starts and stops with this element. To add elements before or after,
+      deselect #[i Main Element] in #[i Project Settings].
+  div(v-else)
+    b-field(label="Time segment in the GIX", grouped)
+      p.control
+        b-field(label-position="on-border", label="Start")
+          b-numberinput.number-input(
+            :step="0.01",
+            :value="range[0]",
+            controls-position="compact",
+            @input="(v) => (range = [v, range[1]])"
+          )
     p.control
       b-field(label-position="on-border", label="End")
         b-numberinput.number-input(
@@ -18,17 +23,17 @@
           @input="(v) => (range = [range[0], v])"
         )
     br
-  b-field.slider
-    b-slider(
-      range,
-      :step="0.01",
-      size="mini",
-      v-model="range",
-      :min="0",
-      :max="$store.state.project.duration"
-    )
+    b-field.slider
+      b-slider(
+        range,
+        :step="0.01",
+        size="mini",
+        v-model="range",
+        :min="0",
+        :max="$store.state.project.duration"
+      )
 
-  b-field(label="Crop to a time region", grouped)
+  b-field(label="Select a segment of the clip", grouped)
     p.control
       b-field(label-position="on-border", label="Start")
         b-numberinput.number-input(
@@ -57,11 +62,7 @@
     )
 
   b-field.end-time(label="Speed factor", grouped)
-    b-select(
-      :value="element.speedFactor",
-      @input="(v) => updateElement({ speedFactor: v })",
-      size="mini"
-    )
+    b-select(:value="element.speedFactor", @input="updateSpeed", size="mini")
       option(
         v-for="(value, i) in [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3, 5]",
         :value="value",
@@ -87,6 +88,20 @@ export default {
     },
     updateTimeCrop(val) {
       this.updateElement({ timeCrop: { start: val[0], end: val[1] } });
+      if (this.element.editorSettings.isMainElement) {
+        const duration = (val[1] - val[0]) / this.element.speedFactor;
+        this.$store.commit('updateProject', { duration });
+        this.updateElement({ timeSegment: { start: 0, end: duration } });
+      }
+    },
+    updateSpeed(val) {
+      this.updateElement({ speedFactor: val });
+      if (this.element.editorSettings.isMainElement) {
+        const { timeCrop } = this.element;
+        const duration = (timeCrop.end - timeCrop.start) / val;
+        this.$store.commit('updateProject', { duration });
+        this.updateElement({ timeSegment: { start: 0, end: duration } });
+      }
     },
   },
   computed: {

@@ -3,7 +3,7 @@
 - UI has steps fonts loaded / https: //buefy.org/documentation/steps
 */
 import GIF from 'gif.js';
-import Canvg, { presets } from 'canvg';
+import Canvg from 'canvg';
 import gifWorker from 'url-loader!./gif.worker.txt'; // eslint-disable-line
 import { initiateMissingFrameServers } from './FrameServer/autoDetectedFrameServer';
 

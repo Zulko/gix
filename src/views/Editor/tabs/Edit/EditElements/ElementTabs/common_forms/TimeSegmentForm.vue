@@ -14,7 +14,7 @@
             controls-position="compact",
             @input="(v) => (range = [v, range[1]])"
           )
-    p.control
+    p.control(style="margin-left: auto")
       b-field(label-position="on-border", label="End")
         b-numberinput.number-input(
           controls-position="compact",
@@ -42,7 +42,7 @@
           :value="crop[0]",
           @input="(v) => (crop = [v, crop[1]])"
         )
-    p.control
+    p.control(style="margin-left: auto")
       b-field.end-time(label-position="on-border", label="End")
         b-numberinput.number-input(
           controls-position="compact",

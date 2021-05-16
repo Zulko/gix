@@ -1,25 +1,39 @@
 <template lang="pug">
-b-tabs.element-tabs(tab-position='top' :multiline='true', :animated='false')
+b-tabs.element-tabs(tab-position="top", :multiline="true", :animated="false")
   b-tab-item.element-tab-pane(
-    v-for='element, i in $store.state.project.elements',
-    :key='element.id',
-    :name='element.id'
+    v-for="(element, i) in $store.state.project.elements",
+    :key="element.id",
+    :name="element.id"
   )
-    template(slot='header')
+    template(slot="header")
       span.tab-text-label(
         v-if="element.type == 'text'",
-        :style="{'font-family': element.font.family}"
-      ) {{tabLabel(element.text)}}
-      img.tab-img-label(v-if="element.type == 'asset'" :src="element.url")
-    element-toolbar(:elementId='element.id')
+        :style="{ 'font-family': element.font.family }"
+      ) {{ tabLabel(element.text) }}
+      img.tab-img-label(
+        v-if="['gif', 'image'].includes(element.subtype)",
+        :src="element.url"
+      )
+      span.tab-video-label(v-if="element.subtype == 'video'")
+        b-icon(icon="movie")
+        | {{ tabLabel(element.title) }}
+    element-toolbar(:elementId="element.id")
     .element-settings(
-      :is='settingsComponents[element.type]',
-      :element='element',
-      :showOptions='i === currentCarouselIndex'
+      :is="settingsComponents[element.type]",
+      :element="element",
+      :showOptions="i === currentCarouselIndex"
     )
-  b-tab-item.element-adder(key="adder" icon='plus-circle-outline' label='New element')
+  b-tab-item.element-adder(
+    key="adder",
+    icon="plus-circle-outline",
+    label="New element"
+  )
     element-adder
-  b-tab-item.element-adder(key="settings" icon='cog' label='Project settings')
+  b-tab-item.element-adder(
+    key="settings",
+    icon="cog",
+    label="Project settings"
+  )
     settings-tab
 </template>
 
@@ -48,17 +62,11 @@ export default {
     'element-adder': ElementAdder,
     'element-toolbar': ElementToolbar,
     'settings-tab': SettingsTab,
-
   },
   methods: {
-    ...mapMutations([
-      'duplicateElement',
-      'deleteElement',
-      'moveElementUp',
-      'moveElementDown',
-    ]),
+    ...mapMutations(['duplicateElement', 'deleteElement', 'moveElementUp', 'moveElementDown']),
     tabLabel(label) {
-      return (label.length > 7 ? `${label.slice(0, 7)}…` : label);
+      return label.length > 7 ? `${label.slice(0, 7)}…` : label;
     },
   },
 };
@@ -68,6 +76,12 @@ export default {
 .element-tabs {
   .tab-text-label {
     max-width: 4em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tab-video-label {
+    max-width: 8em;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

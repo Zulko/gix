@@ -1,30 +1,27 @@
 <template lang="pug">
 .source-form
-  asset-preview(:element="element", :assetInfos="assetInfos")
-  .current-url(v-if="!usesDataUrl", :title="element.url")
-    center
-      p {{ simplifiedUrl }}
-    b-field(grouped, position="is-centered")
-      p.control
-        b-field
-          a(:href="element.url", target="_blank")
-            b-button(icon-left="open-in-new") Go to link
-      p.control
-        b-field
-          b-button(icon-left="pencil", @click="dialogIsVisible = true") Change
-      p.control
-        b-field
-          b-select(
-            :value="element.subtype",
-            @input="(v) => updateElement({ subtype: v })",
-            size="mini"
+  b-field(:label="label")
+    b-input(style="width: 100%", :value="element.url")
+    p.control
+      b-field
+        a(:href="element.url", target="_blank")
+          b-button(icon-left="open-in-new")
+    p.control
+      b-button(icon-left="pencil", @click="dialogIsVisible = true")
+    p.control
+      b-field(label="Type", label-position="on-border")
+        b-select(
+          :value="element.subtype",
+          @input="(v) => updateElement({ subtype: v })",
+          size="mini"
+        )
+          option(
+            v-for="(label, subtype) in subtypes",
+            :value="subtype",
+            :key="subtype",
+            :label="label"
           )
-            option(
-              v-for="(label, subtype) in subtypes",
-              :value="subtype",
-              :key="subtype",
-              :label="label"
-            )
+  asset-preview(:element="element", :assetInfos="assetInfos")
   p.click-me(v-if="usesDataUrl", @click="dialogIsVisible = true") Embedded asset
   b-dialog(
     v-if="dialogIsVisible",
@@ -58,9 +55,9 @@ export default {
       urlInput: '',
       dialogIsVisible: false,
       subtypes: {
-        gif: 'This is a GIF',
-        image: 'This is a picture',
-        video: 'This is a video',
+        gif: 'GIF',
+        image: 'Picture',
+        video: 'Video',
       },
     };
   },

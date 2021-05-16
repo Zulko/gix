@@ -1,11 +1,17 @@
 <template lang="pug">
 .asset-preview
-  img(v-if="element.subtype === 'image' || element.subtype === 'gif'"
-      :src='element.url')
-  p.asset-infos(v-if='assetInfos')
-    span {{assetInfos.width}}x{{assetInfos.height}}
-    span(v-if='assetInfos.duration')
-    |, {{Math.round(assetInfos.duration)}}s @{{Math.round(assetInfos.fps)}}fps
+  img(
+    v-if="element.subtype === 'image' || element.subtype === 'gif'",
+    :src="element.url"
+  )
+  video(v-if="element.subtype === 'video'", :src="element.mediaUrl")
+
+  p.asset-infos(v-if="assetInfos")
+    span(v-if="element.title") #[b {{ element.title }}]
+    br
+    span {{ assetInfos.width }}x{{ assetInfos.height }}
+    span(v-if="assetInfos.duration")
+    | , {{ Math.round(assetInfos.duration) }}s @{{ Math.round(assetInfos.fps) }}fps
 </template>
 <script>
 export default {
@@ -18,6 +24,12 @@ export default {
 <style lang='scss'>
 .asset-preview {
   margin-bottom: 1em;
+  max-width: 500px;
+  margin: 0 auto;
+  .media-title {
+    font-size: 1.2em;
+    text-align: center;
+  }
   img {
     resize: both;
     overflow: auto;
@@ -27,7 +39,7 @@ export default {
   }
   .asset-infos {
     text-align: center;
-    font-size:0.8em;
+    font-size: 1em;
     margin-bottom: 0;
   }
 }

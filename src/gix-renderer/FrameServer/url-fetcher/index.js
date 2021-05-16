@@ -45,7 +45,6 @@ async function getYoutubeStreamingData(youtubeId) {
         (error) => reject(error),
       )
       .then((json) => {
-        console.log({ json });
         resolve(json);
       });
   });

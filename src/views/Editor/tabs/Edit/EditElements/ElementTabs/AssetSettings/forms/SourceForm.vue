@@ -1,6 +1,6 @@
 <template lang="pug">
 .source-form
-  b-field(:label="label")
+  b-field
     b-input(style="width: 100%", :value="element.url")
     p.control
       b-field

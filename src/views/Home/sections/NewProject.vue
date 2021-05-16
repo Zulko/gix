@@ -32,11 +32,8 @@ export default {
     ...mapMutations(['setProject']),
 
     async handleUrl(urlData) {
-      console.log('AAAAAAAAAAAAAAAA', urlData);
       const server = await autoDetectedFrameServer(urlData);
-      console.log(urlData);
       const sourceStats = await server.getInfos();
-      console.log(sourceStats);
       const newProject = {
         infos: {
           gixVersion: '0.1.0',

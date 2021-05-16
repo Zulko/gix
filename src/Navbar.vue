@@ -11,7 +11,6 @@ b-navbar.navbar(:mobile-burger="false")
 <script>
 import titleSVG from './assets/title.svg';
 
-console.log(titleSVG);
 export default {
   data() {
     return {

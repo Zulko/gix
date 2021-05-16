@@ -4,6 +4,7 @@
 */
 import GIF from 'gif.js';
 import Canvg, { presets } from 'canvg';
+import gifWorker from 'url-loader!./gif.worker.txt'; // eslint-disable-line
 import { initiateMissingFrameServers } from './FrameServer/autoDetectedFrameServer';
 
 const projectionCanvas = document.createElement('canvas');
@@ -178,7 +179,7 @@ async function renderGixToGif(gix, params, progressCallback) {
   const fps = params.fps || gix.fps;
   const gif = new GIF({
     workers: 4,
-    workerScript: '/gix/gif.worker.js',
+    workerScript: gifWorker,
     quality: params.gifQuality || 1,
     width: Math.round(gix.canvas.width * params.scale),
     height: Math.round(gix.canvas.height * params.scale),
@@ -208,11 +209,7 @@ async function renderGixToGif(gix, params, progressCallback) {
     // console.log(frameSvg);
     canvasCtx.fillStyle = 'red';
     // canvasCtx.fillRect(0, 0, gix.canvas.width, gix.canvas.height);
-    const svg = await Canvg.fromString(
-      canvasCtx,
-      frameSvg,
-      presets.offscreen(),
-    ); //eslint-disable-line
+    const svg = await Canvg.fromString(canvasCtx, frameSvg); //eslint-disable-line
     await svg.render(); //eslint-disable-line
     // await svg.ready(); //eslint-disable-line
 

@@ -2,30 +2,30 @@
 .emoji-picker
   .emojis-search-input
     b-field
-      b-input(v-model='search' placeholder='Search for emojis')
+      b-input(v-model="search", placeholder="Search for emojis")
 
   .emoji-list
-    .search-results(v-if='search.length')
-      div(v-if='searchResults.length')
+    .search-results(v-if="search.length")
+      div(v-if="searchResults.length")
         h5 Search results
         .group-emojis
           span.catalog-clickable-emoji(
-              v-for='[emojiName, emoji] in searchResults',
-              :key="'search-' + emojiName",
-              @click="updateElement({text: element.text + emoji})"
-              :title='emojiName') {{ emoji }}
+            v-for="[emojiName, emoji] in searchResults",
+            :key="'search-' + emojiName",
+            @click="updateElement({ text: element.text + emoji })",
+            :title="emojiName"
+          ) {{ emoji }}
       div(v-else)
         p.no-results (no results for your search)
-    div(v-for='(emojiGroup, category) in emojisList', :key='category')
+    div(v-for="(emojiGroup, category) in emojisList", :key="category")
       h5 {{ category }}
       .group-emojis
         .catalog-clickable-emoji(
-          v-for='(emoji, emojiName) in emojiGroup',
-          :key='emojiName',
-          @click="updateElement({text: element.text + emoji})",
-          :title='emojiName'
+          v-for="(emoji, emojiName) in emojiGroup",
+          :key="emojiName",
+          @click="updateElement({ text: element.text + emoji })",
+          :title="emojiName"
         ) {{ emoji }}
-
 </template>
 
 <script>
@@ -46,16 +46,19 @@ export default {
       this.input += emoji;
     },
     closeCatalog() {
-      console.log('bla'); //eslint-disable-line
       this.catalogVisible = false;
     },
   },
   computed: {
     searchResults() {
       const { search } = this;
-      return [].concat(...Object.values(this.emojisList).map(
-        (group) => Object.entries(group).filter((e) => e[0].indexOf(search) > -1),
-      ));
+      /* eslint-disable */
+      return [].concat(
+        ...Object.values(this.emojisList).map((group) =>
+          Object.entries(group).filter((e) => e[0].indexOf(search) > -1),
+        ),
+      );
+      /* eslint-enable */
     },
   },
 };
@@ -63,13 +66,13 @@ export default {
 
 <style lang='scss'>
 .emoji-picker {
-  font-family: 'Permanent Marker', Raleway, Arial;
+  font-family: "Permanent Marker", Raleway, Arial;
   font-size: 22px;
   max-width: 100%;
   margin: 1em auto;
   .emojis-search-input {
-    margin-left:10%;
-    margin-right:10%;
+    margin-left: 10%;
+    margin-right: 10%;
     margin-bottom: 1em;
   }
   .emoji-list {
@@ -83,7 +86,7 @@ export default {
   h5 {
     text-align: center;
     margin-bottom: 3mm;
-    font-family: 'Caveat Brush';
+    font-family: "Caveat Brush";
   }
   p.no-results {
     text-align: center;
@@ -99,5 +102,4 @@ export default {
     display: inline-block;
   }
 }
-
 </style>

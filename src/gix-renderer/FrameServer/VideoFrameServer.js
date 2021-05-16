@@ -39,11 +39,10 @@ class VideoFrameServer extends FrameServer {
         resolve(canPlayEvent);
         self.video.oncanplay = null;
       };
-
-      self.video.setAttribute('src', self.resolvedUrl);
       self.video.onerror = (e) => {
         reject(e);
       };
+      self.video.setAttribute('src', self.resolvedUrl);
     });
   }
 
@@ -67,8 +66,10 @@ class VideoFrameServer extends FrameServer {
   setVideoTimeAndWait(t) {
     const self = this;
     // eslint-disable-next-line no-unused-vars
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
+      self.video.onerror = reject;
       self.video.onseeked = (evt) => {
+        console.log(evt);
         resolve(evt);
         self.video.onseeked = null;
       };

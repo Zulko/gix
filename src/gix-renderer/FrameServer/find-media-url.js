@@ -1,34 +1,5 @@
 import getYoutubeId from 'get-youtube-id';
-// import videoUrlLink from 'video-url-link';
 import { getYoutubeVideoInfo } from './url-fetcher';
-
-// function getYoutubeVideoInfo(youtubeId, retries = 2) {
-//   return new Promise((resolve, reject) => {
-//     videoUrlLink.youtube.getInfo(
-//       `https://youtu.be/${youtubeId}`,
-
-//       async (error, info) => {
-//         if (error) {
-//           console.log(error.status);
-//           if (retries) {
-//             try {
-//               const infos = await getYoutubeVideoInfo(youtubeId, retries - 1);
-//               resolve(infos);
-//             } catch (newError) {
-//               reject(newError);
-//             }
-//           } else {
-//             reject(error);
-//           }
-//         } else {
-//           console.log(info.details);
-//           console.log(info.formats);
-//           resolve(info.formats);
-//         }
-//       },
-//     );
-//   });
-// }
 
 function selectYoutubeMediaUrl(mp4Formats) {
   const mp4FormatsUnder1200 = mp4Formats.filter((f) => f.width < 1200);

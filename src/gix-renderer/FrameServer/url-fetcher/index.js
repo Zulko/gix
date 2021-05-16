@@ -35,21 +35,39 @@ async function httpRequest(options) {
 }
 
 async function getYoutubeStreamingData(youtubeId) {
-  const response = await httpRequest({
-    hostname: 'www.youtube.com',
-    path: `/watch?v=${youtubeId}&pbj=1`,
-    method: 'POST',
+  const jsonResponse = await new Promise((resolve, reject) => {
+    fetch(`https://www.youtube.com/watch?v=${youtubeId}&pbj=1`, {
+      method: 'POST',
+      credentials: 'omit',
+    })
+      .then(
+        (_response) => _response.json(),
+        (error) => reject(error),
+      )
+      .then((json) => {
+        console.log({ json });
+        resolve(json);
+      });
   });
-  const jsonResponse = JSON.parse(response);
   const videoParams = jsonResponse.reduce((a, x) => ({ ...a, ...x }), {});
   return videoParams.playerResponse.streamingData;
 }
 
+console.log(getYoutubeStreamingData);
+
 async function getYoutubeVideoInfo(youtubeId) {
-  const response = await httpRequest({
-    hostname: 'www.youtube.com',
-    path: `/get_video_info?video_id=${youtubeId}`,
-    method: 'GET',
+  const response = await new Promise((resolve, reject) => {
+    fetch(`https://www.youtube.com/get_video_info?video_id=${youtubeId}`, {
+      method: 'GET',
+      credentials: 'omit',
+    })
+      .then(
+        (_response) => _response.text(),
+        (error) => reject(error),
+      )
+      .then((text) => {
+        resolve(text);
+      });
   });
   const jsonResponse = uriToJson(response);
   const playerResponse = JSON.parse(
@@ -88,7 +106,7 @@ async function generateResponse(inputParams) {
   return {};
 }
 
-exports.generateYoutubeResponse = getYoutubeVideoInfo;
+exports.getYoutubeVideoInfo = getYoutubeVideoInfo;
 
 exports.handler = async (event) => {
   let body;

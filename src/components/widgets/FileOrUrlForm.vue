@@ -1,5 +1,6 @@
 <template lang='pug'>
 .file-or-url-form
+  b-loading(:is-full-page="false", v-model="isLoading", :can-cancel="false")
   .url-form
     b-field(:label="label")
       b-input(
@@ -47,12 +48,15 @@ export default {
           },
         ],
       },
+      isLoading: false,
     };
   },
   methods: {
     async processAndEmitUrl() {
       const { url } = this;
+      this.isLoading = true;
       const urlMetadata = await findMediaUrl.findMediaUrl(url);
+      this.isLoading = false;
       if (urlMetadata) {
         this.$emit('urlInput', { url, mediaUrl: urlMetadata.url, title: urlMetadata.title });
       } else {

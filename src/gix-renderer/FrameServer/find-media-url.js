@@ -1,16 +1,34 @@
 import getYoutubeId from 'get-youtube-id';
-import axios from 'axios';
-import { generateYoutubeResponse } from './url-fetcher';
+// import videoUrlLink from 'video-url-link';
+import { getYoutubeVideoInfo } from './url-fetcher';
 
-async function lambdaRequest(requestData) {
-  const response = await axios({
-    url:
-      'https://6ul0vlrhze.execute-api.us-east-2.amazonaws.com/default/url-fetcher',
-    data: JSON.stringify(requestData),
-    method: 'POST',
-  });
-  return response.data;
-}
+// function getYoutubeVideoInfo(youtubeId, retries = 2) {
+//   return new Promise((resolve, reject) => {
+//     videoUrlLink.youtube.getInfo(
+//       `https://youtu.be/${youtubeId}`,
+
+//       async (error, info) => {
+//         if (error) {
+//           console.log(error.status);
+//           if (retries) {
+//             try {
+//               const infos = await getYoutubeVideoInfo(youtubeId, retries - 1);
+//               resolve(infos);
+//             } catch (newError) {
+//               reject(newError);
+//             }
+//           } else {
+//             reject(error);
+//           }
+//         } else {
+//           console.log(info.details);
+//           console.log(info.formats);
+//           resolve(info.formats);
+//         }
+//       },
+//     );
+//   });
+// }
 
 function selectYoutubeMediaUrl(mp4Formats) {
   const mp4FormatsUnder1200 = mp4Formats.filter((f) => f.width < 1200);
@@ -20,13 +38,7 @@ function selectYoutubeMediaUrl(mp4Formats) {
 }
 
 async function findYoutubeMediaUrl(youtubeId) {
-  let response;
-  try {
-    response = await generateYoutubeResponse(youtubeId);
-    throw Error('bla');
-  } catch {
-    response = await lambdaRequest({ youtubeId });
-  }
+  const response = await getYoutubeVideoInfo(youtubeId);
   const { title, mp4Formats } = response;
   return {
     title,

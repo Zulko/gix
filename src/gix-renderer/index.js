@@ -197,6 +197,7 @@ async function renderGixToGif(gix, params, progressCallback) {
   const frameTimes = [...Array(numberOfFrames).keys()].map(
     (e) => timeBetweenFrames * e * (params.speedFactor || 1),
   );
+  /* eslint-disable  */
   for (const [i, time] of frameTimes.entries()) {
     //eslint-disable-line
     const frameSvg = await renderGixFrameSvg(gix, {
@@ -226,6 +227,7 @@ async function renderGixToGif(gix, params, progressCallback) {
       });
     }
   }
+  /* eslint-enable  */
   const result = await new Promise((resolve, reject) => {
     gif.on('finished', (blob) => {
       const reader = new window.FileReader();

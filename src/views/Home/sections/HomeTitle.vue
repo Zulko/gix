@@ -1,10 +1,20 @@
 <template lang="pug">
 .home-title
-  img(src='@/assets/title.svg')
+  img(:src="titleSVG")
   h2 GIF, SHARE, REMIX
 </template>
 <script>
-export default {};
+import titleSVG from '../../../assets/title.svg';
+
+console.log(titleSVG);
+
+export default {
+  data() {
+    return {
+      titleSVG,
+    };
+  },
+};
 </script>
 <style lang='scss'>
 .home-title {

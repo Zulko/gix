@@ -45,7 +45,8 @@ export default {
 html {
   margin: 0;
   background-color: #ffffff;
-  background-image: url(/gix/img/background-2.svg);
+  // background-image: url(/gix/img/background-2.svg);
+  background-image: url(~./assets/background-2.svg);
   background-size: cover;
   background-position: top right;
   background-repeat: repeat-y;

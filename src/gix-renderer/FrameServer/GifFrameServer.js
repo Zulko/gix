@@ -28,7 +28,7 @@ class GifFrameServer {
 
   init() {
     const self = this;
-    return new Promise((resolve) =>
+    return new Promise((resolve) => {
       self.getInfos().then((sourceStats) => {
         self.sourceStats = sourceStats;
         gifFrames(
@@ -59,8 +59,8 @@ class GifFrameServer {
             resolve();
           },
         );
-      }),
-    );
+      });
+    });
   }
 
   getFrame(t, endBehaviour = 'loop') {

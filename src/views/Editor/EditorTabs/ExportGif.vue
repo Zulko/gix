@@ -24,7 +24,7 @@
         b-select(v-model="gifParams.useDefaultFps")
           option(
             :value="true",
-            :label="`Project FPS (${$store.state.project.fps})`"
+            :label="`Project FPS (${parseInt($store.state.project.fps)})`"
           )
           option(:value="false", label="Custom FPS")
     p.control(v-if="!gifParams.useDefaultFps")
@@ -107,7 +107,7 @@ export default {
       this.gifGeneration = { inProgress: true, progress: { gif: 0, currentFrame: 1 } };
       this.setFreezeGifPreview(true);
       this.gifDataURL = await renderGixToGif(
-        this.$store.state.project,
+        JSON.parse(JSON.stringify(this.$store.state.project)),
         {
           ...this.gifParams,
           fps: this.useDefaultFps ? this.$store.state.project.fps : this.gifParams.fps,

@@ -1,0 +1,104 @@
+{
+  "infos": {
+    "gixVersion": "0.1.0",
+    "title": "keaton-wind",
+    "author": "Zulko",
+    "tags": []
+  },
+  "canvas": {
+    "width": 500,
+    "height": 396,
+    "backgroundColor": "#000000"
+  },
+  "isAnimated": true,
+  "duration": 2.52,
+  "fps": 16.666666666666668,
+  "elements": [
+    {
+      "id": "b2c9352b-2999-4bf2-88d3-c4a3c9d3fa4b",
+      "editorSettings": {
+        "isMainElement": true,
+        "isDefaultFocus": false,
+        "isDraggable": false
+      },
+      "timeSegment": {
+        "start": 0,
+        "end": 2.52,
+        "alwaysShow": true
+      },
+      "position": {
+        "x": 0,
+        "y": 0,
+        "scale": 1,
+        "rotation": 0,
+        "isMoving": false,
+        "xAlign": "left",
+        "yAlign": "top"
+      },
+      "stroke": {
+        "width": 1,
+        "color": "#000000"
+      },
+      "type": "asset",
+      "subtype": "GIF",
+      "url": "https://i.imgur.com/iKDctKS.gif",
+      "size": {
+        "width": 500,
+        "height": 396,
+        "aspectRatio": 1.2626262626262625
+      },
+      "crop": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "timeCrop": {
+        "start": 0,
+        "end": 2.52
+      },
+      "speedFactor": 1
+    },
+    {
+      "id": "c94540bf-e2a9-4d2b-bb60-3e3cf8ae69d7",
+      "editorSettings": {
+        "isMainElement": false,
+        "isDefaultFocus": false,
+        "isDraggable": true
+      },
+      "timeSegment": {
+        "start": 0,
+        "end": 2.52,
+        "alwaysShow": true
+      },
+      "position": {
+        "x": 56,
+        "y": 35,
+        "rotate": 1,
+        "xAlign": "center",
+        "yAlign": "center"
+      },
+      "stroke": {
+        "width": 1,
+        "color": "rgba(0, 0, 0, 1)"
+      },
+      "type": "text",
+      "text": "Hey!",
+      "font": {
+        "family": "Anton",
+        "bold": false,
+        "size": 40,
+        "lineHeight": 1
+      },
+      "color": "#EEEE20",
+      "outline": {
+        "width": 0,
+        "color": "#000000"
+      },
+      "timeCrop": {
+        "start": 0,
+        "end": 2.52
+      }
+    }
+  ]
+}

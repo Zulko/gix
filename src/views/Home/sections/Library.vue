@@ -14,24 +14,32 @@
         placeholder="tag or name",
         @typing="onTyping"
       )
-  b-carousel(:indicator-inside="true", :autoplay="false")
+  b-carousel(
+    v-model="carouselIndex",
+    :indicator-inside="true",
+    :autoplay="false"
+  )
     b-carousel-item(v-for="(project, i) in filteredProjects", :key="i")
       section
         p.gix-title {{ project.infos.title }}
-        div(
-          style="position: relative; width: 90%; max-width: 800px; margin: 0 auto 0 auto"
-        )
-          .gix-preview(
-            style="position: absolute; width: 100%; height: 100%; display: block; z-index: 300",
-            @click="handleClick(project)"
+        .gix-preview
+          .gix-clickable-screen(
+            @click="handleClick(project)",
+            :style="{ width: projectWidth(project) + 'px', height: projectHeight(project) + 'px' }"
           )
-          gix-player(:project="project")
+          gix-player(
+            :project="project",
+            v-if="carouselIndex === i",
+            :params="{ scale: projectScale(project) }"
+          )
 </template>
 
 <script>
 import { mapMutations } from 'vuex';
 import GixAnimationsCarousel from '../../../components/widgets/GixAnimationsCarousel.vue';
 import GixPlayer from '../../../components/GixAnimation/GixPlayer.vue';
+import charlot from './builtin-library-gixes/charlot.json';
+import keaton from './builtin-library-gixes/keaton-wind.json';
 
 export default {
   components: {
@@ -42,12 +50,16 @@ export default {
     return {
       searchTags: [],
       searchTerm: '',
+      builtinGixes: [charlot, keaton],
+      carouselIndex: 0,
+      maxProjectWidth: 800,
+      maxProjectHeight: 500,
     };
   },
   computed: {
     filteredProjects() {
       const { searchTags } = this;
-      const projects = Object.values(this.$store.state.savedProjects);
+      const projects = [...Object.values(this.$store.state.savedProjects), ...this.builtinGixes];
       if (searchTags.length === 0) {
         return projects;
       }
@@ -57,7 +69,7 @@ export default {
       );
     },
     filteredInputTags() {
-      const projects = Object.values(this.$store.state.savedProjects);
+      const projects = [...Object.values(this.$store.state.savedProjects), ...this.builtinGixes];
       const allTags = [];
       projects.forEach((project) => {
         allTags.push(project.name, ...project.infos.tags);
@@ -74,6 +86,19 @@ export default {
       this.setProjectFromCopy(project);
       this.$router.push('editor');
     },
+    projectScale(project) {
+      return Math.min(
+        1,
+        this.maxProjectWidth / project.canvas.width,
+        this.maxProjectHeight / project.canvas.height,
+      );
+    },
+    projectWidth(project) {
+      return project.canvas.width * this.projectScale(project);
+    },
+    projectHeight(project) {
+      return project.canvas.height * this.projectScale(project);
+    },
   },
 };
 </script>
@@ -86,7 +111,23 @@ export default {
     text-transform: capitalize;
   }
   .gix-preview {
+    position: relative;
+    width: 90%;
+    height: 400px;
+    max-width: 800px;
+    margin: 0 auto 0 auto;
+    text-align: center;
+  }
+  .gix-clickable-screen {
     cursor: pointer !important;
+    position: absolute;
+    display: block;
+    z-index: 300;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
   }
 }
 </style>

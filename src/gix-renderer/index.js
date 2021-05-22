@@ -193,6 +193,7 @@ async function renderGixToGif(gix, params, progressCallback) {
     quality: params.gifQuality || 1,
     width: Math.round(gix.canvas.width * params.scale),
     height: Math.round(gix.canvas.height * params.scale),
+    dither: params.dithering === 'None' ? null : params.dithering,
     fps,
   });
   gif.on('progress', (progress) => {

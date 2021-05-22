@@ -32,7 +32,7 @@ export default {
   },
   data() {
     return {
-      url: 'https://www.youtube.com/watch?v=2qxp6SBBI3c',
+      url: '',
       rules: {
         name: [
           {

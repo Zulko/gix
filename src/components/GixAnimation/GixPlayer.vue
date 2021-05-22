@@ -18,7 +18,7 @@
   )
   .gix-player-stats(v-if="showStats")
     | {{ project.canvas.width }}x{{ project.canvas.height }}
-    | @{{ parseInt(currentFrameRate) }}/{{ parameters.fps }}fps
+    | @{{ parseInt(currentFrameRate) }}/{{ parseInt(parameters.fps) }} fps
 </template>
 
 <script>

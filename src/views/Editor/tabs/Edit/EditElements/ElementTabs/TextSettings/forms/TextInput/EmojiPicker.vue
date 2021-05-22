@@ -22,7 +22,7 @@
       .group-emojis
         .catalog-clickable-emoji(
           v-for="(emoji, emojiName) in emojiGroup",
-          :key="emojiName",
+          :key="category + emojiName",
           @click="updateElement({ text: element.text + emoji })",
           :title="emojiName"
         ) {{ emoji }}

@@ -16,7 +16,7 @@ b-tabs.element-tabs(tab-position="top", :multiline="true", :animated="false")
       )
       span.tab-video-label(v-if="element.subtype == 'video'")
         b-icon(icon="movie")
-        | {{ tabLabel(element.title) }}
+        | {{ element.title ? tabLabel(element.title) : '' }}
     element-toolbar(:elementId="element.id")
     .element-settings(
       :is="settingsComponents[element.type]",

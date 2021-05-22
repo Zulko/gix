@@ -1,22 +1,22 @@
 <template lang='pug'>
 .gix-player
   gix-player-controls(
-    v-if='showControls',
-    :project='project',
-    :time.sync='currentTime',
-    :params.sync='parameters'
+    v-if="showControls",
+    :project="project",
+    :time.sync="currentTime",
+    :params.sync="parameters"
   )
   gix-frame-display(
-    :time='currentTime',
-    :includeSVGInEmittedFrames='false',
-    :project='project',
-    @new-frame='handleNewFrame',
-    @dragged='(evt) => $emit("dragged", evt)',
-    @started-loading='isLoading = true',
-    @finished-loading='isLoading = false',
-    :scale='parameters.scale'
+    :time="currentTime",
+    :includeSVGInEmittedFrames="false",
+    :project="project",
+    @new-frame="handleNewFrame",
+    @dragged="(evt) => $emit('dragged', evt)",
+    @started-loading="isLoading = true",
+    @finished-loading="isLoading = false",
+    :scale="parameters.scale"
   )
-  .gix-player-stats(v-if='showStats')
+  .gix-player-stats(v-if="showStats")
     | {{ project.canvas.width }}x{{ project.canvas.height }}
     | @{{ parseInt(currentFrameRate) }}/{{ parameters.fps }}fps
 </template>
@@ -113,7 +113,7 @@ export default {
   },
   computed: {
     fontsInProject() {
-      const fonts = this.$store.state.project.elements
+      const fonts = this.project.elements
         .map((e) => (e.type === 'text' ? e.font.family : null))
         .filter((e) => e != null);
       fonts.sort();

@@ -158,13 +158,23 @@ async function renderGixFrameSvg(gix, params) {
       .map(async (e) => resolvedElementToSvg(e, params)),
   );
   const svgElements = ''.concat(innerSvgElements);
+  let background = '';
+  if (gix.canvas.backgroundColor !== '#000000') {
+    background = `
+      <rect
+        width="${gix.canvas.width}"
+        height="${gix.canvas.height}"
+        style="fill:${gix.canvas.backgroundColor}"
+      />
+    `;
+  }
+
   return `<svg
     viewBox="0 0 ${gix.canvas.width} ${gix.canvas.height}"
     xmlns="http://www.w3.org/2000/svg"
     style="width: ${`${gix.canvas.width * (params.scale || 1)}px`};
-           height: ${`${gix.canvas.height * (params.scale || 1)}px`};
-           background-color: ${gix.canvas.backgroundColor};"
-  >${svgElements}</svg>`;
+           height: ${`${gix.canvas.height * (params.scale || 1)}px`};"
+  >${background}${svgElements}</svg>`;
 }
 
 async function renderGixToGif(gix, params, progressCallback) {
@@ -207,8 +217,9 @@ async function renderGixToGif(gix, params, progressCallback) {
       time,
     });
     // console.log(frameSvg);
-    canvasCtx.fillStyle = 'red';
-    // canvasCtx.fillRect(0, 0, gix.canvas.width, gix.canvas.height);
+    console.log(gix.canvas.backgroundColor);
+    canvasCtx.fillStyle = gix.canvas.backgroundColor;
+    canvasCtx.fillRect(0, 0, gix.canvas.width, gix.canvas.height);
     const svg = await Canvg.fromString(canvasCtx, frameSvg); //eslint-disable-line
     await svg.render(); //eslint-disable-line
     // await svg.ready(); //eslint-disable-line

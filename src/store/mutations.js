@@ -112,8 +112,10 @@ export default {
   setProject(state, newProject) {
     state.project = newProject;
   },
-
+  setProjectFromCopy(state, newProject) {
+    state.project = deepcopy(newProject);
+  },
   saveProject(state, newProject) {
-    state.savedProjects[newProject.infos.title] = newProject;
+    state.savedProjects[newProject.infos.title] = deepcopy(newProject);
   },
 };

@@ -29,17 +29,6 @@ export default {
     'gix-player': GixPlayer,
     'editor-tabs': EditorTabs,
   },
-  computed: {
-    playerTime: {
-      get() {
-        return this.$store.state.editorPlayerTime;
-      },
-      set(value) {
-        console.log(value);
-        // this.$store.commit('updateEditorPlayerTime', value);
-      },
-    },
-  },
   methods: {
     ...mapMutations(['updateElement']),
     onElementDragged(e) {

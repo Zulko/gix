@@ -5,7 +5,7 @@ const gifInfo = require('gif-info');
 class GifFrameServer {
   constructor(url) {
     this.url = url;
-    this.type = 'GIF';
+    this.type = 'gif';
   }
 
   async getInfos() {
@@ -28,37 +28,39 @@ class GifFrameServer {
 
   init() {
     const self = this;
-    return new Promise((resolve) => self.getInfos().then((sourceStats) => {
-      self.sourceStats = sourceStats;
-      gifFrames({
-        url: self.url,
-        frames: 'all',
-        outputType: 'canvas',
-        cumulative: true,
-      },
-      (err, frameData) => {
-        if (err) {
-          console.log(err); // eslint-disable-line
-        }
-        let cumulativeTime = 0;
-        const augmentedFrameData = frameData.map((frame) => {
-          const {
-            delay,
-          } = frame.frameInfo;
-          cumulativeTime += (delay === 0 ? self.sourceStats.defaultDelay : (delay
-            / 100));
-          const canvas = frame.getImage();
-          return Object.assign(frame, {
-            untilTime: cumulativeTime,
-            canvas,
-            canvasSource: canvas,
-            jpegData: canvas.toDataURL('image/jpeg', 0.7),
-          });
-        });
-        self.frameData = augmentedFrameData;
-        resolve();
-      });
-    }));
+    return new Promise((resolve) =>
+      self.getInfos().then((sourceStats) => {
+        self.sourceStats = sourceStats;
+        gifFrames(
+          {
+            url: self.url,
+            frames: 'all',
+            outputType: 'canvas',
+            cumulative: true,
+          },
+          (err, frameData) => {
+            if (err) {
+              console.log(err); // eslint-disable-line
+            }
+            let cumulativeTime = 0;
+            const augmentedFrameData = frameData.map((frame) => {
+              const { delay } = frame.frameInfo;
+              cumulativeTime +=
+                delay === 0 ? self.sourceStats.defaultDelay : delay / 100;
+              const canvas = frame.getImage();
+              return Object.assign(frame, {
+                untilTime: cumulativeTime,
+                canvas,
+                canvasSource: canvas,
+                jpegData: canvas.toDataURL('image/jpeg', 0.7),
+              });
+            });
+            self.frameData = augmentedFrameData;
+            resolve();
+          },
+        );
+      }),
+    );
   }
 
   getFrame(t, endBehaviour = 'loop') {

@@ -46,7 +46,7 @@ export default {
           height: sourceStats.height,
           backgroundColor: '#000000',
         },
-        isAnimated: server.type === 'GIF' || server.type === 'video',
+        isAnimated: server.type === 'gif' || server.type === 'video',
         duration: sourceStats.duration,
         fps: sourceStats.fps || 15,
         elements: [

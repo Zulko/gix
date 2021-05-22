@@ -77,7 +77,6 @@ export default {
     playTimeCrop(val, oldVal) {
       const [oldStart, oldEnd] = oldVal;
       const [start, end] = val;
-      console.log(oldStart, start);
       if (start !== oldStart) {
         this.$emit('update:time', start);
       }

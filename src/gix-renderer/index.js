@@ -217,8 +217,6 @@ async function renderGixToGif(gix, params, progressCallback) {
       ...resolvedParams,
       time,
     });
-    // console.log(frameSvg);
-    console.log(gix.canvas.backgroundColor);
     canvasCtx.fillStyle = gix.canvas.backgroundColor;
     canvasCtx.fillRect(0, 0, gix.canvas.width, gix.canvas.height);
     const svg = await Canvg.fromString(canvasCtx, frameSvg); //eslint-disable-line

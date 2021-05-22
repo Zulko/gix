@@ -8,7 +8,9 @@ https://i.imgur.com/M1pNQoI.gif
 https://i.imgur.com/hym9lz3.mp4
 https://i.imgur.com/lBGx455.mp4
 https://i.imgur.com/t3YUAZB.mp4
-
+https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fpin%2F675821487807503340%2F&psig=AOvVaw3_N61cx2yQOjHMPggiYk5a&ust=1621300490302000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJC03JXFz_ACFQAAAAAdAAAAABAD
+javascript:void(0)
+https://img-9gag-fun.9cache.com/photo/aAgy02L_460sv.mp4
 https://stackoverflow.com/questions/26015497/how-to-resize-then-crop-an-image-with-canvas
 
 fix asset position

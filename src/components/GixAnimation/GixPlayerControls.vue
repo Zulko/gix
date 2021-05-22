@@ -38,7 +38,7 @@
             :key="i",
             :label="`${value}`"
           )
-  .control-time-sliders(:style="{ width: playerWidth + 'px' }")
+  .control-time-sliders(:style="{ width: timeCropSliderWidth + 'px' }")
     b-slider.time-crop-bar(
       v-if="showAllControls",
       v-model="playTimeCrop",
@@ -74,7 +74,16 @@ export default {
     };
   },
   watch: {
-    playTimeCrop(val) {
+    playTimeCrop(val, oldVal) {
+      const [oldStart, oldEnd] = oldVal;
+      const [start, end] = val;
+      console.log(oldStart, start);
+      if (start !== oldStart) {
+        this.$emit('update:time', start);
+      }
+      if (end !== oldEnd) {
+        this.$emit('update:time', end);
+      }
       this.parameters = { ...this.parameters, playTimeCrop: val };
     },
     parameters: {
@@ -91,8 +100,9 @@ export default {
     },
   },
   computed: {
-    playerWidth() {
-      return this.project.canvas.width * this.parameters.scale;
+    timeCropSliderWidth() {
+      const previewWidth = this.project.canvas.width * this.parameters.scale;
+      return Math.min(800, Math.max(this.project.duration * 100, previewWidth));
     },
     playButtonAction() {
       return this.parameters.status === 'play' ? 'pause' : 'play';

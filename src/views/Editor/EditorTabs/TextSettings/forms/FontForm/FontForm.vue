@@ -1,26 +1,34 @@
 <template lang="pug">
 .element-font-form
-  b-field(grouped group-multiline)
-    b-field(label='Font')
-      font-picker(:value='element.font.family'
-                  @input='val => updateElement({font: {family: val}})')
-    b-field(label='Font size')
+  b-field(grouped, group-multiline)
+    b-field(label="Font")
+      font-picker(
+        :value="element.font.family",
+        @input="(val) => updateElement({ font: { family: val } })"
+      )
+    b-field(label="Font size")
       b-numberinput.input-number(
-        :value='element.font.size'
-        @input='val => updateElement({font: {size: val}})'
+        :value="element.font.size",
+        @input="(val) => updateElement({ font: { size: val } })",
         controls-position="compact"
       )
-    b-field(label='Line height')
+    b-field(label="Line height")
       b-numberinput.input-number(
-        :min='0',
-        controls-position="compact"
-        :step='0.05',
-        :value='element.font.lineHeight'
-        @input='v => updateElement({font: {lineHeight: v}})')
-    b-field(label='Bold')
-      b-switch(size='mini',
-                  :value='element.font.bold',
-                  @input='val => updateElement({font: {bold: val}})')
+        :min="0",
+        controls-position="compact",
+        :step="0.05",
+        :value="element.font.lineHeight",
+        @input="(v) => updateElement({ font: { lineHeight: v } })"
+      )
+    b-field(label="Bold")
+      b-switch(
+        size="mini",
+        :value="element.font.bold",
+        @input="(val) => updateElement({ font: { bold: val } })"
+      )
+  p(style="font-size: 0.8em; margin-top: 2em").
+    You can pick any font on Google Fonts (
+    #[a(href="https://fonts.google.com/", target="_blank") browse #[b-icon(icon="open-in-new", size="is-small")]])
 </template>
 
 <script>

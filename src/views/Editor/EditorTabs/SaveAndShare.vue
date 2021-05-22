@@ -1,35 +1,36 @@
 <template lang="pug">
 .share-project-form
-  .share-form(style='width: 60%; margin: 1cm auto;')
-    b-field(label='Project title', label-position='on-border')
-      b-input(v-model='title', size='small')
-    b-field(label='Author', label-position='on-border')
-      b-input(v-model='author', size='small')
-    b-field(label='Project tags', label-position='on-border')
+  .share-form(style="width: 60%; margin: 1cm auto")
+    b-field(label="Project title", label-position="on-border")
+      b-input(v-model="title", size="small")
+    b-field(label="Author", label-position="on-border")
+      b-input(v-model="author", size="small")
+    b-field(label="Project tags", label-position="on-border")
       b-taginput(
-        v-model='tags',
-        :data='tagsInSavedProjects',
-        :autocomplete='true',
-        :allow-new='true',
-        :open-on-focus='true',
-        icon='label',
-        placeholder='tags',
+        v-model="tags",
+        :data="tagsInSavedProjects",
+        :autocomplete="true",
+        :allow-new="true",
+        :open-on-focus="true",
+        icon="label",
+        placeholder="tags"
       )
     .buttons
-      b-button.is-fullwidth(@click='saveProjectAfterCheck') Save project in your browser
-      b-button.is-fullwidth(@click='downloadProjectJson') Download project as JSON file
-      b-button.is-fullwidth(@click='createDirectLink').
+      b-button.is-fullwidth(@click="saveProjectAfterCheck") Save project in your browser
+      b-button.is-fullwidth(@click="downloadProjectJson") Download project as JSON file
+      b-button.is-fullwidth(@click="createDirectLink").
         {{ urls ? 'Update' :  'Create' }} web sharing link
-    .web-link-fields(v-if='urls')
+    .web-link-fields(v-if="urls")
       p Created a {{ urls.URL.length }}-character link.
       b-field(
-        v-for='(url, mode) in urls'
-        :key='url'
-        :label='`${mode} (${url.length} characters)`',
-        label-position='on-border')
-        b-input(expanded :value='url' disabled)
-        p(class="control")
-          span.button(@click='copyUrlToClipboard(mode)') Copy
+        v-for="(url, mode) in urls",
+        :key="url",
+        :label="`${mode} (${url.length} characters)`",
+        label-position="on-border"
+      )
+        b-input(expanded, :value="url", disabled)
+        p.control
+          span.button(@click="copyUrlToClipboard(mode)") Copy
 </template>
 
 <script>
@@ -125,9 +126,7 @@ export default {
       this.$buefy.toast.open({ message, type: 'is-success' });
     },
   },
-  watch: {
-
-  },
+  watch: {},
 };
 </script>
 

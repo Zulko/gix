@@ -7,8 +7,7 @@
       :showStats="true",
       :showControls="true",
       :freeze="this.$store.state.freezeGifPreview",
-      @dragged="onElementDragged",
-      :time.sync="playerTime"
+      @dragged="onElementDragged"
     )
   editor-tabs(v-if="$store.state.project.canvas")
 </template>
@@ -36,7 +35,8 @@ export default {
         return this.$store.state.editorPlayerTime;
       },
       set(value) {
-        this.$store.commit('updateEditorPlayerTime', value);
+        console.log(value);
+        // this.$store.commit('updateEditorPlayerTime', value);
       },
     },
   },

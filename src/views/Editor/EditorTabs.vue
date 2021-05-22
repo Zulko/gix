@@ -2,7 +2,7 @@
 b-tabs.element-tabs(tab-position="top", :multiline="true", :animated="false")
   b-tab-item.element-adder(key="settings", label="Project settings")
     settings-tab
-  b-tab-item.element-adder(key="export", label="Render GIF")
+  b-tab-item.element-adder(key="export", label="Export GIF")
     export-gif
   b-tab-item.element-adder(key="save", label="Save & Share")
     save-and-share

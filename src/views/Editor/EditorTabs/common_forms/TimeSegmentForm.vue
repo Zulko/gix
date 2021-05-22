@@ -5,7 +5,10 @@
       The gix starts and stops with this element. To add elements before or after,
       deselect #[i Main Element] in #[i Project Settings].
   div(v-else)
-    b-field(label="Time segment in the GIX", grouped)
+    b-field(
+      :label="`Time segment of this ${element.subtype} in the project`",
+      grouped
+    )
       p.control
         b-field(label-position="on-border", label="Start")
           b-numberinput.number-input(
@@ -14,15 +17,14 @@
             controls-position="compact",
             @input="(v) => (range = [v, range[1]])"
           )
-    p.control(style="margin-left: auto")
-      b-field(label-position="on-border", label="End")
-        b-numberinput.number-input(
-          controls-position="compact",
-          :step="0.01",
-          :value="range[1]",
-          @input="(v) => (range = [range[0], v])"
-        )
-    br
+      p.control(style="margin-left: auto")
+        b-field(label-position="on-border", label="End")
+          b-numberinput.number-input(
+            controls-position="compact",
+            :step="0.01",
+            :value="range[1]",
+            @input="(v) => (range = [range[0], v])"
+          )
     b-field.slider
       b-slider(
         range,
@@ -32,8 +34,9 @@
         :min="0",
         :max="$store.state.project.duration"
       )
+    br
 
-  b-field(label="Select a segment of the clip", grouped)
+  b-field(:label="`Only play a segment of this ${element.subtype}`", grouped)
     p.control
       b-field(label-position="on-border", label="Start")
         b-numberinput.number-input(
@@ -60,7 +63,7 @@
       :min="0",
       :max="assetDuration"
     )
-
+  br
   b-field.end-time(label="Speed factor", grouped)
     b-select(:value="element.speedFactor", @input="updateSpeed", size="mini")
       option(

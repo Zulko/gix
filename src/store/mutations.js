@@ -118,4 +118,7 @@ export default {
   saveProject(state, newProject) {
     state.savedProjects[newProject.infos.title] = deepcopy(newProject);
   },
+  setFreezeGifPreview(state, val) {
+    state.freezeGifPreview = val;
+  },
 };

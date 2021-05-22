@@ -4,6 +4,7 @@ export const state = {
   savedProjects: {},
   assetStats: {},
   project: {},
+  freezeGifPreview: false,
   globals: {
     gifClickMode: {
       mode: 'none',

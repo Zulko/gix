@@ -2,20 +2,20 @@
 .editor-edit
   .gix-preview
     gix-player(
-      v-if='this.$store.state.project.elements',
-      :project='this.$store.state.project',
-      :showStats='true',
-      :showControls='true',
-      :freeze='!isActive',
-      @dragged='onElementDragged',
-      :time.sync='playerTime'
+      v-if="this.$store.state.project.elements",
+      :project="this.$store.state.project",
+      :showStats="true",
+      :showControls="true",
+      :freeze="this.$store.state.freezeGifPreview",
+      @dragged="onElementDragged",
+      :time.sync="playerTime"
     )
-  edit-elements(v-if='$store.state.project.canvas')
+  editor-tabs(v-if="$store.state.project.canvas")
 </template>
 <script>
 import { mapMutations } from 'vuex';
-import GixPlayer from '../../../../components/GixAnimation/GixPlayer.vue';
-import EditElements from './EditElements/EditElements.vue';
+import GixPlayer from '../../components/GixAnimation/GixPlayer.vue';
+import EditorTabs from './EditorTabs.vue';
 
 export default {
   props: {
@@ -28,7 +28,7 @@ export default {
   },
   components: {
     'gix-player': GixPlayer,
-    'edit-elements': EditElements,
+    'editor-tabs': EditorTabs,
   },
   computed: {
     playerTime: {

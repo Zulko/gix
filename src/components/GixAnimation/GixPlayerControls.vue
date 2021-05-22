@@ -2,59 +2,59 @@
 .gix-player-controls
   section
     b-button.control(
-      style='margin-right: 1em',
-      @click='parameters = { ...parameters, status: playButtonAction }',
-      :icon-right='playButtonAction'
+      style="margin-right: 1em",
+      @click="parameters = { ...parameters, status: playButtonAction }",
+      :icon-right="playButtonAction"
     )
     b-button.show-more(
-      size='mini',
-      @click='showAllControls = !showAllControls'
-    ) {{ showAllControls ? "Hide" : "Show" }} player controls
-  b-field.optional-controls(v-if='showAllControls', position='is-centered')
+      size="mini",
+      @click="showAllControls = !showAllControls"
+    ) {{ showAllControls ? 'Hide' : 'Show' }} player controls
+  b-field.optional-controls(v-if="showAllControls", position="is-centered")
     p.control
-      b-field(label='speed', label-position='on-border')
-        b-select(v-model='parameters.speedFactor')
+      b-field(label="speed", label-position="on-border")
+        b-select(v-model="parameters.speedFactor")
           option(
-            v-for='(value, i) in [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3, 5]',
-            :value='value',
-            :key='i',
-            :label='`${parseInt(100 * value)}` + "%"'
+            v-for="(value, i) in [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3, 5]",
+            :value="value",
+            :key="i",
+            :label="`${parseInt(100 * value)}` + '%'"
           )
     p.control
-      b-field(label='scale', label-position='on-border')
-        b-select(v-model='parameters.scale')
+      b-field(label="scale", label-position="on-border")
+        b-select(v-model="parameters.scale")
           option(
-            v-for='(value, i) in [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3, 5]',
-            :value='value',
-            :key='i',
-            :label='`${parseInt(100 * value)}` + "%"'
+            v-for="(value, i) in [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3, 5]",
+            :value="value",
+            :key="i",
+            :label="`${parseInt(100 * value)}` + '%'"
           )
     p.control
-      b-field(label='fps', label-position='on-border')
-        b-select(v-model='parameters.fps')
+      b-field(label="fps", label-position="on-border")
+        b-select(v-model="parameters.fps")
           option(
-            v-for='(value, i) in [project.fps, 5, 10, 15, 20, 25]',
-            :value='value',
-            :key='i',
-            :label='`${value}`'
+            v-for="(value, i) in [project.fps, 5, 10, 15, 20, 25]",
+            :value="value",
+            :key="i",
+            :label="`${value}`"
           )
-  .control-time-sliders(:style='{ width: playerWidth + "px" }')
+  .control-time-sliders(:style="{ width: playerWidth + 'px' }")
     b-slider.time-crop-bar(
-      v-if='showAllControls',
-      v-model='playTimeCrop',
+      v-if="showAllControls",
+      v-model="playTimeCrop",
       range,
-      :min='0',
-      :max='project.duration',
-      :step='0.05'
+      :min="0",
+      :max="project.duration",
+      :step="0.05"
     )
 
     b-slider.time-bar(
-      :value='time',
-      :min='0',
-      :max='project.duration',
-      :step='0.05',
-      size='is-small',
-      @input='(val) => $emit("update:time", val)'
+      :value="time",
+      :min="0",
+      :max="project.duration",
+      :step="0.05",
+      size="is-small",
+      @input="(val) => $emit('update:time', val)"
     )
 </template>
 
@@ -101,10 +101,10 @@ export default {
 };
 </script>
 <style lang='scss'>
-@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Oswald&display=swap");
 .gix-player-controls {
   position: relative;
-  z-index: 50;
+  z-index: 1;
   .control-time-sliders {
     margin: 0 auto;
     .time-bar {

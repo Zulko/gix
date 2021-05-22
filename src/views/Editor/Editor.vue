@@ -1,33 +1,13 @@
 <template lang='pug'>
-b-tabs.editor-page(v-model='activeTab' class="block" :animated='false')
-  b-tab-item(label='Edit', name='edit')
-    edit(:isActive="activeTab === 0")
-  b-tab-item(
-    v-if="$store.state.project.isAnimated",
-    label='Export GIF',
-    name='exportGIF',
-    :lazy='true'
-  )
-    export-gif(:isActive="activeTab === 1")
-  b-tab-item(
-    v-if="$store.state.project.projectType === 'image'"
-    label='Export image',
-    name='exportImage',
-    :lazy='true'
-  )
-    export-image
-  b-tab-item(label='Save / share', name='share')
-    share
+.editor-page
+  edit
 </template>
 
 <script>
 import base64url from 'base64url';
 import pako from 'pako';
 import { mapMutations } from 'vuex';
-import Edit from './tabs/Edit/Edit.vue';
-import ExportGif from './tabs/ExportGif.vue';
-import ExportImage from './tabs/ExportImage.vue'; //eslint-disable-line
-import Share from './tabs/Share.vue';
+import Edit from './Edit.vue';
 
 export default {
   props: {
@@ -42,9 +22,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations([
-      'setProject',
-    ]),
+    ...mapMutations(['setProject']),
   },
   mounted() {
     if (this.query.projectData) {
@@ -57,9 +35,6 @@ export default {
   },
   components: {
     edit: Edit,
-    'export-gif': ExportGif,
-    'export-image': ExportImage,
-    share: Share,
   },
 };
 </script>

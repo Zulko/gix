@@ -1,5 +1,17 @@
 <template lang="pug">
 b-tabs.element-tabs(tab-position="top", :multiline="true", :animated="false")
+  b-tab-item.element-adder(key="settings", label="Project settings")
+    settings-tab
+  b-tab-item.element-adder(key="export", label="Render GIF")
+    export-gif
+  b-tab-item.element-adder(key="save", label="Save & Share")
+    save-and-share
+  b-tab-item.element-adder(
+    key="adder",
+    icon="plus-circle-outline",
+    label="New element"
+  )
+    element-adder
   b-tab-item.element-tab-pane(
     v-for="(element, i) in $store.state.project.elements",
     :key="element.id",
@@ -23,28 +35,18 @@ b-tabs.element-tabs(tab-position="top", :multiline="true", :animated="false")
       :element="element",
       :showOptions="i === currentCarouselIndex"
     )
-  b-tab-item.element-adder(
-    key="adder",
-    icon="plus-circle-outline",
-    label="New element"
-  )
-    element-adder
-  b-tab-item.element-adder(
-    key="settings",
-    icon="cog",
-    label="Project settings"
-  )
-    settings-tab
 </template>
 
 <script>
 import { mapMutations } from 'vuex';
-import ElementSettings from './ElementSettings.vue';
-import TextSettings from './TextSettings/TextSettings.vue';
-import AssetSettings from './AssetSettings/AssetSettings.vue';
-import ElementAdder from './ElementAdder.vue';
-import ElementToolbar from './ElementToolbar.vue';
-import SettingsTab from './SettingsTab.vue';
+import ElementSettings from './EditorTabs/ElementSettings.vue';
+import TextSettings from './EditorTabs/TextSettings/TextSettings.vue';
+import AssetSettings from './EditorTabs/AssetSettings/AssetSettings.vue';
+import ElementAdder from './EditorTabs/ElementAdder.vue';
+import ElementToolbar from './EditorTabs/ElementToolbar.vue';
+import SettingsTab from './EditorTabs/SettingsTab.vue';
+import ExportGif from './EditorTabs/ExportGif.vue';
+import SaveAndShare from './EditorTabs/SaveAndShare.vue';
 
 // TODO: deleting an element tab should bring to the next element tab.
 export default {
@@ -62,6 +64,8 @@ export default {
     'element-adder': ElementAdder,
     'element-toolbar': ElementToolbar,
     'settings-tab': SettingsTab,
+    'export-gif': ExportGif,
+    'save-and-share': SaveAndShare,
   },
   methods: {
     ...mapMutations(['duplicateElement', 'deleteElement', 'moveElementUp', 'moveElementDown']),
@@ -74,6 +78,8 @@ export default {
 
 <style lang='scss'>
 .element-tabs {
+  margin: 0 auto;
+  width: 90%;
   .tab-text-label {
     max-width: 4em;
     white-space: nowrap;

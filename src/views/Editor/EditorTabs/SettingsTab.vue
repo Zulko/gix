@@ -23,7 +23,7 @@
       span Keep ratio
       br
       b-checkbox(v-model="keepAspectRatio")
-  b-field(grouped, multiline-group)
+  b-field(grouped, group-multiline)
     b-field(label="Gix duration")
       b-numberinput.number-input(
         controls-position="compact",
@@ -40,9 +40,9 @@
         max="50",
         v-model="defaultFPS"
       )
-  b-field(label="Background color")
-    b-input(type="color", v-model="backgroundColor", style="width: 45px")
-    b-input(v-model="backgroundColor", style="width: 90px")
+    b-field(label="Background color")
+      b-input(type="color", v-model="backgroundColor", style="width: 45px")
+      b-input(v-model="backgroundColor", style="width: 90px")
 </template>
 
 <script>
@@ -162,6 +162,10 @@ export default {
 .settings-tab {
   .number-input {
     width: 150px;
+    margin-right: 1em;
+  }
+  .field {
+    margin-bottom: 1em;
   }
 }
 </style>

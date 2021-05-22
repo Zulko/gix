@@ -41,8 +41,8 @@
 import {
   autoDetectedFrameServer,
   urlToSubtype,
-} from '../../../../../../../../gix-renderer/FrameServer/autoDetectedFrameServer';
-import FileOrUrlForm from '../../../../../../../../components/widgets/FileOrUrlForm.vue';
+} from '../../../../../gix-renderer/FrameServer/autoDetectedFrameServer';
+import FileOrUrlForm from '../../../../../components/widgets/FileOrUrlForm.vue';
 
 import ElementComponentMixin from '../../ElementComponentMixin.vue';
 import AssetPreview from './AssetPreview.vue';

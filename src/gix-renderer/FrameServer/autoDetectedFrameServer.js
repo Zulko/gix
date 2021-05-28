@@ -62,7 +62,6 @@ async function initiateMissingFrameServers(gix, frameServers, loadingCallback) {
       e.type === 'asset' &&
       !(frameServers[e.id] && frameServers[e.id].url === e.url),
   );
-  console.log('missing', assetElementsWithoutFrameServer.length);
   const nAssets = assetElementsWithoutFrameServer.length;
   const newFrameServers = { ...frameServers };
   if (nAssets > 0) {

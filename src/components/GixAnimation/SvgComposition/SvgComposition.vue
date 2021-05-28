@@ -1,8 +1,8 @@
 <template lang="pug">
 .svg-composition(
-  @mouseup='stopDragging',
-  @mousemove='updateDrag'
-  @mouseleave='cancelDragging'
+  @mouseup="stopDragging",
+  @mousemove="updateDragging",
+  @mouseleave="cancelDragging"
 )
   svg(
     :viewBox="`0 0 ${svgWidth} ${svgHeight}`",
@@ -10,10 +10,12 @@
     :style="style"
   )
     svg-element(
-      v-for='element in svgElements', :key='element.id',
-      :element='element'
-      :drag='(draggedElement && (element.id === draggedElement.id)) ? drag : null'
-      @startdragging='startDragging'
+      v-for="element in svgElements",
+      :key="element.id",
+      :element="element",
+      :drag="draggedElement && element.id === draggedElement.id ? drag : null",
+      :dragType="dragType",
+      @drag="startDragging"
     )
 </template>
 <script>
@@ -23,7 +25,7 @@ import SvgElement from './SvgElement.vue';
 export default {
   props: {
     inlineStylesInEmittedSVG: { default: true, type: Boolean },
-    svgElements: { default: () => ([]), type: Array },
+    svgElements: { default: () => [], type: Array },
     svgWidth: { default: 100, type: Number },
     svgHeight: { default: 100, type: Number },
     scale: { default: 1, type: Number },
@@ -35,6 +37,7 @@ export default {
       svgDomElement: null,
       draggedElement: null,
       dragInit: null,
+      dragType: null,
       drag: {
         x: 0,
         y: 0,
@@ -47,6 +50,8 @@ export default {
   methods: {
     startDragging(e) {
       this.draggedElement = e.element;
+      console.log(e.dragType);
+      this.dragType = e.dragType;
       this.dragInit = {
         x: e.evt.clientX,
         y: e.evt.clientY,
@@ -54,13 +59,14 @@ export default {
     },
     cancelDragging() {
       this.dragInit = null;
+      this.dragType = null;
       this.draggedElement = null;
       this.drag = {
         x: 0,
         y: 0,
       };
     },
-    updateDrag(e) {
+    updateDragging(e) {
       if (this.dragInit) {
         this.drag = {
           x: (e.clientX - this.dragInit.x) / this.scale,
@@ -70,7 +76,11 @@ export default {
     },
     stopDragging() {
       if (this.dragInit) {
-        this.$emit('dragged', { element: this.draggedElement, drag: this.drag });
+        this.$emit('dragged', {
+          element: this.draggedElement,
+          drag: this.drag,
+          dragType: this.dragType,
+        });
       }
       this.cancelDragging();
     },

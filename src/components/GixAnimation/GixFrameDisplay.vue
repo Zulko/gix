@@ -1,20 +1,20 @@
 // TODO: two SVGs, one for animated content, one for inanimated content
 
 <template lang='pug'>
-.gix-frame(:style='gixFrameStyle')
+.gix-frame(:style="gixFrameStyle")
   svg-composition(
-    v-if='!isLoading',
-    :svgElements='svgElements',
-    :svgWidth='project.canvas.width',
-    :svgHeight='project.canvas.height',
-    :scale='scale',
-    :emitSVG='includeSVGInEmittedFrames',
-    :inlineStylesInEmittedSVG='true',
-    :backgroundColor='project.canvas.backgroundColor',
-    @dragged='(evt) => $emit("dragged", evt)',
-    @new-frame='(evt) => $emit("new-frame", evt)'
+    v-if="!isLoading",
+    :svgElements="svgElements",
+    :svgWidth="project.canvas.width",
+    :svgHeight="project.canvas.height",
+    :scale="scale",
+    :emitSVG="includeSVGInEmittedFrames",
+    :inlineStylesInEmittedSVG="true",
+    :backgroundColor="project.canvas.backgroundColor",
+    @dragged="(evt) => $emit('dragged', evt)",
+    @new-frame="(evt) => $emit('new-frame', evt)"
   )
-  b-loading(:is-full-page='false', v-model='isLoading', :can-cancel='false')
+  b-loading(:is-full-page="false", v-model="isLoading", :can-cancel="false")
 </template>
 
 <script>

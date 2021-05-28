@@ -146,7 +146,9 @@ function resolveElement(element, params) {
 
 async function resolvedElementToSvg(element, params) {
   const inner = await svgConverters[element.type](element, params);
-  const elementTransform = `translate(${element.position.x}, ${element.position.y})`;
+  const translation = `translate(${element.position.x}, ${element.position.y})`;
+  const rotation = `rotate(${element.position.rotation || 0})`;
+  const elementTransform = `${translation} ${rotation}`;
   return `<g transform="${elementTransform}">${inner}</g>`;
 }
 

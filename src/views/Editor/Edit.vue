@@ -32,15 +32,24 @@ export default {
   methods: {
     ...mapMutations(['updateElement']),
     onElementDragged(e) {
-      this.updateElement({
-        elementId: e.element.id,
-        update: {
+      let update;
+      if (e.dragType === 'translation') {
+        update = {
           position: {
             x: e.element.position.x + e.drag.x,
             y: e.element.position.y + e.drag.y,
           },
-        },
-      });
+        };
+      } else if (e.dragType === 'rotation') {
+        const atan = Math.atan2(20 - e.drag.y, e.drag.x);
+        const dragAngle = parseInt((-360 * atan) / (2 * Math.PI) + 90, 10);
+        update = {
+          position: {
+            rotation: (e.element.position.rotation || 0) + dragAngle,
+          },
+        };
+      }
+      this.updateElement({ elementId: e.element.id, update });
     },
   },
 };

@@ -14,7 +14,7 @@
       :key="element.id",
       :element="element",
       :drag="draggedElement && element.id === draggedElement.id ? drag : null",
-      :dragType="dragType",
+      :dragType="draggedElement && element.id === draggedElement.id ? dragType : null",
       @drag="startDragging"
     )
 </template>
@@ -50,7 +50,6 @@ export default {
   methods: {
     startDragging(e) {
       this.draggedElement = e.element;
-      console.log(e.dragType);
       this.dragType = e.dragType;
       this.dragInit = {
         x: e.evt.clientX,

@@ -48,7 +48,7 @@
         b-numberinput.numberinput(
           controls-position="compact",
           :value="element.position.rotation",
-          @input="(v) => updateElement({ position: { rotation: v } })"
+          @input="(v) => updateElement({ position: { rotation: v % 360 } })"
         )
 </template>
 

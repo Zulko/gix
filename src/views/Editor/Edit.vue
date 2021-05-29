@@ -45,9 +45,29 @@ export default {
         const dragAngle = parseInt((-360 * atan) / (2 * Math.PI) + 90, 10);
         update = {
           position: {
-            rotation: (e.element.position.rotation || 0) + dragAngle,
+            rotation: ((e.element.position.rotation || 0) + dragAngle) % 360,
           },
         };
+      } else if (e.dragType === 'resizing') {
+        const ratio = (20 - e.drag.y) / 20;
+        if (e.element.type === 'asset') {
+          update = {
+            size: {
+              height: parseInt(ratio * e.element.size.height, 10),
+              width: parseInt(ratio * e.element.size.width, 10),
+              aspectRatio: e.element.size.aspectRatio,
+            },
+          };
+        } else if (e.element.type === 'text') {
+          update = {
+            font: {
+              size: Math.max(10, parseInt(ratio * e.element.font.size, 10)),
+            },
+            stroke: {
+              width: ratio * e.element.stroke.width,
+            },
+          };
+        }
       }
       this.updateElement({ elementId: e.element.id, update });
     },

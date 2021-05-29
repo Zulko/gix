@@ -16,10 +16,17 @@ g.svg-element(
     @drag="(evt) => $emit('drag', evt)",
     v-if="showRotationHandle"
   )
+  resizing-handle(
+    :element="element",
+    :drag="dragType === 'resizing' ? drag : null",
+    @drag="(evt) => $emit('drag', evt)",
+    v-if="showResizingHandle"
+  )
 </template>
 
 <script>
 import RotationHandle from './RotationHandle.vue';
+import ResizingHandle from './ResizingHandle.vue';
 
 export default {
   name: 'SvgElement',
@@ -35,16 +42,21 @@ export default {
   },
   computed: {
     transform() {
+      const { position } = this.element;
       if (this.drag && this.dragType === 'translation') {
         const x = this.drag.x || 0;
         const y = this.drag.y || 0;
         return `translate(${x}, ${y})`;
       }
       if (this.drag && this.dragType === 'rotation') {
-        // console.log(this.drag, Math.atan2(this.drag.x, this.drag.y + 20));
         const atan = Math.atan2(20 - this.drag.y, this.drag.x);
         const dragAngle = parseInt((-360 * atan) / (2 * Math.PI) + 90, 10);
-        return `rotate(${dragAngle} ${this.element.position.x} ${this.element.position.y})`;
+        return `rotate(${dragAngle} ${position.x} ${position.y})`;
+      }
+      if (this.drag && this.dragType === 'resizing') {
+        const ratio = (20 - this.drag.y) / 20;
+        const translation = `translate(${(1 - ratio) * position.x}, ${(1 - ratio) * position.y})`;
+        return `${translation} scale(${ratio})`;
       }
       return '';
     },
@@ -55,24 +67,19 @@ export default {
         !this.element.editorSettings.isMainElement
       );
     },
+    showResizingHandle() {
+      return (
+        (this.element.show || this.drag) &&
+        (this.dragType === 'resizing' || this.isHovered) &&
+        !this.element.editorSettings.isMainElement
+      );
+    },
     mouseCursorType() {
       if (this.element.editorSettings.isDraggable) {
         return 'move'; // this.drag ? 'move' : 'pointer';
       }
       return 'default';
     },
-    // dragTransformedElement() {
-    //   if (this.drag && this.dragType === 'translation') {
-    //     const position = {
-    //       ...this.element.position,
-    //       x: this.element.position.x + this.drag.x,
-    //       y: this.element.position.y + this.drag.y,
-    //     };
-    //     return { ...this.element, position };
-    //   }
-
-    //   return this.element;
-    // },
   },
   methods: {
     onMouseDown(evt) {
@@ -83,6 +90,7 @@ export default {
   },
   components: {
     'rotation-handle': RotationHandle,
+    'resizing-handle': ResizingHandle,
   },
 };
 </script>

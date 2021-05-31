@@ -9,11 +9,13 @@
       :freeze="this.$store.state.freezeGifPreview",
       @dragged="onElementDragged"
     )
+  undo-redo-widget
   editor-tabs(v-if="$store.state.project.canvas")
 </template>
 <script>
 import { mapMutations } from 'vuex';
 import GixPlayer from '../../components/GixAnimation/GixPlayer.vue';
+import UndoRedoWidget from '../../components/UndoRedoWidget.vue';
 import EditorTabs from './EditorTabs.vue';
 
 export default {
@@ -28,6 +30,7 @@ export default {
   components: {
     'gix-player': GixPlayer,
     'editor-tabs': EditorTabs,
+    'undo-redo-widget': UndoRedoWidget,
   },
   methods: {
     ...mapMutations(['updateElement']),

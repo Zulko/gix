@@ -12,6 +12,14 @@ function generateRandomID() {
     return v.toString(16);
   });
 }
+
+function generateID(elements, offset = 0) {
+  const suggestedId = `element-${offset}`;
+  if (elements.some((e) => e.id === suggestedId)) {
+    return generateID(elements, offset + 1);
+  }
+  return suggestedId;
+}
 /* eslint-enable */
 
 function elementAndIndex(elementId, state) {
@@ -54,11 +62,12 @@ export default {
   addElement(state, elementType) {
     const newElement = deepcopy(defaultElements[elementType]);
     newElement.timeSegment.end = state.project.duration;
-    newElement.id = generateRandomID();
+    newElement.id = generateID(state.project.elements);
     state.project = {
       ...state.project,
       elements: [...state.project.elements, newElement],
     };
+    state.globals.activeEditorElementTab = state.project.elements.length - 1;
   },
   duplicateElement(state, elementId) {
     const newElements = state.project.elements.slice();
@@ -69,40 +78,38 @@ export default {
       isDefaultFocus: false,
       isDraggable: true,
     };
-    newElement.id = generateRandomID();
+    newElement.id = generateID(state.project.elements);
     newElements.splice(index + 1, 0, newElement);
     state.project = {
       ...state.project,
       elements: newElements,
     };
+    state.globals.activeEditorElementTab = index + 1;
   },
   deleteElement(state, elementId) {
     const newElements = state.project.elements.slice();
     const index = elementAndIndex(elementId, state)[1];
     newElements.splice(index, 1);
     state.project.elements = newElements;
+    state.globals.activeEditorElementTab = index - 1;
   },
-  moveElementUp(state, elementId) {
+  moveElementDown(state, elementId) {
     const [element, index] = elementAndIndex(elementId, state);
     const indexUp = Math.max(0, index - 1);
     const newElements = state.project.elements.slice();
     newElements[index] = state.project.elements[indexUp];
     newElements[indexUp] = element;
-    state.project = {
-      ...state.project,
-      elements: newElements,
-    };
+    state.project.elements = newElements;
+    state.globals.activeEditorElementTab = index - 1;
   },
-  moveElementDown(state, elementId) {
+  moveElementUp(state, elementId) {
     const [element, index] = elementAndIndex(elementId, state);
     const indexDown = Math.min(state.project.elements.length - 1, index + 1);
     const newElements = state.project.elements.slice();
     newElements[index] = state.project.elements[indexDown];
     newElements[indexDown] = element;
-    state.project = {
-      ...state.project,
-      elements: newElements,
-    };
+    state.project.elements = newElements;
+    state.globals.activeEditorElementTab = index + 1;
   },
   setDefaultStartingProject(state) {
     state.project = {
@@ -120,5 +127,12 @@ export default {
   },
   setFreezeGifPreview(state, val) {
     state.freezeGifPreview = val;
+  },
+  emptyProject(state) {
+    state.project = {};
+  },
+  setEditorTabIndex(state, val) {
+    console.log('sss');
+    state.globals.activeEditorElementTab = val;
   },
 };

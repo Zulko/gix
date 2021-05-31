@@ -56,11 +56,18 @@ async function autoDetectedFrameServer(urlData) {
   return new FrameServerClass(urlData.url, mediaUrl);
 }
 
-async function initiateMissingFrameServers(gix, frameServers, loadingCallback) {
-  const assetElementsWithoutFrameServer = gix.elements.filter(
+function findAssetElementsWithoutFrameServer(gix, frameServers) {
+  return gix.elements.filter(
     (e) =>
       e.type === 'asset' &&
       !(frameServers[e.id] && frameServers[e.id].url === e.url),
+  );
+}
+
+async function initiateMissingFrameServers(gix, frameServers, loadingCallback) {
+  const assetElementsWithoutFrameServer = findAssetElementsWithoutFrameServer(
+    gix,
+    frameServers,
   );
   const nAssets = assetElementsWithoutFrameServer.length;
   const newFrameServers = { ...frameServers };
@@ -82,4 +89,9 @@ async function initiateMissingFrameServers(gix, frameServers, loadingCallback) {
   return newFrameServers;
 }
 
-export { urlToSubtype, autoDetectedFrameServer, initiateMissingFrameServers };
+export {
+  urlToSubtype,
+  autoDetectedFrameServer,
+  initiateMissingFrameServers,
+  findAssetElementsWithoutFrameServer,
+};

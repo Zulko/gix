@@ -6,6 +6,7 @@ export const state = {
   project: {},
   freezeGifPreview: false,
   globals: {
+    activeEditorElementTab: 0,
     gifClickMode: {
       mode: 'none',
       targetElement: null,

@@ -77,13 +77,4 @@ hr {
 .progress {
   transition: none;
 }
-
-// .field {
-//   text-align: center;
-// }
-// .field.is-floating-label .label {
-//   left: none;
-//   text-align: center;
-//   margin: 0 auto;
-// }
 </style>

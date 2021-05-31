@@ -18,7 +18,10 @@
 </template>
 
 <script>
-import { initiateMissingFrameServers } from '../../gix-renderer/FrameServer/autoDetectedFrameServer';
+import {
+  initiateMissingFrameServers,
+  findAssetElementsWithoutFrameServer,
+} from '../../gix-renderer/FrameServer/autoDetectedFrameServer';
 import { resolveElement, resolvedElementToSvg } from '../../gix-renderer';
 // import data from './data';
 import SvgComposition from './SvgComposition/SvgComposition.vue';
@@ -44,18 +47,21 @@ export default {
   methods: {
     async refreshElements() {
       const self = this;
-      window.frameServers = await initiateMissingFrameServers(
-        this.project,
-        window.frameServers,
-        () => {
-          self.isLoading = true;
-        },
-      );
-      const sourceStats = Object.fromEntries(
-        Object.entries(window.frameServers).map(([name, server]) => [name, server.sourceStats]),
-      );
-      this.$store.commit('updateAssetStats', sourceStats);
-      this.isLoading = false;
+      const missingServers = findAssetElementsWithoutFrameServer(this.project, window.frameServers);
+      if (missingServers.length) {
+        window.frameServers = await initiateMissingFrameServers(
+          this.project,
+          window.frameServers,
+          () => {
+            self.isLoading = true;
+          },
+        );
+        const sourceStats = Object.fromEntries(
+          Object.entries(window.frameServers).map(([name, server]) => [name, server.sourceStats]),
+        );
+        this.$store.commit('updateAssetStats', sourceStats);
+        this.isLoading = false;
+      }
       this.svgElements = await Promise.all(
         this.project.elements.map((element) => this.svgElementAtTime(element, this.time)),
       );

@@ -1,5 +1,5 @@
 <template lang='pug'>
-.editor-page
+#editor-page
   edit
 </template>
 
@@ -40,7 +40,7 @@ export default {
 </script>
 
 <style lang='scss'>
-.editor-page {
+#editor-page {
   width: 90%;
   max-width: 1000px;
   margin: 3em auto;

@@ -5,12 +5,12 @@
       b-button(
         size="is-small",
         icon-left="arrow-bottom-left",
-        @click="moveElementUpAndUpdate()"
+        @click="moveElementDownAndUpdate()"
       ) Move down
     p.control
       b-button(
         size="is-small",
-        @click="moveElementDownAndUpdate()",
+        @click="moveElementUpAndUpdate()",
         icon-left="arrow-top-right"
       ) Move up
     p.control
@@ -40,13 +40,13 @@ export default {
     ...mapMutations(['duplicateElement', 'deleteElement', 'moveElementUp', 'moveElementDown']),
     moveElementUpAndUpdate() {
       const index = this.$store.state.project.elements.map((c) => c.id).indexOf(this.elementId);
-      if (index > 0) {
+      if (index < this.$store.state.project.elements.length) {
         this.moveElementUp(this.elementId);
       }
     },
     moveElementDownAndUpdate() {
       const index = this.$store.state.project.elements.map((c) => c.id).indexOf(this.elementId);
-      if (index < this.$store.state.project.elements.length) {
+      if (index > 0) {
         this.moveElementDown(this.elementId);
       }
     },

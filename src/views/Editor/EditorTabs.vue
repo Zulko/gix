@@ -1,5 +1,11 @@
 <template lang="pug">
-b-tabs.element-tabs(tab-position="top", :multiline="true", :animated="false")
+b-tabs.element-tabs(
+  :key="$store.state.project.elements.map((e) => e.id).join()",
+  tab-position="top",
+  :multiline="true",
+  :animated="false",
+  v-model="tabIndex"
+)
   b-tab-item.element-adder(key="settings", label="Project settings")
     settings-tab
   b-tab-item.element-adder(key="export", label="Export GIF")
@@ -33,7 +39,7 @@ b-tabs.element-tabs(tab-position="top", :multiline="true", :animated="false")
     .element-settings(
       :is="settingsComponents[element.type]",
       :element="element",
-      :showOptions="i === currentCarouselIndex"
+      :showOptions="i === tabIndex"
     )
 </template>
 
@@ -52,7 +58,6 @@ import SaveAndShare from './EditorTabs/SaveAndShare.vue';
 export default {
   data() {
     return {
-      currentCarouselIndex: 0,
       settingsComponents: {
         text: TextSettings,
         asset: AssetSettings,
@@ -66,6 +71,17 @@ export default {
     'settings-tab': SettingsTab,
     'export-gif': ExportGif,
     'save-and-share': SaveAndShare,
+  },
+  computed: {
+    tabIndex: {
+      get() {
+        return this.$store.state.globals.activeEditorElementTab + 4;
+      },
+      set(val) {
+        console.log('blabla');
+        this.$store.commit('setEditorTabIndex', val - 4);
+      },
+    },
   },
   methods: {
     ...mapMutations(['duplicateElement', 'deleteElement', 'moveElementUp', 'moveElementDown']),

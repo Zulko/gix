@@ -134,4 +134,8 @@ export default {
   setEditorTabIndex(state, val) {
     state.globals.activeEditorElementTab = val;
   },
+  setEditorTabIndexToElementId(state, elementId) {
+    const index = state.project.elements.map((c) => c.id).indexOf(elementId);
+    state.globals.activeEditorElementTab = index;
+  },
 };

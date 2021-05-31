@@ -35,6 +35,7 @@ export default {
   methods: {
     ...mapMutations(['updateElement']),
     onElementDragged(e) {
+      this.$store.commit('setEditorTabIndexToElementId', e.element.id);
       let update;
       if (e.dragType === 'translation') {
         update = {

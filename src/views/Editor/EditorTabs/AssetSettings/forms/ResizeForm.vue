@@ -1,39 +1,37 @@
 <template lang="pug">
-.text-position-form
-  b-field(
-    grouped,
-    group-multiline,
-    label='Resize',
-    message='Changing the size of this element will resize the whole project'
-  )
+.resize-form
+  b-field(grouped, group-multiline, label="Resize", :message="resizeMessage")
     p.control
-      b-field(label='Width', label-position='on-border')
+      b-field(label="Width", label-position="on-border")
         b-numberinput.number-input(
-          size='mini',
-          controls-position='compact',
-          :min='0',
-          v-model='elementWidth'
+          size="mini",
+          controls-position="compact",
+          :min="0",
+          v-model="elementWidth"
         )
     p.control
-      b-field(label='Height', label-position='on-border')
+      b-field(label="Height", label-position="on-border")
         b-numberinput.number-input(
-          controls-position='compact',
-          size='mini',
-          :min='0',
-          v-model='elementHeight'
+          controls-position="compact",
+          size="mini",
+          :min="0",
+          v-model="elementHeight"
         )
-    p.control(style='margin-top: -0.4em') Keep aspect ratio
+    p.control(style="margin-top: -0.4em") Keep aspect ratio
       br
-      b-checkbox(:value='keepAspectRatio', @change='changeAspectRatioCheckbox')
-  b-field(grouped, group-multiline, label='Crop')
-    p.control(v-for='direction in ["top", "bottom", "left", "right"]')
-      b-field(:label='direction', label-position='on-border')
+      b-checkbox(
+        v-model="keepAspectRatio",
+        @change="changeAspectRatioCheckbox"
+      )
+  b-field(grouped, group-multiline, label="Crop", v-if="element.crop")
+    p.control(v-for="direction in ['top', 'bottom', 'left', 'right']")
+      b-field(:label="direction", label-position="on-border")
         b-numberinput.number-input(
-          size='mini',
-          controls-position='compact',
-          :min='0',
-          :value='element.crop[direction]',
-          @input='(v) => updateCrop(v, direction)'
+          size="mini",
+          controls-position="compact",
+          :min="0",
+          :value="element.crop[direction]",
+          @input="(v) => updateCrop(v, direction)"
         )
 </template>
 
@@ -82,6 +80,11 @@ export default {
     changeAspectRatioCheckbox() {},
   },
   computed: {
+    resizeMessage() {
+      return this.element.editorSettings.isMainElement
+        ? 'Changing the size of this element will resize the whole project'
+        : '';
+    },
     elementWidth: {
       get() {
         return this.element.size.width;
@@ -139,12 +142,9 @@ export default {
 </script>
 
 <style lang="scss">
-.text-position-form {
+.resize-form {
   .number-input {
     width: 150px;
   }
-  // button {
-  //   padding: 8px !important;
-  // }
 }
 </style>

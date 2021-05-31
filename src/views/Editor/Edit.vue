@@ -54,11 +54,11 @@ export default {
         };
       } else if (e.dragType === 'resizing') {
         const ratio = (20 - e.drag.y) / 20;
-        if (e.element.type === 'asset') {
+        if (e.element.type === 'asset' || e.element.type === 'rectangle') {
           update = {
             size: {
-              height: parseInt(ratio * e.element.size.height, 10),
-              width: parseInt(ratio * e.element.size.width, 10),
+              height: Math.max(10, parseInt(ratio * e.element.size.height, 10)),
+              width: Math.max(10, parseInt(ratio * e.element.size.width, 10)),
               aspectRatio: e.element.size.aspectRatio,
             },
           };

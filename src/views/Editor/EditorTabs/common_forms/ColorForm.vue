@@ -10,7 +10,7 @@
     b-field(label="Stroke")
       color-picker(
         :value="element.stroke.color",
-        @input="(v) => updateElement({ stroke: { color: v } })"
+        @input="(v) => updateElement({ stroke: { color: v.hex8 } })"
       )
       b-field(label="Width", label-position="on-border")
         b-numberinput.number-input(
@@ -23,7 +23,7 @@
     b-field(label="Outline", v-if="element.outline")
       color-picker(
         :value="element.outline.color",
-        @input="(v) => updateElement({ outline: { color: v } })"
+        @input="(v) => updateElement({ outline: { color: v.hex8 } })"
       )
       b-field(
         label="Width",

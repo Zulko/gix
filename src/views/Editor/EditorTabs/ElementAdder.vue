@@ -1,15 +1,14 @@
 <template lang="pug">
 .element-adder
   section.section
-   div.buttons( style='width: 300px; margin: 0 auto')
+    .buttons(style="width: 300px; margin: 0 auto")
       b-button.is-fullwidth(
-        v-for='adder in adders'
-
-        :key='adder.type'
-        @click='addElement(adder.type)'
-        :icon-left="adder.icon"
+        v-for="adder in adders",
+        :key="adder.type",
+        @click="addElement(adder.type)",
+        :icon-left="adder.icon",
         round
-      ) New {{adder.tooltip}}
+      ) New {{ adder.tooltip }}
 </template>
 <script>
 import { mapMutations } from 'vuex';
@@ -29,9 +28,9 @@ export default {
           type: 'asset',
         },
         {
-          tooltip: 'shape',
-          icon: 'shape',
-          type: 'shape',
+          tooltip: 'rectangle',
+          icon: 'rectangle-outline',
+          type: 'rectangle',
         },
         {
           tooltip: 'pasted from clipboard',
@@ -42,9 +41,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations([
-      'addElement',
-    ]),
+    ...mapMutations(['addElement']),
   },
 };
 </script>

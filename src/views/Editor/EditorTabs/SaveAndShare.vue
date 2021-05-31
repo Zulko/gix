@@ -16,9 +16,9 @@
         placeholder="tags"
       )
     .buttons
-      b-button.is-fullwidth(@click="saveProjectAfterCheck") Save project in your browser
-      b-button.is-fullwidth(@click="downloadProjectJson") Download project as JSON file
-      b-button.is-fullwidth(@click="createDirectLink").
+      b-button.is-fullwidth(@click="saveProjectAfterCheck", type="is-primary") Save in your browser
+      b-button.is-fullwidth(@click="downloadProjectJson", type="is-primary") Download as JSON file
+      b-button.is-fullwidth(@click="createDirectLink", type="is-primary").
         {{ urls ? 'Update' :  'Create' }} web sharing link
     .web-link-fields(v-if="urls")
       p Created a {{ urls.URL.length }}-character link.

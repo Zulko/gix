@@ -35,6 +35,23 @@ b-tabs.element-tabs(
       span.tab-video-label(v-if="element.subtype == 'video'")
         b-icon(icon="movie")
         | {{ element.title ? tabLabel(element.title) : '' }}
+      span.tab-rectangle-label(v-if="element.subtype == 'rectangle'")
+        svg(
+          viewBox="0 0 12 12",
+          xmlns="http://www.w3.org/2000/svg",
+          style="width: 25px; height: 25px; margin-bottom: -5px"
+        )
+          rect(
+            x="2",
+            y="2",
+            width="9",
+            height="9",
+            rx="2",
+            ry="2",
+            :fill="element.color.toLowerCase()",
+            stroke="grey",
+            style="stroke-width: 1"
+          )
     element-toolbar(:elementId="element.id")
     .element-settings(
       :is="settingsComponents[element.type]",
@@ -47,6 +64,7 @@ b-tabs.element-tabs(
 import { mapMutations } from 'vuex';
 import ElementSettings from './EditorTabs/ElementSettings.vue';
 import TextSettings from './EditorTabs/TextSettings/TextSettings.vue';
+import RectangleSettings from './EditorTabs/RectangleSettings/RectangleSettings.vue';
 import AssetSettings from './EditorTabs/AssetSettings/AssetSettings.vue';
 import ElementAdder from './EditorTabs/ElementAdder.vue';
 import ElementToolbar from './EditorTabs/ElementToolbar.vue';
@@ -61,6 +79,7 @@ export default {
       settingsComponents: {
         text: TextSettings,
         asset: AssetSettings,
+        rectangle: RectangleSettings,
       },
     };
   },

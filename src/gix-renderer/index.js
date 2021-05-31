@@ -77,6 +77,33 @@ const svgConverters = {
       width="${`${element.size.width}px`}"
     />`;
   },
+  async rectangle(element) {
+    const x = {
+      left: 0,
+      center: -element.size.width / 2,
+      right: -element.size.width,
+    }[element.position.xAlign];
+    const y = {
+      top: 0,
+      center: -element.size.height / 2,
+      bottom: -element.size.height,
+    }[element.position.yAlign];
+    const style = `
+      fill: ${element.color.toLowerCase()};
+      stroke-linejoin: round;
+      stroke: ${element.stroke.color};
+      stroke-width: ${element.stroke.width}px;
+    `;
+    return `<rect
+      x="${x}"
+      y="${y}"
+      height="${element.size.height}px"
+      width="${element.size.width}px"
+      rx="${element.roundedCorners.rx}"
+      ry="${element.roundedCorners.ry}"
+      style="${style}"
+    />`;
+  },
   async text(element) {
     const textAnchor = {
       left: 'start',

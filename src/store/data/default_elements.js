@@ -73,7 +73,8 @@ const defaultElements = {
     ...defaultElementBase,
     type: 'asset',
     subtype: 'gif',
-    url: 'https://help.imgur.com/hc/en-us/article_attachments/115000241146/mindblown.gif',
+    url:
+      'https://help.imgur.com/hc/en-us/article_attachments/115000241146/mindblown.gif',
     stroke: {
       width: 1,
       color: '#000000',
@@ -96,22 +97,32 @@ const defaultElements = {
     },
     speedFactor: 1.0,
   },
-  shape: {
+  rectangle: {
     ...defaultElementBase,
-    type: 'shape',
+    type: 'rectangle',
     subtype: 'rectangle',
-    rectangleProps: {
-      width: 100,
-      height: 40,
+    position: {
+      x: 50,
+      y: 50,
+      rotate: 1,
+      xAlign: 'center',
+      yAlign: 'center',
     },
-    outline: {
+    color: '#EEEE20',
+    size: {
+      width: 300,
+      height: 125,
+      aspectRatio: 2.4,
+      preserveOriginalRatio: true,
+    },
+    stroke: {
       width: 0,
-      color: '#000000)',
+      color: '#000000',
     },
-    circleProps: {
-      r: 0,
+    roundedCorners: {
+      rx: 0,
+      ry: 0,
     },
-    path: [],
   },
   group: {
     ...defaultElementBase,
@@ -120,7 +131,4 @@ const defaultElements = {
   },
 };
 
-export {
-  defaultStartingProject,
-  defaultElements,
-};
+export { defaultStartingProject, defaultElements };

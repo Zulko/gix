@@ -69,7 +69,6 @@ class VideoFrameServer extends FrameServer {
     return new Promise((resolve, reject) => {
       self.video.onerror = reject;
       self.video.onseeked = (evt) => {
-        console.log(evt);
         resolve(evt);
         self.video.onseeked = null;
       };

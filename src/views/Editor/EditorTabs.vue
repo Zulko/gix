@@ -78,7 +78,6 @@ export default {
         return this.$store.state.globals.activeEditorElementTab + 4;
       },
       set(val) {
-        console.log('blabla');
         this.$store.commit('setEditorTabIndex', val - 4);
       },
     },

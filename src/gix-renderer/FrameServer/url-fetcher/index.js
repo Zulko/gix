@@ -52,8 +52,6 @@ async function getYoutubeStreamingData(youtubeId) {
   return videoParams.playerResponse.streamingData;
 }
 
-console.log(getYoutubeStreamingData);
-
 async function getYoutubeVideoInfo(youtubeId) {
   const response = await new Promise((resolve, reject) => {
     fetch(`https://www.youtube.com/get_video_info?video_id=${youtubeId}`, {
@@ -135,7 +133,6 @@ exports.handler = async (event) => {
     body = err.message;
   } finally {
     body = JSON.stringify(body);
-    // console.log('BODY LENGTH: ', body.length);
   }
   return {
     statusCode,

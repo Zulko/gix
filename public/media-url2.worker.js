@@ -22,7 +22,6 @@ onmessage = function onMessage(e) {
           const playerResponse = JSON.parse(
             decodeURIComponent(json.player_response),
           );
-          // console.log(playerResponse);
           const h264Formats = playerResponse.streamingData.adaptiveFormats.filter(
             (f) => f.mimeType.startsWith('video/mp4') && f.width < 1100,
           );

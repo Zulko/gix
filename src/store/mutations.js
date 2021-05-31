@@ -132,7 +132,6 @@ export default {
     state.project = {};
   },
   setEditorTabIndex(state, val) {
-    console.log('sss');
     state.globals.activeEditorElementTab = val;
   },
 };

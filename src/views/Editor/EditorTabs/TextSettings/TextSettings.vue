@@ -1,10 +1,13 @@
 <template lang="pug">
 .text-settings
-  element-settings(:element='element' :showOptions='showOptions').text-element-settings
-    text-input.text-input(:element='element')
-    b-tabs
-      b-tab-item(v-for='pane in panes', :key='pane.title', :label='pane.title')
-        div(:is='pane.form', :element='element')
+  element-settings.text-element-settings(
+    :element="element",
+    :showOptions="showOptions"
+  )
+    text-input.text-input(:element="element")
+    b-tabs(type="is-boxed", :animated="false")
+      b-tab-item(v-for="pane in panes", :key="pane.title", :label="pane.title")
+        div(:is="pane.form", :element="element")
 </template>
 
 <script>
@@ -60,7 +63,7 @@ export default {
 .text-settings {
   .text-input {
     width: 90%;
-    margin: 0 auto 2em ;
+    margin: 0 auto 2em;
   }
 }
 </style>

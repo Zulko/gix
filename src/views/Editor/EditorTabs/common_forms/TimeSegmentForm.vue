@@ -36,42 +36,43 @@
       )
     br
 
-  b-field(:label="`Only play a segment of this ${element.subtype}`", grouped)
-    p.control
-      b-field(label-position="on-border", label="Start")
-        b-numberinput.number-input(
-          controls-position="compact",
-          :step="0.01",
-          :value="crop[0]",
-          @input="(v) => (crop = [v, crop[1]])"
-        )
-    p.control(style="margin-left: auto")
-      b-field.end-time(label-position="on-border", label="End")
-        b-numberinput.number-input(
-          controls-position="compact",
-          :step="0.01",
-          :value="crop[1]",
-          :max="assetDuration",
-          @input="(v) => (crop = [crop[0], v])"
-        )
-  b-field.slider
-    b-slider(
-      range,
-      :step="0.01",
-      size="mini",
-      v-model="crop",
-      :min="0",
-      :max="assetDuration"
-    )
-  br
-  b-field.end-time(label="Speed factor", grouped)
-    b-select(:value="element.speedFactor", @input="updateSpeed", size="mini")
-      option(
-        v-for="(value, i) in [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3, 5]",
-        :value="value",
-        :key="i",
-        :label="`${parseInt(100 * value)}` + '%'"
+  div(v-if="element.type === 'asset'")
+    b-field(:label="`Only play a segment of this ${element.subtype}`", grouped)
+      p.control
+        b-field(label-position="on-border", label="Start")
+          b-numberinput.number-input(
+            controls-position="compact",
+            :step="0.01",
+            :value="crop[0]",
+            @input="(v) => (crop = [v, crop[1]])"
+          )
+      p.control(style="margin-left: auto")
+        b-field.end-time(label-position="on-border", label="End")
+          b-numberinput.number-input(
+            controls-position="compact",
+            :step="0.01",
+            :value="crop[1]",
+            :max="assetDuration",
+            @input="(v) => (crop = [crop[0], v])"
+          )
+    b-field.slider
+      b-slider(
+        range,
+        :step="0.01",
+        size="mini",
+        v-model="crop",
+        :min="0",
+        :max="assetDuration"
       )
+    br
+    b-field.end-time(label="Speed factor", grouped)
+      b-select(:value="element.speedFactor", @input="updateSpeed", size="mini")
+        option(
+          v-for="(value, i) in [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3, 5]",
+          :value="value",
+          :key="i",
+          :label="`${parseInt(100 * value)}` + '%'"
+        )
 </template>
 
 <script>

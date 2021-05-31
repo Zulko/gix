@@ -9,7 +9,7 @@
       :freeze="this.$store.state.freezeGifPreview",
       @dragged="onElementDragged"
     )
-  undo-redo-widget
+  undo-redo-widget(style="text-align: right")
   editor-tabs(v-if="$store.state.project.canvas")
 </template>
 <script>
@@ -80,7 +80,7 @@ export default {
 <style lang="scss">
 .editor-edit {
   .gix-preview {
-    margin-bottom: 4em;
+    margin-bottom: 1em;
   }
   .el-input-number.is-controls-right .el-input__inner,
   .el-input__inner {

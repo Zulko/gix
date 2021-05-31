@@ -59,7 +59,7 @@ export default {
   display: block;
   text-align: center;
   margin-top: -0.5em;
-  margin-bottom: -0.5em;
+  margin-bottom: 0.5em;
   button {
     background: none;
     border: none;

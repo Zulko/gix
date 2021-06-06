@@ -102,13 +102,13 @@ const defaultElements = {
     type: 'rectangle',
     subtype: 'rectangle',
     position: {
-      x: 50,
+      x: 100,
       y: 50,
       rotate: 1,
-      xAlign: 'center',
-      yAlign: 'center',
+      xAlign: 'left',
+      yAlign: 'top',
     },
-    color: '#EEEE20',
+    color: '#FFFFFF',
     size: {
       width: 300,
       height: 125,
@@ -116,7 +116,7 @@ const defaultElements = {
       preserveOriginalRatio: true,
     },
     stroke: {
-      width: 0,
+      width: 2,
       color: '#000000',
     },
     roundedCorners: {

@@ -6,11 +6,15 @@ b-tabs.element-tabs(
   :animated="false",
   v-model="tabIndex"
 )
-  b-tab-item.element-adder(key="settings", label="Project settings")
+  b-tab-item.element-adder(
+    key="settings",
+    label="Project settings",
+    icon="cog"
+  )
     settings-tab
-  b-tab-item.element-adder(key="export", label="Export GIF")
+  b-tab-item.element-adder(key="export", label="Export GIF", icon="movie-open")
     export-gif
-  b-tab-item.element-adder(key="save", label="Save & Share")
+  b-tab-item.element-adder(key="save", label="Save & Share", icon="share")
     save-and-share
   b-tab-item.element-adder(
     key="adder",
@@ -129,6 +133,9 @@ export default {
   img.tab-img-label {
     max-height: 1.8em;
     margin: 0 auto -0.3em;
+  }
+  > .tabs li {
+    font-family: "Oswald" !important;
   }
 }
 </style>

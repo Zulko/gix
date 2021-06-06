@@ -1,3 +1,7 @@
+https://media1.tenor.com/images/fc8df950e66427fb76d8c0778799db60/tenor.gif?itemid=18403169
+
+https://stackoverflow.com/questions/1636842/svg-get-text-element-width
+
 Style:
 
 - Bulma variables: https://bulma.io/documentation/customize/with-webpack/

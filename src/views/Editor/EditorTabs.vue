@@ -70,7 +70,7 @@ import ElementSettings from './EditorTabs/ElementSettings.vue';
 import TextSettings from './EditorTabs/TextSettings/TextSettings.vue';
 import RectangleSettings from './EditorTabs/RectangleSettings/RectangleSettings.vue';
 import AssetSettings from './EditorTabs/AssetSettings/AssetSettings.vue';
-import ElementAdder from './EditorTabs/ElementAdder.vue';
+import ElementAdder from './EditorTabs/ElementAdder/ElementAdder.vue';
 import ElementToolbar from './EditorTabs/ElementToolbar.vue';
 import ProjectSettings from './EditorTabs/ProjectSettings.vue';
 import ExportGif from './EditorTabs/ExportGif.vue';

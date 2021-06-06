@@ -1,8 +1,4 @@
 import lodash from 'lodash';
-import {
-  defaultElements,
-  defaultStartingProject,
-} from './data/default_elements';
 
 function generateID(elements, offset = 0) {
   const suggestedId = `element-${offset}`;
@@ -34,9 +30,6 @@ export default {
     lodash.merge(newProject, update);
     state.project = newProject;
   },
-  newEmptyProject(state) {
-    state.project = deepcopy(defaultElements.project);
-  },
   updateElement(state, { elementId, update }) {
     const [element, index] = elementAndIndex(elementId, state);
     const newElements = state.project.elements.slice();
@@ -50,10 +43,8 @@ export default {
     lodash.merge(newGlobals, update);
     state.globals = newGlobals;
   },
-  addElement(state, elementType) {
-    const newElement = deepcopy(defaultElements[elementType]);
-    newElement.timeSegment.end = state.project.duration;
-    newElement.id = generateID(state.project.elements);
+  addElement(state, element) {
+    const newElement = { ...element, id: generateID(state.project.elements) };
     state.project = {
       ...state.project,
       elements: [...state.project.elements, newElement],
@@ -101,11 +92,6 @@ export default {
     newElements[indexDown] = element;
     state.project.elements = newElements;
     state.globals.activeEditorElementTab = index + 1;
-  },
-  setDefaultStartingProject(state) {
-    state.project = {
-      ...defaultStartingProject,
-    };
   },
   setProject(state, newProject) {
     state.project = newProject;

@@ -1,5 +1,3 @@
-// TODO: two SVGs, one for animated content, one for inanimated content
-
 <template lang='pug'>
 .gix-frame(:style="gixFrameStyle")
   svg-composition(

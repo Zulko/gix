@@ -68,11 +68,11 @@
 
     .result(v-if="gifDataURL && !gifGeneration.inProgress")
       .rendered-gif
-        b-field(grouped, position="is-centered")
-          b-button(icon-left="download").
-            Download the GIF ({{(0.75*gifDataURL.length / 1000000).toFixed(2)}}Mo)
-          b-button(icon-left="clipboard", style="margin-left: 1em") Copy the GIF to clipboard
         img(:src="gifDataURL")
+        b-field(grouped, position="is-centered")
+          a(:href="gifDataURL", :download="$store.state.project.infos.title")
+            b-button(icon-left="download").
+              Download ({{(0.75*gifDataURL.length / 1000000).toFixed(2)}}Mo)
 </template>
 <script>
 import { mapMutations } from 'vuex';

@@ -1,0 +1,13 @@
+- Editor(process events from the player):
+   - GixPlayer(play, stop, bubble events up, load fonts):
+        - GixPlayerControls
+        - GixFrameDisplay(Frame servers, elements inner SVG, bubble events up):
+            - SvgComposition(bubble events up, render at scale):
+                - <svg>:
+                    - SvgElement
+                    - g(v-html="element.innerSVG"),
+                    - rotation-handle
+                    - resizing-handle
+        - <gix stats>
+    - undo-redo-widget
+    - editor-tabs

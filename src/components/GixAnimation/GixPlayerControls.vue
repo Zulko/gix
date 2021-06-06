@@ -64,7 +64,10 @@ export default {
     project: { default: () => ({}), type: Object },
     time: { default: 0, type: Number },
     status: { default: 'play', type: String },
-    params: { default: () => ({}), type: Object },
+    params: {
+      default: () => ({}),
+      type: Object,
+    },
   },
   data() {
     return {

@@ -16,6 +16,8 @@
       )
   b-carousel(
     v-model="carouselIndex",
+    icon-prev="arrow-left",
+    icon-next="arrow-right",
     :indicator-inside="true",
     :autoplay="false"
   )

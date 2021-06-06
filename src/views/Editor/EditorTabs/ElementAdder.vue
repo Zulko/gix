@@ -32,11 +32,11 @@ export default {
           icon: 'rectangle-outline',
           type: 'rectangle',
         },
-        {
-          tooltip: 'pasted from clipboard',
-          icon: 'content-paste',
-          type: 'clipboard',
-        },
+        // {
+        //   tooltip: 'pasted from clipboard',
+        //   icon: 'content-paste',
+        //   type: 'clipboard',
+        // },
       ],
     };
   },

@@ -11,7 +11,7 @@ b-tabs.element-tabs(
     label="Project settings",
     icon="cog"
   )
-    settings-tab
+    project-settings
   b-tab-item.element-adder(key="export", label="Export GIF", icon="movie-open")
     export-gif
   b-tab-item.element-adder(key="save", label="Save & Share", icon="share")
@@ -72,7 +72,7 @@ import RectangleSettings from './EditorTabs/RectangleSettings/RectangleSettings.
 import AssetSettings from './EditorTabs/AssetSettings/AssetSettings.vue';
 import ElementAdder from './EditorTabs/ElementAdder.vue';
 import ElementToolbar from './EditorTabs/ElementToolbar.vue';
-import SettingsTab from './EditorTabs/SettingsTab.vue';
+import ProjectSettings from './EditorTabs/ProjectSettings.vue';
 import ExportGif from './EditorTabs/ExportGif.vue';
 import SaveAndShare from './EditorTabs/SaveAndShare.vue';
 
@@ -91,7 +91,7 @@ export default {
     'element-settings': ElementSettings,
     'element-adder': ElementAdder,
     'element-toolbar': ElementToolbar,
-    'settings-tab': SettingsTab,
+    'project-settings': ProjectSettings,
     'export-gif': ExportGif,
     'save-and-share': SaveAndShare,
   },

@@ -77,4 +77,14 @@ hr {
 .progress {
   transition: none;
 }
+
+.navbar-menu,
+.navbar-start,
+.navbar-end,
+.navbar {
+  display: flex !important;
+  align-items: stretch;
+  -webkit-box-align: stretch;
+  flex-shrink: 0;
+}
 </style>

@@ -1,14 +1,23 @@
 <template lang='pug'>
 #editor-page
   .gix-preview
+    gix-context-menu.gix-context-menu(
+      @closeMenu="closeMenu",
+      v-if="contextMenu.isVisible",
+      v-click-outside="onClickOutside",
+      :element="contextMenu.element",
+      :position="contextMenu.position"
+    )
     gix-player(
       v-if="this.$store.state.project.elements",
       :project="this.$store.state.project",
       :showStats="true",
       :showControls="true",
       :freeze="this.$store.state.freezeGifPreview",
-      @dragged="onElementDragged"
+      @dragged="onElementDragged",
+      @context-menu="onContextMenu"
     )
+
   undo-redo-widget(style="text-align: right")
   editor-tabs(v-if="$store.state.project.canvas")
 </template>
@@ -19,6 +28,7 @@ import pako from 'pako';
 import { mapMutations } from 'vuex';
 import GixPlayer from '../../components/GixAnimation/GixPlayer.vue';
 import UndoRedoWidget from '../../components/UndoRedoWidget.vue';
+import GixContextMenu from './GixContextMenu.vue';
 import EditorTabs from './EditorTabs.vue';
 
 export default {
@@ -28,16 +38,45 @@ export default {
       default: () => ({}),
     },
   },
+  data() {
+    return {
+      contextMenu: {
+        isVisible: false,
+        element: null,
+        x: 300,
+        y: 300,
+        position: { x: 0, y: 0 },
+      },
+    };
+  },
   components: {
     'gix-player': GixPlayer,
     'editor-tabs': EditorTabs,
     'undo-redo-widget': UndoRedoWidget,
+    'gix-context-menu': GixContextMenu,
   },
   methods: {
     ...mapMutations(['setProject', 'updateElement']),
+    closeMenu() {
+      console.log('closeMenu');
+      this.contextMenu = { ...this.contextMenu, isVisible: false };
+    },
+    onClickOutside() {
+      this.contextMenu = { ...this.contextMenu, isVisible: false };
+    },
+    onContextMenu(e) {
+      this.contextMenu = {
+        isVisible: true,
+        element: e.element,
+        position: {
+          x: e.evt.pageX - this.$el.offsetLeft,
+          y: e.evt.pageY - this.$el.offsetTop,
+          xOffset: e.evt.offsetX + e.element.position.x,
+          yOffset: e.evt.offsetY + e.element.position.y,
+        },
+      };
+    },
     onElementDragged(e) {
-      // React to an element of the player being dragged.
-      // e = { element: {id.}, drag: {x y}}
       this.$store.commit('setEditorTabIndexToElementId', e.element.id);
       let update;
       if (e.dragType === 'translation') {
@@ -123,6 +162,12 @@ export default {
   }
   .el-form-item__label {
     padding: 0 5px 0 0;
+  }
+  .gix-preview {
+    position: relative;
+  }
+  .gix-context-menu {
+    position: absolute;
   }
 }
 </style>

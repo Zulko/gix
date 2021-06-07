@@ -1,6 +1,7 @@
 import { autoDetectedFrameServer } from '../../../../gix-renderer/FrameServer/autoDetectedFrameServer';
 
 function defaultElementBase(project, position = {}) {
+  console.log(project.canvas.width, position);
   return {
     editorSettings: {
       isMainElement: false,

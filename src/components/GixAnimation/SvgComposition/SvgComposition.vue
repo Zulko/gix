@@ -15,11 +15,11 @@
       :element="element",
       :drag="draggedElement && element.id === draggedElement.id ? drag : null",
       :dragType="draggedElement && element.id === draggedElement.id ? dragType : null",
-      @drag="startDragging"
+      @drag="startDragging",
+      @context-menu="(evt) => $emit('context-menu', evt)"
     )
 </template>
 <script>
-// import { cloneWithInlineStyle } from './inlineSvgStyles';
 import SvgElement from './SvgElement.vue';
 
 export default {
@@ -49,6 +49,7 @@ export default {
   },
   methods: {
     startDragging(e) {
+      console.log(e);
       this.draggedElement = e.element;
       this.dragType = e.dragType;
       this.dragInit = {

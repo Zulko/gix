@@ -71,7 +71,7 @@ import TextSettings from './EditorTabs/TextSettings/TextSettings.vue';
 import RectangleSettings from './EditorTabs/RectangleSettings/RectangleSettings.vue';
 import AssetSettings from './EditorTabs/AssetSettings/AssetSettings.vue';
 import ElementAdder from './EditorTabs/ElementAdder/ElementAdder.vue';
-import ElementToolbar from './EditorTabs/ElementToolbar.vue';
+import ElementToolbar from './EditorTabs/ElementToolbar/ElementToolbar.vue';
 import ProjectSettings from './EditorTabs/ProjectSettings.vue';
 import ExportGif from './EditorTabs/ExportGif.vue';
 import SaveAndShare from './EditorTabs/SaveAndShare.vue';

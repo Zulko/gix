@@ -176,7 +176,7 @@ async function resolvedElementToSvg(element, params) {
   const translation = `translate(${element.position.x}, ${element.position.y})`;
   const rotation = `rotate(${element.position.rotation || 0})`;
   const elementTransform = `${translation} ${rotation}`;
-  return `<g transform="${elementTransform}">${inner}</g>`;
+  return `<g key='a' transform="${elementTransform}">${inner}</g>`;
 }
 
 async function renderGixFrameSvg(gix, params) {
@@ -281,4 +281,4 @@ async function renderGixToGif(gix, params, progressCallback) {
   return result;
 }
 
-export { resolveElement, resolvedElementToSvg, renderGixToGif };
+export { resolveElement, resolvedElementToSvg, renderGixToGif, svgConverters }; // eslint-disable-line

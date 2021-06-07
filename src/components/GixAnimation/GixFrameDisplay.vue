@@ -10,7 +10,8 @@
     :inlineStylesInEmittedSVG="true",
     :backgroundColor="project.canvas.backgroundColor",
     @dragged="(evt) => $emit('dragged', evt)",
-    @new-frame="(evt) => $emit('new-frame', evt)"
+    @new-frame="(evt) => $emit('new-frame', evt)",
+    @context-menu="(evt) => $emit('context-menu', evt)"
   )
   b-loading(:is-full-page="false", v-model="isLoading", :can-cancel="false")
 </template>

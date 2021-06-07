@@ -12,6 +12,7 @@
     :project="project",
     @new-frame="handleNewFrame",
     @dragged="(evt) => $emit('dragged', evt)",
+    @context-menu="(evt) => $emit('context-menu', evt)",
     @started-loading="isLoading = true",
     @finished-loading="isLoading = false",
     :scale="parameters.scale"
@@ -155,6 +156,10 @@ export default {
   text-align: center;
   .gix-player-stats {
     font-size: 12px;
+  }
+  .context-menu {
+    width: 200px;
+    position: absolute;
   }
 }
 </style>

@@ -4,17 +4,18 @@
     gix-context-menu.gix-context-menu(
       @closeMenu="closeMenu",
       v-if="contextMenu.isVisible",
-      v-click-outside="onClickOutside",
+      v-click-outside="closeMenu",
       :element="contextMenu.element",
       :position="contextMenu.position"
     )
     gix-player(
       v-if="this.$store.state.project.elements",
-      :project="this.$store.state.project",
+      :project="dragModifiedProject",
       :showStats="true",
       :showControls="true",
       :freeze="this.$store.state.freezeGifPreview",
-      @dragged="onElementDragged",
+      @dragging="onDragging",
+      @draggingStopped="onDraggingStopped",
       @context-menu="onContextMenu"
     )
 
@@ -26,6 +27,7 @@
 import base64url from 'base64url';
 import pako from 'pako';
 import { mapMutations } from 'vuex';
+import lodash from 'lodash';
 import GixPlayer from '../../components/GixAnimation/GixPlayer.vue';
 import UndoRedoWidget from '../../components/UndoRedoWidget.vue';
 import GixContextMenu from './GixContextMenu.vue';
@@ -43,10 +45,11 @@ export default {
       contextMenu: {
         isVisible: false,
         element: null,
-        x: 300,
-        y: 300,
+        x: 0,
+        y: 0,
         position: { x: 0, y: 0 },
       },
+      dragModifiedElement: null,
     };
   },
   components: {
@@ -58,10 +61,6 @@ export default {
   methods: {
     ...mapMutations(['setProject', 'updateElement']),
     closeMenu() {
-      console.log('closeMenu');
-      this.contextMenu = { ...this.contextMenu, isVisible: false };
-    },
-    onClickOutside() {
       this.contextMenu = { ...this.contextMenu, isVisible: false };
     },
     onContextMenu(e) {
@@ -76,46 +75,69 @@ export default {
         },
       };
     },
-    onElementDragged(e) {
-      this.$store.commit('setEditorTabIndexToElementId', e.element.id);
+    onDragging(e) {
+      const { elements } = this.$store.state.project;
+      const projectElement = elements.filter((el) => (el.id === e.draggingProps.element.id))[0];
+      const projectElementCopy = lodash.cloneDeep(projectElement);
       let update;
-      if (e.dragType === 'translation') {
+      if (e.draggingProps.dragType === 'translation') {
         update = {
           position: {
-            x: e.element.position.x + e.drag.x,
-            y: e.element.position.y + e.drag.y,
+            x: projectElement.position.x + e.drag.x,
+            y: projectElement.position.y + e.drag.y,
           },
         };
-      } else if (e.dragType === 'rotation') {
+      } else if (e.draggingProps.dragType === 'rotation') {
         const atan = Math.atan2(20 - e.drag.y, e.drag.x);
         const dragAngle = parseInt((-360 * atan) / (2 * Math.PI) + 90, 10);
         update = {
           position: {
-            rotation: ((e.element.position.rotation || 0) + dragAngle) % 360,
+            rotation: ((projectElement.position.rotation || 0) + dragAngle) % 360,
           },
         };
-      } else if (e.dragType === 'resizing') {
+      } else if (e.draggingProps.dragType === 'resizing') {
         const ratio = (20 - e.drag.y) / 20;
-        if (e.element.type === 'asset' || e.element.type === 'rectangle') {
+        if (projectElement.type === 'asset' || projectElement.type === 'rectangle') {
           update = {
             size: {
-              height: Math.max(10, parseInt(ratio * e.element.size.height, 10)),
-              width: Math.max(10, parseInt(ratio * e.element.size.width, 10)),
-              aspectRatio: e.element.size.aspectRatio,
+              height: Math.max(10, parseInt(ratio * projectElement.size.height, 10)),
+              width: Math.max(10, parseInt(ratio * projectElement.size.width, 10)),
+              aspectRatio: projectElement.size.aspectRatio,
             },
           };
-        } else if (e.element.type === 'text') {
+        } else if (projectElement.type === 'text') {
           update = {
             font: {
-              size: Math.max(10, parseInt(ratio * e.element.font.size, 10)),
+              size: Math.max(10, parseInt(ratio * projectElement.font.size, 10)),
             },
             stroke: {
-              width: ratio * e.element.stroke.width,
+              width: ratio * projectElement.stroke.width,
             },
           };
         }
       }
-      this.updateElement({ elementId: e.element.id, update });
+      this.dragModifiedElement = lodash.merge(projectElementCopy, update);
+    },
+    onDraggingStopped() {
+      this.$store.commit('setEditorTabIndexToElementId', this.dragModifiedElement.id);
+      this.updateElement({
+        elementId: this.dragModifiedElement.id,
+        update: this.dragModifiedElement,
+      });
+      this.dragModifiedElement = null;
+    },
+  },
+  computed: {
+    dragModifiedProject() {
+      const self = this;
+      if (this.dragModifiedElement) {
+        return {
+          ...this.$store.state.project,
+          elements: this.$store.state.project.elements.map((e) =>
+            (e.id === self.dragModifiedElement.id ? self.dragModifiedElement : e)),
+        };
+      }
+      return this.$store.state.project;
     },
   },
   mounted() {

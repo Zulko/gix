@@ -2,7 +2,7 @@
 .project-library
   h2 Projects in your library
   section.project-search-bar
-    b-field(label="Enter tags or project names")
+    b-field(label="Search your projects by name or tags")
       b-taginput(
         v-model="searchTags",
         :data="filteredInputTags",

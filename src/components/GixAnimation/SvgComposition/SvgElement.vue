@@ -2,7 +2,6 @@
 g.svg-element(
   @mouseover="isHovered = true",
   @mouseleave="isHovered = false",
-  :transform="transform",
   @contextmenu="contextMenu"
 )
   g(
@@ -76,36 +75,17 @@ export default {
       }
       return '';
     },
-    transform() {
-      const { position } = this.element;
-      if (this.drag && this.dragType === 'translation') {
-        const x = this.drag.x || 0;
-        const y = this.drag.y || 0;
-        return `translate(${x}, ${y})`;
-      }
-      if (this.drag && this.dragType === 'rotation') {
-        const atan = Math.atan2(20 - this.drag.y, this.drag.x);
-        const dragAngle = parseInt((-360 * atan) / (2 * Math.PI) + 90, 10);
-        return `rotate(${dragAngle} ${position.x} ${position.y})`;
-      }
-      if (this.drag && this.dragType === 'resizing') {
-        const ratio = (20 - this.drag.y) / 20;
-        const translation = `translate(${(1 - ratio) * position.x}, ${(1 - ratio) * position.y})`;
-        return `${translation} scale(${ratio})`;
-      }
-      return '';
-    },
     showRotationHandle() {
       return (
-        (this.element.show || this.drag) &&
-        (this.dragType === 'rotation' || this.isHovered) &&
+        (this.element.show) &&
+        (this.isHovered) &&
         !this.element.editorSettings.isMainElement
       );
     },
     showResizingHandle() {
       return (
-        (this.element.show || this.drag) &&
-        (this.dragType === 'resizing' || this.isHovered) &&
+        (this.element.show) &&
+        (this.isHovered) &&
         !this.element.editorSettings.isMainElement
       );
     },
@@ -118,12 +98,10 @@ export default {
   },
   methods: {
     contextMenu(evt) {
-      console.log('context', evt);
       evt.preventDefault();
       this.$emit('context-menu', { element: this.element, evt });
     },
     onMouseDown(evt) {
-      console.log('mouseDown', evt);
       if (this.element.editorSettings.isDraggable) {
         this.$emit('drag', { element: this.element, dragType: 'translation', evt });
       }

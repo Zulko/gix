@@ -1,8 +1,8 @@
 <template lang="pug">
 .svg-composition(
-  @mouseup="stopDragging",
-  @mousemove="updateDragging",
-  @mouseleave="cancelDragging"
+  @mousemove="handleMouseMove",
+  @mouseup="dragInit = null; $emit('draggingStopped')",
+  @mouseleave="onMouseLeave"
 )
   svg(
     :viewBox="`0 0 ${svgWidth} ${svgHeight}`",
@@ -13,8 +13,6 @@
       v-for="element in svgElements",
       :key="element.id",
       :element="element",
-      :drag="draggedElement && element.id === draggedElement.id ? drag : null",
-      :dragType="draggedElement && element.id === draggedElement.id ? dragType : null",
       @drag="startDragging",
       @context-menu="(evt) => $emit('context-menu', evt)"
     )
@@ -36,8 +34,8 @@ export default {
     return {
       svgDomElement: null,
       draggedElement: null,
+      draggingProps: null,
       dragInit: null,
-      dragType: null,
       drag: {
         x: 0,
         y: 0,
@@ -49,40 +47,27 @@ export default {
   },
   methods: {
     startDragging(e) {
-      console.log(e);
-      this.draggedElement = e.element;
-      this.dragType = e.dragType;
+      this.draggingProps = e;
       this.dragInit = {
         x: e.evt.clientX,
         y: e.evt.clientY,
       };
     },
-    cancelDragging() {
-      this.dragInit = null;
-      this.dragType = null;
-      this.draggedElement = null;
-      this.drag = {
-        x: 0,
-        y: 0,
-      };
-    },
-    updateDragging(e) {
+    handleMouseMove(e) {
+      const { draggingProps } = this;
       if (this.dragInit) {
-        this.drag = {
+        const drag = {
           x: (e.clientX - this.dragInit.x) / this.scale,
           y: (e.clientY - this.dragInit.y) / this.scale,
         };
+        this.$emit('dragging', { drag, draggingProps });
       }
     },
-    stopDragging() {
+    onMouseLeave() {
       if (this.dragInit) {
-        this.$emit('dragged', {
-          element: this.draggedElement,
-          drag: this.drag,
-          dragType: this.dragType,
-        });
+        this.$emit('draggingStopped');
+        this.dragInit = null;
       }
-      this.cancelDragging();
     },
   },
   computed: {

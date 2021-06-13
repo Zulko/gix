@@ -90,8 +90,11 @@ export default {
       return 'default';
     },
     yOffset() {
-      const sign = this.elementCenter.y < 40 ? 1 : -1;
-      return this.isThin ? 20 * sign : 0;
+      if (this.isThin) {
+        const sign = this.elementCenter.y < 40 ? 1 : -1;
+        return 20 * sign;
+      }
+      return 0;
     },
     isThin() {
       let height;

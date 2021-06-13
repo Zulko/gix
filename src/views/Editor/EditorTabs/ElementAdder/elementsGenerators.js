@@ -21,7 +21,7 @@ function defaultElementBase(project, position = {}) {
       yAlign: 'center',
     },
     stroke: {
-      width: 1,
+      width: 0,
       color: 'rgba(0, 0, 0, 1)',
     },
   };
@@ -40,7 +40,7 @@ function newText(project, position = {}) {
     },
     color: '#EEEE20',
     outline: {
-      width: 0,
+      width: 1,
       color: '#000000',
     },
   };

@@ -16,23 +16,36 @@ g.svg-element(
     :style="{ cursor: 'move' }",
     @mousedown="onMouseDown"
   )
-  rotation-handle(
-    :element="element",
-    :drag="dragType === 'rotation' ? drag : null",
-    @drag="(evt) => $emit('drag', evt)",
-    v-if="showRotationHandle"
-  )
-  resizing-handle(
-    :element="element",
-    :drag="dragType === 'resizing' ? drag : null",
-    @drag="(evt) => $emit('drag', evt)",
-    v-if="showResizingHandle"
-  )
+  g(v-if="showTransformationHandle", :transform="elementTransform(yOffset)")
+    transform-handle(
+      :element="element",
+      type="rotate",
+      :transform="`translate(-${element.type === 'rectangle' ? 40 : 20}, 0)`",
+      @drag="(evt) => $emit('drag', evt)"
+    )
+    g(v-if="element.type !== 'rectangle'")
+      transform-handle(
+        :element="element",
+        :transform="`translate(20, 0)`",
+        type="scale",
+        @drag="(evt) => $emit('drag', evt)"
+      )
+    g(v-else)
+      transform-handle(
+        :element="element",
+        type="scaleWidth",
+        @drag="(evt) => $emit('drag', evt)"
+      )
+      transform-handle(
+        :transform="`translate(40, 0)`",
+        :element="element",
+        type="scaleHeight",
+        @drag="(evt) => $emit('drag', evt)"
+      )
 </template>
 
 <script>
-import RotationHandle from './RotationHandle.vue';
-import ResizingHandle from './ResizingHandle.vue';
+import TransformHandle from './TransformHandle.vue';
 
 export default {
   name: 'SvgElement',
@@ -44,29 +57,17 @@ export default {
   data() {
     return {
       isHovered: false,
+      elementCenter: { x: 0, y: 0 },
     };
   },
   computed: {
     overlaySvg() {
       const { element } = this;
       if (element.type === 'asset') {
-        const x = {
-          left: 0,
-          center: -element.size.width / 2,
-          right: -element.size.width,
-        }[element.position.xAlign];
-        const y = {
-          top: 0,
-          center: -element.size.height / 2,
-          bottom: -element.size.height,
-        }[this.element.position.yAlign];
-        const translation = `translate(${element.position.x}, ${element.position.y})`;
-        const rotation = `rotate(${element.position.rotation || 0})`;
-        const elementTransform = `${translation} ${rotation}`;
-        return `<g transform="${elementTransform}">
+        return `<g transform="${this.elementTransform()}">
           <rect
-          x="${x}"
-          y="${y}"
+          x="${-element.size.height / 2}"
+          y="${-element.size.width / 2}"
           opacity=0
           fill='red'
           height="${this.element.size.height}px"
@@ -75,14 +76,7 @@ export default {
       }
       return '';
     },
-    showRotationHandle() {
-      return (
-        (this.element.show) &&
-        (this.isHovered) &&
-        !this.element.editorSettings.isMainElement
-      );
-    },
-    showResizingHandle() {
+    showTransformationHandle() {
       return (
         (this.element.show) &&
         (this.isHovered) &&
@@ -95,21 +89,60 @@ export default {
       }
       return 'default';
     },
+    yOffset() {
+      const sign = this.elementCenter.y < 40 ? 1 : -1;
+      return this.isThin ? 20 * sign : 0;
+    },
+    isThin() {
+      let height;
+      if (this.element.type === 'text') {
+        height = this.element.text.split('\n').length * this.element.font.size;
+      } else {
+        height = this.element.size.height;
+      }
+      return height < 60;
+    },
   },
   methods: {
     contextMenu(evt) {
+      console.log({ el: this.$el.getBBox() });
       evt.preventDefault();
       this.$emit('context-menu', { element: this.element, evt });
     },
     onMouseDown(evt) {
       if (this.element.editorSettings.isDraggable) {
-        this.$emit('drag', { element: this.element, dragType: 'translation', evt });
+        this.$emit('drag', { element: this.element, dragType: 'translate', evt });
       }
+    },
+    updateElementDimensions() {
+      const bbox = this.$el.getBBox();
+      this.elementCenter = {
+        x: bbox.x + 0.5 * bbox.width,
+        y: bbox.y + 0.5 * bbox.height,
+      };
+    },
+    elementTransform(yOffset = 0) {
+      const { x, y } = this.elementCenter;
+      return `
+        translate(${x}, ${y})
+        rotate(${this.element.position.rotation || 0})
+        translate(0, ${yOffset})
+      `;
     },
   },
   components: {
-    'rotation-handle': RotationHandle,
-    'resizing-handle': ResizingHandle,
+    'transform-handle': TransformHandle,
+  },
+  mounted() {
+    this.updateElementDimensions();
+  },
+  watch: {
+    element: {
+      deep: true,
+      handler() {
+        this.updateElementDimensions();
+      },
+    },
   },
 };
 </script>

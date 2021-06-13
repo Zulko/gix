@@ -13,7 +13,7 @@ jobs:
           with:
             node-version: '12'
         - name: Install packages
-          run: yarn i
+          run: yarn install
         - name: Set Creds
           run: git config user.name "<username>" && git config user.email "<email>"
         - name: Deploy

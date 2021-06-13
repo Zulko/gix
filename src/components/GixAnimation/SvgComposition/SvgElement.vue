@@ -105,7 +105,6 @@ export default {
   },
   methods: {
     contextMenu(evt) {
-      console.log({ el: this.$el.getBBox() });
       evt.preventDefault();
       this.$emit('context-menu', { element: this.element, evt });
     },

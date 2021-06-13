@@ -52,6 +52,7 @@ export default {
         const newAsset = await elementGenerators.newAsset(url, this.$store.state.project);
         this.addElement(newAsset);
       } catch (err) {
+        console.error(err);
         this.$buefy.toast.open({
           message: 'Something wrong happened. Check the URL and try again',
           type: 'is-danger',

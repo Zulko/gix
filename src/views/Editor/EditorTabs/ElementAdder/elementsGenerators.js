@@ -1,7 +1,6 @@
 import { autoDetectedFrameServer } from '../../../../gix-renderer/FrameServer/autoDetectedFrameServer';
 
 function defaultElementBase(project, position = {}) {
-  console.log(project.canvas.width, position);
   return {
     editorSettings: {
       isMainElement: false,
@@ -71,7 +70,6 @@ function newRectangle(project, position = {}) {
 }
 
 async function newAsset(urlData, project, position = {}) {
-  console.log(urlData);
   const server = await autoDetectedFrameServer(urlData, position);
   const sourceStats = await server.getInfos();
   return {

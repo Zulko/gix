@@ -2,6 +2,7 @@ class ImageServer {
   constructor(url) {
     this.url = url;
     this.type = 'image';
+    this.canvas = null;
   }
 
   init() {
@@ -28,6 +29,19 @@ class ImageServer {
       };
       self.base_image.src = self.url;
     });
+  }
+
+  async getInfos() {
+    if (!this.baseImage) {
+      await this.init();
+    }
+    return {
+      height: this.canvas.height,
+      width: this.canvas.width,
+      duration: 5,
+      defaultDelay: 0.1,
+      fps: 10,
+    };
   }
 
   getFrame() {

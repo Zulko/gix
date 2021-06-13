@@ -1,6 +1,6 @@
-const gifFrames = require('gif-frames');
-const axios = require('axios');
-const gifInfo = require('gif-info');
+import gifFrames from 'gif-frames';
+import axios from 'axios';
+import gifInfo from 'gif-info';
 
 class GifFrameServer {
   constructor(url) {
@@ -40,7 +40,7 @@ class GifFrameServer {
           },
           (err, frameData) => {
             if (err) {
-              console.log(err); // eslint-disable-line
+              console.error(err); // eslint-disable-line
             }
             let cumulativeTime = 0;
             const augmentedFrameData = frameData.map((frame) => {

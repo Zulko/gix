@@ -55,7 +55,7 @@ const svgConverters = {
       (element.endBehavior === 'freeze'
         ? Math.min(assetTime, assetDuration)
         : assetTime % assetDuration);
-    const frameServer = params.frameServers[element.id];
+    const frameServer = await params.frameServers[element.id];
     const frame = await frameServer.getFrame(adjustedAssetTime);
     const imageSrc = frameToURL(frame, element);
 
@@ -75,6 +75,7 @@ const svgConverters = {
       y="${y}"
       height="${`${element.size.height}px`}"
       width="${`${element.size.width}px`}"
+      opacity="${element.opacity || 1}"
     />`;
   },
   async rectangle(element) {

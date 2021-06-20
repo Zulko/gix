@@ -18,6 +18,7 @@ g.svg-element(
   )
   g(v-if="showTransformationHandle", :transform="elementTransform(yOffset)")
     transform-handle(
+      v-if="!element.nonRotatable",
       :element="element",
       type="rotate",
       :transform="`translate(-${element.type === 'rectangle' ? 40 : 20}, 0)`",
@@ -66,8 +67,8 @@ export default {
       if (element.type === 'asset') {
         return `<g transform="${this.elementTransform()}">
           <rect
-          x="${-element.size.height / 2}"
-          y="${-element.size.width / 2}"
+          x="${-element.size.width / 2}"
+          y="${-element.size.height / 2}"
           opacity=0
           fill='red'
           height="${this.element.size.height}px"
@@ -78,6 +79,7 @@ export default {
     },
     showTransformationHandle() {
       return (
+        (this.element.editorSettings.isDraggable) &&
         (this.element.show) &&
         (this.isHovered) &&
         !this.element.editorSettings.isMainElement

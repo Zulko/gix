@@ -64,6 +64,11 @@ function findAssetElementsWithoutFrameServer(gix, frameServers) {
   );
 }
 
+async function getFrameServer(element) {
+  const frameServer = await autoDetectedFrameServer(element);
+  await frameServer.init();
+  return frameServer;
+}
 async function initiateMissingFrameServers(gix, frameServers, loadingCallback) {
   const assetElementsWithoutFrameServer = findAssetElementsWithoutFrameServer(
     gix,
@@ -94,4 +99,5 @@ export {
   autoDetectedFrameServer,
   initiateMissingFrameServers,
   findAssetElementsWithoutFrameServer,
+  getFrameServer,
 };

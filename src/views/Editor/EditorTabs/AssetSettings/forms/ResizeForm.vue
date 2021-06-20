@@ -23,16 +23,6 @@
         v-model="keepAspectRatio",
         @change="changeAspectRatioCheckbox"
       )
-  b-field(grouped, group-multiline, label="Crop", v-if="element.crop")
-    p.control(v-for="direction in ['top', 'bottom', 'left', 'right']")
-      b-field(:label="direction", label-position="on-border")
-        b-numberinput.number-input(
-          size="mini",
-          controls-position="compact",
-          :min="0",
-          :value="element.crop[direction]",
-          @input="(v) => updateCrop(v, direction)"
-        )
 </template>
 
 <script>

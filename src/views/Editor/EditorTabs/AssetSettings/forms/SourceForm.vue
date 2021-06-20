@@ -1,6 +1,21 @@
 <template lang="pug">
 .source-form
-  b-field
+  crop-asset-preview(:element="element", :assetInfos="assetInfos")
+  br
+  p.click-me(v-if="usesDataUrl", @click="dialogIsVisible = true") Embedded asset
+  div(v-if="element.subtype !== 'image'")
+    time-crop-slider(:element="element")
+    br
+    b-field.end-time(label="Speed factor", grouped)
+      b-select(:value="element.speedFactor", @input="updateSpeed", size="mini")
+        option(
+          v-for="(value, i) in [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3, 5]",
+          :value="value",
+          :key="i",
+          :label="`${parseInt(100 * value)}` + '%'"
+        )
+  br
+  b-field(label="Source file")
     b-input(style="width: 100%", :value="element.url")
     p.control
       b-field
@@ -21,8 +36,6 @@
             :key="subtype",
             :label="label"
           )
-  asset-preview(:element="element", :assetInfos="assetInfos")
-  p.click-me(v-if="usesDataUrl", @click="dialogIsVisible = true") Embedded asset
   b-dialog(
     v-if="dialogIsVisible",
     append-to-body,
@@ -43,7 +56,8 @@ import {
   urlToSubtype,
 } from '../../../../../gix-renderer/FrameServer/autoDetectedFrameServer';
 import FileOrUrlForm from '../../../../../components/widgets/FileOrUrlForm.vue';
-
+import TimeCropSlider from './widgets/TimeCropSlider.vue';
+import CropAssetPreview from './widgets/CropAssetPreview.vue';
 import ElementComponentMixin from '../../ElementComponentMixin.vue';
 import AssetPreview from './AssetPreview.vue';
 
@@ -99,10 +113,21 @@ export default {
       const server = await autoDetectedFrameServer(this.element);
       this.assetInfos = await server.getInfos();
     },
+    updateSpeed(val) {
+      this.updateElement({ speedFactor: val });
+      if (this.element.editorSettings.isMainElement) {
+        const { timeCrop } = this.element;
+        const duration = (timeCrop.end - timeCrop.start) / val;
+        this.$store.commit('updateProject', { duration });
+        this.updateElement({ timeSegment: { start: 0, end: duration } });
+      }
+    },
   },
   components: {
     'file-or-url-form': FileOrUrlForm,
     'asset-preview': AssetPreview,
+    'time-crop-slider': TimeCropSlider,
+    'crop-asset-preview': CropAssetPreview,
   },
   mounted() {
     this.updateInfos();

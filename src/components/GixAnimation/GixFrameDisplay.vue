@@ -11,7 +11,6 @@
     :backgroundColor="project.canvas.backgroundColor",
     @dragging="(evt) => $emit('dragging', evt)",
     @draggingStopped="(evt) => $emit('draggingStopped', evt)",
-    @new-frame="(evt) => $emit('new-frame', evt)",
     @context-menu="(evt) => $emit('context-menu', evt)"
   )
   b-loading(:is-full-page="false", v-model="isLoading", :can-cancel="false")
@@ -19,8 +18,7 @@
 
 <script>
 import {
-  initiateMissingFrameServers,
-  findAssetElementsWithoutFrameServer,
+  getFrameServer,
 } from '../../gix-renderer/FrameServer/autoDetectedFrameServer';
 import { resolveElement, resolvedElementToSvg } from '../../gix-renderer';
 // import data from './data';
@@ -46,18 +44,23 @@ export default {
   },
   methods: {
     async refreshElements() {
-      const self = this;
-      const missingServers = findAssetElementsWithoutFrameServer(this.project, window.frameServers);
+      const { frameServers } = window;
+      const missingServers = this.project.elements.filter(
+        (e) =>
+          e.type === 'asset' &&
+          !(frameServers[e.id] && (!frameServers[e.id].url || (frameServers[e.id].url === e.url))),
+      );
+
       if (missingServers.length) {
-        window.frameServers = await initiateMissingFrameServers(
-          this.project,
-          window.frameServers,
-          () => {
-            self.isLoading = true;
-          },
-        );
+        this.isLoading = true;
+        missingServers.forEach((e) => {
+          frameServers[e.id] = getFrameServer(e);
+        });
+        await Promise.all(Object.keys(frameServers).map(async (eid) => {
+          frameServers[eid] = await frameServers[eid];
+        }));
         const sourceStats = Object.fromEntries(
-          Object.entries(window.frameServers).map(([name, server]) => [name, server.sourceStats]),
+          Object.entries(frameServers).map(([name, server]) => [name, server.sourceStats]),
         );
         this.$store.commit('updateAssetStats', sourceStats);
         this.isLoading = false;
@@ -74,15 +77,6 @@ export default {
         frameServers: window.frameServers,
       });
       return { ...resolvedElement, innerSVG };
-    },
-    getFrameFromFrameServer(element, t) {
-      const assetDuration = element.timeCrop.end - element.timeCrop.start;
-      const assetTime = element.speedFactor * (t - element.timeSegment.start);
-      const isFrozen = element.endBehavior === 'freeze';
-      const clipTime = isFrozen ? Math.min(assetTime, assetDuration) : assetTime % assetDuration;
-      const adjustedAssetTime = element.timeCrop.start + clipTime;
-
-      return window.frameServers[element.id].getFrame(adjustedAssetTime);
     },
   },
   computed: {
@@ -102,7 +96,9 @@ export default {
     },
   },
   async mounted() {
-    window.frameServers = {};
+    if (!window.frameServers) {
+      window.frameServers = {};
+    }
     await this.refreshElements();
   },
   components: {

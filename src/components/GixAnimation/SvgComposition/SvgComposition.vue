@@ -10,8 +10,8 @@
     :style="style"
   )
     svg-element(
-      v-for="element in svgElements",
-      :key="element.id",
+      v-for="(element, i) in svgElements",
+      :key="`'${i}-${element.id}'`",
       :element="element",
       @drag="startDragging",
       @context-menu="(evt) => $emit('context-menu', evt)"

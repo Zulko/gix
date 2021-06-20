@@ -4,7 +4,7 @@
   br
   p.click-me(v-if="usesDataUrl", @click="dialogIsVisible = true") Embedded asset
   div(v-if="element.subtype !== 'image'")
-    time-crop-slider(:element="element")
+    time-crop-slider(:element="element", v-if="element.subtype !== 'image'")
     br
     b-field.end-time(label="Speed factor", grouped)
       b-select(:value="element.speedFactor", @input="updateSpeed", size="mini")
@@ -59,7 +59,6 @@ import FileOrUrlForm from '../../../../../components/widgets/FileOrUrlForm.vue';
 import TimeCropSlider from './widgets/TimeCropSlider.vue';
 import CropAssetPreview from './widgets/CropAssetPreview.vue';
 import ElementComponentMixin from '../../ElementComponentMixin.vue';
-import AssetPreview from './AssetPreview.vue';
 
 export default {
   extends: ElementComponentMixin,
@@ -125,7 +124,6 @@ export default {
   },
   components: {
     'file-or-url-form': FileOrUrlForm,
-    'asset-preview': AssetPreview,
     'time-crop-slider': TimeCropSlider,
     'crop-asset-preview': CropAssetPreview,
   },

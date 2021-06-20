@@ -8,6 +8,7 @@
     :time="time"
   )
   b-slider.preview-slider(
+    v-if="element.subtype !== 'image'",
     v-model="time",
     :min="0",
     :max="this.assetStats.duration",
@@ -119,7 +120,7 @@ export default {
             },
             timeSegment: {
               start: 0,
-              end: assetStats.duration,
+              end: this.element.subtype === 'image' ? 1 : assetStats.duration,
             },
             crop: {
               left: 0,
@@ -135,6 +136,10 @@ export default {
           {
             ...element,
             ...this.croppedPosition,
+            timeSegment: {
+              start: 0,
+              end: this.element.subtype === 'image' ? 1 : assetStats.duration,
+            },
             editorSettings: {
               isMainElement: false,
               isDraggable: false,
@@ -152,7 +157,7 @@ export default {
             },
             timeSegment: {
               start: 0,
-              end: assetStats.duration,
+              end: this.element.subtype === 'image' ? 1 : assetStats.duration,
             },
             roundedCorners: {
               rx: 0,
@@ -228,20 +233,28 @@ export default {
       } else if (e.draggingProps.dragType === 'scaleWidth') {
         const ratio = 2 ** (-drag.y / 100);
         const newWidth = element.size.width * ratio;
-        const left = Math.max(element.position.x - newWidth / 2, 0);
-        const right = Math.max(0, assetStats.width - element.position.x - newWidth / 2);
-        const top = element.position.y - element.size.height / 2;
-        const bottom = assetStats.height - (element.position.y + element.size.height / 2);
+        const left = parseInt(Math.max(element.position.x - newWidth / 2, 0), 10);
+        const right = parseInt(
+          Math.max(0, assetStats.width - element.position.x - newWidth / 2), 10,
+        );
+        const top = parseInt(element.position.y - element.size.height / 2, 10);
+        const bottom = parseInt(
+          assetStats.height - (element.position.y + element.size.height / 2), 10,
+        );
         crop = {
           left, right, top, bottom,
         };
       } else if (e.draggingProps.dragType === 'scaleHeight') {
         const ratio = 2 ** (-drag.y / 100);
         const newHeight = element.size.height * ratio;
-        const left = element.position.x - element.size.width / 2;
-        const right = assetStats.width - (element.position.x + element.size.width / 2);
-        const top = Math.max(element.position.y - newHeight / 2, 0);
-        const bottom = Math.max(0, assetStats.height - element.position.y - newHeight / 2);
+        const left = parseInt(element.position.x - element.size.width / 2, 10);
+        const right = parseInt(
+          assetStats.width - (element.position.x + element.size.width / 2), 10,
+        );
+        const top = parseInt(Math.max(element.position.y - newHeight / 2, 0), 10);
+        const bottom = parseInt(
+          Math.max(0, assetStats.height - element.position.y - newHeight / 2), 10,
+        );
         crop = {
           left, right, top, bottom,
         };

@@ -69,7 +69,6 @@ const svgConverters = {
       center: -element.size.height / 2,
       bottom: -element.size.height,
     }[element.position.yAlign];
-    console.log('opacity', element.opacity);
     return `<image
       href = "${imageSrc}"
       x="${x}"
@@ -177,7 +176,8 @@ async function resolvedElementToSvg(element, params) {
   const inner = await svgConverters[element.type](element, params);
   const translation = `translate(${element.position.x}, ${element.position.y})`;
   const rotation = `rotate(${element.position.rotation || 0})`;
-  const elementTransform = `${translation} ${rotation}`;
+  const mirror = element.mirror ? 'scale(-1, 1)' : '';
+  const elementTransform = `${translation} ${rotation} ${mirror}`;
   return `<g key='a' transform="${elementTransform}">${inner}</g>`;
 }
 

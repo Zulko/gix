@@ -50,6 +50,13 @@
           :value="element.position.rotation",
           @input="(v) => updateElement({ position: { rotation: v % 360 } })"
         )
+    p.control(style="margin-top: -0.5em", v-if="element.type !== 'rectangle'")
+      span Mirror
+      br
+      b-checkbox(
+        :value="element.mirror",
+        @input="(v) => updateElement({ mirror: v })"
+      )
 </template>
 
 <script>

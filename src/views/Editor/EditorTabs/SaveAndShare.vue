@@ -38,7 +38,7 @@
 import base64url from 'base64url';
 import downloadjs from 'downloadjs';
 import pako from 'pako';
-import { mapMutations, mapGetters } from 'vuex';
+import { mapMutations } from 'vuex';
 import tools from '../../../clipboard_tools';
 
 export default {
@@ -49,7 +49,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['tagsInSavedProjects']),
+    tagsInSavedProjects() {
+      const allTags = Object.values(this.$store.state.savedProjects).reduce(
+        (tags, p) => ([...tags, ...p.infos.tags]), [],
+      );
+      return [...new Set(allTags)];
+    },
     title: {
       get() {
         if (this.$store.state.project.infos) {
@@ -136,6 +141,9 @@ export default {
   .clipboard-link {
     color: #0e84ffff;
     cursor: pointer;
+  }
+  .buttons {
+    margin-top: 3em;
   }
 }
 </style>

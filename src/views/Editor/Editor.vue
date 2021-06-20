@@ -64,14 +64,18 @@ export default {
       this.contextMenu = { ...this.contextMenu, isVisible: false };
     },
     onContextMenu(e) {
+      console.log(e);
+      const offsetX = e.element ? e.element.position.x : 0;
+      const offsetY = e.element ? e.element.position.y : 0;
+
       this.contextMenu = {
         isVisible: true,
         element: e.element,
         position: {
           x: e.evt.pageX - this.$el.offsetLeft,
           y: e.evt.pageY - this.$el.offsetTop,
-          xOffset: e.evt.offsetX + e.element.position.x,
-          yOffset: e.evt.offsetY + e.element.position.y,
+          xOffset: e.evt.offsetX + offsetX,
+          yOffset: e.evt.offsetY + offsetY,
         },
       };
     },

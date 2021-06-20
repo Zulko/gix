@@ -19,7 +19,7 @@ export default {
     return {};
   },
   methods: {
-    ...mapMutations(['setProject']),
+    ...mapMutations(['setProject', 'setEditorTabIndex']),
 
     async handleUrl(urlData) {
       const server = await autoDetectedFrameServer(urlData);
@@ -53,13 +53,13 @@ export default {
               alwaysShow: true,
             },
             position: {
-              x: 0,
-              y: 0,
+              x: sourceStats.width / 2,
+              y: sourceStats.height / 2,
               scale: 1,
               rotation: 0,
               isMoving: false,
-              xAlign: 'left',
-              yAlign: 'top',
+              xAlign: 'center',
+              yAlign: 'center',
             },
             stroke: {
               width: 1,
@@ -88,6 +88,7 @@ export default {
         ],
       };
       this.setProject(newProject);
+      this.setEditorTabIndex(0);
       this.$router.push('editor');
     },
     handleFileInput() {},

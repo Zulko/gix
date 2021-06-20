@@ -15,7 +15,7 @@
         label="Rectangle",
         @click="addRectangle(position); $emit('closeMenu')"
       )
-    b-menu-list(:label="`This ${element.type}`")
+    b-menu-list(:label="`This ${element.type}`", v-if="element")
       b-menu-item(
         icon="arrow-bottom-left",
         label="Send backward",

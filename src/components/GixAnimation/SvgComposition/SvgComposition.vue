@@ -2,7 +2,8 @@
 .svg-composition(
   @mousemove="handleMouseMove",
   @mouseup="dragInit = null; $emit('draggingStopped')",
-  @mouseleave="onMouseLeave"
+  @mouseleave="onMouseLeave",
+  @contextmenu="onBackgroundContextMenu"
 )
   svg(
     :viewBox="`0 0 ${svgWidth} ${svgHeight}`",
@@ -68,6 +69,10 @@ export default {
         this.$emit('draggingStopped');
         this.dragInit = null;
       }
+    },
+    onBackgroundContextMenu(evt) {
+      evt.preventDefault();
+      this.$emit('context-menu', { element: null, evt });
     },
   },
   computed: {

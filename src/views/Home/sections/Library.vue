@@ -65,27 +65,31 @@ export default {
       if (searchTags.length === 0) {
         return projects;
       }
-      return projects.filter(
-        (project) =>
-          [project.name, project.infos.tags.concat()].every((e) => searchTags.includes(e)), // eslint-disable-line
-      );
+      function score(p) {
+        return [p.infos.title, ...p.infos.tags].filter((e) => searchTags.includes(e)).length;
+      }
+      const filteredProjects = projects.filter((project) => score(project) > 1);
+      filteredProjects.sort((p1, p2) => (score(p1) < score(p2) ? -1 : 1));
+      return filteredProjects;
     },
     filteredInputTags() {
       const projects = [...Object.values(this.$store.state.savedProjects), ...this.builtinGixes];
-      const allTags = [];
-      projects.forEach((project) => {
-        allTags.push(project.name, ...project.infos.tags);
-      });
-      return allTags;
+      const allTags = projects.reduce((tags, p) => ([...tags, ...p.infos.tags, p.infos.title]), []);
+      const allUniqueTags = [...new Set(allTags)];
+      if (!this.searchTerm.length) {
+        return allUniqueTags;
+      }
+      return allUniqueTags.filter((n) => n.includes(this.searchTerm));
     },
   },
   methods: {
-    ...mapMutations(['setProjectFromCopy']),
+    ...mapMutations(['setProjectFromCopy', 'setEditorTabIndex']),
     onTyping(string) {
       this.searchTerm = string;
     },
     handleClick(project) {
       this.setProjectFromCopy(project);
+      this.setEditorTabIndex(project.elements.length - 1);
       this.$router.push('editor');
     },
     projectScale(project) {
@@ -119,12 +123,13 @@ export default {
     max-width: 800px;
     margin: 0 auto 0 auto;
     text-align: center;
+    z-index: 0;
   }
   .gix-clickable-screen {
     cursor: pointer !important;
     position: absolute;
     display: block;
-    z-index: 300;
+    z-index: 1;
     margin-left: auto;
     margin-right: auto;
     left: 0;

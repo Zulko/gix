@@ -69,6 +69,7 @@ const svgConverters = {
       center: -element.size.height / 2,
       bottom: -element.size.height,
     }[element.position.yAlign];
+    console.log('opacity', element.opacity);
     return `<image
       href = "${imageSrc}"
       x="${x}"

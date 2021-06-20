@@ -1,16 +1,23 @@
 <template lang="pug">
-element-settings.text-element-settings(:element="element", :showOptions="showOptions")
+element-settings.text-element-settings(
+  :element="element",
+  :showOptions="showOptions"
+)
   b-tabs(tab-position="left", type="is-boxed", :animated="false")
-    b-tab-item(v-for="pane in panes", :key="pane.title", :label="pane.title")
+    b-tab-item(
+      v-for="pane in panes",
+      :key="pane.title",
+      :label="pane.title",
+      v-if="pane.title !== 'Time' || !element.editorSettings.isMainElement"
+    )
       div(:is="pane.form", :element="element")
 </template>
 
 <script>
 import ElementsSettings from '../ElementSettings.vue';
-import PositionForm from '../common_forms/PositionForm.vue';
+import AppearanceForm from './forms/AppearanceForm.vue';
 import EditorSettings from '../common_forms/EditorSettings.vue';
 import SourceForm from './forms/SourceForm.vue';
-import ResizeForm from './forms/ResizeForm.vue';
 import TimeSegmentForm from '../common_forms/TimeSegmentForm.vue';
 import ElementComponentMixin from '../ElementComponentMixin.vue';
 
@@ -20,20 +27,16 @@ export default {
     return {
       panes: [
         {
-          title: 'Source',
+          title: 'Source & crop',
           form: SourceForm,
         },
         {
-          title: 'Position',
-          form: PositionForm,
+          title: 'Appearance',
+          form: AppearanceForm,
         },
         {
           title: 'Time',
           form: TimeSegmentForm,
-        },
-        {
-          title: 'Crop & Resize',
-          form: ResizeForm,
         },
         {
           title: 'Editor',

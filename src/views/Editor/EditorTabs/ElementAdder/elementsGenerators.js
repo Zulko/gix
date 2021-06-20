@@ -24,6 +24,7 @@ function defaultElementBase(project, position = {}) {
       width: 0,
       color: 'rgba(0, 0, 0, 1)',
     },
+    opacity: 1,
   };
 }
 

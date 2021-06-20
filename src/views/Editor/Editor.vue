@@ -178,7 +178,7 @@ export default {
 #editor-page {
   width: 90%;
   max-width: 1000px;
-  margin: 3em auto;
+  margin: 0 auto;
   > .tabs ul {
     border-bottom-width: 0px;
   }

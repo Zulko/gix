@@ -94,6 +94,7 @@ const svgConverters = {
       stroke-linejoin: round;
       stroke: ${element.stroke.color};
       stroke-width: ${element.stroke.width}px;
+      opacity: ${element.opacity || 1};
     `;
     return `<rect
       x="${x}"
@@ -119,6 +120,7 @@ const svgConverters = {
       fill: ${element.color.toLowerCase()};
       text-anchor: ${textAnchor};
       stroke-linejoin: round;
+      opacity: ${element.opacity || 1};
     `;
     const textStyle = `${baseStyle}
       stroke: ${element.stroke.color};

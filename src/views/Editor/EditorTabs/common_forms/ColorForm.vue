@@ -37,10 +37,12 @@
           :min="0",
           :step="0.1"
         )
+    opacity-form(:element="element")
 </template>
 
 <script>
 import ColorPicker from '../../../../components/widgets/ColorPicker.vue';
+import OpacityForm from './OpacityForm.vue';
 import ElementComponentMixin from '../ElementComponentMixin.vue';
 
 export default {
@@ -52,6 +54,7 @@ export default {
   },
   components: {
     'color-picker': ColorPicker,
+    'opacity-form': OpacityForm,
   },
 };
 </script>

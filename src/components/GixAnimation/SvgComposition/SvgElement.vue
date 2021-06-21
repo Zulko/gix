@@ -124,6 +124,9 @@ export default {
     },
     updateElementDimensions() {
       const [svgElement] = this.$el.children;
+      if (!svgElement) {
+        return;
+      }
       const bbox = svgElement.getBBox();
       // if (bbox.width === 0) {
       //   console.log(JSON.parse(JSON.stringify(this.element)), bbox);

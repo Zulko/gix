@@ -83,6 +83,7 @@ export default {
               end: sourceStats.duration,
             },
             speedFactor: 1.0,
+            opacity: 1,
           },
         ],
       };

@@ -114,12 +114,20 @@ export default {
       this.$emit('context-menu', { element: this.element, evt });
     },
     onMouseDown(evt) {
+      if (!this.element.nonRotatable) {
+        // TODO: what this really means is "not in the cropping menu"
+        this.$store.commit('setEditorTabIndexToElementId', this.element.id);
+      }
       if (this.element.editorSettings.isDraggable) {
         this.$emit('drag', { element: this.element, dragType: 'translate', evt });
       }
     },
     updateElementDimensions() {
-      const bbox = this.$el.getBBox();
+      const [svgElement] = this.$el.children;
+      const bbox = svgElement.getBBox();
+      // if (bbox.width === 0) {
+      //   console.log(JSON.parse(JSON.stringify(this.element)), bbox);
+      // }
       this.elementCenter = {
         x: bbox.x + 0.5 * bbox.width,
         y: bbox.y + 0.5 * bbox.height,

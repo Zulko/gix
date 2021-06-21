@@ -53,11 +53,13 @@ export default {
   },
   methods: {
     async processAndEmitUrl() {
-      let { url } = this;
-      if (url.includes('.gif?')) {
-        const [name] = url.split('.gif?');
-        url = `${name}.gif`;
-      }
+      const url = ['gif', 'mp4', 'webp'].reduce((ur, ext) => {
+        if (ur.includes(`.${ext}?`)) {
+          const [name] = ur.split(`.${ext}?`);
+          return `${name}.${ext}`;
+        }
+        return ur;
+      }, this.url);
       this.isLoading = true;
       const urlMetadata = await findMediaUrl.findMediaUrl(url);
       this.isLoading = false;

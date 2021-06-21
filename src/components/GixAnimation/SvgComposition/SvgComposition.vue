@@ -14,6 +14,7 @@
       y=0,
       :width="svgWidth",
       :height="svgHeight",
+      opacity="0",
       @contextmenu="onBackgroundContextMenu"
     )
     svg-element(

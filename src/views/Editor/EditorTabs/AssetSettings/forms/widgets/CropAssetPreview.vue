@@ -2,7 +2,7 @@
 .crop-asset-preview
   gix-frame-display(
     :project="project",
-    v-if="project",
+    v-if="project && assetStats.width",
     @dragging="onDragging",
     @draggingStopped="onDraggingStopped",
     :time="time"
@@ -92,7 +92,7 @@ export default {
     project() {
       const element = this.dragModifiedElement || this.element;
       const { assetStats } = this;
-      if (!assetStats) {
+      if (!assetStats.width) {
         return null;
       }
       return {
@@ -109,6 +109,7 @@ export default {
               isDraggable: false,
             },
             opacity: 0.2,
+            mirror: 0,
             position: {
               x: 0,
               y: 0,
@@ -144,6 +145,7 @@ export default {
               isMainElement: false,
               isDraggable: false,
             },
+            mirror: 0,
           },
           {
             id: 2,
@@ -290,7 +292,6 @@ export default {
             height: this.dragModifiedElement.size.height,
           };
           // reposition each element
-          console.log(sizeDifference);
           const elements = this.$store.state.project.elements.map((e) => ({
             ...e,
             position: {

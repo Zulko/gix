@@ -65,7 +65,8 @@ class GifFrameServer {
 
   getFrame(t, endBehaviour = 'loop') {
     if (t <= this.sourceStats.duration) {
-      return this.frameData.find((frame) => frame.untilTime > t);
+      const frame = this.frameData.find((f) => f.untilTime >= t);
+      return frame || this.frameData[this.frameData.length - 1];
     }
     if (endBehaviour === 'loop') {
       return this.getFrame(t % this.sourceStats.duration);

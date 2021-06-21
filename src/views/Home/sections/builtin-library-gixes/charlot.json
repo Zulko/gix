@@ -18,7 +18,6 @@
       "id": "d62e0f3b-beb0-4611-9d0b-4dbfbf2ba1bb",
       "editorSettings": {
         "isMainElement": true,
-        "isDefaultFocus": false,
         "isDraggable": true
       },
       "timeSegment": {
@@ -64,7 +63,6 @@
       "id": "f0181c10-faba-4035-bcc9-fef996fbaca6",
       "editorSettings": {
         "isMainElement": false,
-        "isDefaultFocus": false,
         "isDraggable": true
       },
       "timeSegment": {

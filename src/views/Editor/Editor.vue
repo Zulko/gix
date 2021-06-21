@@ -64,7 +64,6 @@ export default {
       this.contextMenu = { ...this.contextMenu, isVisible: false };
     },
     onContextMenu(e) {
-      console.log(e);
       const offsetX = e.element ? e.element.position.x : 0;
       const offsetY = e.element ? e.element.position.y : 0;
 

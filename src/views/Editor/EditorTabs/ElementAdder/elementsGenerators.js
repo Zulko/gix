@@ -4,7 +4,6 @@ function defaultElementBase(project, position = {}) {
   return {
     editorSettings: {
       isMainElement: false,
-      isDefaultFocus: false,
       isDraggable: true,
     },
     timeSegment: {

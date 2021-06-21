@@ -57,7 +57,6 @@ export default {
     const newElement = deepcopy(element);
     newElement.editorSettings = {
       isMainElement: false,
-      isDefaultFocus: false,
       isDraggable: true,
     };
     newElement.id = generateID(state.project.elements);

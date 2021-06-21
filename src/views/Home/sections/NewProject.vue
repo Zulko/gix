@@ -44,7 +44,6 @@ export default {
             id: 'asset-01',
             editorSettings: {
               isMainElement: true,
-              isDefaultFocus: false,
               isDraggable: false,
             },
             timeSegment: {

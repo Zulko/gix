@@ -103,7 +103,8 @@ export default {
   },
   computed: {
     timeCropSliderWidth() {
-      const previewWidth = this.project.canvas.width * this.parameters.scale;
+      const baseWidth = this.project.canvas ? this.project.canvas.width : 200;
+      const previewWidth = baseWidth * this.parameters.scale;
       return Math.min(800, Math.max(this.project.duration * 100, previewWidth));
     },
     playButtonAction() {

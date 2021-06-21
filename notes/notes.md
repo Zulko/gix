@@ -2,7 +2,9 @@ https://media1.tenor.com/images/fc8df950e66427fb76d8c0778799db60/tenor.gif?itemi
 https://media1.tenor.com/images/fc8df950e66427fb76d8c0778799db60/tenor.gif
 
 https://stackoverflow.com/questions/1636842/svg-get-text-element-width
+https://i.imgur.com/AExXJwF.jpg
 
+https://media2.giphy.com/media/Kwi0Iu9MxxOgg/giphy.gif?cid=790b761131951476cf2a4cd5b093dfdaff022764574fc246&rid=giphy.gif&ct=g
 Style:
 
 - Bulma variables: https://bulma.io/documentation/customize/with-webpack/

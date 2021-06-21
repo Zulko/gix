@@ -203,8 +203,8 @@ export default {
       };
     },
     timeCropSliderWidth() {
-      const previewWidth = this.assetStats.width;
-      return Math.min(800, Math.max(this.assetStats.duration * 100, previewWidth));
+      const assetStats = this.assetStats || { width: 500, duration: 10 };
+      return Math.min(800, Math.max(assetStats.duration * 100, assetStats.width));
     },
   },
   methods: {
@@ -263,16 +263,43 @@ export default {
     },
     onDraggingStopped() {
       if (this.dragModifiedElement) {
+        const sizeDifference = {
+          x: this.dragModifiedElement.size.width - this.element.size.width,
+          y: this.dragModifiedElement.size.height - this.element.size.height,
+        };
+        const factor = {
+          x: {
+            left: 0,
+            center: 0.5,
+            right: 1,
+          },
+          y: {
+            top: 0,
+            center: 0.5,
+            bottom: 1,
+          },
+        };
         this.updateElement({
           elementId: this.dragModifiedElement.id,
           update: this.dragModifiedElement,
         });
         if (this.element.editorSettings.isMainElement) {
+          // Resize the canvas
           const canvas = {
             width: this.dragModifiedElement.size.width,
             height: this.dragModifiedElement.size.height,
           };
-          this.updateProject({ canvas });
+          // reposition each element
+          console.log(sizeDifference);
+          const elements = this.$store.state.project.elements.map((e) => ({
+            ...e,
+            position: {
+              ...e.position,
+              x: e.position.x + sizeDifference.x * factor.x[e.position.xAlign],
+              y: e.position.y + sizeDifference.y * factor.y[e.position.yAlign],
+            },
+          }));
+          this.updateProject({ canvas, elements });
         }
         this.dragModifiedElement = null;
       }

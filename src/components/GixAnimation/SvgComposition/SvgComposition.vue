@@ -2,14 +2,20 @@
 .svg-composition(
   @mousemove="handleMouseMove",
   @mouseup="dragInit = null; $emit('draggingStopped')",
-  @mouseleave="onMouseLeave",
-  @contextmenu="onBackgroundContextMenu"
+  @mouseleave="onMouseLeave"
 )
   svg(
     :viewBox="`0 0 ${svgWidth} ${svgHeight}`",
     xmlns="http://www.w3.org/2000/svg",
     :style="style"
   )
+    rect(
+      x=0,
+      y=0,
+      :width="svgWidth",
+      :height="svgHeight",
+      @contextmenu="onBackgroundContextMenu"
+    )
     svg-element(
       v-for="(element, i) in svgElements",
       :key="`'${i}-${element.id}'`",

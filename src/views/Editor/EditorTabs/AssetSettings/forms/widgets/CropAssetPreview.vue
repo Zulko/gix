@@ -11,7 +11,7 @@
     v-if="element.subtype !== 'image'",
     v-model="time",
     :min="0",
-    :max="this.assetStats.duration",
+    :max="this.assetStats ? this.assetStats.duration : 1000",
     :step="0.1",
     :style="{ width: timeCropSliderWidth + 'px' }"
   )

@@ -1,0 +1,153 @@
+{
+    "infos": {
+      "gixVersion": "0.1.0",
+      "title": "Multishrek",
+      "author": "Zulko",
+      "tags": []
+    },
+    "canvas": {
+      "width": 498,
+      "height": 280,
+      "backgroundColor": "#000000"
+    },
+    "isAnimated": true,
+    "duration": 1.3,
+    "fps": 20,
+    "elements": [
+      {
+        "id": "asset-01",
+        "editorSettings": {
+          "isMainElement": true,
+          "isDefaultFocus": false,
+          "isDraggable": false
+        },
+        "timeSegment": {
+          "start": 0,
+          "end": 1.3,
+          "alwaysShow": true
+        },
+        "position": {
+          "x": 0,
+          "y": 0,
+          "scale": 1,
+          "rotation": 0,
+          "isMoving": false,
+          "xAlign": "left",
+          "yAlign": "top"
+        },
+        "stroke": {
+          "width": 1,
+          "color": "#000000"
+        },
+        "type": "asset",
+        "subtype": "gif",
+        "url": "https://media1.tenor.com/images/fc8df950e66427fb76d8c0778799db60/tenor.gif",
+        "size": {
+          "width": 498,
+          "height": 280,
+          "aspectRatio": 1.7785714285714285
+        },
+        "crop": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "timeCrop": {
+          "start": 0,
+          "end": 1.3
+        },
+        "speedFactor": 1
+      },
+      {
+        "id": "element-0",
+        "editorSettings": {
+          "isMainElement": false,
+          "isDefaultFocus": false,
+          "isDraggable": true
+        },
+        "timeSegment": {
+          "start": 0,
+          "end": 1.3,
+          "alwaysShow": true
+        },
+        "position": {
+          "x": 247,
+          "y": 139,
+          "scale": 1,
+          "rotation": -9,
+          "isMoving": false,
+          "xAlign": "center",
+          "yAlign": "center"
+        },
+        "stroke": {
+          "width": 1,
+          "color": "#000000"
+        },
+        "type": "asset",
+        "subtype": "gif",
+        "url": "https://media1.tenor.com/images/fc8df950e66427fb76d8c0778799db60/tenor.gif",
+        "size": {
+          "width": 382,
+          "height": 215,
+          "aspectRatio": 1.7785714285714285
+        },
+        "crop": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "timeCrop": {
+          "start": 0,
+          "end": 1.3
+        },
+        "speedFactor": 1
+      },
+      {
+        "id": "element-1",
+        "editorSettings": {
+          "isMainElement": false,
+          "isDefaultFocus": false,
+          "isDraggable": true
+        },
+        "timeSegment": {
+          "start": 0,
+          "end": 1.3,
+          "alwaysShow": true
+        },
+        "position": {
+          "x": 242,
+          "y": 133,
+          "scale": 1,
+          "rotation": -25,
+          "isMoving": false,
+          "xAlign": "center",
+          "yAlign": "center"
+        },
+        "stroke": {
+          "width": 1,
+          "color": "#000000"
+        },
+        "type": "asset",
+        "subtype": "gif",
+        "url": "https://media1.tenor.com/images/fc8df950e66427fb76d8c0778799db60/tenor.gif",
+        "size": {
+          "width": 224,
+          "height": 126,
+          "aspectRatio": 1.7785714285714285
+        },
+        "crop": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "timeCrop": {
+          "start": 0,
+          "end": 1.3
+        },
+        "speedFactor": 1
+      }
+    ]
+  }

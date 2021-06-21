@@ -101,6 +101,11 @@ export default {
   saveProject(state, newProject) {
     state.savedProjects[newProject.infos.title] = deepcopy(newProject);
   },
+  unsaveProject(state, title) {
+    const newSavedProjects = deepcopy(state.savedProjects);
+    delete newSavedProjects[title];
+    state.savedProjects = newSavedProjects;
+  },
   setFreezeGifPreview(state, val) {
     state.freezeGifPreview = val;
   },

@@ -1,9 +1,12 @@
 {
   "infos": {
     "gixVersion": "0.1.0",
-    "title": "Charlot",
-    "author": "Anonymous gixer",
-    "tags": []
+    "title": "Chaplin with forks",
+    "author": "Zulko",
+    "tags": [
+      "Chaplin",
+      "dancing"
+    ]
   },
   "canvas": {
     "width": 500,
@@ -18,6 +21,7 @@
       "id": "d62e0f3b-beb0-4611-9d0b-4dbfbf2ba1bb",
       "editorSettings": {
         "isMainElement": true,
+        "isDefaultFocus": false,
         "isDraggable": true
       },
       "timeSegment": {
@@ -26,13 +30,13 @@
         "alwaysShow": true
       },
       "position": {
-        "x": 0,
-        "y": 0,
+        "x": 266,
+        "y": 187,
         "scale": 1,
         "rotation": 0,
         "isMoving": false,
-        "xAlign": "left",
-        "yAlign": "top"
+        "xAlign": "center",
+        "yAlign": "center"
       },
       "stroke": {
         "width": 1,
@@ -63,6 +67,7 @@
       "id": "f0181c10-faba-4035-bcc9-fef996fbaca6",
       "editorSettings": {
         "isMainElement": false,
+        "isDefaultFocus": false,
         "isDraggable": true
       },
       "timeSegment": {
@@ -71,25 +76,26 @@
         "alwaysShow": true
       },
       "position": {
-        "x": 270,
-        "y": 177,
+        "x": 124,
+        "y": 56,
         "rotate": 1,
         "xAlign": "center",
-        "yAlign": "center"
+        "yAlign": "center",
+        "rotation": -11
       },
       "stroke": {
-        "width": 1,
+        "width": 0.6925547340554623,
         "color": "rgba(0, 0, 0, 1)"
       },
       "type": "text",
-      "text": "🌈wow🌈",
+      "text": "🌈Enjoy!🌈",
       "font": {
         "family": "Anton",
         "bold": false,
-        "size": 80,
+        "size": 54,
         "lineHeight": 1
       },
-      "color": "#EEEE20",
+      "color": "#EEEE20FF",
       "outline": {
         "width": 0,
         "color": "#000000"

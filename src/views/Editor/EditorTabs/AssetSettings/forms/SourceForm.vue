@@ -6,13 +6,15 @@
   div(v-if="element.subtype !== 'image'")
     time-crop-slider(:element="element", v-if="element.subtype !== 'image'")
     br
-    b-field.end-time(label="Speed factor", grouped)
-      b-select(:value="element.speedFactor", @input="updateSpeed", size="mini")
-        option(
-          v-for="(value, i) in [0.1, 0.2, 0.5, 0.8, 1, 1.2, 1.5, 2, 3, 5]",
-          :value="value",
-          :key="i",
-          :label="`${parseInt(100 * value)}` + '%'"
+    b-field(grouped, label="Speed (%)")
+      p.control
+        b-numberinput.number-input(
+          controls-position="compact",
+          :value="parseInt(100 * element.speedFactor)",
+          @input="(v) => updateSpeed(v / 100)",
+          :min="0",
+          :max="500",
+          :step="1"
         )
   br
   b-field(label="Source file")

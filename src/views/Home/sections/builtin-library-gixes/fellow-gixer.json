@@ -1,0 +1,187 @@
+{
+  "infos": {
+    "gixVersion": "0.1.0",
+    "title": "fellow gixer",
+    "author": "Zulko",
+    "tags": [
+      "biden",
+      "gixer"
+    ]
+  },
+  "canvas": {
+    "width": 576,
+    "height": 388,
+    "backgroundColor": "#ffffff"
+  },
+  "isAnimated": true,
+  "duration": 6.1,
+  "fps": 10,
+  "elements": [
+    {
+      "id": "asset-01",
+      "editorSettings": {
+        "isMainElement": false,
+        "isDraggable": true
+      },
+      "timeSegment": {
+        "start": 0,
+        "end": 6.1,
+        "alwaysShow": true
+      },
+      "position": {
+        "x": 124,
+        "y": 189,
+        "scale": 1,
+        "rotation": 18,
+        "isMoving": false,
+        "xAlign": "center",
+        "yAlign": "center"
+      },
+      "stroke": {
+        "width": 1,
+        "color": "#000000"
+      },
+      "type": "asset",
+      "subtype": "gif",
+      "url": "https://media4.giphy.com/media/Kwi0Iu9MxxOgg/giphy.gif",
+      "size": {
+        "width": 365,
+        "height": 449,
+        "aspectRatio": 0.8222222222222224
+      },
+      "crop": {
+        "left": 129,
+        "right": 215,
+        "top": 0,
+        "bottom": 0
+      },
+      "timeCrop": {
+        "start": 0,
+        "end": 6.1
+      },
+      "speedFactor": 1,
+      "mirror": true,
+      "opacity": 1
+    },
+    {
+      "editorSettings": {
+        "isMainElement": false,
+        "isDraggable": true
+      },
+      "timeSegment": {
+        "start": 0,
+        "end": 6.1
+      },
+      "position": {
+        "x": 456,
+        "y": 307,
+        "scale": 1,
+        "rotation": 18,
+        "isMoving": false,
+        "xAlign": "center",
+        "yAlign": "center"
+      },
+      "stroke": {
+        "width": 1,
+        "color": "#000000"
+      },
+      "opacity": 1,
+      "url": "https://media3.giphy.com/media/D3CAW6Q8014oE/giphy.gif",
+      "type": "asset",
+      "subtype": "gif",
+      "size": {
+        "width": 317,
+        "height": 561,
+        "aspectRatio": 0.5643939393939391
+      },
+      "crop": {
+        "left": 43,
+        "right": 53,
+        "top": 0,
+        "bottom": 13
+      },
+      "timeCrop": {
+        "start": 0,
+        "end": 1.7
+      },
+      "speedFactor": 0.8,
+      "id": "element-0"
+    },
+    {
+      "editorSettings": {
+        "isMainElement": false,
+        "isDraggable": true
+      },
+      "timeSegment": {
+        "start": 0,
+        "end": 6.1
+      },
+      "position": {
+        "x": 245,
+        "y": 23,
+        "scale": 1,
+        "rotation": 0,
+        "isMoving": false,
+        "xAlign": "center",
+        "yAlign": "center"
+      },
+      "stroke": {
+        "width": 0,
+        "color": "#000000"
+      },
+      "opacity": 1,
+      "type": "rectangle",
+      "subtype": "rectangle",
+      "color": "#FFFFFF",
+      "size": {
+        "width": 681,
+        "height": 48,
+        "aspectRatio": 2.4,
+        "preserveOriginalRatio": true
+      },
+      "roundedCorners": {
+        "rx": 0,
+        "ry": 0
+      },
+      "id": "element-1"
+    },
+    {
+      "editorSettings": {
+        "isMainElement": false,
+        "isDraggable": true
+      },
+      "timeSegment": {
+        "start": 0,
+        "end": 6.1
+      },
+      "position": {
+        "x": 122,
+        "y": 8,
+        "scale": 1,
+        "rotation": 0,
+        "isMoving": false,
+        "xAlign": "left",
+        "yAlign": "top"
+      },
+      "stroke": {
+        "width": 0,
+        "color": "rgba(0, 0, 0, 1)"
+      },
+      "opacity": 1,
+      "type": "text",
+      "text": "When you meet a fellow gixer",
+      "font": {
+        "family": "Anton",
+        "bold": false,
+        "size": 30,
+        "lineHeight": 1
+      },
+      "color": "#101010FF",
+      "outline": {
+        "width": 0,
+        "color": "#000000"
+      },
+      "id": "element-2"
+    }
+  ]
+}

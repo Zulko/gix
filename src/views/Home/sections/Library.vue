@@ -25,6 +25,13 @@
       section
         p.gix-title {{ project.infos.title }}
         .gix-preview
+          p.control.delete-button
+            b-button(
+              v-if="!builtinGixes.map((p) => p.infos.title).includes(project.infos.title)",
+              size="is-small",
+              @click="deleteProject(project.infos.title)",
+              icon-left="delete"
+            ) Delete this project
           .gix-clickable-screen(
             @click="handleClick(project)",
             :style="{ width: projectWidth(project) + 'px', height: projectHeight(project) + 'px' }"
@@ -40,8 +47,10 @@
 import { mapMutations } from 'vuex';
 import GixAnimationsCarousel from '../../../components/widgets/GixAnimationsCarousel.vue';
 import GixPlayer from '../../../components/GixAnimation/GixPlayer.vue';
-import charlot from './builtin-library-gixes/charlot.json';
 import keaton from './builtin-library-gixes/keaton-wind.json';
+import chaplinForks from './builtin-library-gixes/chaplin-forks.json';
+import fellowGixer from './builtin-library-gixes/fellow-gixer.json';
+import multishrek from './builtin-library-gixes/multishrek.json';
 
 export default {
   components: {
@@ -52,7 +61,7 @@ export default {
     return {
       searchTags: [],
       searchTerm: '',
-      builtinGixes: [charlot, keaton],
+      builtinGixes: [fellowGixer, multishrek, chaplinForks, keaton],
       carouselIndex: 0,
       maxProjectWidth: 800,
       maxProjectHeight: 500,
@@ -83,7 +92,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['setProjectFromCopy', 'setEditorTabIndex']),
+    ...mapMutations(['setProjectFromCopy', 'setEditorTabIndex', 'unsaveProject']),
     onTyping(string) {
       this.searchTerm = string;
     },
@@ -104,6 +113,13 @@ export default {
     },
     projectHeight(project) {
       return project.canvas.height * this.projectScale(project);
+    },
+    deleteProject(title) {
+      const self = this;
+      this.$buefy.dialog.confirm({
+        message: `Deleting "${title}" cannot be undone. Are you sure you want to delete?`,
+        onConfirm: () => { self.unsaveProject(title); },
+      });
     },
   },
 };
@@ -135,6 +151,12 @@ export default {
     left: 0;
     right: 0;
     text-align: center;
+  }
+  .delete-button {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    z-index: 2;
   }
 }
 </style>

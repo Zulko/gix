@@ -77,7 +77,7 @@ export default {
       function score(p) {
         return [p.infos.title, ...p.infos.tags].filter((e) => searchTags.includes(e)).length;
       }
-      const filteredProjects = projects.filter((project) => score(project) > 1);
+      const filteredProjects = projects.filter((project) => score(project) >= 1);
       filteredProjects.sort((p1, p2) => (score(p1) < score(p2) ? -1 : 1));
       return filteredProjects;
     },

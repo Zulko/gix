@@ -95,7 +95,7 @@ export default {
       if (!assetStats.width) {
         return null;
       }
-      return {
+      const project = {
         canvas: {
           width: assetStats.width,
           height: assetStats.height,
@@ -173,6 +173,7 @@ export default {
           },
         ],
       };
+      return project;
     },
     croppedPosition() {
       const element = this.dragModifiedElement || this.element;

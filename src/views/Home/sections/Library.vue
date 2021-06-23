@@ -49,8 +49,8 @@ import GixAnimationsCarousel from '../../../components/widgets/GixAnimationsCaro
 import GixPlayer from '../../../components/GixAnimation/GixPlayer.vue';
 import keaton from './builtin-library-gixes/keaton-wind.json';
 import chaplinForks from './builtin-library-gixes/chaplin-forks.json';
-import multishrek from './builtin-library-gixes/multishrek.json';
 import fellowGixer from './builtin-library-gixes/fellow-gixer.json';
+import multishrek from './builtin-library-gixes/multishrek.json';
 
 export default {
   components: {

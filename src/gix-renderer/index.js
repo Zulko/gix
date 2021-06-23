@@ -5,6 +5,7 @@
 import GIF from 'gif.js';
 import Canvg from 'canvg';
 import gifWorker from 'url-loader!./gif.worker.txt'; // eslint-disable-line
+import resolveTime from './resolveTime';
 import { initiateMissingFrameServers } from './FrameServer/autoDetectedFrameServer';
 
 const projectionCanvas = document.createElement('canvas');
@@ -167,9 +168,9 @@ const svgConverters = {
 
 function resolveElement(element, params) {
   const { start, end } = element.timeSegment;
+
   return {
-    ...element,
-    svgTransform: 'translateX(0)',
+    ...resolveTime.resolveTimeVaryingAttributes(element, params.time),
     show: params.time >= start && params.time <= end,
   };
 }

@@ -1,7 +1,7 @@
 {
     "infos": {
       "gixVersion": "0.1.0",
-      "title": "Multishrek",
+      "title": "Shrek wat",
       "author": "Zulko",
       "tags": []
     },
@@ -117,7 +117,13 @@
           "alwaysShow": true
         },
         "position": {
-          "x": 242,
+          "x": {
+            "timeVariable": [
+              { "t": 0, "value": 100 },
+              { "t": 1, "value": 200 },
+              { "t": 2, "value": 300 }
+             ]
+          },
           "y": 133,
           "scale": 1,
           "rotation": -25,

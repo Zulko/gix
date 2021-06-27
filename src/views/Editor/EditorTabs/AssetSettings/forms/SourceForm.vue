@@ -123,13 +123,10 @@ export default {
     'time-crop-slider': TimeCropSlider,
     'crop-asset-preview': CropAssetPreview,
   },
-  mounted() {
-    this.updateInfos();
-  },
   watch: {
     'element.url': async function elementURL() {
       //eslint-disable-line
-      const { width, height } = this.$store.state.assetStats[this.element.id];
+      const { width, height } = this.$store.state.assetStats[this.element.url];
       this.updateElement({
         size: { width, height },
       });

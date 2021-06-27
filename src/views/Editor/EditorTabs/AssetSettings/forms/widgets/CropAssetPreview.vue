@@ -87,15 +87,16 @@ export default {
   },
   computed: {
     assetStats() {
-      return this.$store.state.assetStats[this.element.id];
+      return this.$store.state.assetStats[this.element.url];
     },
     project() {
       const element = this.dragModifiedElement || this.element;
       const { assetStats } = this;
-      if (!assetStats.width) {
+      if (!assetStats || !assetStats.width) {
         return null;
       }
       const project = {
+        duration: assetStats.duration,
         canvas: {
           width: assetStats.width,
           height: assetStats.height,
@@ -215,7 +216,7 @@ export default {
     onDragging(e) {
       const { element } = e.draggingProps;
       const { drag } = e;
-      const assetStats = this.$store.state.assetStats[this.element.id];
+      const assetStats = this.$store.state.assetStats[this.element.url];
       let crop;
       if (e.draggingProps.dragType === 'translate') {
         crop = {

@@ -1,9 +1,11 @@
 import gifFrames from 'gif-frames';
 import axios from 'axios';
 import gifInfo from 'gif-info';
+import FrameServer from './FrameServer';
 
-class GifFrameServer {
+class GifFrameServer extends FrameServer {
   constructor(url) {
+    super();
     this.url = url;
     this.type = 'gif';
   }
@@ -63,18 +65,9 @@ class GifFrameServer {
     });
   }
 
-  getFrame(t, endBehaviour = 'loop') {
-    if (t <= this.sourceStats.duration) {
-      const frame = this.frameData.find((f) => f.untilTime >= t);
-      return frame || this.frameData[this.frameData.length - 1];
-    }
-    if (endBehaviour === 'loop') {
-      return this.getFrame(t % this.sourceStats.duration);
-    }
-    if (endBehaviour === 'freeze') {
-      return this.frameData[this.frameData.length - 1].imageDataUrl;
-    }
-    return null;
+  getFrameDataForTime(t) {
+    const frame = this.frameData.find((f) => f.untilTime >= t);
+    return frame || this.frameData[this.frameData.length - 1];
   }
 }
 

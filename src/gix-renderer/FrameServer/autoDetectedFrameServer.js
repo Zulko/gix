@@ -57,11 +57,7 @@ async function autoDetectedFrameServer(urlData) {
 }
 
 function findAssetElementsWithoutFrameServer(gix, frameServers) {
-  return gix.elements.filter(
-    (e) =>
-      e.type === 'asset' &&
-      !(frameServers[e.id] && frameServers[e.id].url === e.url),
-  );
+  return gix.elements.filter((e) => e.type === 'asset' && !frameServers[e.url]);
 }
 
 async function getFrameServer(element) {
@@ -87,7 +83,7 @@ async function initiateMissingFrameServers(gix, frameServers, loadingCallback) {
         }
         const frameServer = await autoDetectedFrameServer(element);
         await frameServer.init();
-        newFrameServers[element.id] = frameServer;
+        newFrameServers[element.url] = frameServer;
       }),
     );
   }

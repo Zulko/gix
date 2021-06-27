@@ -62,7 +62,6 @@ function computeElementCenter(element) {
     }[element.position.yAlign],
   };
   const angleRadian = (element.position.rotation * 2 * Math.PI) / 360;
-  console.log(angleRadian, element.position.rotation, Math.PI, diff);
   return {
     x: element.position.x + diff.x * Math.cos(angleRadian) + diff.y * Math.sin(angleRadian),
     y: element.position.y + diff.x * Math.sin(angleRadian) + diff.y * Math.cos(angleRadian),

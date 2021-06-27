@@ -1,6 +1,6 @@
 <template lang="pug">
 .source-form
-  crop-asset-preview(:element="element", :assetInfos="assetInfos")
+  crop-asset-preview(:element="element")
   br
   p.click-me(v-if="usesDataUrl", @click="dialogIsVisible = true") Embedded asset
   div(v-if="element.subtype !== 'image'")
@@ -54,7 +54,6 @@
 
 <script>
 import {
-  autoDetectedFrameServer,
   urlToSubtype,
 } from '../../../../../gix-renderer/FrameServer/autoDetectedFrameServer';
 import FileOrUrlForm from '../../../../../components/widgets/FileOrUrlForm.vue';
@@ -66,7 +65,6 @@ export default {
   extends: ElementComponentMixin,
   data() {
     return {
-      assetInfos: {},
       urlInput: '',
       dialogIsVisible: false,
       subtypes: {
@@ -110,10 +108,6 @@ export default {
       this.dialogIsVisible = false;
       this.updateElement({ url, subtype });
     },
-    async updateInfos() {
-      const server = await autoDetectedFrameServer(this.element);
-      this.assetInfos = await server.getInfos();
-    },
     updateSpeed(val) {
       this.updateElement({ speedFactor: val });
       if (this.element.editorSettings.isMainElement) {
@@ -135,12 +129,9 @@ export default {
   watch: {
     'element.url': async function elementURL() {
       //eslint-disable-line
-      await this.updateInfos();
+      const { width, height } = this.$store.state.assetStats[this.element.id];
       this.updateElement({
-        size: {
-          width: this.assetInfos.width,
-          height: this.assetInfos.height,
-        },
+        size: { width, height },
       });
     },
   },

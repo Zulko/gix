@@ -27,13 +27,11 @@
       },
       "position": {
         "x": 0,
-        "y": 0,
-        "scale": 1,
-        "rotation": 0,
-        "isMoving": false,
-        "xAlign": "left",
-        "yAlign": "top"
+        "y": 0
       },
+      "rotation": 0,
+      "xAlign": "left",
+      "yAlign": "top",
       "stroke": {
         "width": 1,
         "color": "#000000"
@@ -86,9 +84,9 @@
       "font": {
         "family": "Anton",
         "bold": false,
-        "size": 40,
         "lineHeight": 1
       },
+      "fontSize": 40,
       "color": "#EEEE20",
       "outline": {
         "width": 0,

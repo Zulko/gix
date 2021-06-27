@@ -101,7 +101,7 @@ export default {
     isThin() {
       let height;
       if (this.element.type === 'text') {
-        height = this.element.text.split('\n').length * this.element.font.size;
+        height = this.element.text.split('\n').length * this.element.fontSize;
       } else {
         height = this.element.size.height;
       }
@@ -140,7 +140,7 @@ export default {
       const { x, y } = this.elementCenter;
       return `
         translate(${x}, ${y})
-        rotate(${this.element.position.rotation || 0})
+        rotate(${this.element.rotation || 0})
         translate(0, ${yOffset})
       `;
     },

@@ -6,12 +6,13 @@
       deselect #[i Main Element] in #[i Project Settings].
   div(v-else)
     b-field(
-      :label="`Time segment of this ${element.subtype} in the project`",
+      :label="`Time segment of this ${element.subtype || element.type} in the project`",
       grouped
     )
       p.control
         b-field(label-position="on-border", label="Start")
           b-numberinput.number-input(
+            size="is-small",
             :step="0.01",
             :value="range[0]",
             controls-position="compact",
@@ -20,6 +21,7 @@
       p.control(style="margin-left: auto")
         b-field(label-position="on-border", label="End")
           b-numberinput.number-input(
+            size="is-small",
             controls-position="compact",
             :step="0.01",
             :value="range[1]",
@@ -95,7 +97,7 @@ export default {
     width: 100%;
   }
   .number-input {
-    width: 150px;
+    width: 120px;
   }
   .number-input.end-time {
     margin: 0 0;

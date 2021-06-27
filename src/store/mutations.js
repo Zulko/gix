@@ -18,6 +18,21 @@ function deepcopy(obj) {
   return JSON.parse(JSON.stringify(obj));
 }
 
+function objectWithNullifiedTimeVariables(obj) {
+  return Object.fromEntries(
+    Object.keys(obj).map((key) => {
+      const data = obj[key];
+      if (key === 'timeVariable') {
+        return [key, null];
+      }
+      if (typeof data === 'object' && data !== null) {
+        return [key, objectWithNullifiedTimeVariables(data)];
+      }
+      return [key, data];
+    }),
+  );
+}
+
 export default {
   updateEditorPlayerTime(state, update) {
     state.editorPlayerTime = update;
@@ -34,6 +49,11 @@ export default {
     const [element, index] = elementAndIndex(elementId, state);
     const newElements = state.project.elements.slice();
     const newElement = deepcopy(element);
+    // Nullify all time variables, otherwise lodash will marge rather than
+    // replace them (in this project timeVariables always get straight-up
+    // replaced)
+    const updateWithoutTimeVariable = objectWithNullifiedTimeVariables(update);
+    lodash.merge(newElement, updateWithoutTimeVariable);
     lodash.merge(newElement, update);
     newElements[index] = newElement;
     state.project.elements = newElements;
@@ -49,7 +69,7 @@ export default {
       ...state.project,
       elements: [...state.project.elements, newElement],
     };
-    state.globals.activeEditorElementTab = state.project.elements.length - 1;
+    state.activeEditorElementTab = state.project.elements.length - 1;
   },
   duplicateElement(state, elementId) {
     const newElements = state.project.elements.slice();
@@ -65,14 +85,14 @@ export default {
       ...state.project,
       elements: newElements,
     };
-    state.globals.activeEditorElementTab = index + 1;
+    state.activeEditorElementTab = index + 1;
   },
   deleteElement(state, elementId) {
     const newElements = state.project.elements.slice();
     const index = elementAndIndex(elementId, state)[1];
     newElements.splice(index, 1);
     state.project.elements = newElements;
-    state.globals.activeEditorElementTab = index - 1;
+    state.activeEditorElementTab = index - 1;
   },
   moveElementDown(state, elementId) {
     const [element, index] = elementAndIndex(elementId, state);
@@ -81,7 +101,7 @@ export default {
     newElements[index] = state.project.elements[indexUp];
     newElements[indexUp] = element;
     state.project.elements = newElements;
-    state.globals.activeEditorElementTab = index - 1;
+    state.activeEditorElementTab = index - 1;
   },
   moveElementUp(state, elementId) {
     const [element, index] = elementAndIndex(elementId, state);
@@ -90,7 +110,7 @@ export default {
     newElements[index] = state.project.elements[indexDown];
     newElements[indexDown] = element;
     state.project.elements = newElements;
-    state.globals.activeEditorElementTab = index + 1;
+    state.activeEditorElementTab = index + 1;
   },
   setProject(state, newProject) {
     state.project = newProject;
@@ -109,14 +129,17 @@ export default {
   setFreezeGifPreview(state, val) {
     state.freezeGifPreview = val;
   },
+  setGifPreviewTime(state, val) {
+    state.gifPreviewTime = val;
+  },
   emptyProject(state) {
     state.project = {};
   },
   setEditorTabIndex(state, val) {
-    state.globals.activeEditorElementTab = val;
+    state.activeEditorElementTab = val;
   },
   setEditorTabIndexToElementId(state, elementId) {
     const index = state.project.elements.map((c) => c.id).indexOf(elementId);
-    state.globals.activeEditorElementTab = index;
+    state.activeEditorElementTab = index;
   },
 };

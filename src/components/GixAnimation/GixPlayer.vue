@@ -45,7 +45,7 @@ export default {
       playTimeCrop: [0, this.project.duration],
       speedFactor: 1.0,
       loop: true,
-      status: 'play',
+      status: this.status,
       scale: 1,
     };
     return {
@@ -147,6 +147,16 @@ export default {
     freeze(val) {
       if (!val && this.status === 'play') {
         this.play();
+      }
+    },
+    status(status) {
+      this.parameters = { ...this.parameters, status };
+    },
+    '$store.state.gifPreviewTime': function preview(time) {
+      if (time !== null) {
+        this.currentTime = time;
+        this.parameters = { ...this.parameters, status: 'pause' };
+        this.$store.commit('setGifPreviewTime', null);
       }
     },
   },

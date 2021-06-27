@@ -1,24 +1,21 @@
 <template lang="pug">
-b-field.opacity-form(grouped, label="Opacity (%)")
-  p.control
-    b-numberinput.number-input(
-      controls-position="compact",
-      :value="parseInt(100 * element.opacity)",
-      @input="(v) => updateElement({ opacity: v / 100 })",
-      :min="0",
-      :max="100",
-      :step="1"
-    )
+b-field.opacity-form(grouped, label="Opacity (%)", label-position="on-border")
+  b-numberinput.number-input(
+    size="is-small",
+    controls-position="compact",
+    :value="100 * value",
+    @input="(v) => $emit('update', v / 100)",
+    :min="0",
+    :max="100",
+    :step="1"
+  )
 </template>
 
 <script>
-import ElementComponentMixin from '../ElementComponentMixin.vue';
-
 export default {
   props: {
-    element: { type: Object },
+    value: { type: Number },
   },
-  extends: ElementComponentMixin,
 };
 </script>
 

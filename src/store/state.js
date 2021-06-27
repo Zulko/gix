@@ -5,12 +5,6 @@ export const state = {
   assetStats: {},
   project: {},
   freezeGifPreview: false,
-  globals: {
-    activeEditorElementTab: 0,
-    gifClickMode: {
-      mode: 'none',
-      targetElement: null,
-    },
-    lastClickedElement: null,
-  },
+  activeEditorElementTab: 0,
+  gifPreviewTime: null,
 };

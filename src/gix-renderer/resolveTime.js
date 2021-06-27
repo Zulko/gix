@@ -3,17 +3,24 @@ function isObject(obj) {
 }
 
 function averageVariables(var1, var2, var1Weight) {
+  if (var1 === null) {
+    return null;
+  }
   if (typeof var1 === 'number') {
     return var1Weight * var1 + (1 - var1Weight) * var2;
+  }
+  if (typeof var1 === 'string') {
+    return var1;
   }
   if (Array.isArray(var1)) {
     return var1.map((val, i) => averageVariables(val, var2[i], var1Weight));
   }
   if (isObject(var1)) {
     return Object.fromEntries(
-      Object.keys(var1).map(
-        (key) => [key, averageVariables(var1[key], var2[key], var1Weight)],
-      ),
+      Object.keys(var1).map((key) => [
+        key,
+        averageVariables(var1[key], var2[key], var1Weight),
+      ]),
     );
   }
   throw Error(`Unknown averageVariables handling for ${var1}`);
@@ -24,7 +31,7 @@ function resolveTimeVariable(timeVariable, t) {
     return timeVariable[0].value;
   }
   const lastIndexBeforeT = timeVariable.findIndex((e) => e.t >= t);
-  if (lastIndexBeforeT === undefined) {
+  if (lastIndexBeforeT === -1) {
     return timeVariable[timeVariable.length - 1].value;
   }
   const before = timeVariable[lastIndexBeforeT - 1];
@@ -41,9 +48,10 @@ function resolveTimeVaryingAttributes(obj, t) {
     return resolveTimeVariable(obj.timeVariable, t);
   }
   return Object.fromEntries(
-    Object.keys(obj).map(
-      (key) => [key, resolveTimeVaryingAttributes(obj[key], t)],
-    ),
+    Object.keys(obj).map((key) => [
+      key,
+      resolveTimeVaryingAttributes(obj[key], t),
+    ]),
   );
 }
 
@@ -73,7 +81,6 @@ export default {
 //     y: 0,
 //     scale: 1,
 //     rotation: 0,
-//     isMoving: false,
 //     xAlign: 'left',
 //     yAlign: 'top',
 //   },

@@ -13,7 +13,7 @@
 <script>
 import ElementComponentMixin from '../ElementComponentMixin.vue';
 import ElementsSettings from '../ElementSettings.vue';
-import PositionForm from '../common_forms/PositionForm.vue';
+import PositionForm from '../common_forms/PositionForm/PositionForm.vue';
 import ColorForm from '../common_forms/ColorForm.vue';
 import EditorSettings from '../common_forms/EditorSettings.vue';
 import TextInput from './forms/TextInput/TextInput.vue';

@@ -64,12 +64,12 @@ const svgConverters = {
       left: 0,
       center: -element.size.width / 2,
       right: -element.size.width,
-    }[element.position.xAlign];
+    }[element.xAlign];
     const y = {
       top: 0,
       center: -element.size.height / 2,
       bottom: -element.size.height,
-    }[element.position.yAlign];
+    }[element.yAlign];
     return `<image
       href = "${imageSrc}"
       x="${x}"
@@ -84,12 +84,12 @@ const svgConverters = {
       left: 0,
       center: -element.size.width / 2,
       right: -element.size.width,
-    }[element.position.xAlign];
+    }[element.xAlign];
     const y = {
       top: 0,
       center: -element.size.height / 2,
       bottom: -element.size.height,
-    }[element.position.yAlign];
+    }[element.yAlign];
     const style = `
       fill: ${element.color.toLowerCase()};
       stroke-linejoin: round;
@@ -112,14 +112,20 @@ const svgConverters = {
       left: 'start',
       center: 'middle',
       right: 'end',
-    }[element.position.xAlign];
+    }[element.xAlign];
+    const dominantBaseline = {
+      top: 'text-after-edge',
+      center: 'middle',
+      bottom: 'text-before-edge',
+    }[element.yAlign];
     const textLines = element.text.split('\n');
     const baseStyle = `
       font-family: ${element.font.family}, Arial;
-      font-size: ${element.font.size}px;
+      font-size: ${element.fontSize}px;
       font-weight: ${element.font.bold ? 'bold' : 'normal'};
       fill: ${element.color.toLowerCase()};
       text-anchor: ${textAnchor};
+      dominant-baseline: ${dominantBaseline};
       stroke-linejoin: round;
       opacity: ${element.opacity || 1};
     `;
@@ -136,8 +142,8 @@ const svgConverters = {
       top: 0,
       center: nLines / 2.0,
       bottom: nLines,
-    }[element.position.yAlign];
-    const yTranslation = -offset * element.font.lineHeight * element.font.size;
+    }[element.yAlign];
+    const yTranslation = -offset * element.font.lineHeight * element.fontSize;
     const transform = `translate(0, ${yTranslation})`;
     const textLinesSVG = ''.concat(
       ...textLines.map(
@@ -178,7 +184,7 @@ function resolveElement(element, params) {
 async function resolvedElementToSvg(element, params) {
   const inner = await svgConverters[element.type](element, params);
   const translation = `translate(${element.position.x}, ${element.position.y})`;
-  const rotation = `rotate(${element.position.rotation || 0})`;
+  const rotation = `rotate(${element.rotation || 0})`;
   const mirror = element.mirror ? 'scale(-1, 1)' : '';
   const elementTransform = `${translation} ${rotation} ${mirror}`;
   return `<g key='a' transform="${elementTransform}">${inner}</g>`;

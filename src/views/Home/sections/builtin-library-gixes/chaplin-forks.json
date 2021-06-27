@@ -31,13 +31,11 @@
       },
       "position": {
         "x": 266,
-        "y": 187,
-        "scale": 1,
-        "rotation": 0,
-        "isMoving": false,
-        "xAlign": "center",
-        "yAlign": "center"
+        "y": 187
       },
+      "rotation": 0,
+      "xAlign": "center",
+      "yAlign": "center",
       "stroke": {
         "width": 1,
         "color": "#000000"
@@ -92,9 +90,9 @@
       "font": {
         "family": "Anton",
         "bold": false,
-        "size": 54,
         "lineHeight": 1
       },
+      "fontSize": 54, 
       "color": "#EEEE20FF",
       "outline": {
         "width": 0,

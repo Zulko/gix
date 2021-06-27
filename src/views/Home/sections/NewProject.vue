@@ -54,12 +54,10 @@ export default {
             position: {
               x: sourceStats.width / 2,
               y: sourceStats.height / 2,
-              scale: 1,
-              rotation: 0,
-              isMoving: false,
-              xAlign: 'center',
-              yAlign: 'center',
             },
+            rotation: 0,
+            xAlign: 'center',
+            yAlign: 'center',
             stroke: {
               width: 1,
               color: '#000000',

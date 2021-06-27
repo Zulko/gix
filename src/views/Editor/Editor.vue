@@ -95,9 +95,7 @@ export default {
         // const atan = Math.atan2(20 - e.drag.y, e.drag.x);
         // const dragAngle = parseInt((-360 * atan) / (2 * Math.PI) + 90, 10);
         update = {
-          position: {
-            rotation: ((projectElement.position.rotation || 0) + dragAngle) % 360,
-          },
+          rotation: ((projectElement.rotation || 0) + dragAngle) % 360,
         };
       } else if (e.draggingProps.dragType === 'scaleWidth') {
         const ratio = 2 ** (-e.drag.y / 100);
@@ -127,7 +125,7 @@ export default {
         } else if (projectElement.type === 'text') {
           update = {
             font: {
-              size: Math.max(10, parseInt(ratio * projectElement.font.size, 10)),
+              size: Math.max(10, parseInt(ratio * projectElement.fontSize, 10)),
             },
             stroke: {
               width: ratio * projectElement.stroke.width,

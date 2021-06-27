@@ -27,12 +27,10 @@
       "position": {
         "x": 0,
         "y": 0,
-        "scale": 1,
-        "rotation": 0,
-        "isMoving": false,
-        "xAlign": "left",
-        "yAlign": "top"
       },
+      "rotation": 0,
+      "xAlign": "left",
+      "yAlign": "top",
       "stroke": {
         "width": 1,
         "color": "#000000"
@@ -68,12 +66,10 @@
       "position": {
         "x": 50,
         "y": 50,
-        "scale": 1,
-        "rotation": 0,
-        "xAlign": "center",
-        "yAlign": "center",
-        "isMoving": false
       },
+      "rotation": 0,
+      "xAlign": "center",
+      "yAlign": "center",
       "stroke": {
         "width": 0,
         "color": "#000000"
@@ -87,9 +83,9 @@
       "font": {
         "family": "Anton",
         "bold": false,
-        "size": 33,
         "lineHeight": 1.0
       },
+      "fontSize": 33,
       "color": "#EEEE20"
     }],
     "extends": null

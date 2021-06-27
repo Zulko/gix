@@ -113,12 +113,10 @@ export default {
             position: {
               x: 0,
               y: 0,
-              scale: 1,
-              rotation: 0,
-              isMoving: false,
-              xAlign: 'left',
-              yAlign: 'top',
             },
+            rotation: 0,
+            xAlign: 'left',
+            yAlign: 'top',
             timeSegment: {
               start: 0,
               end: this.element.subtype === 'image' ? 1 : assetStats.duration,
@@ -184,12 +182,10 @@ export default {
         position: {
           x: (element.crop.left + assetStats.width - element.crop.right) / 2,
           y: (element.crop.top + assetStats.height - element.crop.bottom) / 2,
-          scale: 1,
-          rotation: 0,
-          isMoving: false,
-          xAlign: 'center',
-          yAlign: 'center',
         },
+        rotation: 0,
+        xAlign: 'center',
+        yAlign: 'center',
         timeSegment: {
           start: 0,
           end: assetStats.duration,
@@ -296,8 +292,8 @@ export default {
             ...e,
             position: {
               ...e.position,
-              x: e.position.x + sizeDifference.x * factor.x[e.position.xAlign],
-              y: e.position.y + sizeDifference.y * factor.y[e.position.yAlign],
+              x: e.position.x + sizeDifference.x * factor.x[e.xAlign],
+              y: e.position.y + sizeDifference.y * factor.y[e.yAlign],
             },
           }));
           this.updateProject({ canvas, elements });

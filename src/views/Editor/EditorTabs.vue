@@ -98,7 +98,7 @@ export default {
   computed: {
     tabIndex: {
       get() {
-        return this.$store.state.globals.activeEditorElementTab + 4;
+        return this.$store.state.activeEditorElementTab + 4;
       },
       set(val) {
         this.$store.commit('setEditorTabIndex', val - 4);

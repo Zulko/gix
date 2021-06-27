@@ -30,13 +30,11 @@
       },
       "position": {
         "x": 124,
-        "y": 189,
-        "scale": 1,
-        "rotation": 18,
-        "isMoving": false,
-        "xAlign": "center",
-        "yAlign": "center"
+        "y": 189
       },
+      "rotation": 18,
+      "xAlign": "center",
+      "yAlign": "center",
       "stroke": {
         "width": 1,
         "color": "#000000"
@@ -74,13 +72,11 @@
       },
       "position": {
         "x": 456,
-        "y": 307,
-        "scale": 1,
-        "rotation": 18,
-        "isMoving": false,
-        "xAlign": "center",
-        "yAlign": "center"
+        "y": 307
       },
+      "rotation": 18,
+      "xAlign": "center",
+      "yAlign": "center",
       "stroke": {
         "width": 1,
         "color": "#000000"
@@ -118,13 +114,11 @@
       },
       "position": {
         "x": 245,
-        "y": 23,
-        "scale": 1,
-        "rotation": 0,
-        "isMoving": false,
-        "xAlign": "center",
-        "yAlign": "center"
+        "y": 23
       },
+      "rotation": 0,
+      "xAlign": "center",
+      "yAlign": "center",
       "stroke": {
         "width": 0,
         "color": "#000000"
@@ -156,13 +150,11 @@
       },
       "position": {
         "x": 122,
-        "y": 8,
-        "scale": 1,
-        "rotation": 0,
-        "isMoving": false,
-        "xAlign": "left",
-        "yAlign": "top"
+        "y": 16
       },
+      "rotation": 0,
+      "xAlign": "left",
+      "yAlign": "top",
       "stroke": {
         "width": 0,
         "color": "rgba(0, 0, 0, 1)"
@@ -173,9 +165,9 @@
       "font": {
         "family": "Anton",
         "bold": false,
-        "size": 30,
         "lineHeight": 1
       },
+      "fontSize": 30,
       "color": "#101010FF",
       "outline": {
         "width": 0,

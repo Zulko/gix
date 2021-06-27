@@ -7,6 +7,8 @@ https://i.imgur.com/AExXJwF.jpg
 https://media2.giphy.com/media/Kwi0Iu9MxxOgg/giphy.gif?cid=790b761131951476cf2a4cd5b093dfdaff022764574fc246&rid=giphy.gif&ct=g
 Style:
 
+https://media3.giphy.com/media/D3CAW6Q8014oE/giphy.webp
+
 - Bulma variables: https://bulma.io/documentation/customize/with-webpack/
 - use \$navbar-breakbpoint < 960px for no navbar collapse.
 https://www.npmjs.com/package/video-url-link
@@ -15,6 +17,7 @@ https://i.imgur.com/M1pNQoI.gif
 https://i.imgur.com/hym9lz3.mp4
 https://i.imgur.com/lBGx455.mp4
 https://i.imgur.com/t3YUAZB.mp4
+
 https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fpin%2F675821487807503340%2F&psig=AOvVaw3_N61cx2yQOjHMPggiYk5a&ust=1621300490302000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJC03JXFz_ACFQAAAAAdAAAAABAD
 javascript:void(0)
 https://img-9gag-fun.9cache.com/photo/aAgy02L_460sv.mp4
@@ -50,3 +53,8 @@ https://www.youtube.com/watch?v=2qxp6SBBI3c&pbj=1
 http://localhost:8080/gix/#/home
 
 default-src blob: data: filesystem: ws: http: https: 'unsafe-eval' 'unsafe-inline'
+
+
+singer beer
+
+https://i.imgur.com/51bMDwP.mp4

@@ -13,12 +13,11 @@ function defaultElementBase(project, position = {}) {
     position: {
       x: position.x || project.canvas.width / 2,
       y: position.y || project.canvas.height / 2,
-      scale: 1,
-      rotation: 0,
-      isMoving: false,
-      xAlign: 'center',
-      yAlign: 'center',
     },
+    scale: 1,
+    rotation: 0,
+    xAlign: 'center',
+    yAlign: 'center',
     stroke: {
       width: 0,
       color: 'rgba(0, 0, 0, 1)',
@@ -35,9 +34,9 @@ function newText(project, position = {}) {
     font: {
       family: 'Anton',
       bold: false,
-      size: 40,
       lineHeight: 1.0,
     },
+    fontSize: 40,
     color: '#EEEE20',
     outline: {
       width: 1,

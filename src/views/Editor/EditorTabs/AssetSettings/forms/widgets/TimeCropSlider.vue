@@ -1,6 +1,9 @@
 <template lang="pug">
 .time-crop-slider
-  b-field(:label="`Only play a segment of this ${element.subtype}`", grouped)
+  b-field(
+    :label="`Only play a segment of this ${element.subtype || element.type}`",
+    grouped
+  )
     p.control
       b-field(label-position="on-border", label="Start")
         b-numberinput.number-input(

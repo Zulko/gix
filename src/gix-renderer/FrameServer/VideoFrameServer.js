@@ -9,10 +9,7 @@ class VideoFrameServer extends FrameServer {
     this.video = document.createElement('video');
     this.video.muted = true;
     this.video.crossOrigin = 'Anonymous';
-  }
-
-  canPlayListener(canPlayEvent) {
-    this.promiseResolver(canPlayEvent);
+    this.isBusy = false;
   }
 
   async getInfos() {
@@ -46,21 +43,9 @@ class VideoFrameServer extends FrameServer {
     });
   }
 
-  async getFrame(t, params) {
-    // await this.drawFrameOnCanvas(t, this.canvasCtx);
-    if (t <= this.sourceStats.duration) {
-      await this.setVideoTimeAndWait(t);
-      return {
-        canvasSource: this.video,
-      };
-    }
-    if (params.endBehaviour === 'loop') {
-      return this.getFrame(t % this.sourceStats.duration);
-    }
-    if (params.endBehaviour === 'freeze') {
-      return this.frameData[this.frameData.length - 1].imageDataUrl;
-    }
-    return null;
+  async getFrameDataForTime(t) {
+    await this.setVideoTimeAndWait(t);
+    return { canvasSource: this.video };
   }
 
   setVideoTimeAndWait(t) {

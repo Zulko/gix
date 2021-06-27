@@ -8,44 +8,6 @@ import gifWorker from 'url-loader!./gif.worker.txt'; // eslint-disable-line
 import resolveTime from './resolveTime';
 import { initiateMissingFrameServers } from './FrameServer/autoDetectedFrameServer';
 
-const projectionCanvas = document.createElement('canvas');
-const projectionCanvasCtx = projectionCanvas.getContext('2d');
-
-function projectOnCanvas(source, params) {
-  const { size, crop } = params;
-  projectionCanvas.width = size.width;
-  projectionCanvas.height = size.height;
-  projectionCanvasCtx.drawImage(
-    source,
-    crop.left,
-    crop.top,
-    (source.width || source.videoWidth) - crop.right - crop.left,
-    (source.height || source.videoHeight) - crop.top - crop.bottom,
-    0,
-    0,
-    size.width,
-    size.height,
-  );
-}
-
-function frameToURL(frame, params) {
-  const shouldCrop = Object.values(params.crop).some((e) => e);
-  const sameSizeAsFrame =
-    params.size.width === frame.canvasSource.width &&
-    params.size.height === frame.canvasSource.height;
-  if (!shouldCrop && sameSizeAsFrame) {
-    if (frame.jpegData) {
-      return frame.jpegData;
-    }
-    if (frame.canvas) {
-      return frame.canvas.toDataURL('image/jpeg', 0.7);
-    }
-    projectOnCanvas(frame.canvasSource, params);
-    return projectionCanvas.toDataURL('image/jpeg', 0.7);
-  }
-  projectOnCanvas(frame.canvasSource, params);
-  return projectionCanvas.toDataURL('image/jpeg', 0.7);
-}
 const svgConverters = {
   async asset(element, params) {
     const assetDuration = element.timeCrop.end - element.timeCrop.start;
@@ -56,9 +18,11 @@ const svgConverters = {
       (element.endBehavior === 'freeze'
         ? Math.min(assetTime, assetDuration)
         : assetTime % assetDuration);
-    const frameServer = await params.frameServers[element.id];
-    const frame = await frameServer.getFrame(adjustedAssetTime);
-    const imageSrc = frameToURL(frame, element);
+    const frameServer = await params.frameServers[element.url];
+    const imageSrc = await frameServer.getFrame(adjustedAssetTime, {
+      ...params,
+      ...element,
+    });
 
     const x = {
       left: 0,

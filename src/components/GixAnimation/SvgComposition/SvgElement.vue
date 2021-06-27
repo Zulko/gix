@@ -48,6 +48,26 @@ g.svg-element(
 <script>
 import TransformHandle from './TransformHandle.vue';
 
+function computeElementCenter(element) {
+  const diff = {
+    x: {
+      left: element.size.width / 2,
+      center: 0,
+      right: -element.size.width / 2,
+    }[element.position.xAlign],
+    y: {
+      top: element.size.height / 2,
+      center: 0,
+      bottom: -element.size.height / 2,
+    }[element.position.yAlign],
+  };
+  const angleRadian = (element.position.rotation * 2 * Math.PI) / 360;
+  return {
+    x: element.position.x + diff.x * Math.cos(angleRadian) + diff.y * Math.sin(angleRadian),
+    y: element.position.y + diff.x * Math.sin(angleRadian) + diff.y * Math.cos(angleRadian),
+  };
+}
+
 export default {
   name: 'SvgElement',
   props: {
@@ -122,19 +142,20 @@ export default {
         this.$emit('drag', { element: this.element, dragType: 'translate', evt });
       }
     },
-    updateElementDimensions() {
+    async updateElementDimensions() {
       const [svgElement] = this.$el.children;
       if (!svgElement) {
         return;
       }
-      const bbox = svgElement.getBBox();
-      // if (bbox.width === 0) {
-      //   console.log(JSON.parse(JSON.stringify(this.element)), bbox);
-      // }
-      this.elementCenter = {
-        x: bbox.x + 0.5 * bbox.width,
-        y: bbox.y + 0.5 * bbox.height,
-      };
+      if (this.element.type === 'text') {
+        const bbox = svgElement.getBBox();
+        this.elementCenter = {
+          x: bbox.x + 0.5 * bbox.width,
+          y: bbox.y + 0.5 * bbox.height,
+        };
+      } else {
+        this.elementCenter = computeElementCenter(this.element);
+      }
     },
     elementTransform(yOffset = 0) {
       const { x, y } = this.elementCenter;

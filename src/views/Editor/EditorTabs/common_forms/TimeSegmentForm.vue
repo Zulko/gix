@@ -58,7 +58,7 @@ export default {
       return [this.element.timeSegment.start, this.element.timeSegment.end];
     },
     assetDuration() {
-      const stats = this.$store.state.assetStats[this.element.id];
+      const stats = this.$store.state.assetStats[this.element.url];
       return stats ? stats.duration : this.$store.state.project.duration;
     },
   },

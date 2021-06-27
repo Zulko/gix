@@ -48,7 +48,7 @@ export default {
       return [this.element.timeCrop.start, this.element.timeCrop.end];
     },
     assetDuration() {
-      const stats = this.$store.state.assetStats[this.element.id];
+      const stats = this.$store.state.assetStats[this.element.url];
       return stats ? stats.duration : this.$store.state.project.duration;
     },
   },

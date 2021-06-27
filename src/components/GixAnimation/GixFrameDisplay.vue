@@ -40,24 +40,31 @@ export default {
         current: 0,
       },
       isLoading: false,
+      refreshElementsTimeout: null,
     };
   },
   methods: {
+    refreshElementsDebounced() {
+      if (this.refreshElementsTimeout) {
+        clearTimeout(this.refreshElementsTimeout);
+      }
+      this.refreshElementsTimeout = setTimeout(this.refreshElements, 5);
+    },
     async refreshElements() {
       const { frameServers } = window;
       const missingServers = this.project.elements.filter(
         (e) =>
           e.type === 'asset' &&
-          !(frameServers[e.id] && (!frameServers[e.id].url || (frameServers[e.id].url === e.url))),
+          !(frameServers[e.url]),
       );
 
       if (missingServers.length) {
         this.isLoading = true;
         missingServers.forEach((e) => {
-          frameServers[e.id] = getFrameServer(e);
+          frameServers[e.url] = getFrameServer(e);
         });
-        await Promise.all(Object.keys(frameServers).map(async (eid) => {
-          frameServers[eid] = await frameServers[eid];
+        await Promise.all(Object.keys(frameServers).map(async (eurl) => {
+          frameServers[eurl] = await frameServers[eurl];
         }));
         const sourceStats = Object.fromEntries(
           Object.entries(frameServers).map(([name, server]) => [name, server.sourceStats]),
@@ -99,19 +106,19 @@ export default {
     if (!window.frameServers) {
       window.frameServers = {};
     }
-    await this.refreshElements();
+    this.refreshElementsDebounced();
   },
   components: {
     'svg-composition': SvgComposition,
   },
   watch: {
     time() {
-      this.refreshElements();
+      this.refreshElementsDebounced();
     },
     'project.elements': {
       deep: true,
       handler() {
-        this.refreshElements();
+        this.refreshElementsDebounced();
       },
     },
   },

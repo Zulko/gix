@@ -1,5 +1,10 @@
 class FrameServer {
-  projectSourceOnCanvas(source, params) {
+  constructor() {
+    this.projectionCanvas = document.createElement('canvas');
+    this.projectionCanvasCtx = this.projectionCanvas.getContext('2d');
+  }
+
+  projectOnCanvas(source, params) {
     const { size, crop } = params;
     this.projectionCanvas.width = size.width;
     this.projectionCanvas.height = size.height;
@@ -7,8 +12,8 @@ class FrameServer {
       source,
       crop.left,
       crop.top,
-      source.width - crop.right - crop.left,
-      source.height - crop.top - crop.bottom,
+      (source.width || source.videoWidth) - crop.right - crop.left,
+      (source.height || source.videoHeight) - crop.top - crop.bottom,
       0,
       0,
       size.width,
@@ -16,17 +21,32 @@ class FrameServer {
     );
   }
 
-  getFrame(t, params) {
-    if (t < this.sourceStats.duration) {
-      return this.getFrameAtTime(t, params);
+  async getFrame(t, params) {
+    while (this.isBusy) {
+      await new Promise((resolve) => setTimeout(resolve, 5)); // eslint-disable-line
     }
-    if (params.endBehaviour === 'loop') {
-      return this.getFrame(t % this.sourceStats.duration);
+    this.isBusy = true;
+    const frameJPEG = await this.getFrameJPEG(t, params);
+    this.isBusy = false;
+    return frameJPEG;
+  }
+
+  async getFrameJPEG(t, params) {
+    const rawFrameData = await this.getFrameDataForTime(t);
+    const shouldCrop = Object.values(params.crop).some((e) => e);
+    const sameSizeAsFrame =
+      params.size.width === rawFrameData.canvasSource.width &&
+      params.size.height === rawFrameData.canvasSource.height;
+    if (!shouldCrop && sameSizeAsFrame) {
+      if (rawFrameData.jpegData) {
+        return rawFrameData.jpegData;
+      }
+      if (rawFrameData.canvas) {
+        return rawFrameData.canvas.toDataURL('image/jpeg', 0.7);
+      }
     }
-    if (params.endBehaviour === 'freeze') {
-      return this.frameData[this.frameData.length - 1].imageDataUrl;
-    }
-    return null;
+    this.projectOnCanvas(rawFrameData.canvasSource, params);
+    return this.projectionCanvas.toDataURL('image/jpeg', 0.7);
   }
 }
 

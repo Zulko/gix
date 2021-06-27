@@ -1,5 +1,8 @@
-class ImageServer {
+import FrameServer from './FrameServer';
+
+class ImageServer extends FrameServer {
   constructor(url) {
+    super();
     this.url = url;
     this.type = 'image';
     this.canvas = null;
@@ -44,7 +47,7 @@ class ImageServer {
     };
   }
 
-  getFrame() {
+  async getFrameDataForTime() {
     return {
       canvas: this.canvas,
       canvasSource: this.canvas,

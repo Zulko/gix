@@ -19,10 +19,7 @@
         )
     p.control(style="margin-top: -0.4em") Keep aspect ratio
       br
-      b-checkbox(
-        v-model="keepAspectRatio",
-        @change="changeAspectRatioCheckbox"
-      )
+      b-checkbox(v-model="keepAspectRatio")
 </template>
 
 <script>
@@ -46,7 +43,7 @@ export default {
       }
       const data = { crop: {} };
       data.crop[direction] = v;
-      const assetStats = this.$store.state.assetStats[this.element.id];
+      const assetStats = this.$store.state.assetStats[this.element.url];
       if (direction === 'top' || direction === 'bottom') {
         const currentHeight = assetStats.height - this.element.crop.top - this.element.crop.bottom;
         const propHeightChange = change / currentHeight;
@@ -67,7 +64,6 @@ export default {
         this.updateProject({ canvas: { width: data.size.width, height: data.size.height } });
       }
     },
-    changeAspectRatioCheckbox() {},
   },
   computed: {
     resizeMessage() {

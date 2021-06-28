@@ -45,7 +45,9 @@
       range,
       :min="0",
       :max="project.duration",
-      :step="0.05"
+      :step="0.05",
+      @dragstart="$store.commit('setFreezeGifPreview', true)",
+      @dragend="$store.commit('setFreezeGifPreview', false)"
     )
 
     b-slider.time-bar(
@@ -54,7 +56,9 @@
       :max="project.duration",
       :step="0.05",
       size="is-small",
-      @input="(val) => $emit('update:time', val)"
+      @input="(val) => $emit('update:time', val)",
+      @dragstart="$store.commit('setFreezeGifPreview', true)",
+      @dragend="$store.commit('setFreezeGifPreview', false)"
     )
 </template>
 

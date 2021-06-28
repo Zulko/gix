@@ -19,10 +19,8 @@ const svgConverters = {
         ? Math.min(assetTime, assetDuration)
         : assetTime % assetDuration);
     const frameServer = await params.frameServers[element.url];
-    const imageSrc = await frameServer.getFrame(adjustedAssetTime, {
-      ...params,
-      ...element,
-    });
+    const frameParams = { size: element.size, crop: element.crop };
+    const imageSrc = await frameServer.getFrame(adjustedAssetTime, frameParams);
 
     const x = {
       left: 0,
@@ -79,7 +77,7 @@ const svgConverters = {
     }[element.xAlign];
     const dominantBaseline = {
       top: 'text-after-edge',
-      center: 'middle',
+      center: 'center',
       bottom: 'text-before-edge',
     }[element.yAlign];
     const textLines = element.text.split('\n');

@@ -40,8 +40,12 @@ export default {
     allowModifiers: { type: Boolean },
   },
   data() {
+    if (this.element[this.field] === undefined) {
+      throw Error(`${this.field} undefined in element ${this.element.id}`);
+    }
+    const { timeVariable } = this.element[this.field];
     return {
-      isTimeVarying: this.element[this.field].timeVariable,
+      isTimeVarying: (timeVariable !== undefined),
     };
   },
   watch: {

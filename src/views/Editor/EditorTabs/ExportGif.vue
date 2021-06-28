@@ -28,7 +28,11 @@
           )
           option(:value="false", label="Custom FPS")
     p.control(v-if="!gifParams.useDefaultFps")
-      b-numberinput(v-model="gifParams.fps", controls-position="compact")
+      b-field(label="FPS", label-position="on-border")
+        b-numberinput.numberinput(
+          v-model="gifParams.fps",
+          controls-position="compact"
+        )
     p.control
       b-field(label="Transparency", label-position="on-border")
         b-select(v-model="gifParams.transparency")
@@ -157,6 +161,9 @@ export default {
   }
   .generate-gif-button {
     margin: 2em auto 2em auto;
+  }
+  .numberinput {
+    width: 150px;
   }
 }
 </style>

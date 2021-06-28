@@ -44,12 +44,6 @@ export default {
     };
   },
   methods: {
-    refreshElementsDebounced() {
-      if (this.refreshElementsTimeout) {
-        clearTimeout(this.refreshElementsTimeout);
-      }
-      this.refreshElementsTimeout = setTimeout(this.refreshElements, 5);
-    },
     async refreshElements() {
       const { frameServers } = window;
       const missingServers = this.project.elements.filter(
@@ -106,19 +100,19 @@ export default {
     if (!window.frameServers) {
       window.frameServers = {};
     }
-    this.refreshElementsDebounced();
+    this.refreshElements();
   },
   components: {
     'svg-composition': SvgComposition,
   },
   watch: {
     time() {
-      this.refreshElementsDebounced();
+      this.refreshElements();
     },
     'project.elements': {
       deep: true,
       handler() {
-        this.refreshElementsDebounced();
+        this.refreshElements();
       },
     },
   },

@@ -75,12 +75,11 @@
       },
       "position": {
         "x": 124,
-        "y": 56,
-        "rotate": 1,
-        "xAlign": "center",
-        "yAlign": "center",
-        "rotation": -11
+        "y": 56
       },
+      "rotation": -11,
+      "xAlign": "center",
+      "yAlign": "center",
       "stroke": {
         "width": 0.6925547340554623,
         "color": "rgba(0, 0, 0, 1)"

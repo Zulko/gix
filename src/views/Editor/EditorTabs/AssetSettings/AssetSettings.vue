@@ -1,16 +1,21 @@
 <template lang="pug">
-element-settings.text-element-settings(
+element-settings.asset-element-settings(
   :element="element",
   :showOptions="showOptions"
 )
-  b-tabs(tab-position="left", type="is-boxed", :animated="false")
+  b-tabs(
+    tab-position="left",
+    type="is-boxed",
+    :animated="false",
+    v-model="activeTab"
+  )
     b-tab-item(
-      v-for="pane in panes",
+      v-for="(pane, i) in panes",
       :key="pane.title",
       :label="pane.title",
       v-if="pane.title !== 'Time' || !element.editorSettings.isMainElement"
     )
-      div(:is="pane.form", :element="element")
+      div(:is="pane.form", :element="element", :tabIsActive="activeTab === i")
 </template>
 
 <script>
@@ -25,6 +30,7 @@ export default {
   extends: ElementComponentMixin,
   data() {
     return {
+      activeTab: 0,
       panes: [
         {
           title: 'Source & crop',

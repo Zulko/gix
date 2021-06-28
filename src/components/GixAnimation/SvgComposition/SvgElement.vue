@@ -54,14 +54,14 @@ function computeElementCenter(element) {
       left: element.size.width / 2,
       center: 0,
       right: -element.size.width / 2,
-    }[element.position.xAlign],
+    }[element.xAlign],
     y: {
       top: element.size.height / 2,
       center: 0,
       bottom: -element.size.height / 2,
-    }[element.position.yAlign],
+    }[element.yAlign],
   };
-  const angleRadian = (element.position.rotation * 2 * Math.PI) / 360;
+  const angleRadian = (element.rotation * 2 * Math.PI) / 360;
   return {
     x: element.position.x + diff.x * Math.cos(angleRadian) + diff.y * Math.sin(angleRadian),
     y: element.position.y + diff.x * Math.sin(angleRadian) + diff.y * Math.cos(angleRadian),

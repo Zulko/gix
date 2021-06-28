@@ -124,9 +124,7 @@ export default {
           };
         } else if (projectElement.type === 'text') {
           update = {
-            font: {
-              size: Math.max(10, parseInt(ratio * projectElement.fontSize, 10)),
-            },
+            fontSize: Math.max(10, parseInt(ratio * projectElement.fontSize, 10)),
             stroke: {
               width: ratio * projectElement.stroke.width,
             },

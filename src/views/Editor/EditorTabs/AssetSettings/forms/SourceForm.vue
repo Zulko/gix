@@ -1,6 +1,6 @@
 <template lang="pug">
 .source-form
-  crop-asset-preview(:element="element")
+  crop-asset-preview(:element="element", v-if="tabIsActive")
   br
   p.click-me(v-if="usesDataUrl", @click="dialogIsVisible = true") Embedded asset
   div(v-if="element.subtype !== 'image'")
@@ -63,6 +63,9 @@ import ElementComponentMixin from '../../ElementComponentMixin.vue';
 
 export default {
   extends: ElementComponentMixin,
+  props: {
+    tabIsActive: { type: Boolean },
+  },
   data() {
     return {
       urlInput: '',

@@ -131,7 +131,14 @@ export default {
   methods: {
     contextMenu(evt) {
       evt.preventDefault();
-      this.$emit('context-menu', { element: this.element, evt });
+      const rect = evt.target.getBoundingClientRect();
+      const [svgElement] = this.$el.children;
+      const bbox = svgElement.getBBox();
+      const svgX = evt.clientX - rect.left + bbox.x;
+      const svgY = evt.clientY - rect.top + bbox.y;
+      this.$emit('context-menu', {
+        element: this.element, evt, svgX, svgY,
+      });
     },
     onMouseDown(evt) {
       if (!this.element.nonRotatable) {

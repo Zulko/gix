@@ -79,7 +79,11 @@ export default {
     },
     onBackgroundContextMenu(evt) {
       evt.preventDefault();
-      this.$emit('context-menu', { element: null, evt });
+      const svgX = evt.offsetX;
+      const svgY = evt.offsetY;
+      this.$emit('context-menu', {
+        element: null, evt, svgX, svgY,
+      });
     },
   },
   computed: {

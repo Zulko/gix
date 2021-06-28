@@ -13,7 +13,7 @@
       b-menu-item(
         icon="rectangle-outline",
         label="Rectangle",
-        @click="addRectangle(position); $emit('closeMenu')"
+        @click="addRectangle(offset); $emit('closeMenu')"
       )
     b-menu-list(:label="`This ${element.type}`", v-if="element")
       b-menu-item(

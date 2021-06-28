@@ -16,6 +16,7 @@
   },
   "main": "background.js",
   "dependencies": {
+    "async": "^3.2.0",
     "axios": "^0.21.1",
     "base64url": "^3.0.1",
     "buefy": "^0.9.7",

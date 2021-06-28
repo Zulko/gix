@@ -1,3 +1,4 @@
+import async from 'async';
 import LRU from './LRU';
 
 class FrameServer {
@@ -5,6 +6,11 @@ class FrameServer {
     this.projectionCanvas = document.createElement('canvas');
     this.projectionCanvasCtx = this.projectionCanvas.getContext('2d');
     this.lruCache = new LRU(10);
+    const self = this;
+    this.frameJPEGrequestsQueue = async.queue(async (params, callback) => {
+      const frameJPEG = self.getFrameJPEG(params);
+      callback(frameJPEG);
+    }, 1);
   }
 
   projectOnCanvas(source, params) {
@@ -24,28 +30,22 @@ class FrameServer {
     );
   }
 
-  async getFrame(t, params) {
-    const lruFrame = this.lruCache.getFromParams({ ...params, t });
+  async getFrame(params) {
+    const lruFrame = this.lruCache.getFromParams(params);
+
     if (lruFrame) {
       return lruFrame;
     }
-    while (this.isBusy) {
-      // if (this.memory.frameJPEG) {
-      //   console.log('reusing', this.isBusy);
-      //   return this.memory.frameJPEG;
-      // }
-      // console.log('here');
-      await new Promise((resolve) => setTimeout(resolve, 5)); // eslint-disable-line
-    }
-    this.isBusy = true;
-    const frameJPEG = await this.getFrameJPEG(t, params);
-    this.isBusy = false;
-    this.lruCache.setFromParams({ ...params, t }, frameJPEG);
+    const self = this;
+    const frameJPEG = await new Promise((resolve) => {
+      self.frameJPEGrequestsQueue.push(params, resolve);
+    });
+    this.lruCache.setFromParams(params, frameJPEG);
     return frameJPEG;
   }
 
-  async getFrameJPEG(t, params) {
-    const rawFrameData = await this.getFrameDataForTime(t);
+  async getFrameJPEG(params) {
+    const rawFrameData = await this.getFrameDataForTime(params.t);
     const shouldCrop = Object.values(params.crop).some((e) => e);
     const sameSizeAsFrame =
       params.size.width === rawFrameData.canvasSource.width &&

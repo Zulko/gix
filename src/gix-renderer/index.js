@@ -19,8 +19,12 @@ const svgConverters = {
         ? Math.min(assetTime, assetDuration)
         : assetTime % assetDuration);
     const frameServer = await params.frameServers[element.url];
-    const frameParams = { size: element.size, crop: element.crop };
-    const imageSrc = await frameServer.getFrame(adjustedAssetTime, frameParams);
+    const frameParams = {
+      size: element.size,
+      crop: element.crop,
+      t: adjustedAssetTime,
+    };
+    const imageSrc = await frameServer.getFrame(frameParams);
 
     const x = {
       left: 0,

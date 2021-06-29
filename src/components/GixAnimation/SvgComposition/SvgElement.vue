@@ -16,7 +16,7 @@ g.svg-element(
     :style="{ cursor: 'move' }",
     @mousedown="onMouseDown"
   )
-  g(v-if="showTransformationHandle", :transform="elementTransform(yOffset)")
+  g(v-if="showTransformationHandle", :transform="elementTransformWithOffset")
     transform-handle(
       v-if="!element.nonRotatable",
       :element="element",
@@ -48,26 +48,6 @@ g.svg-element(
 <script>
 import TransformHandle from './TransformHandle.vue';
 
-function computeElementCenter(element) {
-  const diff = {
-    x: {
-      left: element.size.width / 2,
-      center: 0,
-      right: -element.size.width / 2,
-    }[element.xAlign],
-    y: {
-      top: element.size.height / 2,
-      center: 0,
-      bottom: -element.size.height / 2,
-    }[element.yAlign],
-  };
-  const angleRadian = (element.rotation * 2 * Math.PI) / 360;
-  return {
-    x: element.position.x + diff.x * Math.cos(angleRadian) + diff.y * Math.sin(angleRadian),
-    y: element.position.y + diff.x * Math.sin(angleRadian) + diff.y * Math.cos(angleRadian),
-  };
-}
-
 export default {
   name: 'SvgElement',
   props: {
@@ -78,22 +58,59 @@ export default {
   data() {
     return {
       isHovered: false,
-      elementCenter: { x: 0, y: 0 },
+      isMounted: false,
     };
   },
   computed: {
+    elementCenter() {
+      const { element } = this;
+      if (!this.isMounted) {
+        return null;
+      }
+      const [svgElement] = this.$el.children;
+      if (!svgElement) {
+        return null;
+      }
+      if (this.element.type === 'text') {
+        const bbox = svgElement.getBBox();
+        return {
+          x: bbox.x + 0.5 * bbox.width,
+          y: bbox.y + 0.5 * bbox.height,
+        };
+      }
+      const sign = (element.isMirror ? 1 : -1);
+      const diff = {
+        x: {
+          left: (sign * element.size.width) / 2,
+          center: 0,
+          right: -(sign * element.size.width) / 2,
+        }[element.xAlign],
+        y: {
+          top: element.size.height / 2,
+          center: 0,
+          bottom: -element.size.height / 2,
+        }[element.yAlign],
+      };
+      const angleRadian = (element.rotation * 2 * Math.PI) / 360;
+      return {
+        x: element.position.x + diff.x * Math.cos(angleRadian) + diff.y * Math.sin(angleRadian),
+        y: element.position.y + diff.x * Math.sin(angleRadian) + diff.y * Math.cos(angleRadian),
+      };
+    },
     overlaySvg() {
       const { element } = this;
-      if (element.type === 'asset') {
-        return `<g transform="${this.elementTransform()}">
+      if ((element.type === 'asset') && this.elementTransform) {
+        const overlay = `<g transform="${this.elementTransform}">
           <rect
           x="${-element.size.width / 2}"
           y="${-element.size.height / 2}"
           opacity=0
           fill='red'
-          height="${this.element.size.height}px"
+          height="${this.element.size.height}"
           width="${this.element.size.width}px"
         /></g>`;
+        console.log({ overlay });
+        return overlay;
       }
       return '';
     },
@@ -127,6 +144,24 @@ export default {
       }
       return height < 60;
     },
+    elementTransform() {
+      if (!this.elementCenter) {
+        console.log('center');
+        return '';
+      }
+      const { x, y } = this.elementCenter;
+      const transform = `
+        translate(${x}, ${y})
+        rotate(${this.element.rotation || 0})
+      `;
+      return transform;
+    },
+    elementTransformWithOffset() {
+      return `
+        ${this.elementTransform}
+        translate(0, ${this.yOffset})
+      `;
+    },
   },
   methods: {
     contextMenu(evt) {
@@ -149,43 +184,12 @@ export default {
         this.$emit('drag', { element: this.element, dragType: 'translate', evt });
       }
     },
-    async updateElementDimensions() {
-      const [svgElement] = this.$el.children;
-      if (!svgElement) {
-        return;
-      }
-      if (this.element.type === 'text') {
-        const bbox = svgElement.getBBox();
-        this.elementCenter = {
-          x: bbox.x + 0.5 * bbox.width,
-          y: bbox.y + 0.5 * bbox.height,
-        };
-      } else {
-        this.elementCenter = computeElementCenter(this.element);
-      }
-    },
-    elementTransform(yOffset = 0) {
-      const { x, y } = this.elementCenter;
-      return `
-        translate(${x}, ${y})
-        rotate(${this.element.rotation || 0})
-        translate(0, ${yOffset})
-      `;
-    },
   },
   components: {
     'transform-handle': TransformHandle,
   },
   mounted() {
-    this.updateElementDimensions();
-  },
-  watch: {
-    element: {
-      deep: true,
-      handler() {
-        this.updateElementDimensions();
-      },
-    },
+    this.isMounted = true;
   },
 };
 </script>

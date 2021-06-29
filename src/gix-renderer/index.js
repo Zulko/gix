@@ -8,6 +8,21 @@ import gifWorker from 'url-loader!./gif.worker.txt'; // eslint-disable-line
 import resolveTime from './resolveTime';
 import { initiateMissingFrameServers } from './FrameServer/autoDetectedFrameServer';
 
+function innerPosition(element) {
+  return {
+    x: {
+      left: 0,
+      center: -element.size.width / 2,
+      right: -element.size.width,
+    }[element.xAlign],
+    y: {
+      top: 0,
+      center: -element.size.height / 2,
+      bottom: -element.size.height,
+    }[element.yAlign],
+  };
+}
+
 const svgConverters = {
   async asset(element, params) {
     const assetDuration = element.timeCrop.end - element.timeCrop.start;
@@ -25,37 +40,18 @@ const svgConverters = {
       t: adjustedAssetTime,
     };
     const imageSrc = await frameServer.getFrame(frameParams);
-
-    const x = {
-      left: 0,
-      center: -element.size.width / 2,
-      right: -element.size.width,
-    }[element.xAlign];
-    const y = {
-      top: 0,
-      center: -element.size.height / 2,
-      bottom: -element.size.height,
-    }[element.yAlign];
+    const position = innerPosition(element);
     return `<image
       href = "${imageSrc}"
-      x="${x}"
-      y="${y}"
-      height="${`${element.size.height}px`}"
-      width="${`${element.size.width}px`}"
+      x="${position.x}"
+      y="${position.y}"
+      height="${`${element.size.height}`}"
+      width="${`${element.size.width}`}"
       opacity="${element.opacity || 1}"
     />`;
   },
   async rectangle(element) {
-    const x = {
-      left: 0,
-      center: -element.size.width / 2,
-      right: -element.size.width,
-    }[element.xAlign];
-    const y = {
-      top: 0,
-      center: -element.size.height / 2,
-      bottom: -element.size.height,
-    }[element.yAlign];
+    const position = innerPosition(element);
     const style = `
       fill: ${element.color.toLowerCase()};
       stroke-linejoin: round;
@@ -64,10 +60,10 @@ const svgConverters = {
       opacity: ${element.opacity || 1};
     `;
     return `<rect
-      x="${x}"
-      y="${y}"
-      height="${element.size.height}px"
-      width="${element.size.width}px"
+      x="${position.x}"
+      y="${position.y}"
+      height="${element.size.height}"
+      width="${element.size.width}"
       rx="${element.roundedCorners.rx}"
       ry="${element.roundedCorners.ry}"
       style="${style}"

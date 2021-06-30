@@ -29,7 +29,7 @@ class ImageServer extends FrameServer {
         context.drawImage(self.baseImage, 0, 0);
         const canvasHasAlpha = FrameServer.canvasHasAlpha(context, self.canvas);
         this.hasTransparency = canvasHasAlpha;
-        self.jpegData = this.canvasToPictureData({
+        self.imageBase64Data = this.canvasToPictureData({
           canvas: self.canvas,
           canvasHasAlpha,
         });
@@ -56,7 +56,7 @@ class ImageServer extends FrameServer {
     return {
       canvas: this.canvas,
       canvasSource: this.canvas,
-      jpegData: this.jpegData,
+      imageBase64Data: this.imageBase64Data,
     };
   }
 }

@@ -56,8 +56,18 @@ async function autoDetectedFrameServer(urlData) {
   return new FrameServerClass(urlData.url, mediaUrl);
 }
 
-function findAssetElementsWithoutFrameServer(gix, frameServers) {
-  return gix.elements.filter((e) => e.type === 'asset' && !frameServers[e.url]);
+function findAssetUrlsWithoutFrameServer(gix, frameServers) {
+  const elements = gix.elements.filter(
+    (e) => e.type === 'asset' && !frameServers[e.url],
+  );
+  const urlDataList = [];
+  elements.forEach((element) => {
+    const { url, mediaUrl } = element;
+    if (!urlDataList.map((e) => e.url).includes(url)) {
+      urlDataList.push({ url, mediaUrl });
+    }
+  });
+  return urlDataList;
 }
 
 async function getFrameServer(element) {
@@ -66,24 +76,24 @@ async function getFrameServer(element) {
   return frameServer;
 }
 async function initiateMissingFrameServers(gix, frameServers, loadingCallback) {
-  const assetElementsWithoutFrameServer = findAssetElementsWithoutFrameServer(
+  const assetUrlsWithoutFrameServer = findAssetUrlsWithoutFrameServer(
     gix,
     frameServers,
   );
-  const nAssets = assetElementsWithoutFrameServer.length;
+  const nUrls = assetUrlsWithoutFrameServer.length;
   const newFrameServers = { ...frameServers };
-  if (nAssets > 0) {
+  if (nUrls > 0) {
     await Promise.all(
-      assetElementsWithoutFrameServer.map(async (element, i) => {
+      assetUrlsWithoutFrameServer.map(async (urlData, i) => {
         if (loadingCallback) {
           loadingCallback({
-            nAssets,
+            nUrls,
             loaded: i,
           });
         }
-        const frameServer = await autoDetectedFrameServer(element);
+        const frameServer = await autoDetectedFrameServer(urlData);
         await frameServer.init();
-        newFrameServers[element.url] = frameServer;
+        newFrameServers[urlData.url] = frameServer;
       }),
     );
   }
@@ -94,6 +104,6 @@ export {
   urlToSubtype,
   autoDetectedFrameServer,
   initiateMissingFrameServers,
-  findAssetElementsWithoutFrameServer,
+  findAssetUrlsWithoutFrameServer,
   getFrameServer,
 };

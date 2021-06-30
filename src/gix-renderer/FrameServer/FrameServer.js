@@ -8,10 +8,13 @@ class FrameServer {
     this.hasTransparency = false;
     this.lruCache = new LRU(10);
     const self = this;
-    this.frameJPEGrequestsQueue = async.queue(async (params, callback) => {
-      const frameJPEG = await self.getFrameJPEG(params);
-      callback(frameJPEG);
-    }, 1);
+    this.frameBase64DatarequestsQueue = async.queue(
+      async (params, callback) => {
+        const frameBase64Data = await self.getFrameBase64Data(params);
+        callback(frameBase64Data);
+      },
+      1,
+    );
   }
 
   projectOnCanvas(source, params) {
@@ -38,22 +41,22 @@ class FrameServer {
       return lruFrame;
     }
     const self = this;
-    const frameJPEG = await new Promise((resolve) => {
-      self.frameJPEGrequestsQueue.push(params, resolve);
+    const frameBase64Data = await new Promise((resolve) => {
+      self.frameBase64DatarequestsQueue.push(params, resolve);
     });
-    this.lruCache.setFromParams(params, frameJPEG);
-    return frameJPEG;
+    this.lruCache.setFromParams(params, frameBase64Data);
+    return frameBase64Data;
   }
 
-  async getFrameJPEG(params) {
+  async getFrameBase64Data(params) {
     const rawFrameData = await this.getFrameDataForTime(params.t);
     const shouldCrop = Object.values(params.crop).some((e) => e);
     const sameSizeAsFrame =
       params.size.width === rawFrameData.canvasSource.width &&
       params.size.height === rawFrameData.canvasSource.height;
     if (!shouldCrop && sameSizeAsFrame) {
-      if (rawFrameData.jpegData) {
-        return rawFrameData.jpegData;
+      if (rawFrameData.imageBase64Data) {
+        return rawFrameData.imageBase64Data;
       }
       if (rawFrameData.canvas) {
         return this.canvasToPictureData({

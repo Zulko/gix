@@ -62,7 +62,7 @@ class GifFrameServer extends FrameServer {
                 untilTime: cumulativeTime,
                 canvas,
                 canvasSource: canvas,
-                jpegData: this.canvasToPictureData({
+                imageBase64Data: this.canvasToPictureData({
                   canvas,
                   canvasHasAlpha,
                 }),

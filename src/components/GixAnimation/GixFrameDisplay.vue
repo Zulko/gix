@@ -40,25 +40,34 @@ export default {
         current: 0,
       },
       isLoading: false,
-      refreshElementsTimeout: null,
     };
   },
   methods: {
     async refreshElements() {
       const { frameServers } = window;
-      const missingServers = this.project.elements.filter(
+      const elementsWithMissingServer = this.project.elements.filter(
         (e) =>
           e.type === 'asset' &&
           !(frameServers[e.url]),
       );
-
-      if (missingServers.length) {
+      const missingUrlDataList = [];
+      elementsWithMissingServer.forEach((element) => {
+        const { url, mediaUrl } = element;
+        if (!missingUrlDataList.map((e) => e.url).includes(url)) {
+          missingUrlDataList.push({ url, mediaUrl });
+        }
+      });
+      if (missingUrlDataList.length) {
         this.isLoading = true;
-        missingServers.forEach((e) => {
-          frameServers[e.url] = getFrameServer(e);
+        missingUrlDataList.forEach((urlData) => {
+          frameServers[urlData.url] = 'mark';
         });
-        await Promise.all(Object.keys(frameServers).map(async (eurl) => {
-          frameServers[eurl] = await frameServers[eurl];
+        // await Promise.all(Object.keys(frameServers).map(async (eurl) => {
+        //   frameServers[eurl] = await frameServers[eurl];
+        // }));
+        await Promise.all(missingUrlDataList.map(async (urlData) => {
+          const server = await getFrameServer(urlData);
+          frameServers[urlData.url] = server;
         }));
         const sourceStats = Object.fromEntries(
           Object.entries(frameServers).map(([name, server]) => [name, server.sourceStats]),

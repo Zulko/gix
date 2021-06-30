@@ -60,6 +60,7 @@ export default {
   },
   methods: {
     handleNewFrame() {
+      console.log('handleNewFrame');
       if (!this.isLoading && this.parameters.status === 'play' && !this.isBusy && !this.freeze) {
         this.incrementTimeAfterWait();
         this.isBusy = true;

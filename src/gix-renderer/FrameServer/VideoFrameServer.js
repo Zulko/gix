@@ -48,14 +48,17 @@ class VideoFrameServer extends FrameServer {
     return { canvasSource: this.video };
   }
 
-  setVideoTimeAndWait(t) {
+  async setVideoTimeAndWait(t) {
+    if (this.video.currentTime === t) {
+      return null;
+    }
     const self = this;
     // eslint-disable-next-line no-unused-vars
     return new Promise((resolve, reject) => {
       self.video.onerror = reject;
       self.video.onseeked = (evt) => {
-        resolve(evt);
         self.video.onseeked = null;
+        resolve(evt);
       };
       self.video.currentTime = t.toFixed(2);
     });

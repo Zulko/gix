@@ -145,7 +145,6 @@ export default {
     },
     elementTransform() {
       if (!this.elementCenter) {
-        console.log('center');
         return '';
       }
       const { x, y } = this.elementCenter;

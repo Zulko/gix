@@ -9,7 +9,7 @@ class FrameServer {
     this.lruCache = new LRU(10);
     const self = this;
     this.frameJPEGrequestsQueue = async.queue(async (params, callback) => {
-      const frameJPEG = self.getFrameJPEG(params);
+      const frameJPEG = await self.getFrameJPEG(params);
       callback(frameJPEG);
     }, 1);
   }

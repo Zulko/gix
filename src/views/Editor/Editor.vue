@@ -74,7 +74,6 @@ export default {
           yOffset: e.svgY,
         },
       };
-      console.log(this.contextMenu);
     },
     onDragging(e) {
       const { elements } = this.$store.state.project;

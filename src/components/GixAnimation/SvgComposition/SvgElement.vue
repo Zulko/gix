@@ -109,7 +109,6 @@ export default {
           height="${this.element.size.height}"
           width="${this.element.size.width}px"
         /></g>`;
-        console.log({ overlay });
         return overlay;
       }
       return '';

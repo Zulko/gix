@@ -27,7 +27,12 @@ class ImageServer extends FrameServer {
         self.canvas.height = stats.height;
         const context = self.canvas.getContext('2d');
         context.drawImage(self.baseImage, 0, 0);
-        self.jpegData = self.canvas.toDataURL('image/jpeg', 0.7);
+        const canvasHasAlpha = FrameServer.canvasHasAlpha(context, self.canvas);
+        this.hasTransparency = canvasHasAlpha;
+        self.jpegData = this.canvasToPictureData({
+          canvas: self.canvas,
+          canvasHasAlpha,
+        });
         resolve();
       };
       self.baseImage.src = self.url;

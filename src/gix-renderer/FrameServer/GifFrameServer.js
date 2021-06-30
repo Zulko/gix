@@ -50,11 +50,22 @@ class GifFrameServer extends FrameServer {
               cumulativeTime +=
                 delay === 0 ? self.sourceStats.defaultDelay : delay / 100;
               const canvas = frame.getImage();
+              const context = canvas.getContext('2d');
+              const canvasHasAlpha = FrameServer.canvasHasAlpha(
+                context,
+                canvas,
+              );
+              if (canvasHasAlpha) {
+                this.hasTransparency = true;
+              }
               return Object.assign(frame, {
                 untilTime: cumulativeTime,
                 canvas,
                 canvasSource: canvas,
-                jpegData: canvas.toDataURL('image/jpeg', 0.7),
+                jpegData: this.canvasToPictureData({
+                  canvas,
+                  canvasHasAlpha,
+                }),
               });
             });
             self.frameData = augmentedFrameData;

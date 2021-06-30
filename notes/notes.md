@@ -58,3 +58,9 @@ default-src blob: data: filesystem: ws: http: https: 'unsafe-eval' 'unsafe-inlin
 singer beer
 
 https://i.imgur.com/51bMDwP.mp4
+https://i.imgur.com/X9Ztt7k.mp4
+
+
+
+transparent
+https://i.imgur.com/kRzToLH.gif

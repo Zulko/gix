@@ -5,6 +5,7 @@ class FrameServer {
   constructor() {
     this.projectionCanvas = document.createElement('canvas');
     this.projectionCanvasCtx = this.projectionCanvas.getContext('2d');
+    this.hasTransparency = false;
     this.lruCache = new LRU(10);
     const self = this;
     this.frameJPEGrequestsQueue = async.queue(async (params, callback) => {
@@ -55,11 +56,41 @@ class FrameServer {
         return rawFrameData.jpegData;
       }
       if (rawFrameData.canvas) {
-        return rawFrameData.canvas.toDataURL('image/jpeg', 0.7);
+        return this.canvasToPictureData({
+          context: rawFrameData.canvas.getContext('2d'),
+          canvas: rawFrameData.canvas,
+        });
       }
     }
     this.projectOnCanvas(rawFrameData.canvasSource, params);
-    return this.projectionCanvas.toDataURL('image/jpeg', 0.7);
+    return this.canvasToPictureData({
+      context: this.projectionCanvasCtx,
+      canvas: this.projectionCanvas,
+    });
+  }
+
+  static canvasHasAlpha(context, canvas) {
+    const { data } = context.getImageData(0, 0, canvas.width, canvas.height);
+    for (let i = 3, n = data.length; i < n; i += 4) {
+      if (data[i] < 255) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  canvasToPictureData({ canvas, context, canvasHasAlpha }) {
+    if (canvasHasAlpha !== undefined) {
+      return canvasHasAlpha
+        ? canvas.toDataURL('image/png')
+        : canvas.toDataURL('image/jpeg', 0.7);
+    }
+    if (!this.hasTransparency) {
+      return canvas.toDataURL('image/jpeg', 0.7);
+    }
+    return FrameServer.canvasHasAlpha(context, canvas)
+      ? canvas.toDataURL('image/png')
+      : canvas.toDataURL('image/jpeg', 0.7);
   }
 }
 

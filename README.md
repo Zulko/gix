@@ -1,13 +1,13 @@
 # Gix
 
-Gix is a GIF editor with the following selling points:
+Gix is a GIF editor using web technologies:
 
-- It runs entirely in your browser, so no account needed, no privacy issues, no server costs to cover.
-- Easily share your project by fitting all the data in a long URL, so others can create variations.
-- Creative freedom: free placement of gifs, texts, and shapes. Huge choise of fonts, animations.
-- An intuitive interface to make or remix GIFs in minutes.
+- No account needed, no privacy issues, no server costs: it runs entirely in your browser.
+- Share your projects as (long!) URLs, so others can build on your work.
+- Freely create, combine, caption, and animate.
+- An intuitive (?) interface to make or remix GIFs in minutes.
 
-
+**This is still work in progress. Expect no stability**
 
 ## Project setup
 
@@ -43,11 +43,12 @@ yarn lint
 
 This project is an exploration of what is achievable in a browser, and it comes with many thanks to all the projects that made it possible:
 
-- The editor is written in Vue and uses the Buefy components library.
-- Gif generation is courtesy of GIF.js
-- Undo/Redo, save-project-in-browser courtesy of vuex and vuex-persisted-state.
-- Projects can fit in URLs thanks to pako and base64url
-- Google fonts are downloaded with vue-webfont-loader
+- The editor is written with `VueJS` and uses the `Buefy` components library, complemented with widget libraries (`vue-color`, `vue-emoji-picker`).
+- The reading of GIFs is done using libraries `gif-frames` and `gif-infos`. GIF generation is provided by `GIF.js`. The element-to-frame-pixels rendering is done with `canvg`.
+- Undo/Redo, save-project-in-browser courtesy of `vuex` and `vuex-persisted-state`.
+- Projects can fit in URLs thanks to `pako` (for zipping) and `base64url` (to form url-friendly data).
+- Google fonts are downloaded with vue-webfont-loader.
+- The rest is courtesy of your browser, and this includes in-browser SVG rendering (fonts, image transformations), video reading, image reading and encoding (JPEG, PNG).
 
 ## Contribute
 

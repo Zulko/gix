@@ -10,7 +10,6 @@ module.exports = {
       .loader('url-loader')
       .tap((options) =>
         // modify the options...
-        ({ ...options, limit: 100000 }),
-      );
+        ({ ...options, limit: 100000 }));
   },
 };

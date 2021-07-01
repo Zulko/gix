@@ -121,14 +121,6 @@ export default {
       fonts.sort();
       return [...new Set(fonts)];
     },
-    displayStyle() {
-      return {
-        display: 'block',
-        transform: `scale(${this.parameters.scale})`,
-        'transform-origin': 'top center',
-        height: `${this.parameters.scale * this.project.canvas.height}px`,
-      };
-    },
   },
   watch: {
     currentTime(val) {

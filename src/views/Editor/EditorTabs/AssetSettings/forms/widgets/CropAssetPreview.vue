@@ -5,7 +5,8 @@
     v-if="project && assetStats.width",
     @dragging="onDragging",
     @draggingStopped="onDraggingStopped",
-    :time="time"
+    :time="time",
+    :scale="previewScale"
   )
   b-slider.preview-slider(
     v-if="element.subtype !== 'image'",
@@ -204,7 +205,10 @@ export default {
     },
     timeCropSliderWidth() {
       const assetStats = this.assetStats || { width: 500, duration: 10 };
-      return Math.min(800, Math.max(assetStats.duration * 100, assetStats.width));
+      return Math.min(700, Math.max(assetStats.duration * 100, assetStats.width));
+    },
+    previewScale() {
+      return Math.min(1, 700 / this.assetStats.width, 350 / this.assetStats.height);
     },
   },
   methods: {

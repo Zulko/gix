@@ -11,7 +11,7 @@
       p.control
         b-button(icon-left="check", @click="processAndEmitUrl")
   file-uploader(
-    @input="(val) => $emit('fileInput', val)",
+    @input="processAndEmitFile",
     :fileDescription="fileDescription",
     :tip="fileTip"
   )
@@ -68,6 +68,17 @@ export default {
       } else {
         this.$emit('urlInput', { url });
       }
+    },
+    processAndEmitFile(file) {
+      const reader = new FileReader();
+      const self = this;
+      reader.onload = function onload() {
+        self.$emit('urlInput', { url: reader.result });
+      };
+      reader.onerror = function onerror(error) {
+        throw error;
+      };
+      reader.readAsDataURL(file);
     },
   },
 };

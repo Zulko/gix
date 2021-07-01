@@ -70,33 +70,15 @@ function findAssetUrlsWithoutFrameServer(gix, frameServers) {
   return urlDataList;
 }
 
-async function getFrameServer(element) {
-  const frameServer = await autoDetectedFrameServer(element);
-  await frameServer.init();
-  return frameServer;
-}
-async function initiateMissingFrameServers(gix, frameServers, loadingCallback) {
-  const assetUrlsWithoutFrameServer = findAssetUrlsWithoutFrameServer(
-    gix,
-    frameServers,
+async function initiateMissingFrameServers(assetUrlsWithoutFrameServer) {
+  const newFrameServers = {};
+  await Promise.all(
+    assetUrlsWithoutFrameServer.map(async (urlData) => {
+      const frameServer = await autoDetectedFrameServer(urlData);
+      await frameServer.init();
+      newFrameServers[urlData.url] = frameServer;
+    }),
   );
-  const nUrls = assetUrlsWithoutFrameServer.length;
-  const newFrameServers = { ...frameServers };
-  if (nUrls > 0) {
-    await Promise.all(
-      assetUrlsWithoutFrameServer.map(async (urlData, i) => {
-        if (loadingCallback) {
-          loadingCallback({
-            nUrls,
-            loaded: i,
-          });
-        }
-        const frameServer = await autoDetectedFrameServer(urlData);
-        await frameServer.init();
-        newFrameServers[urlData.url] = frameServer;
-      }),
-    );
-  }
   return newFrameServers;
 }
 
@@ -105,5 +87,4 @@ export {
   autoDetectedFrameServer,
   initiateMissingFrameServers,
   findAssetUrlsWithoutFrameServer,
-  getFrameServer,
 };

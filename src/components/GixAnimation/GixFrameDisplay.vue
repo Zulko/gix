@@ -18,7 +18,7 @@
 
 <script>
 import {
-  getFrameServer,
+  findAssetUrlsWithoutFrameServer, initiateMissingFrameServers,
 } from '../../gix-renderer/FrameServer/autoDetectedFrameServer';
 import { resolveElement, resolvedElementToSvg } from '../../gix-renderer';
 // import data from './data';
@@ -45,30 +45,14 @@ export default {
   methods: {
     async refreshElements() {
       const { frameServers } = window;
-      const elementsWithMissingServer = this.project.elements.filter(
-        (e) =>
-          e.type === 'asset' &&
-          !(frameServers[e.url]),
-      );
-      const missingUrlDataList = [];
-      elementsWithMissingServer.forEach((element) => {
-        const { url, mediaUrl } = element;
-        if (!missingUrlDataList.map((e) => e.url).includes(url)) {
-          missingUrlDataList.push({ url, mediaUrl });
-        }
-      });
+      const missingUrlDataList = findAssetUrlsWithoutFrameServer(this.project, frameServers);
       if (missingUrlDataList.length) {
-        this.isLoading = true;
         missingUrlDataList.forEach((urlData) => {
           frameServers[urlData.url] = 'mark';
         });
-        // await Promise.all(Object.keys(frameServers).map(async (eurl) => {
-        //   frameServers[eurl] = await frameServers[eurl];
-        // }));
-        await Promise.all(missingUrlDataList.map(async (urlData) => {
-          const server = await getFrameServer(urlData);
-          frameServers[urlData.url] = server;
-        }));
+        this.isLoading = true;
+        const newFrameServers = await initiateMissingFrameServers(missingUrlDataList);
+        Object.assign(frameServers, newFrameServers);
         const sourceStats = Object.fromEntries(
           Object.entries(frameServers).map(([name, server]) => [name, server.sourceStats]),
         );

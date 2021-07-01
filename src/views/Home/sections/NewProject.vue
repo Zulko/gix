@@ -4,7 +4,6 @@
   file-or-url-form(
     label="Start from a picture, GIF or video",
     @urlInput="handleUrl",
-    @fileInput="handleFileInput",
     fileDescription="GIF/image/video",
     fileTip="Prefer URLs over uploads to make your projects easier to share"
   )
@@ -89,7 +88,6 @@ export default {
       this.setEditorTabIndex(0);
       this.$router.push('editor');
     },
-    handleFileInput() {},
   },
   components: {
     'file-or-url-form': FileOrUrlForm,

@@ -6,7 +6,10 @@ import GIF from 'gif.js';
 import Canvg from 'canvg';
 import gifWorker from 'url-loader!./gif.worker.txt'; // eslint-disable-line
 import resolveTime from './resolveTime';
-import { initiateMissingFrameServers } from './FrameServer/autoDetectedFrameServer';
+import {
+  initiateMissingFrameServers,
+  findAssetUrlsWithoutFrameServer,
+} from './FrameServer/autoDetectedFrameServer';
 
 function innerPosition(element) {
   return {
@@ -180,13 +183,16 @@ async function renderGixFrameSvg(gix, params) {
 }
 
 async function renderGixToGif(gix, params, progressCallback) {
-  const resolvedFrameServers = await initiateMissingFrameServers(
+  const missingUrlDataList = findAssetUrlsWithoutFrameServer(
     gix,
     params.frameServers || {},
   );
+  const missingFrameServers = await initiateMissingFrameServers(
+    missingUrlDataList,
+  );
   const resolvedParams = {
     ...params,
-    frameServers: resolvedFrameServers,
+    frameServers: { ...(params.frameServers || {}), ...missingFrameServers },
   };
   const fps = params.fps || gix.fps;
   const gif = new GIF({

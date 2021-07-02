@@ -1,10 +1,10 @@
 <template lang="pug">
 .resize-form
-  b-field(grouped, group-multiline, label="Resize", :message="resizeMessage")
+  b-field(grouped, group-multiline, label="Size", :message="resizeMessage")
     p.control
       b-field(label="Width", label-position="on-border")
         b-numberinput.number-input(
-          size="mini",
+          size="is-small",
           controls-position="compact",
           :min="0",
           v-model="elementWidth"
@@ -13,7 +13,7 @@
       b-field(label="Height", label-position="on-border")
         b-numberinput.number-input(
           controls-position="compact",
-          size="mini",
+          size="is-small",
           :min="0",
           v-model="elementHeight"
         )
@@ -130,7 +130,7 @@ export default {
 <style lang="scss">
 .resize-form {
   .number-input {
-    width: 150px;
+    width: 120px;
   }
 }
 </style>

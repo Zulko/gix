@@ -23,7 +23,7 @@ export default {
   img {
     height: 80px;
     display: block;
-    margin: 2em auto 0;
+    margin: 0em auto 0;
   }
   h2 {
     font-size: 1.4em;

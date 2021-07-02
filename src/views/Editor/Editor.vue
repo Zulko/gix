@@ -1,36 +1,28 @@
 <template lang='pug'>
 #editor-page
-  .gix-preview
-    gix-context-menu.gix-context-menu(
-      @closeMenu="closeMenu",
-      v-if="contextMenu.isVisible",
-      v-click-outside="closeMenu",
-      :element="contextMenu.element",
-      :position="contextMenu.position"
+  .two-column(
+    v-if="windowWidth > twoColumnWidth",
+    :style="{ width: twoColumnWidth + 'px' }"
+  )
+    .block(
+      v-if="$store.state.project.canvas",
+      style="width: 850px; display: inline-block; vertical-align: top"
     )
-    gix-player(
-      v-if="this.$store.state.project.elements",
-      :project="dragModifiedProject",
-      :showStats="true",
-      :showControls="true",
-      :freeze="this.$store.state.freezeGifPreview",
-      @dragging="onDragging",
-      @draggingStopped="onDraggingStopped",
-      @context-menu="onContextMenu"
-    )
-
-  undo-redo-widget(style="text-align: right")
-  editor-tabs(v-if="$store.state.project.canvas")
+      editor-tabs
+    editor-gix-player
+  .one-column(
+    v-else,
+    style="max-width: 900px; width: 90%; display: block; margin: 1em auto"
+  )
+    editor-gix-player
+    br
+    editor-tabs(v-if="$store.state.project.canvas")
 </template>
 
 <script>
 import base64url from 'base64url';
 import pako from 'pako';
-import { mapMutations } from 'vuex';
-import lodash from 'lodash';
-import GixPlayer from '../../components/GixAnimation/GixPlayer.vue';
-import UndoRedoWidget from '../../components/UndoRedoWidget.vue';
-import GixContextMenu from './GixContextMenu.vue';
+import EditorGixPlayer from './EditorGixPlayer.vue';
 import EditorTabs from './EditorTabs.vue';
 
 export default {
@@ -42,117 +34,35 @@ export default {
   },
   data() {
     return {
-      contextMenu: {
-        isVisible: false,
-        element: null,
-        x: 0,
-        y: 0,
-        position: { x: 0, y: 0 },
-      },
-      dragModifiedElement: null,
+      windowWidth: window.innerWidth,
+      txt: '',
     };
   },
-  components: {
-    'gix-player': GixPlayer,
-    'editor-tabs': EditorTabs,
-    'undo-redo-widget': UndoRedoWidget,
-    'gix-context-menu': GixContextMenu,
-  },
-  methods: {
-    ...mapMutations(['setProject', 'updateElement']),
-    closeMenu() {
-      this.contextMenu = { ...this.contextMenu, isVisible: false };
-    },
-    onContextMenu(e) {
-      this.contextMenu = {
-        isVisible: true,
-        element: e.element,
-        position: {
-          x: e.evt.pageX - this.$el.offsetLeft,
-          y: e.evt.pageY - this.$el.offsetTop,
-          xOffset: e.svgX,
-          yOffset: e.svgY,
-        },
-      };
-    },
-    onDragging(e) {
-      const { elements } = this.$store.state.project;
-      const projectElement = elements.filter((el) => (el.id === e.draggingProps.element.id))[0];
-      const projectElementCopy = lodash.cloneDeep(projectElement);
-      let update;
-      if (e.draggingProps.dragType === 'translate') {
-        update = {
-          position: {
-            x: projectElement.position.x + e.drag.x,
-            y: projectElement.position.y + e.drag.y,
-          },
-        };
-      } else if (e.draggingProps.dragType === 'rotate') {
-        const dragAngle = parseInt(-(180 * e.drag.y) / 100, 10);
-        // const atan = Math.atan2(20 - e.drag.y, e.drag.x);
-        // const dragAngle = parseInt((-360 * atan) / (2 * Math.PI) + 90, 10);
-        update = {
-          rotation: ((projectElement.rotation || 0) + dragAngle) % 360,
-        };
-      } else if (e.draggingProps.dragType === 'scaleWidth') {
-        const ratio = 2 ** (-e.drag.y / 100);
-        update = {
-          size: {
-            width: Math.max(10, parseInt(ratio * projectElement.size.width, 10)),
-          },
-        };
-      } else if (e.draggingProps.dragType === 'scaleHeight') {
-        const ratio = 2 ** (-e.drag.y / 100);
-        update = {
-          size: {
-            height: Math.max(10, parseInt(ratio * projectElement.size.height, 10)),
-          },
-        };
-      } else if (e.draggingProps.dragType === 'scale') {
-        // const ratio = (20 - e.drag.y) / 20;
-        const ratio = 2 ** (-e.drag.y / 100);
-        if (projectElement.type === 'asset' || projectElement.type === 'rectangle') {
-          update = {
-            size: {
-              height: Math.max(10, parseInt(ratio * projectElement.size.height, 10)),
-              width: Math.max(10, parseInt(ratio * projectElement.size.width, 10)),
-              aspectRatio: projectElement.size.aspectRatio,
-            },
-          };
-        } else if (projectElement.type === 'text') {
-          update = {
-            fontSize: Math.max(10, parseInt(ratio * projectElement.fontSize, 10)),
-            stroke: {
-              width: ratio * projectElement.stroke.width,
-            },
-          };
-        }
-      }
-      this.dragModifiedElement = lodash.merge(projectElementCopy, update);
-    },
-    onDraggingStopped() {
-      if (this.dragModifiedElement) {
-        this.$store.commit('setEditorTabIndexToElementId', this.dragModifiedElement.id);
-        this.updateElement({
-          elementId: this.dragModifiedElement.id,
-          update: this.dragModifiedElement,
-        });
-        this.dragModifiedElement = null;
-      }
-    },
-  },
   computed: {
-    dragModifiedProject() {
-      const self = this;
-      if (this.dragModifiedElement) {
-        return {
-          ...this.$store.state.project,
-          elements: this.$store.state.project.elements.map((e) =>
-            (e.id === self.dragModifiedElement.id ? self.dragModifiedElement : e)),
-        };
+    twoColumnWidth() {
+      if (!this.$store.state.project.canvas) {
+        return 1700;
       }
-      return this.$store.state.project;
+      return this.$store.state.project.canvas.width + 850 + 100;
     },
+  },
+  watch: {
+    windowWidth(newHeight, oldHeight) {
+      this.txt = `it changed to ${newHeight} from ${oldHeight}`;
+    },
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.onResize);
+  },
+
+  methods: {
+    onResize() {
+      this.windowWidth = window.innerWidth;
+    },
+  },
+  components: {
+    'editor-gix-player': EditorGixPlayer,
+    'editor-tabs': EditorTabs,
   },
   mounted() {
     if (this.query.projectData) {
@@ -161,6 +71,10 @@ export default {
       const projectData = JSON.parse(jsonData);
       this.setProject(projectData);
       this.$router.push({ name: 'editor' });
+    } else {
+      this.$nextTick(() => {
+        window.addEventListener('resize', this.onResize);
+      });
     }
   },
 };
@@ -168,8 +82,17 @@ export default {
 
 <style lang='scss'>
 #editor-page {
-  width: 90%;
-  max-width: 1000px;
+  .two-column {
+    margin: 1em auto;
+    display: block;
+    .editor-gix-player {
+      display: inline-block;
+      padding-left: 50px;
+      vertical-align: top;
+      position: fixed;
+      border-left: 2px solid #eee;
+    }
+  }
   margin: 0 auto;
   > .tabs ul {
     border-bottom-width: 0px;

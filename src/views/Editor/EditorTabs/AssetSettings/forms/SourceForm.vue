@@ -5,10 +5,10 @@
   p.click-me(v-if="usesDataUrl", @click="dialogIsVisible = true") Embedded asset
   div(v-if="element.subtype !== 'image'")
     time-crop-slider(:element="element", v-if="element.subtype !== 'image'")
-    br
     b-field(grouped, label="Speed (%)")
       p.control
         b-numberinput.number-input(
+          size="is-small",
           controls-position="compact",
           :value="parseInt(100 * element.speedFactor)",
           @input="(v) => updateSpeed(v / 100)",
@@ -136,6 +136,4 @@ export default {
     },
   },
 };
-// https://media.giphy.com/media/RQgzLsPYlzrBC/giphy.gif
-// https://help.imgur.com/hc/en-us/article_attachments/115000241146/mindblown.gif
 </script>

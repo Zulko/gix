@@ -117,7 +117,7 @@ export default {
 <style lang='scss'>
 .element-tabs {
   margin: 0 auto;
-  width: 90%;
+  width: 95%;
   .tab-text-label {
     max-width: 4em;
     white-space: nowrap;

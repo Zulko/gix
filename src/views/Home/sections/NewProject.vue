@@ -1,8 +1,7 @@
 <template lang='pug'>
 .home-new-project
-  h2 New project
+  h2 New project from a GIF, video or picture
   file-or-url-form(
-    label="Start from a picture, GIF or video",
     @urlInput="handleUrl",
     fileDescription="GIF/image/video",
     fileTip="Prefer URLs over uploads to make your projects easier to share"

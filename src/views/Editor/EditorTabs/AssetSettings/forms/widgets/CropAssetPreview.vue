@@ -16,6 +16,7 @@
     :step="0.1",
     :style="{ width: timeCropSliderWidth + 'px' }"
   )
+  br
   b-field.image-crop-form(
     grouped,
     group-multiline,
@@ -25,7 +26,7 @@
     p.control(v-for="direction in ['top', 'bottom', 'left', 'right']")
       b-field(:label="direction", label-position="on-border")
         b-numberinput.number-input(
-          size="mini",
+          size="is-small",
           controls-position="compact",
           :min="0",
           :value="element.crop[direction]",
@@ -327,7 +328,7 @@ export default {
 <style lang="scss">
 .crop-asset-preview {
   .number-input {
-    width: 150px;
+    width: 120px;
   }
   .preview-slider {
     margin: 0 auto;

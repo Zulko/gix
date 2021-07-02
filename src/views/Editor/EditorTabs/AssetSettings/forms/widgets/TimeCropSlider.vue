@@ -7,6 +7,7 @@
     p.control
       b-field(label-position="on-border", label="Start")
         b-numberinput.number-input(
+          size="is-small",
           controls-position="compact",
           :step="0.01",
           :value="crop[0]",
@@ -15,6 +16,7 @@
     p.control(style="margin-left: auto")
       b-field.end-time(label-position="on-border", label="End")
         b-numberinput.number-input(
+          size="is-small",
           controls-position="compact",
           :step="0.01",
           :value="crop[1]",
@@ -92,7 +94,7 @@ export default {
     width: 100%;
   }
   .number-input {
-    width: 150px;
+    width: 120px;
   }
   .number-input.end-time {
     margin: 0 0;

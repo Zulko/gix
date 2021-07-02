@@ -52,7 +52,8 @@
     :label="side"
   )
     p.control(v-for="value in [-10, -1, 1, 10]", :key="value")
-      b-button(size="is-small", @click="addPixels(side, value)") {{ value }}
+      b-button(size="is-small", @click="addPixels(side, value)").
+        {{ value > 0 ? `+${value}` : value }}
 </template>
 
 <script>

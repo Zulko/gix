@@ -37,24 +37,32 @@
           :min="0",
           :step="0.1"
         )
-    opacity-form(:element="element")
+  b-field(label="Opacity")
+    possibly-time-varying-form(
+      :element="element",
+      field="opacity",
+      :valueForm="OpacityForm",
+      :allowModifiers="true"
+    )
 </template>
 
 <script>
 import ColorPicker from '../../../../components/widgets/ColorPicker.vue';
 import OpacityForm from './OpacityForm.vue';
 import ElementComponentMixin from '../ElementComponentMixin.vue';
+import PossiblyTimeVaryingForm from './PossiblyTimeVaryingForm.vue';
 
 export default {
   extends: ElementComponentMixin,
   data() {
     return {
       isActive: false,
+      OpacityForm,
     };
   },
   components: {
     'color-picker': ColorPicker,
-    'opacity-form': OpacityForm,
+    'possibly-time-varying-form': PossiblyTimeVaryingForm,
   },
 };
 </script>

@@ -1,5 +1,5 @@
 <template lang="pug">
-b-field.opacity-form(grouped, label="Opacity (%)", label-position="on-border")
+b-field.opacity-form(grouped, label="Alpha (%)", label-position="on-border")
   b-numberinput.number-input(
     size="is-small",
     controls-position="compact",
@@ -22,7 +22,7 @@ export default {
 <style lang='scss'>
 .opacity-form {
   .number-input {
-    width: 140px !important;
+    width: 120px !important;
   }
 }
 </style>

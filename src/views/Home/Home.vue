@@ -28,8 +28,8 @@ export default {
   max-width: 1000px;
   margin: 0 auto;
   .home-section {
-    margin-top: 7em;
-    margin-bottom: 7em;
+    margin-top: 2em;
+    margin-bottom: 4em;
   }
   h2 {
     margin-top: 0;

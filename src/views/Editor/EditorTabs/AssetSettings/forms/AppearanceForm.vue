@@ -1,7 +1,7 @@
 <template lang="pug">
 .appearance-form
-  position-form(:element="element")
   resize-form(:element="element")
+  position-form(:element="element")
   b-field(label="Opacity")
     possibly-time-varying-form(
       :element="element",

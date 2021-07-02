@@ -1,12 +1,12 @@
 <template lang='pug'>
 .home-remix-project
-  h2 Upload a project file
+  h2 Load a project JSON
 
   b-field
   file-uploader(
-    @input='handleFileInput',
-    fileDescription='GIF or image',
-    fileTip='Prefer URLs over uploads to make your projects easier to share'
+    @input="handleFileInput",
+    fileDescription="GIF or image",
+    fileTip="Prefer URLs over uploads to make your projects easier to share"
   )
 </template>
 <script>

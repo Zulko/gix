@@ -46,12 +46,12 @@ b-tabs.element-tabs(
           style="width: 25px; height: 25px; margin-bottom: -5px"
         )
           rect(
-            x="2",
-            y="2",
-            width="9",
-            height="9",
-            rx="2",
-            ry="2",
+            x="1",
+            y="3",
+            width="10",
+            height="6",
+            rx="1",
+            ry="1",
             :fill="element.color.toLowerCase()",
             stroke="grey",
             style="stroke-width: 1"

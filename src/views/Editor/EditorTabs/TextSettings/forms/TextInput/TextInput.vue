@@ -1,13 +1,14 @@
 <template lang="pug">
-b-field.element-text-input
-  b-input.element-input(
-    type="textarea",
-    :rows="textRows",
-    autosize,
-    :value="element.text",
-    @input="(val) => updateElement({ text: val })",
-    :style="fontStyle"
-  )
+.element-text-input
+  b-field
+    b-input.element-input(
+      type="textarea",
+      :rows="textRows",
+      autosize,
+      :value="element.text",
+      @input="(val) => updateElement({ text: val })",
+      :style="fontStyle"
+    )
 </template>
 
 <script>
@@ -19,7 +20,7 @@ export default {
     fontStyle() {
       return {
         'font-family': `${this.element.font.family}, Arial !important`,
-        'font-weight': this.element.font.bold ? 'bold' : 'none',
+        'font-weight': this.element.font.bold ? 'bold' : 'normal',
         'text-align': this.element.xAlign,
       };
     },

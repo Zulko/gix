@@ -1,3 +1,5 @@
+import * as easings from 'js-easing-functions';
+
 function isObject(obj) {
   return typeof obj === 'object' && obj !== null;
 }
@@ -26,6 +28,13 @@ function averageVariables(var1, var2, var1Weight) {
   throw Error(`Unknown averageVariables handling for ${var1}`);
 }
 
+function modify(value, modifier) {
+  if (easings[modifier]) {
+    return easings[modifier](value, 0, 1, 1);
+  }
+  return value;
+}
+
 function resolveTimeVariable(timeVariable, t) {
   if (t <= timeVariable[0].t) {
     return timeVariable[0].value;
@@ -37,7 +46,8 @@ function resolveTimeVariable(timeVariable, t) {
   const before = timeVariable[lastIndexBeforeT - 1];
   const after = timeVariable[lastIndexBeforeT];
   const beforeWeigth = 1 - (t - before.t) / (after.t - before.t);
-  return averageVariables(before.value, after.value, beforeWeigth);
+  const modifiedBeforeWeight = modify(beforeWeigth, after.modifier);
+  return averageVariables(before.value, after.value, modifiedBeforeWeight);
 }
 
 function resolveTimeVaryingAttributes(obj, t) {

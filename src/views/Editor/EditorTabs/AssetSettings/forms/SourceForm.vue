@@ -18,7 +18,11 @@
         )
   br
   b-field(label="Source file")
-    b-input(style="width: 100%", :value="usesDataUrl ? 'Data' : element.url")
+    b-input(
+      style="width: 100%",
+      :value="usesDataUrl ? 'File' : element.url",
+      :disabled="usesDataUrl"
+    )
     p.control
       b-field
         a(:href="element.url", target="_blank")

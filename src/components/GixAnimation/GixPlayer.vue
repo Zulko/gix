@@ -144,11 +144,11 @@ export default {
     status(status) {
       this.parameters = { ...this.parameters, status };
     },
-    '$store.state.gifPreviewTime': function preview(time) {
+    '$store.state.editorPlayerTime': function preview(time) {
       if (time !== null) {
         this.currentTime = time;
         this.parameters = { ...this.parameters, status: 'pause' };
-        this.$store.commit('setGifPreviewTime', null);
+        this.$store.commit('editorPlayerTime', null);
       }
     },
   },

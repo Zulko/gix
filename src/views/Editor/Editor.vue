@@ -22,6 +22,7 @@
 <script>
 import base64url from 'base64url';
 import pako from 'pako';
+import { mapMutations } from 'vuex';
 import EditorGixPlayer from './EditorGixPlayer.vue';
 import EditorTabs from './EditorTabs.vue';
 
@@ -56,6 +57,7 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['setProject']),
     onResize() {
       this.windowWidth = window.innerWidth;
     },
@@ -71,6 +73,8 @@ export default {
       const projectData = JSON.parse(jsonData);
       this.setProject(projectData);
       this.$router.push({ name: 'editor' });
+    } else if (!this.$store.state.project.canvas) {
+      this.$router.push({ name: 'home' });
     } else {
       this.$nextTick(() => {
         window.addEventListener('resize', this.onResize);

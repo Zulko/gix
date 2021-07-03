@@ -36,7 +36,13 @@
             @update="(v) => updateByIndex(i, 'value', v)"
           )
         td(v-if="allowModifiers")
-          span Modifiers
+          b-select(value='data.t', @input="(v) => updateByIndex(i, 'modifier', v)")
+            option(key='none', :value='null') None
+            option(
+              v-for='option in easingOptions'
+              :key='option'
+              :value='option'
+            ) {{ option.split('ease')[1]}}
         td
           b-field(position="is-right")
             p.control
@@ -55,6 +61,7 @@
 </template>
 
 <script>
+import * as easings from 'js-easing-functions';
 import ElementComponentMixin from '../ElementComponentMixin.vue';
 
 export default {
@@ -65,7 +72,11 @@ export default {
     allowModifiers: { type: Boolean },
   },
   data() {
-    return {};
+    const easingOptions = Object.keys(easings);
+    easingOptions.sort();
+    return {
+      easingOptions,
+    };
   },
   computed: {
     timeVariable() {

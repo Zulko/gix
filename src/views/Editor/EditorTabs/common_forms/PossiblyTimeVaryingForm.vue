@@ -61,10 +61,11 @@ export default {
         });
       } else {
         const [firstRecord] = this.element[this.field].timeVariable;
-        if (typeof firstRecord === 'object' && firstRecord !== null) {
-          this.updateElement({ [this.field]: { ...firstRecord.value, timeVariable: null } });
+        const { value } = firstRecord;
+        if (typeof value === 'object' && value !== null) {
+          this.updateElement({ [this.field]: { ...value, timeVariable: null } });
         } else {
-          this.updateElement({ [this.field]: firstRecord.value });
+          this.updateElement({ [this.field]: value });
         }
       }
     },

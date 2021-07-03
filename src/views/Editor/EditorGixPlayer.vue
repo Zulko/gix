@@ -47,7 +47,7 @@ export default {
     'gix-context-menu': GixContextMenu,
   },
   methods: {
-    ...mapMutations(['setProject', 'updateElement']),
+    ...mapMutations(['updateElement']),
     closeMenu() {
       this.contextMenu = { ...this.contextMenu, isVisible: false };
     },

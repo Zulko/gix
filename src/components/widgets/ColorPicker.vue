@@ -5,7 +5,7 @@ b-tooltip.color-picker(
   :triggers="['click']",
   :auto-close="['outside', 'escape']"
 )
-  b-button.color-button
+  b-button.color-button(size="is-small")
     .color-zone(:style="{ backgroundColor: value }", size="is-small")
   chrome-color-picker(
     slot="content",

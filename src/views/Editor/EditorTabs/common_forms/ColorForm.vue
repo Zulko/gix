@@ -18,7 +18,8 @@
           :value="element.stroke.width",
           @input="(v) => updateElement({ stroke: { width: v } })",
           :min="0",
-          :step="0.1"
+          :step="0.1",
+          size="is-small"
         )
     b-field(label="Outline", v-if="element.outline")
       color-picker(
@@ -35,7 +36,8 @@
           :value="element.outline.width",
           @input="(v) => updateElement({ outline: { width: v } })",
           :min="0",
-          :step="0.1"
+          :step="0.1",
+          size="is-small"
         )
   b-field(label="Opacity")
     possibly-time-varying-form(
@@ -70,7 +72,7 @@ export default {
 <style lang='scss'>
 .element-color-form {
   .number-input {
-    width: 140px !important;
+    width: 120px !important;
   }
 }
 </style>

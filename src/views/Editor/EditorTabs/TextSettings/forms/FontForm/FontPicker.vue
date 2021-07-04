@@ -1,17 +1,17 @@
 <template lang="pug">
 b-field.font-picker
   b-autocomplete(
-    :value='font',
+    :value="font",
     open-on-focus,
-    :data='fontsInSelectMenu',
-    group-field='type',
-    group-options='items',
-    @select='selectFont',
-    @typing='(v) => { font = v; }',
-    :style='fontStyle(font)'
+    :data="fontsInSelectMenu",
+    group-field="type",
+    group-options="items",
+    @select="selectFont",
+    @typing="(v) => { font = v; }",
+    :style="fontStyle(font)"
   )
-    template(slot-scope='props')
-      .font(:style='fontStyle(props.option)') {{ props.option }}
+    template(slot-scope="props")
+      .font(:style="fontStyle(props.option)") {{ props.option }}
 </template>
 
 <script>

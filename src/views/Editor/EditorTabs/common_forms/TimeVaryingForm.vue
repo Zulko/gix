@@ -1,12 +1,6 @@
 <template lang="pug">
 .time-varying-form(style="width: 100%")
   table.table.is-fullwidth
-    //- thead
-    //-   tr
-    //-     th Time
-    //-     th {{ field }}
-    //-     th(v-if="allowModifiers") Modifier
-    //-     th Controls
     tbody
       tr(v-for="(data, i) in timeVariable", :key='i')
         td
@@ -33,6 +27,7 @@
           span(
             :is="form",
             :value="data.value",
+            :element='element',
             @update="(v) => updateByIndex(i, 'value', v)"
           )
         td(v-if="allowModifiers")

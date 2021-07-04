@@ -12,7 +12,7 @@
           span.catalog-clickable-emoji(
             v-for="[emojiName, emoji] in searchResults",
             :key="'search-' + emojiName",
-            @click="updateElement({ text: element.text + emoji })",
+            @click="$emit('pick', emoji)",
             :title="emojiName"
           ) {{ emoji }}
       div(v-else)
@@ -23,17 +23,15 @@
         .catalog-clickable-emoji(
           v-for="(emoji, emojiName) in emojiGroup",
           :key="category + emojiName",
-          @click="updateElement({ text: element.text + emoji })",
+          @click="$emit('pick', emoji)",
           :title="emojiName"
         ) {{ emoji }}
 </template>
 
 <script>
 import emojisList from 'vue-emoji-picker/src/emojis';
-import ElementComponentMixin from '../../../ElementComponentMixin.vue';
 
 export default {
-  extends: ElementComponentMixin,
   data() {
     return {
       search: '',

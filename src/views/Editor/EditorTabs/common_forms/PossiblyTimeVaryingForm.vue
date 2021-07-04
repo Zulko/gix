@@ -2,7 +2,11 @@
 .possibly-time-varying-variable-form
   div(v-if="element[field].timeVariable")
     b-field(style="margin-top: 0.5em")
-      b-checkbox(v-model="isTimeVarying", style="margin-right: 0")
+      b-checkbox(
+        v-model="isTimeVarying",
+        style="margin-right: 0",
+        size="is-small"
+      )
       span Time-varying
     time-varying-form(
       :element="element",
@@ -12,19 +16,22 @@
       @update="(v) => updateElement({ [field]: { timeVariable: v } })"
     )
   div(v-else)
-    b-field(grouped)
-      p.control(style="display: inline-block")
-        span(
-          :is="valueForm",
-          :value="element[field]",
-          @update="(v) => updateElement({ [field]: v })"
-        )
-      p.control(style="display: inline-block; margin-top: -0.8em")
+    .inline(style="display: flex")
+      span(
+        :is="valueForm",
+        :value="element[field]",
+        :element="element",
+        @update="(v) => updateElement({ [field]: v })"
+      )
+      p.control(
+        style="flex: 0 0 100px; margin-top: -0.8em; margin-left: 0.5em"
+      )
         span Time-varying
         br
         b-checkbox(
           v-model="isTimeVarying",
-          style="margin-right: 0; margin-left: 0.5em"
+          style="margin-right: 0; margin-left: 0.5em",
+          size="is-small"
         )
 </template>
 

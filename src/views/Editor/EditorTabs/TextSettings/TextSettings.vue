@@ -4,7 +4,6 @@
     :element="element",
     :showOptions="showOptions"
   )
-    text-input.text-input(:element="element")
     b-tabs(type="is-boxed", :animated="false")
       b-tab-item(v-for="pane in panes", :key="pane.title", :label="pane.title")
         div(:is="pane.form", :element="element")
@@ -14,12 +13,10 @@
 import ElementComponentMixin from '../ElementComponentMixin.vue';
 import ElementsSettings from '../ElementSettings.vue';
 import PositionForm from '../common_forms/PositionForm/PositionForm.vue';
-import ColorForm from '../common_forms/ColorForm.vue';
 import EditorSettings from '../common_forms/EditorSettings.vue';
 import TextInput from './forms/TextInput/TextInput.vue';
-import FontForm from './forms/FontForm/FontForm.vue';
+import TextForm from './TextForm.vue';
 import TimeSegmentForm from '../common_forms/TimeSegmentForm.vue';
-import EmojiPicker from './forms/TextInput/EmojiPicker.vue';
 
 export default {
   extends: ElementComponentMixin,
@@ -27,24 +24,16 @@ export default {
     return {
       panes: [
         {
+          title: 'Text',
+          form: TextForm,
+        },
+        {
           title: 'Position',
           form: PositionForm,
         },
         {
           title: 'Time',
           form: TimeSegmentForm,
-        },
-        {
-          title: 'Font',
-          form: FontForm,
-        },
-        {
-          title: 'Color & stroke',
-          form: ColorForm,
-        },
-        {
-          title: 'Emojis',
-          form: EmojiPicker,
         },
         {
           title: 'Editor',

@@ -26,6 +26,7 @@ import GixPlayer from '../../components/GixAnimation/GixPlayer.vue';
 import UndoRedoWidget from '../../components/UndoRedoWidget.vue';
 import GixContextMenu from './GixContextMenu.vue';
 import EditorTabs from './EditorTabs.vue';
+import { resolveElement } from '../../gix-renderer/index';
 
 export default {
   data() {
@@ -38,6 +39,7 @@ export default {
         position: { x: 0, y: 0 },
       },
       dragModifiedElement: null,
+      timeDragStarted: null,
     };
   },
   components: {
@@ -64,49 +66,73 @@ export default {
       };
     },
     onDragging(e) {
+      if (this.timeDragStarted === null) {
+        this.timeDragStarted = e.t;
+      }
       const { elements } = this.$store.state.project;
       const projectElement = elements.filter((el) => (el.id === e.draggingProps.element.id))[0];
+      const resolvedElement = resolveElement(projectElement, { time: this.timeDragStarted });
       const projectElementCopy = lodash.cloneDeep(projectElement);
-      let update;
+      const update = this.computeDraggingUpdate(e, resolvedElement);
+      this.dragModifiedElement = this.transformDraggedElementWithUpdate(projectElementCopy, update);
+    },
+    transformDraggedElementWithUpdate(projectElementCopy, update) {
+      const [updatedProp] = Object.keys(update);
+      const { timeVariable } = projectElementCopy[updatedProp];
+      if (!timeVariable) {
+        return lodash.merge(projectElementCopy, update);
+      }
+      const self = this;
+      const newTimeVariable = timeVariable.filter((e) => e.t !== self.timeDragStarted);
+      newTimeVariable.push({ t: this.timeDragStarted, value: update[updatedProp] });
+      newTimeVariable.sort((a, b) => (a.t > b.t ? 1 : -1));
+      return {
+        ...projectElementCopy,
+        [updatedProp]: {
+          timeVariable: newTimeVariable,
+        },
+      };
+    },
+    computeDraggingUpdate(e, projectElement) {
       if (e.draggingProps.dragType === 'translate') {
-        update = {
+        return {
           position: {
             x: projectElement.position.x + e.drag.x,
             y: projectElement.position.y + e.drag.y,
           },
         };
-      } else if (e.draggingProps.dragType === 'rotate') {
+      } if (e.draggingProps.dragType === 'rotate') {
         const dragAngle = parseInt(-(180 * e.drag.y) / 100, 10);
-        update = {
+        return {
           rotation: ((projectElement.rotation || 0) + dragAngle) % 360,
         };
-      } else if (e.draggingProps.dragType === 'scaleWidth') {
+      } if (e.draggingProps.dragType === 'scaleWidth') {
         const ratio = 2 ** (-e.drag.y / 100);
-        update = {
+        return {
           size: {
             width: Math.max(10, parseInt(ratio * projectElement.size.width, 10)),
           },
         };
-      } else if (e.draggingProps.dragType === 'scaleHeight') {
+      } if (e.draggingProps.dragType === 'scaleHeight') {
         const ratio = 2 ** (-e.drag.y / 100);
-        update = {
+        return {
           size: {
             height: Math.max(10, parseInt(ratio * projectElement.size.height, 10)),
           },
         };
-      } else if (e.draggingProps.dragType === 'scale') {
+      } if (e.draggingProps.dragType === 'scale') {
         // const ratio = (20 - e.drag.y) / 20;
         const ratio = 2 ** (-e.drag.y / 100);
         if (projectElement.type === 'asset' || projectElement.type === 'rectangle') {
-          update = {
+          return {
             size: {
               height: Math.max(10, parseInt(ratio * projectElement.size.height, 10)),
               width: Math.max(10, parseInt(ratio * projectElement.size.width, 10)),
               aspectRatio: projectElement.size.aspectRatio,
             },
           };
-        } else if (projectElement.type === 'text') {
-          update = {
+        } if (projectElement.type === 'text') {
+          return {
             fontSize: Math.max(10, parseInt(ratio * projectElement.fontSize, 10)),
             stroke: {
               width: ratio * projectElement.stroke.width,
@@ -114,7 +140,7 @@ export default {
           };
         }
       }
-      this.dragModifiedElement = lodash.merge(projectElementCopy, update);
+      return {};
     },
     onDraggingStopped() {
       if (this.dragModifiedElement) {
@@ -124,6 +150,7 @@ export default {
           update: this.dragModifiedElement,
         });
         this.dragModifiedElement = null;
+        this.timeDragStarted = null;
       }
     },
   },

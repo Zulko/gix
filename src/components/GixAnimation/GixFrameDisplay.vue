@@ -9,7 +9,7 @@
     :emitSVG="includeSVGInEmittedFrames",
     :inlineStylesInEmittedSVG="true",
     :backgroundColor="project.canvas.backgroundColor",
-    @dragging="(evt) => $emit('dragging', evt)",
+    @dragging="(evt) => $emit('dragging', { ...evt, t: time })",
     @draggingStopped="(evt) => $emit('draggingStopped', evt)",
     @context-menu="(evt) => $emit('context-menu', evt)"
   )

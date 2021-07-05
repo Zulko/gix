@@ -6,6 +6,5 @@ export const state = {
   project: {},
   freezeGifPreview: false,
   activeEditorElementTab: 0,
-  gifPreviewTime: null,
   editorPlayerTime: 0,
 };

@@ -1,13 +1,12 @@
 <template lang="pug">
-.element-color-form
-  b-field(grouped, multiline-group)
-    b-field(label="Fill")
-      color-picker(
-        :value="element.color",
-        @input="(v) => updateElement({ color: v.hex8 })"
-      )
-
-    b-field(label="Stroke")
+section.element-color-form
+  b-field(label="Color", horizontal)
+    color-picker(
+      :value="element.color",
+      @input="(v) => updateElement({ color: v.hex8 })"
+    )
+  b-field(label="Stroke", horizontal)
+    b-field(grouped)
       color-picker(
         :value="element.stroke.color",
         @input="(v) => updateElement({ stroke: { color: v.hex8 } })"
@@ -21,7 +20,8 @@
           :step="0.1",
           size="is-small"
         )
-    b-field(label="Outline", v-if="element.outline")
+  b-field(label="Outline", v-if="element.outline", horizontal)
+    b-field(grouped)
       color-picker(
         :value="element.outline.color",
         @input="(v) => updateElement({ outline: { color: v.hex8 } })"
@@ -39,13 +39,13 @@
           :step="0.1",
           size="is-small"
         )
-  b-field(label="Opacity")
-    possibly-time-varying-form(
-      :element="element",
-      field="opacity",
-      :valueForm="OpacityForm",
-      :allowModifiers="true"
-    )
+  possibly-time-varying-form(
+    label="Opacity",
+    :element="element",
+    field="opacity",
+    :valueForm="OpacityForm",
+    :allowModifiers="true"
+  )
 </template>
 
 <script>

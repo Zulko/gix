@@ -51,6 +51,9 @@
     )
 
     b-slider.time-bar(
+      indicator,
+      :tooltip="false",
+      :custom-formatter="(val) => val.toFixed(2)",
       :value="time",
       :min="0",
       :max="project.duration",
@@ -134,6 +137,9 @@ export default {
   .optional-controls {
     display: block;
     margin: 1em auto;
+  }
+  .b-slider-thumb {
+    padding: 12px 6px !important;
   }
 }
 </style>

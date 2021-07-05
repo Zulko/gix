@@ -1,45 +1,49 @@
 <template lang="pug">
-.text-position-form
-  b-field(label="Position")
-    possibly-time-varying-form(
-      :element="element",
-      field="position",
-      :valueForm="PositionXyForm",
-      :allowModifiers="true"
-    )
-  b-field(grouped, group-multiline, label="Alignment")
-    p.control
-      b-field(label="Horizontal", label-position="on-border")
-        b-select(
-          :value="element.xAlign",
-          @input="(v) => updateElement({ xAlign: v })"
-        )
-          option(label="Left", value="left")
-          option(label="Center", value="center")
-          option(label="Right", value="right")
-    p.control
-      b-field(label="Vertical", label-position="on-border")
-        b-select(
-          :value="element.yAlign",
-          @input="(v) => updateElement({ yAlign: v })"
-        )
-          option(label="Top", value="top")
-          option(label="Center", value="center")
-          option(label="Bottom", value="bottom")
-    p.control(style="margin-top: -0.5em", v-if="element.type !== 'rectangle'")
-      span Mirror
-      br
-      b-checkbox(
-        :value="element.mirror",
-        @input="(v) => updateElement({ mirror: v })"
+section.text-position-form
+  possibly-time-varying-form(
+    label="Position",
+    :element="element",
+    field="position",
+    :valueForm="PositionXyForm",
+    :allowModifiers="true"
+  )
+  b-field(label="Alignment", horizontal)
+    b-field(grouped)
+      p.control
+        b-field(label="Horizontal", label-position="on-border")
+          b-select(
+            :value="element.xAlign",
+            @input="(v) => updateElement({ xAlign: v })"
+          )
+            option(label="Left", value="left")
+            option(label="Center", value="center")
+            option(label="Right", value="right")
+      p.control
+        b-field(label="Vertical", label-position="on-border")
+          b-select(
+            :value="element.yAlign",
+            @input="(v) => updateElement({ yAlign: v })"
+          )
+            option(label="Top", value="top")
+            option(label="Center", value="center")
+            option(label="Bottom", value="bottom")
+      p.control(
+        style="margin-top: -0.5em",
+        v-if="element.type !== 'rectangle'"
       )
-  b-field(label="Rotation")
-    possibly-time-varying-form(
-      :element="element",
-      field="rotation",
-      :valueForm="RotationForm",
-      :allowModifiers="true"
-    )
+        span Mirror
+        br
+        b-checkbox(
+          :value="element.mirror",
+          @input="(v) => updateElement({ mirror: v })"
+        )
+  possibly-time-varying-form(
+    label="Rotation",
+    :element="element",
+    field="rotation",
+    :valueForm="RotationForm",
+    :allowModifiers="true"
+  )
 </template>
 
 <script>

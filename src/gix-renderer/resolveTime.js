@@ -14,6 +14,9 @@ function averageVariables(var1, var2, var1Weight) {
   if (typeof var1 === 'string') {
     return var1;
   }
+  if (typeof var1 === 'boolean') {
+    return var1;
+  }
   if (Array.isArray(var1)) {
     return var1.map((val, i) => averageVariables(val, var2[i], var1Weight));
   }
@@ -25,6 +28,7 @@ function averageVariables(var1, var2, var1Weight) {
       ]),
     );
   }
+
   throw Error(`Unknown averageVariables handling for ${var1}`);
 }
 

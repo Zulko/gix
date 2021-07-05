@@ -129,8 +129,8 @@ export default {
   setFreezeGifPreview(state, val) {
     state.freezeGifPreview = val;
   },
-  setGifPreviewTime(state, val) {
-    state.gifPreviewTime = val;
+  setEditorPlayerTime(state, val) {
+    state.editorPlayerTime = val;
   },
   emptyProject(state) {
     state.project = {};

@@ -106,7 +106,7 @@ export default {
       });
     },
     goToTime(t) {
-      this.$store.commit('setGifPreviewTime', t);
+      this.$store.commit('setEditorPlayerTime', t);
     },
   },
 };

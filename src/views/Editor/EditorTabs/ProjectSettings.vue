@@ -1,48 +1,52 @@
 <template lang="pug">
-.project-settings
-  b-field(grouped, group-multiline)
-    b-field(label="Gix duration")
-      b-numberinput.number-input(
-        controls-position="compact",
-        :step="0.1",
-        min="0.1",
-        max="180",
-        v-model="duration"
-      )
-    b-field(label="Default FPS")
-      b-numberinput.number-input(
-        controls-position="compact",
-        :step="1",
-        min="1",
-        max="50",
-        v-model="defaultFPS"
-      )
-    b-field(label="Background color")
+section.project-settings
+  b-field(label="Gix duration", horizontal)
+    b-numberinput.number-input(
+      controls-position="compact",
+      :step="0.1",
+      min="0.1",
+      max="180",
+      v-model="duration",
+      size="is-small"
+    )
+  b-field(label="Default FPS", horizontal)
+    b-numberinput.number-input(
+      controls-position="compact",
+      :step="1",
+      min="1",
+      max="50",
+      v-model="defaultFPS",
+      size="is-small"
+    )
+  b-field(label="Background color", horizontal)
+    b-field(grouped)
       b-input(type="color", v-model="backgroundColor", style="width: 45px")
       b-input(v-model="backgroundColor", style="width: 90px")
-  b-field(grouped, multiline-group, label="Gix size")
-    p.control
-      b-field(label="Width", label-position="on-border")
-        b-numberinput.number-input(
-          controls-position="compact",
-          :step="1",
-          min="5",
-          max="1500",
-          v-model="canvasWidth"
-        )
-    p.control
-      b-field(label="Height", label-position="on-border")
-        b-numberinput.number-input(
-          controls-position="compact",
-          :step="1",
-          min="5",
-          max="1500",
-          v-model="canvasHeight"
-        )
-    p.control(style="margin-top: -0.5em")
-      span Keep ratio
+  b-field(grouped, multiline-group, label="Gix size", horizontal)
+    b-field(grouped)
+      p.control
+        b-field(label="Width", label-position="on-border")
+          b-numberinput.number-input(
+            controls-position="compact",
+            :step="1",
+            min="5",
+            max="1500",
+            v-model="canvasWidth"
+          )
+      p.control
+        b-field(label="Height", label-position="on-border")
+          b-numberinput.number-input(
+            controls-position="compact",
+            :step="1",
+            min="5",
+            max="1500",
+            v-model="canvasHeight"
+          )
       br
-      b-checkbox(v-model="keepAspectRatio")
+      p.control(style="margin-top: -0.5em")
+        span Keep ratio
+        br
+        b-checkbox(v-model="keepAspectRatio")
 
   b-field(label="Add pixels")
   b-field(

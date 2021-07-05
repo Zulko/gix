@@ -12,6 +12,11 @@ b-field.font-picker
   )
     template(slot-scope="props")
       .font(:style="fontStyle(props.option)") {{ props.option }}
+  br
+  div(style="font-size: 0.8em; margin-left: 1em; display: block").
+    Browse
+    #[br]
+    #[a(href="https://fonts.google.com/", target="_blank") Google Fonts #[b-icon(icon="open-in-new", size="is-small")]]
 </template>
 
 <script>

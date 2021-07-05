@@ -1,12 +1,12 @@
 <template lang="pug">
 .text-form
   possibly-time-varying-form(
+    label="Text",
     :element="element",
     field="text",
     :valueForm="TextInput",
     :allowModifiers="false"
   )
-  br
   font-form(:element="element")
   color-form(:element="element")
 </template>

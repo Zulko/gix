@@ -1,6 +1,6 @@
 <template lang='pug'>
-.possibly-time-varying-variable-form
-  div(v-if="element[field].timeVariable")
+section.possibly-time-varying-variable-form
+  b-field(v-if="element[field].timeVariable", :label="label")
     b-field(style="margin-top: 0.5em")
       b-checkbox(
         v-model="isTimeVarying",
@@ -15,7 +15,7 @@
       :allowModifiers="allowModifiers",
       @update="(v) => updateElement({ [field]: { timeVariable: v } })"
     )
-  div(v-else)
+  b-field(v-else, :label="label", horizontal)
     .inline(style="display: flex")
       span(
         :is="valueForm",
@@ -42,6 +42,7 @@ import TimeVaryingForm from './TimeVaryingForm.vue';
 export default {
   mixins: [ElementComponentMixin],
   props: {
+    label: { type: String },
     field: { type: String },
     valueForm: { type: Object },
     allowModifiers: { type: Boolean },
@@ -82,3 +83,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.possibly-time-varying-variable-form {
+  margin-bottom: 0.5em;
+}
+</style>

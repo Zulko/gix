@@ -148,7 +148,7 @@ export default {
       if (time !== null) {
         this.currentTime = time;
         this.parameters = { ...this.parameters, status: 'pause' };
-        this.$store.commit('editorPlayerTime', null);
+        this.$store.commit('updateEditorPlayerTime', null);
       }
     },
   },

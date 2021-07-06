@@ -67,7 +67,7 @@ export default {
     },
     onDragging(e) {
       if (this.timeDragStarted === null) {
-        this.timeDragStarted = e.t;
+        this.timeDragStarted = Math.round(100 * e.t) / 100;
       }
       const { elements } = this.$store.state.project;
       const projectElement = elements.filter((el) => (el.id === e.draggingProps.element.id))[0];
@@ -97,8 +97,8 @@ export default {
       if (e.draggingProps.dragType === 'translate') {
         return {
           position: {
-            x: projectElement.position.x + e.drag.x,
-            y: projectElement.position.y + e.drag.y,
+            x: parseInt(projectElement.position.x + e.drag.x, 10),
+            y: parseInt(projectElement.position.y + e.drag.y, 10),
           },
         };
       } if (e.draggingProps.dragType === 'rotate') {

@@ -1,0 +1,511 @@
+{
+  "infos": {
+    "gixVersion": "0.1.0",
+    "title": "Slamdunk Millionaire",
+    "author": "Zulko",
+    "tags": []
+  },
+  "canvas": {
+    "width": 600,
+    "height": 338,
+    "backgroundColor": "#000000"
+  },
+  "isAnimated": true,
+  "duration": 3.96,
+  "fps": 15,
+  "elements": [
+    {
+      "id": "asset-01",
+      "editorSettings": {
+        "isMainElement": true,
+        "isDraggable": false
+      },
+      "timeSegment": {
+        "start": 0,
+        "end": 3.96,
+        "alwaysShow": true
+      },
+      "position": {
+        "x": 300,
+        "y": 169
+      },
+      "rotation": 0,
+      "xAlign": "center",
+      "yAlign": "center",
+      "stroke": {
+        "width": 1,
+        "color": "#000000"
+      },
+      "type": "asset",
+      "subtype": "video",
+      "url": "https://thumbs.gfycat.com/AgonizingHeavyKouprey-mobile.mp4",
+      "size": {
+        "width": 600,
+        "height": 338,
+        "aspectRatio": 1.7751479289940828
+      },
+      "crop": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "timeCrop": {
+        "start": 0,
+        "end": 3.96
+      },
+      "speedFactor": 1,
+      "opacity": 1
+    },
+    {
+      "editorSettings": {
+        "isMainElement": false,
+        "isDraggable": true
+      },
+      "timeSegment": {
+        "start": 0,
+        "end": 3.96
+      },
+      "position": {
+        "x": 381,
+        "y": 45,
+        "timeVariable": [
+          {
+            "t": 0,
+            "value": {
+              "x": 381,
+              "y": 35
+            }
+          },
+          {
+            "t": 0.22,
+            "value": {
+              "x": 377,
+              "y": 49
+            }
+          },
+          {
+            "t": 0.42,
+            "value": {
+              "x": 371,
+              "y": 74
+            }
+          },
+          {
+            "t": 0.67,
+            "value": {
+              "x": 301,
+              "y": 62
+            }
+          },
+          {
+            "t": 1.17,
+            "value": {
+              "x": 252,
+              "y": 52
+            }
+          },
+          {
+            "t": 1.57,
+            "value": {
+              "x": 203,
+              "y": 48
+            }
+          },
+          {
+            "t": 2.12,
+            "value": {
+              "x": 177,
+              "y": 55
+            }
+          },
+          {
+            "t": 2.33,
+            "value": {
+              "x": 109,
+              "y": 46
+            }
+          },
+          {
+            "t": 2.52,
+            "value": {
+              "x": -50,
+              "y": 70
+            }
+          },
+          {
+            "t": 3.96,
+            "value": {
+              "x": -500,
+              "y": 35
+            }
+          }
+        ]
+      },
+      "scale": 1,
+      "rotation": 0,
+      "xAlign": "center",
+      "yAlign": "center",
+      "stroke": {
+        "width": 0,
+        "color": "rgba(0, 0, 0, 1)"
+      },
+      "opacity": 1,
+      "type": "text",
+      "text": "Adobe",
+      "font": {
+        "family": "Helvetica",
+        "bold": true,
+        "lineHeight": 1
+      },
+      "fontSize": 25,
+      "color": "#0C0C0CFF",
+      "outline": {
+        "width": 3,
+        "color": "#FFFCFCFF"
+      },
+      "id": "element-0"
+    },
+    {
+      "editorSettings": {
+        "isMainElement": false,
+        "isDraggable": true
+      },
+      "timeSegment": {
+        "start": 0,
+        "end": 3.96
+      },
+      "position": {
+        "x": 381,
+        "y": 45,
+        "timeVariable": [
+          {
+            "t": 0,
+            "value": {
+              "x": 582,
+              "y": 58
+            }
+          },
+          {
+            "t": 0.22,
+            "value": {
+              "x": 516,
+              "y": 55
+            }
+          },
+          {
+            "t": 0.42,
+            "value": {
+              "x": 464,
+              "y": 66
+            }
+          },
+          {
+            "t": 0.67,
+            "value": {
+              "x": 390,
+              "y": 55
+            }
+          },
+          {
+            "t": 1.17,
+            "value": {
+              "x": 294,
+              "y": 52
+            }
+          },
+          {
+            "t": 1.57,
+            "value": {
+              "x": 204,
+              "y": 52
+            }
+          },
+          {
+            "t": 2.12,
+            "value": {
+              "x": 112,
+              "y": 52
+            }
+          },
+          {
+            "t": 2.33,
+            "value": {
+              "x": -29,
+              "y": 70
+            }
+          },
+          {
+            "t": 2.52,
+            "value": {
+              "x": -50,
+              "y": 70
+            }
+          },
+          {
+            "t": 3.96,
+            "value": {
+              "x": -50,
+              "y": 35
+            }
+          }
+        ]
+      },
+      "scale": 1,
+      "rotation": 0,
+      "xAlign": "center",
+      "yAlign": "center",
+      "stroke": {
+        "width": 0,
+        "color": "rgba(0, 0, 0, 1)"
+      },
+      "opacity": 1,
+      "type": "text",
+      "text": "FinalCut",
+      "font": {
+        "family": "Helvetica",
+        "bold": true,
+        "lineHeight": 1
+      },
+      "fontSize": 25,
+      "color": "#0C0C0CFF",
+      "outline": {
+        "width": 3,
+        "color": "#FFFCFCFF"
+      },
+      "id": "element-1"
+    },
+    {
+      "editorSettings": {
+        "isMainElement": false,
+        "isDraggable": true
+      },
+      "timeSegment": {
+        "start": 0,
+        "end": 3.96
+      },
+      "position": {
+        "x": 432,
+        "y": 224,
+        "timeVariable": [
+          {
+            "t": 0,
+            "value": {
+              "x": 260,
+              "y": 174
+            }
+          },
+          {
+            "t": 0.07,
+            "value": {
+              "x": 260,
+              "y": 174
+            }
+          },
+          {
+            "t": 0.47,
+            "value": {
+              "x": 260,
+              "y": 179
+            }
+          },
+          {
+            "t": 1.12,
+            "value": {
+              "x": 286,
+              "y": 169
+            }
+          },
+          {
+            "t": 1.67,
+            "value": {
+              "x": 409,
+              "y": 180
+            }
+          },
+          {
+            "t": 2.27,
+            "value": {
+              "x": 536,
+              "y": 178
+            }
+          },
+          {
+            "t": 2.57,
+            "value": {
+              "x": 435,
+              "y": 197
+            }
+          },
+          {
+            "t": 2.87,
+            "value": {
+              "x": 354,
+              "y": 196
+            }
+          },
+          {
+            "t": 3.17,
+            "value": {
+              "x": 403,
+              "y": 201
+            }
+          },
+          {
+            "t": 3.67,
+            "value": {
+              "x": 457,
+              "y": 199
+            }
+          },
+          {
+            "t": 3.87,
+            "value": {
+              "x": 439,
+              "y": 213
+            }
+          }
+        ]
+      },
+      "scale": 1,
+      "rotation": -1,
+      "xAlign": "center",
+      "yAlign": "center",
+      "stroke": {
+        "width": 0,
+        "color": "rgba(0, 0, 0, 1)"
+      },
+      "opacity": 1,
+      "type": "text",
+      "text": "GIX",
+      "font": {
+        "family": "Permanent Marker",
+        "bold": false,
+        "lineHeight": 1
+      },
+      "fontSize": 50,
+      "color": "#EEEE20",
+      "outline": {
+        "width": 7.2,
+        "color": "#000000"
+      },
+      "id": "element-3"
+    },
+    {
+      "editorSettings": {
+        "isMainElement": false,
+        "isDraggable": true
+      },
+      "timeSegment": {
+        "start": 0,
+        "end": 3.96
+      },
+      "position": {
+        "x": 156,
+        "y": 186,
+        "timeVariable": [
+          {
+            "t": 0,
+            "value": {
+              "x": 156,
+              "y": 186
+            }
+          },
+          {
+            "t": 0.32,
+            "value": {
+              "x": 164,
+              "y": 184
+            }
+          },
+          {
+            "t": 0.57,
+            "value": {
+              "x": 192,
+              "y": 191
+            }
+          },
+          {
+            "t": 1.27,
+            "value": {
+              "x": 211,
+              "y": 190
+            }
+          },
+          {
+            "t": 1.52,
+            "value": {
+              "x": 246,
+              "y": 191
+            }
+          },
+          {
+            "t": 1.87,
+            "value": {
+              "x": 265,
+              "y": 195
+            }
+          },
+          {
+            "t": 2.22,
+            "value": {
+              "x": 275,
+              "y": 196
+            }
+          },
+          {
+            "t": 2.42,
+            "value": {
+              "x": 154,
+              "y": 201
+            }
+          },
+          {
+            "t": 2.57,
+            "value": {
+              "x": 41,
+              "y": 202
+            }
+          },
+          {
+            "t": 2.72,
+            "value": {
+              "x": -41,
+              "y": 202
+            }
+          },
+          {
+            "t": 3.96,
+            "value": {
+              "x": -40,
+              "y": 186
+            }
+          }
+        ]
+      },
+      "scale": 1,
+      "rotation": 0,
+      "xAlign": "center",
+      "yAlign": "center",
+      "stroke": {
+        "width": 0,
+        "color": "rgba(0, 0, 0, 1)"
+      },
+      "opacity": 1,
+      "type": "text",
+      "text": "YOU",
+      "font": {
+        "family": "Anton",
+        "bold": false,
+        "lineHeight": 1
+      },
+      "fontSize": 50,
+      "color": "#EEEE20",
+      "outline": {
+        "width": 7,
+        "color": "#000000"
+      },
+      "id": "element-2"
+    }
+  ]
+}

@@ -51,6 +51,7 @@ import keaton from './builtin-library-gixes/keaton-wind.json';
 import chaplinForks from './builtin-library-gixes/chaplin-forks.json';
 import fellowGixer from './builtin-library-gixes/fellow-gixer.json';
 import multishrek from './builtin-library-gixes/multishrek.json';
+import slamdunk from './builtin-library-gixes/slamdunk.json';
 
 export default {
   components: {
@@ -61,7 +62,7 @@ export default {
     return {
       searchTags: [],
       searchTerm: '',
-      builtinGixes: [fellowGixer, multishrek, chaplinForks, keaton],
+      builtinGixes: [slamdunk, fellowGixer, multishrek, chaplinForks, keaton],
       carouselIndex: 0,
       maxProjectWidth: 800,
       maxProjectHeight: 500,

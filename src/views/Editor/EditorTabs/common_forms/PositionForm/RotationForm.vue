@@ -4,7 +4,7 @@ b-field.rotation-form(label="Angle", label-position="on-border")
     size="is-small",
     controls-position="compact",
     :value="value",
-    @input="(v) => $emit('update', v % 360)"
+    @input="(v) => $emit('update', v)"
   )
 </template>
 <script>

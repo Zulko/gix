@@ -30,7 +30,7 @@
           controls-position="compact",
           :min="0",
           :value="element.crop[direction]",
-          @input="(v) => updateCrop(v, direction)"
+          @input="(v) => updateElementCropInSingleDirection(v, direction)"
         )
 </template>
 
@@ -307,6 +307,15 @@ export default {
         }
         this.dragModifiedElement = null;
       }
+    },
+    updateElementCropInSingleDirection(val, direction) {
+      const newElement = updateCropInSingleDirection(
+        this.element, direction, val, this.assetStats,
+      );
+      this.updateElement({
+        elementId: this.element.id,
+        update: newElement,
+      });
     },
   },
   watch: {

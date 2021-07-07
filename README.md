@@ -1,13 +1,13 @@
 # Gix
 
-Gix is a GIF editor using web technologies:
+[Gix](https://zulko.github.io/gix/#/home) is a GIF editor using web technologies:
 
-- No account needed, no privacy issues, no server costs: it runs entirely in your browser.
+- No account needed, no privacy issues, no server costs: just GIF in your browser.
 - Share your projects as (long!) URLs, so others can build on your work.
 - Freely create, combine, caption and animate.
 - An interface that ~~is clean and intuitive~~ makes your GIFs look good by comparison.
 
-<p><img src='./docs/screenshot.jpeg'/></p>
+<p><a href='https://zulko.github.io/gix/#/home' target='_'><img src='./docs/screenshot.jpeg'/></a></p>
 
 **This is still work in progress. Expect no stability**
 

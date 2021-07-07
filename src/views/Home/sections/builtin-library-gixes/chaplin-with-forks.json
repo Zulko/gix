@@ -1,0 +1,435 @@
+{
+  "infos": {
+    "gixVersion": "0.1.0",
+    "title": "When Gix is life",
+    "author": "Zulko",
+    "tags": [
+      "Chaplin",
+      "dancing"
+    ]
+  },
+  "canvas": {
+    "width": 500,
+    "height": 396,
+    "backgroundColor": "#121212"
+  },
+  "isAnimated": true,
+  "duration": 2.3,
+  "fps": 10,
+  "elements": [
+    {
+      "id": "d62e0f3b-beb0-4611-9d0b-4dbfbf2ba1bb",
+      "editorSettings": {
+        "isMainElement": true,
+        "isDefaultFocus": false,
+        "isDraggable": true
+      },
+      "timeSegment": {
+        "start": 0,
+        "end": 2.3,
+        "alwaysShow": true
+      },
+      "position": {
+        "x": 266,
+        "y": 237
+      },
+      "rotation": 0,
+      "xAlign": "center",
+      "yAlign": "center",
+      "stroke": {
+        "width": 1,
+        "color": "#000000"
+      },
+      "type": "asset",
+      "subtype": "gif",
+      "url": "https://i.imgur.com/M1pNQoI.gif",
+      "size": {
+        "width": 500,
+        "height": 346,
+        "aspectRatio": 1.4450867052023122
+      },
+      "crop": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "timeCrop": {
+        "start": 0,
+        "end": 2.3
+      },
+      "speedFactor": 1,
+      "opacity": 1
+    },
+    {
+      "id": "f0181c10-faba-4035-bcc9-fef996fbaca6",
+      "editorSettings": {
+        "isMainElement": false,
+        "isDefaultFocus": false,
+        "isDraggable": true
+      },
+      "timeSegment": {
+        "start": 0,
+        "end": 2.3,
+        "alwaysShow": true
+      },
+      "position": {
+        "x": 243,
+        "y": 26
+      },
+      "rotation": 0,
+      "xAlign": "center",
+      "yAlign": "center",
+      "stroke": {
+        "width": 0.6925547340554623,
+        "color": "rgba(0, 0, 0, 1)"
+      },
+      "type": "text",
+      "text": "When you have more important\nthings to do but GIX is life",
+      "font": {
+        "family": "Montserrat",
+        "bold": true,
+        "lineHeight": 1
+      },
+      "fontSize": 28,
+      "color": "#FFFFFFFF",
+      "outline": {
+        "width": 0,
+        "color": "#000000"
+      },
+      "timeCrop": {
+        "start": 0,
+        "end": 2.3
+      },
+      "opacity": 1
+    },
+    {
+      "editorSettings": {
+        "isMainElement": false,
+        "isDraggable": true
+      },
+      "timeSegment": {
+        "start": 0,
+        "end": 2.3
+      },
+      "position": {
+        "x": -50,
+        "y": 52,
+        "timeVariable": [
+          {
+            "t": 0,
+            "value": {
+              "x": -50,
+              "y": 52
+            }
+          },
+          {
+            "t": 1.3,
+            "value": {
+              "x": -50,
+              "y": 343
+            }
+          },
+          {
+            "t": 1.65,
+            "value": {
+              "x": 171,
+              "y": 211
+            }
+          },
+          {
+            "t": 2.1,
+            "value": {
+              "x": -50,
+              "y": 52
+            }
+          },
+          {
+            "t": 2.3,
+            "value": {
+              "x": -50,
+              "y": 52
+            }
+          }
+        ]
+      },
+      "scale": 1,
+      "rotation": {
+        "timeVariable": [
+          {
+            "t": 0,
+            "value": 0
+          },
+          {
+            "t": 2.3099999999999996,
+            "value": 1000
+          }
+        ]
+      },
+      "xAlign": "center",
+      "yAlign": "center",
+      "stroke": {
+        "width": 0,
+        "color": "rgba(0, 0, 0, 1)"
+      },
+      "opacity": 1,
+      "type": "text",
+      "text": "WORK",
+      "font": {
+        "family": "Anton",
+        "bold": false,
+        "lineHeight": 1
+      },
+      "fontSize": 40,
+      "color": "#EEEE20",
+      "outline": {
+        "width": 3,
+        "color": "#000000"
+      },
+      "id": "element-0"
+    },
+    {
+      "editorSettings": {
+        "isMainElement": false,
+        "isDraggable": true
+      },
+      "timeSegment": {
+        "start": 0,
+        "end": 2.3
+      },
+      "position": {
+        "x": -50,
+        "y": 52,
+        "timeVariable": [
+          {
+            "t": 0,
+            "value": {
+              "x": -70,
+              "y": 52
+            }
+          },
+          {
+            "t": 1.8,
+            "value": {
+              "x": -70,
+              "y": 343
+            }
+          },
+          {
+            "t": 2.1,
+            "value": {
+              "x": 171,
+              "y": 211
+            }
+          },
+          {
+            "t": 2.2,
+            "value": {
+              "x": -30,
+              "y": 52
+            }
+          },
+          {
+            "t": 2.3,
+            "value": {
+              "x": -70,
+              "y": 52
+            }
+          }
+        ]
+      },
+      "scale": 1,
+      "rotation": {
+        "timeVariable": [
+          {
+            "t": 0,
+            "value": 0
+          },
+          {
+            "t": 2.3099999999999996,
+            "value": 1000
+          }
+        ]
+      },
+      "xAlign": "center",
+      "yAlign": "center",
+      "stroke": {
+        "width": 0,
+        "color": "rgba(0, 0, 0, 1)"
+      },
+      "opacity": 1,
+      "type": "text",
+      "text": "FRIENDS",
+      "font": {
+        "family": "Anton",
+        "bold": false,
+        "lineHeight": 1
+      },
+      "fontSize": 40,
+      "color": "#EEEE20",
+      "outline": {
+        "width": 3,
+        "color": "#000000"
+      },
+      "id": "element-1"
+    },
+    {
+      "editorSettings": {
+        "isMainElement": false,
+        "isDraggable": true
+      },
+      "timeSegment": {
+        "start": 0,
+        "end": 2.3
+      },
+      "position": {
+        "x": 518,
+        "y": 81,
+        "timeVariable": [
+          {
+            "t": 0,
+            "value": {
+              "x": 400,
+              "y": -50
+            }
+          },
+          {
+            "t": 0.45,
+            "value": {
+              "x": 382,
+              "y": 165
+            },
+            "modifier": "easeInQuad"
+          },
+          {
+            "t": 1.1,
+            "value": {
+              "x": 431,
+              "y": -130
+            }
+          },
+          {
+            "t": 2.3,
+            "value": {
+              "x": 518,
+              "y": -81
+            }
+          }
+        ]
+      },
+      "scale": 1,
+      "rotation": {
+        "timeVariable": [
+          {
+            "t": 0,
+            "value": -12
+          },
+          {
+            "t": 2.3,
+            "value": 12
+          }
+        ]
+      },
+      "xAlign": "center",
+      "yAlign": "center",
+      "stroke": {
+        "width": 0,
+        "color": "rgba(0, 0, 0, 1)"
+      },
+      "opacity": 1,
+      "type": "text",
+      "text": "BILLS",
+      "font": {
+        "family": "Anton",
+        "bold": false,
+        "lineHeight": 1
+      },
+      "fontSize": 40,
+      "color": "#EEEE20",
+      "outline": {
+        "width": 3,
+        "color": "#000000"
+      },
+      "id": "element-2"
+    },
+    {
+      "editorSettings": {
+        "isMainElement": false,
+        "isDraggable": true
+      },
+      "timeSegment": {
+        "start": 0,
+        "end": 2.3
+      },
+      "position": {
+        "x": 518,
+        "y": 81,
+        "timeVariable": [
+          {
+            "t": 0,
+            "value": {
+              "x": 700,
+              "y": -50
+            }
+          },
+          {
+            "t": 1,
+            "value": {
+              "x": 382,
+              "y": 165
+            },
+            "modifier": "easeInQuad"
+          },
+          {
+            "t": 1.7,
+            "value": {
+              "x": 431,
+              "y": -230
+            }
+          },
+          {
+            "t": 2.3,
+            "value": {
+              "x": 518,
+              "y": -81
+            }
+          }
+        ]
+      },
+      "scale": 1,
+      "rotation": {
+        "timeVariable": [
+          {
+            "t": 0,
+            "value": 0
+          },
+          {
+            "t": 2.3,
+            "value": 800
+          }
+        ]
+      },
+      "xAlign": "center",
+      "yAlign": "center",
+      "stroke": {
+        "width": 0,
+        "color": "rgba(0, 0, 0, 1)"
+      },
+      "opacity": 1,
+      "type": "text",
+      "text": "SLEEP",
+      "font": {
+        "family": "Anton",
+        "bold": false,
+        "lineHeight": 1
+      },
+      "fontSize": 40,
+      "color": "#EEEE20",
+      "outline": {
+        "width": 3,
+        "color": "#000000"
+      },
+      "id": "element-3"
+    }
+  ]
+}

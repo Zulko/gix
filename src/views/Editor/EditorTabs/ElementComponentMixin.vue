@@ -8,7 +8,15 @@ export default {
   },
   methods: {
     updateElement(update) {
-      this.$store.commit('updateElement', { elementId: this.element.id, update });
+      if ((update.size) && (this.element.editorSettings.isMainElement)) {
+        const { width, height } = update.size;
+        this.$store.commit('updateProject', { canvas: { width, height } });
+        const position = { x: width / 2, y: height / 2 };
+        const newUpdate = { ...update, position };
+        this.$store.commit('updateElement', { elementId: this.element.id, update: newUpdate });
+      } else {
+        this.$store.commit('updateElement', { elementId: this.element.id, update });
+      }
     },
   },
 };

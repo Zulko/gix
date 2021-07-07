@@ -47,14 +47,8 @@ export default {
       if (this.keepAspectRatio) {
         const height = Math.round(width / this.element.size.aspectRatio);
         this.$emit('update', { ...this.value, width, height });
-        if (this.element.editorSettings.isMainElement) {
-          this.updateProject({ canvas: { height, width } });
-        }
       } else {
         this.$emit('update', { ...this.value, width });
-        if (this.element.editorSettings.isMainElement) {
-          this.updateProject({ canvas: { width } });
-        }
       }
     },
     updateHeight(height) {
@@ -64,14 +58,8 @@ export default {
       if (this.keepAspectRatio) {
         const width = Math.round(height * this.element.size.aspectRatio);
         this.$emit('update', { ...this.value, width, height });
-        if (this.element.editorSettings.isMainElement) {
-          this.updateProject({ canvas: { height, width } });
-        }
       } else {
         this.$emit('update', { ...this.value, height });
-        if (this.element.editorSettings.isMainElement) {
-          this.updateProject({ canvas: { height } });
-        }
       }
     },
   },

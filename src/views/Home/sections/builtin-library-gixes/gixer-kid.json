@@ -1,0 +1,314 @@
+{
+  "infos": {
+    "gixVersion": "0.1.0",
+    "title": "Made wih Gix",
+    "author": "Zulko",
+    "tags": []
+  },
+  "canvas": {
+    "width": 500,
+    "height": 375,
+    "backgroundColor": "#000000"
+  },
+  "isAnimated": true,
+  "duration": 5.5,
+  "fps": 7.6923076923076925,
+  "elements": [
+    {
+      "id": "asset-01",
+      "editorSettings": {
+        "isMainElement": false,
+        "isDraggable": false
+      },
+      "timeSegment": {
+        "start": 0,
+        "end": 1.66,
+        "alwaysShow": true
+      },
+      "position": {
+        "x": 250,
+        "y": 187.5
+      },
+      "rotation": 0,
+      "xAlign": "center",
+      "yAlign": "center",
+      "stroke": {
+        "width": 1,
+        "color": "#000000"
+      },
+      "type": "asset",
+      "subtype": "gif",
+      "url": "https://i.imgur.com/cylkHqJ.gif",
+      "size": {
+        "width": 500,
+        "height": 375,
+        "aspectRatio": 1.3333333333333333
+      },
+      "crop": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "timeCrop": {
+        "start": 0,
+        "end": 5.33
+      },
+      "speedFactor": 1,
+      "opacity": 1
+    },
+    {
+      "editorSettings": {
+        "isMainElement": false,
+        "isDraggable": true
+      },
+      "timeSegment": {
+        "start": 1.62,
+        "end": 3.5
+      },
+      "position": {
+        "x": 250,
+        "y": 187.5
+      },
+      "scale": 1,
+      "rotation": 0,
+      "xAlign": "center",
+      "yAlign": "center",
+      "stroke": {
+        "width": 1,
+        "color": "#000000"
+      },
+      "opacity": 1,
+      "url": "https://upload.wikimedia.org/wikipedia/commons/0/01/Monitor_LG.jpg",
+      "type": "asset",
+      "subtype": "image",
+      "size": {
+        "width": 513,
+        "height": 385,
+        "aspectRatio": 1.3333333333333333
+      },
+      "crop": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "timeCrop": {
+        "start": 0,
+        "end": 5
+      },
+      "speedFactor": 1,
+      "id": "element-0"
+    },
+    {
+      "editorSettings": {
+        "isMainElement": false,
+        "isDraggable": true
+      },
+      "timeSegment": {
+        "start": 1.62,
+        "end": 3.5
+      },
+      "position": {
+        "x": 300,
+        "y": 171
+      },
+      "scale": 1,
+      "rotation": 0,
+      "xAlign": "center",
+      "yAlign": "center",
+      "stroke": {
+        "width": 1,
+        "color": "#000000"
+      },
+      "opacity": 1,
+      "url": "https://media2.giphy.com/media/9C1nyePnovqlpEYFMD/giphy.gif",
+      "type": "asset",
+      "subtype": "gif",
+      "size": {
+        "width": 208,
+        "height": 204,
+        "aspectRatio": 1.0204081632653061
+      },
+      "crop": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "timeCrop": {
+        "start": 0,
+        "end": 0.5
+      },
+      "speedFactor": 1,
+      "id": "element-2"
+    },
+    {
+      "editorSettings": {
+        "isMainElement": false,
+        "isDraggable": true
+      },
+      "timeSegment": {
+        "start": 1.62,
+        "end": 3.5
+      },
+      "position": {
+        "x": 172,
+        "y": 121,
+        "timeVariable": [
+          {
+            "t": 0,
+            "value": {
+              "x": 172,
+              "y": 121
+            }
+          },
+          {
+            "t": 1.62,
+            "value": {
+              "x": 172,
+              "y": 121
+            }
+          },
+          {
+            "t": 2.62,
+            "value": {
+              "x": 172,
+              "y": 140
+            },
+            "modifier": "easeInElastic"
+          },
+          {
+            "t": 5.33,
+            "value": {
+              "x": 172,
+              "y": 121
+            }
+          }
+        ]
+      },
+      "scale": 1,
+      "rotation": -36,
+      "xAlign": "center",
+      "yAlign": "center",
+      "stroke": {
+        "width": 0,
+        "color": "rgba(0, 0, 0, 1)"
+      },
+      "opacity": 1,
+      "type": "text",
+      "text": "wow",
+      "font": {
+        "family": "Anton",
+        "bold": false,
+        "lineHeight": 1
+      },
+      "fontSize": 71,
+      "color": "#EEEE20",
+      "outline": {
+        "width": 1,
+        "color": "#000000"
+      },
+      "id": "element-1"
+    },
+    {
+      "id": "element-3",
+      "editorSettings": {
+        "isMainElement": false,
+        "isDraggable": true
+      },
+      "timeSegment": {
+        "start": 3.5,
+        "end": 5.5,
+        "alwaysShow": true
+      },
+      "position": {
+        "x": 250,
+        "y": 187.5
+      },
+      "rotation": 0,
+      "xAlign": "center",
+      "yAlign": "center",
+      "stroke": {
+        "width": 1,
+        "color": "#000000"
+      },
+      "type": "asset",
+      "subtype": "gif",
+      "url": "https://i.imgur.com/cylkHqJ.gif",
+      "size": {
+        "width": 500,
+        "height": 375,
+        "aspectRatio": 1.3333333333333333
+      },
+      "crop": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "timeCrop": {
+        "start": 1.88,
+        "end": 5.33
+      },
+      "speedFactor": 1,
+      "opacity": 1
+    },
+    {
+      "editorSettings": {
+        "isMainElement": false,
+        "isDraggable": true
+      },
+      "timeSegment": {
+        "start": 4.21,
+        "end": 5.5
+      },
+      "position": {
+        "x": 313,
+        "y": 299
+      },
+      "scale": 1,
+      "rotation": 0,
+      "xAlign": "center",
+      "yAlign": "center",
+      "stroke": {
+        "width": 0,
+        "color": "rgba(0, 0, 0, 1)"
+      },
+      "opacity": {
+        "timeVariable": [
+          {
+            "t": 0,
+            "value": 0
+          },
+          {
+            "t": 4,
+            "value": 0
+          },
+          {
+            "t": 4.5,
+            "value": 1
+          },
+          {
+            "t": 5,
+            "value": 1
+          }
+        ]
+      },
+      "type": "text",
+      "text": "Made with GIX",
+      "font": {
+        "family": "Rock Salt",
+        "bold": false,
+        "lineHeight": 1
+      },
+      "fontSize": 36,
+      "color": "#BD9DEAFF",
+      "outline": {
+        "width": 10,
+        "color": "#000000"
+      },
+      "id": "element-4"
+    }
+  ]
+}

@@ -4,8 +4,10 @@ Gix is a GIF editor using web technologies:
 
 - No account needed, no privacy issues, no server costs: it runs entirely in your browser.
 - Share your projects as (long!) URLs, so others can build on your work.
-- Freely create, combine, caption, and animate.
-- An intuitive (?) interface to make or remix GIFs in minutes.
+- Freely create, combine, caption and animate.
+- An interface that ~~is clean and intuitive~~ makes your GIFs look good by comparison.
+
+<p><img src='./docs/screenshot.jpeg'/></p>
 
 **This is still work in progress. Expect no stability**
 
@@ -26,19 +28,6 @@ yarn serve
 ```
 yarn build
 ```
+## Work in progress.
 
-### Run your unit tests
-
-```
-yarn test:unit
-```
-
-### Lints and fixes files
-
-```
-yarn lint
-```
-
-## Contribute
-
-Gix is open source software originally written by Zulko and released on Github under the MIT License.
+Gix is open source software originally written by Zulko and released on Github under the MIT License. 

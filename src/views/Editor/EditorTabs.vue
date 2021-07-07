@@ -108,7 +108,12 @@ export default {
   methods: {
     ...mapMutations(['duplicateElement', 'deleteElement', 'moveElementUp', 'moveElementDown']),
     tabLabel(label) {
-      return label.length > 7 ? `${label.slice(0, 7)}…` : label;
+      let trueLabel = label;
+      if (label.timeVariable) {
+        const [firstText] = label.timeVariable;
+        trueLabel = firstText.value;
+      }
+      return trueLabel.length > 7 ? `${trueLabel.slice(0, 7)}…` : trueLabel;
     },
   },
 };

@@ -124,6 +124,7 @@ export default {
       });
     },
     onResize() {
+      console.log('resize');
       this.maxProjectWidth = 0.8 * window.innerWidth;
     },
   },

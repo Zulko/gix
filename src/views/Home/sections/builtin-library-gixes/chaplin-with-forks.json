@@ -37,7 +37,7 @@
       "xAlign": "center",
       "yAlign": "center",
       "stroke": {
-        "width": 1,
+        "width_percent": 0,
         "color": "#000000"
       },
       "type": "asset",
@@ -94,7 +94,7 @@
       "fontSize": 28,
       "color": "#FFFFFFFF",
       "outline": {
-        "width": 0,
+        "width_percent": 0,
         "color": "#000000"
       },
       "timeCrop": {
@@ -183,7 +183,7 @@
       "fontSize": 40,
       "color": "#EEEE20",
       "outline": {
-        "width": 3,
+        "width_percent": 3,
         "color": "#000000"
       },
       "id": "element-0"
@@ -268,7 +268,7 @@
       "fontSize": 40,
       "color": "#EEEE20",
       "outline": {
-        "width": 3,
+        "width_percent": 3,
         "color": "#000000"
       },
       "id": "element-1"
@@ -347,7 +347,7 @@
       "fontSize": 40,
       "color": "#EEEE20",
       "outline": {
-        "width": 3,
+        "width_percent": 3,
         "color": "#000000"
       },
       "id": "element-2"
@@ -426,7 +426,7 @@
       "fontSize": 40,
       "color": "#EEEE20",
       "outline": {
-        "width": 3,
+        "width_percent": 3,
         "color": "#000000"
       },
       "id": "element-3"

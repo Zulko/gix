@@ -5,21 +5,6 @@ section.element-color-form
       :value="element.color",
       @input="(v) => updateElement({ color: v.hex8 })"
     )
-  b-field(label="Stroke", horizontal)
-    b-field(grouped)
-      color-picker(
-        :value="element.stroke.color",
-        @input="(v) => updateElement({ stroke: { color: v.hex8 } })"
-      )
-      b-field(label="Width", label-position="on-border")
-        b-numberinput.number-input(
-          controls-position="compact",
-          :value="element.stroke.width",
-          @input="(v) => updateElement({ stroke: { width: v } })",
-          :min="0",
-          :step="0.1",
-          size="is-small"
-        )
   b-field(label="Outline", v-if="element.outline", horizontal)
     b-field(grouped)
       color-picker(
@@ -27,18 +12,34 @@ section.element-color-form
         @input="(v) => updateElement({ outline: { color: v.hex8 } })"
       )
       b-field(
-        label="Width",
+        label="Width (%)",
         v-if="element.outline",
         label-position="on-border"
       )
         b-numberinput.number-input(
           controls-position="compact",
-          :value="element.outline.width",
+          :value="element.outline.width_percent",
           @input="(v) => updateElement({ outline: { width: v } })",
           :min="0",
-          :step="0.1",
+          :step="1",
           size="is-small"
         )
+  b-field(label="Stroke", horizontal)
+    b-field(grouped)
+      color-picker(
+        :value="element.stroke.color",
+        @input="(v) => updateElement({ stroke: { color: v.hex8 } })"
+      )
+      b-field(label="Width (%)", label-position="on-border")
+        b-numberinput.number-input(
+          controls-position="compact",
+          :value="element.stroke.width_percent",
+          @input="(v) => updateElement({ stroke: { width: v } })",
+          :min="0",
+          :step="1",
+          size="is-small"
+        )
+
   possibly-time-varying-form(
     label="Opacity",
     :element="element",

@@ -34,7 +34,7 @@
       "xAlign": "left",
       "yAlign": "top",
       "stroke": {
-        "width": 1,
+        "width_percent": 0,
         "color": "#000000"
       },
       "type": "asset",
@@ -78,7 +78,7 @@
       "xAlign": "center",
       "yAlign": "center",
       "stroke": {
-        "width": 1,
+        "width_percent": 0,
         "color": "#000000"
       },
       "type": "asset",
@@ -124,7 +124,7 @@
       "xAlign": "center",
       "yAlign": "center",
       "stroke": {
-        "width": 1,
+        "width_percent": 0,
         "color": "#000000"
       },
       "type": "asset",

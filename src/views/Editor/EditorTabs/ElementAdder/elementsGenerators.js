@@ -19,7 +19,7 @@ function defaultElementBase(project, position = {}) {
     xAlign: 'center',
     yAlign: 'center',
     stroke: {
-      width: 0,
+      width_percent: 0,
       color: 'rgba(0, 0, 0, 1)',
     },
     opacity: 1,
@@ -39,7 +39,7 @@ function newText(project, position = {}) {
     fontSize: 40,
     color: '#EEEE20',
     outline: {
-      width: 1,
+      width_percent: 5,
       color: '#000000',
     },
   };
@@ -58,7 +58,7 @@ function newRectangle(project, position = {}) {
       preserveOriginalRatio: true,
     },
     stroke: {
-      width: 2,
+      width_percent: 1,
       color: '#000000',
     },
     roundedCorners: {
@@ -75,7 +75,7 @@ async function newAsset(urlData, project, position = {}) {
     ...defaultElementBase(project),
     ...urlData,
     stroke: {
-      width: 1,
+      width_percent: 0,
       color: '#000000',
     },
     type: 'asset',

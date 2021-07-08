@@ -33,7 +33,7 @@
       "xAlign": "left",
       "yAlign": "top",
       "stroke": {
-        "width": 1,
+        "width_percent": 0,
         "color": "#000000"
       },
       "type": "asset",
@@ -42,7 +42,7 @@
       "size": {
         "width": 500,
         "height": 396,
-        "aspectRatio": 1.2626262626262625
+        "aspectRatio": 1.26
       },
       "crop": {
         "left": 0,
@@ -71,9 +71,6 @@
       "position": {
         "x": -8,
         "y": 175,
-        "rotate": 1,
-        "xAlign": "center",
-        "yAlign": "center",
         "timeVariable": [
           {
             "t": 0,
@@ -106,7 +103,7 @@
         ]
       },
       "stroke": {
-        "width": 1,
+        "width_percent": 0,
         "color": "rgba(0, 0, 0, 1)"
       },
       "type": "text",
@@ -119,14 +116,15 @@
       "fontSize": 40,
       "color": "#EEEE20",
       "outline": {
-        "width": 0,
+        "width_percent": 10,
         "color": "#000000"
       },
       "timeCrop": {
         "start": 0,
         "end": 2.52
       },
-      "opacity": 1
+      "opacity": 1,
+      "rotation": 0
     },
     {
       "id": "element-0",
@@ -142,9 +140,6 @@
       "position": {
         "x": -8,
         "y": 175,
-        "rotate": 1,
-        "xAlign": "center",
-        "yAlign": "center",
         "timeVariable": [
           {
             "t": 0,
@@ -184,7 +179,7 @@
         ]
       },
       "stroke": {
-        "width": 1,
+        "width_percent": 0,
         "color": "rgba(0, 0, 0, 1)"
       },
       "type": "text",
@@ -197,7 +192,7 @@
       "fontSize": 40,
       "color": "#EEEE20",
       "outline": {
-        "width": 0,
+        "width_percent": 10,
         "color": "#000000"
       },
       "timeCrop": {
@@ -206,7 +201,8 @@
       },
       "opacity": 1,
       "xAlign": "center",
-      "yAlign": "center"
+      "yAlign": "center",
+      "rotation": 0
     },
     {
       "id": "element-1",
@@ -222,9 +218,6 @@
       "position": {
         "x": -8,
         "y": 175,
-        "rotate": 1,
-        "xAlign": "center",
-        "yAlign": "center",
         "timeVariable": [
           {
             "t": 0,
@@ -257,7 +250,7 @@
         ]
       },
       "stroke": {
-        "width": 1,
+        "width_percent": 0,
         "color": "rgba(0, 0, 0, 1)"
       },
       "type": "text",
@@ -270,7 +263,7 @@
       "fontSize": 40,
       "color": "#EEEE20",
       "outline": {
-        "width": 0,
+        "width_percent": 10,
         "color": "#000000"
       },
       "timeCrop": {
@@ -279,7 +272,8 @@
       },
       "opacity": 1,
       "xAlign": "center",
-      "yAlign": "center"
+      "yAlign": "center",
+      "rotation": 0
     }
   ]
 }

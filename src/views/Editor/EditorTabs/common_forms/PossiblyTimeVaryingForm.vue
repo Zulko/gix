@@ -1,6 +1,7 @@
 <template lang='pug'>
 section.possibly-time-varying-variable-form
-  b-field(v-if="element[field].timeVariable", :label="label")
+  div(v-if="isTimeVarying")
+    p: b {{ label }}
     b-field(style="margin-top: 0.5em")
       b-checkbox(
         v-model="isTimeVarying",

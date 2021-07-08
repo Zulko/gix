@@ -134,9 +134,6 @@ export default {
         } if (projectElement.type === 'text') {
           return {
             fontSize: Math.max(10, parseInt(ratio * projectElement.fontSize, 10)),
-            stroke: {
-              width: ratio * projectElement.stroke.width,
-            },
           };
         }
       }

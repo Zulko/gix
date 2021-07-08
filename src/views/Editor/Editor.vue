@@ -47,11 +47,6 @@ export default {
       return this.$store.state.project.canvas.width + 850 + 100;
     },
   },
-  watch: {
-    windowWidth(newHeight, oldHeight) {
-      this.txt = `it changed to ${newHeight} from ${oldHeight}`;
-    },
-  },
   beforeDestroy() {
     window.removeEventListener('resize', this.onResize);
   },

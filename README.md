@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="Gix logo" title="DNA Cauldron Logo" src="./src/assets/title.svg" width="250">
+  <img alt="Gix logo" title="DNA Cauldron Logo" src="./src/assets/title.svg" width="200">
 <br /><br />
 </p>
 
@@ -9,9 +9,10 @@
 
 <p><a href='https://zulko.github.io/gix/#/home' target='_'><img src='./docs/screenshot.jpeg'/></a></p>
 
-- No account needed, no privacy issues, no server costs: just GIF in your browser.
-- Share your projects as (long!) URLs, so others can build on your work.
-- Freely create, combine, caption and animate.
+## Main features
+- Gix runs entirely in your browser - no account needed, no privacy issues, no server costs.
+- Social GIFing: share your projects as (long!) URLs, so others can remix them.
+- Creative freedom: create, combine, caption and animate.
 - An interface that ~~is clean and intuitive~~ makes your GIFs look good by comparison.
 
 

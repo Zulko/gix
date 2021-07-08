@@ -40,13 +40,14 @@ export default {
   },
   data() {
     const parameters = {
+      scale: 1,
+      speedFactor: 1.0,
       ...this.params,
       fps: this.project.fps,
       playTimeCrop: [0, this.project.duration],
-      speedFactor: 1.0,
       loop: true,
       status: this.status,
-      scale: 1,
+
     };
     return {
       parameters,
@@ -131,6 +132,20 @@ export default {
         if (val === 'play' && !this.isLoading) {
           this.play();
         }
+      },
+    },
+    params: {
+      deep: true,
+      handler(val) {
+        this.parameters = {
+          scale: 1,
+          speedFactor: 1.0,
+          ...val,
+          fps: this.project.fps,
+          playTimeCrop: [0, this.project.duration],
+          loop: true,
+          status: this.status,
+        };
       },
     },
     time(val) {

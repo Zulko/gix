@@ -31,7 +31,7 @@
             @update="(v) => updateByIndex(i, 'value', v)"
           )
         td(v-if="allowModifiers")
-          b-select(value='data.t', @input="(v) => updateByIndex(i, 'modifier', v)")
+          b-select(:value='data.modifier', @input="(v) => updateByIndex(i, 'modifier', v)")
             option(key='none', :value='null') None
             option(
               v-for='option in easingOptions'

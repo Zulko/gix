@@ -20,5 +20,6 @@ module.exports = {
     'comma-dangle': 'error',
     'implicit-arrow-linebreak': 'off',
     'operator-linebreak': 'off',
+    'linebreak-style': 0,
   },
 };

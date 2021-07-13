@@ -20,8 +20,17 @@ export default {
     ...mapMutations(['setProject', 'setEditorTabIndex']),
 
     async handleUrl(urlData) {
-      const server = await autoDetectedFrameServer(urlData);
-      const sourceStats = await server.getInfos();
+      let sourceStats; let
+        server;
+      try {
+        server = await autoDetectedFrameServer(urlData);
+        sourceStats = await server.getInfos();
+      } catch (err) {
+        this.$buefy.toast.open({
+          message: `A wild error appeared! ${err}`,
+          type: 'is-danger',
+        });
+      }
       const newProject = {
         infos: {
           gixVersion: '0.1.0',
@@ -84,7 +93,7 @@ export default {
         ],
       };
       this.setProject(newProject);
-      this.setEditorTabIndex(0);
+      this.setEditorTabIndex(newProject.elements.length - 1);
       this.$router.push('editor');
     },
   },

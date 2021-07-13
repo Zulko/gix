@@ -7,7 +7,14 @@
     template(slot="start")
       b-navbar-item(tag="router-link", to="home") Home
       b-navbar-item(tag="router-link", to="editor", v-if="showEditor") Editor
-      b-navbar-item(tag="router-link", to="docs") Docs
+      b-navbar-item
+        a(
+          href="https://github.com/Zulko/gix/wiki/Gix-documentation",
+          target="_blank",
+          style="color: inherit"
+        )
+          b-icon(icon="open-in-new", size="is-small")
+          span &nbsp; Docs
 </template>
 <script>
 import titleSVG from './assets/title.svg';

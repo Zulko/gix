@@ -47,12 +47,13 @@
 import { mapMutations } from 'vuex';
 import GixAnimationsCarousel from '../../../components/widgets/GixAnimationsCarousel.vue';
 import GixPlayer from '../../../components/GixAnimation/GixPlayer.vue';
-import theEnd from './builtin-library-gixes/the-end.json';
 import chaplinForks from './builtin-library-gixes/chaplin-with-forks.json';
 import fellowGixer from './builtin-library-gixes/fellow-gixer.json';
-import multishrek from './builtin-library-gixes/multishrek.json';
-import slamdunk from './builtin-library-gixes/slamdunk.json';
 import gixerKid from './builtin-library-gixes/gixer-kid.json';
+import multishrek from './builtin-library-gixes/multishrek.json';
+import ohTom from './builtin-library-gixes/oh-tom.json';
+import slamdunk from './builtin-library-gixes/slamdunk.json';
+import theEnd from './builtin-library-gixes/the-end.json';
 
 export default {
   components: {
@@ -63,7 +64,7 @@ export default {
     return {
       searchTags: [],
       searchTerm: '',
-      builtinGixes: [gixerKid, slamdunk, chaplinForks, multishrek, fellowGixer, theEnd],
+      builtinGixes: [gixerKid, slamdunk, ohTom, chaplinForks, multishrek, fellowGixer, theEnd],
       carouselIndex: 0,
       maxProjectWidth: 800,
       maxProjectHeight: 500,

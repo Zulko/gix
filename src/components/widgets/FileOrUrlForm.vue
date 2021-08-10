@@ -61,13 +61,19 @@ export default {
         return ur;
       }, this.url);
       this.isLoading = true;
-      const urlMetadata = await findMediaUrl.findMediaUrl(url);
-      this.isLoading = false;
-      if (urlMetadata) {
-        this.$emit('urlInput', { url, mediaUrl: urlMetadata.url, title: urlMetadata.title });
-      } else {
+      try {
+        const urlMetadata = await findMediaUrl.findMediaUrl(url);
+        this.isLoading = false;
+        if (urlMetadata) {
+          this.$emit('urlInput', { url, mediaUrl: urlMetadata.url, title: urlMetadata.title });
+        } else {
+          this.$emit('urlInput', { url });
+        }
+      } catch (error) {
+        console.error(error);
         this.$emit('urlInput', { url });
       }
+      this.isLoading = false;
     },
     processAndEmitFile(file) {
       const reader = new FileReader();

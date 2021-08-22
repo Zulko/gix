@@ -32,7 +32,7 @@
       "xAlign": "left",
       "yAlign": "top",
       "stroke": {
-        "width_percent": 0,
+        "widthPercent": 0,
         "color": "#000000"
       },
       "type": "asset",
@@ -75,7 +75,7 @@
         "color": "#000000"
       },
       "outline": {
-        "width_percent": 1,
+        "widthPercent": 1,
         "color": "#000000"
       },
       "type": "text",

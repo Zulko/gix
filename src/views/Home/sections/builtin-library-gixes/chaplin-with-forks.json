@@ -37,7 +37,7 @@
       "xAlign": "center",
       "yAlign": "center",
       "stroke": {
-        "width_percent": 0,
+        "widthPercent": 0,
         "color": "#000000"
       },
       "type": "asset",
@@ -81,7 +81,7 @@
       "xAlign": "center",
       "yAlign": "center",
       "stroke": {
-        "width": 0.6925547340554623,
+        "widthPercent": 0.6925547340554623,
         "color": "rgba(0, 0, 0, 1)"
       },
       "type": "text",
@@ -94,7 +94,7 @@
       "fontSize": 28,
       "color": "#FFFFFFFF",
       "outline": {
-        "width_percent": 0,
+        "widthPercent": 0,
         "color": "#000000"
       },
       "timeCrop": {
@@ -169,7 +169,7 @@
       "xAlign": "center",
       "yAlign": "center",
       "stroke": {
-        "width": 0,
+        "widthPercent": 0,
         "color": "rgba(0, 0, 0, 1)"
       },
       "opacity": 1,
@@ -183,7 +183,7 @@
       "fontSize": 40,
       "color": "#EEEE20",
       "outline": {
-        "width_percent": 3,
+        "widthPercent": 3,
         "color": "#000000"
       },
       "id": "element-0"
@@ -254,7 +254,7 @@
       "xAlign": "center",
       "yAlign": "center",
       "stroke": {
-        "width": 0,
+        "widthPercent": 0,
         "color": "rgba(0, 0, 0, 1)"
       },
       "opacity": 1,
@@ -268,7 +268,7 @@
       "fontSize": 40,
       "color": "#EEEE20",
       "outline": {
-        "width_percent": 3,
+        "widthPercent": 3,
         "color": "#000000"
       },
       "id": "element-1"
@@ -333,7 +333,7 @@
       "xAlign": "center",
       "yAlign": "center",
       "stroke": {
-        "width": 0,
+        "widthPercent": 0,
         "color": "rgba(0, 0, 0, 1)"
       },
       "opacity": 1,
@@ -347,7 +347,7 @@
       "fontSize": 40,
       "color": "#EEEE20",
       "outline": {
-        "width_percent": 3,
+        "widthPercent": 3,
         "color": "#000000"
       },
       "id": "element-2"
@@ -412,7 +412,7 @@
       "xAlign": "center",
       "yAlign": "center",
       "stroke": {
-        "width": 0,
+        "widthPercent": 0,
         "color": "rgba(0, 0, 0, 1)"
       },
       "opacity": 1,
@@ -426,7 +426,7 @@
       "fontSize": 40,
       "color": "#EEEE20",
       "outline": {
-        "width_percent": 3,
+        "widthPercent": 3,
         "color": "#000000"
       },
       "id": "element-3"

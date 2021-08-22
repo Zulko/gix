@@ -33,7 +33,7 @@
       "xAlign": "center",
       "yAlign": "center",
       "stroke": {
-        "width_percent": 0,
+        "widthPercent": 0,
         "color": "#000000"
       },
       "type": "asset",
@@ -75,7 +75,7 @@
       "xAlign": "center",
       "yAlign": "center",
       "stroke": {
-        "width_percent": 0,
+        "widthPercent": 0,
         "color": "#000000"
       },
       "opacity": 1,
@@ -118,7 +118,7 @@
       "xAlign": "center",
       "yAlign": "center",
       "stroke": {
-        "width_percent": 0,
+        "widthPercent": 0,
         "color": "#000000"
       },
       "opacity": 1,
@@ -192,7 +192,7 @@
       "xAlign": "center",
       "yAlign": "center",
       "stroke": {
-        "width": 0,
+        "widthPercent": 0,
         "color": "rgba(0, 0, 0, 1)"
       },
       "opacity": 1,
@@ -206,7 +206,7 @@
       "fontSize": 71,
       "color": "#EEEE20",
       "outline": {
-        "width_percent": 1,
+        "widthPercent": 1,
         "color": "#000000"
       },
       "id": "element-1"
@@ -230,7 +230,7 @@
       "xAlign": "center",
       "yAlign": "center",
       "stroke": {
-        "width_percent": 0,
+        "widthPercent": 0,
         "color": "#000000"
       },
       "type": "asset",
@@ -272,7 +272,7 @@
       "xAlign": "center",
       "yAlign": "center",
       "stroke": {
-        "width": 0,
+        "widthPercent": 0,
         "color": "rgba(0, 0, 0, 1)"
       },
       "opacity": {
@@ -305,7 +305,7 @@
       "fontSize": 36,
       "color": "#BD9DEAFF",
       "outline": {
-        "width_percent": 18,
+        "widthPercent": 18,
         "color": "#000000"
       },
       "id": "element-4"

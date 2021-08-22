@@ -56,7 +56,7 @@ const svgConverters = {
   async rectangle(element) {
     const position = innerPosition(element);
     const meanSide = Math.sqrt(element.size.width * element.size.height);
-    const strokeWidth = (element.stroke.width_percent * meanSide) / 100;
+    const strokeWidth = (element.stroke.widthPercent * meanSide) / 100;
     const style = `
       fill: ${element.color.toLowerCase()};
       stroke-linejoin: round;
@@ -98,12 +98,11 @@ const svgConverters = {
     `;
     const textStyle = `${baseStyle}
       stroke: ${element.stroke.color};
-      stroke-width: ${(element.stroke.width_percent * element.fontSize) / 50}px;
+      stroke-width: ${(element.stroke.widthPercent * element.fontSize) / 50}px;
     `;
     const outlineStyle = `${baseStyle}
       stroke: ${element.outline.color};
-      stroke-width: ${(element.outline.width_percent * element.fontSize) /
-        50}px;
+      stroke-width: ${(element.outline.widthPercent * element.fontSize) / 50}px;
     `;
     const nLines = textLines.length;
     const offset = {
@@ -126,7 +125,7 @@ const svgConverters = {
     >
       ${textLinesSVG}
     </text>`;
-    if (element.outline.width_percent) {
+    if (element.outline.widthPercent) {
       const outline = `
       <text
         style="${outlineStyle}"

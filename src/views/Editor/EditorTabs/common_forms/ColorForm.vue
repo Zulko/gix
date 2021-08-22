@@ -18,7 +18,7 @@ section.element-color-form
       )
         b-numberinput.number-input(
           controls-position="compact",
-          :value="element.outline.width_percent",
+          :value="element.outline.widthPercent",
           @input="(v) => updateElement({ outline: { width: v } })",
           :min="0",
           :step="1",
@@ -33,7 +33,7 @@ section.element-color-form
       b-field(label="Width (%)", label-position="on-border")
         b-numberinput.number-input(
           controls-position="compact",
-          :value="element.stroke.width_percent",
+          :value="element.stroke.widthPercent",
           @input="(v) => updateElement({ stroke: { width: v } })",
           :min="0",
           :step="1",

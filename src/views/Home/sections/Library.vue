@@ -64,7 +64,7 @@ export default {
     return {
       searchTags: [],
       searchTerm: '',
-      builtinGixes: [gixerKid, slamdunk, ohTom, chaplinForks, multishrek, fellowGixer, theEnd],
+      builtinGixes: [gixerKid, chaplinForks, multishrek, ohTom, slamdunk, fellowGixer, theEnd],
       carouselIndex: 0,
       maxProjectWidth: 800,
       maxProjectHeight: 500,

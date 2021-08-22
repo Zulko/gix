@@ -33,7 +33,7 @@
       "xAlign": "left",
       "yAlign": "top",
       "stroke": {
-        "width_percent": 0,
+        "widthPercent": 0,
         "color": "#000000"
       },
       "type": "asset",
@@ -103,7 +103,7 @@
         ]
       },
       "stroke": {
-        "width_percent": 0,
+        "widthPercent": 0,
         "color": "rgba(0, 0, 0, 1)"
       },
       "type": "text",
@@ -116,7 +116,7 @@
       "fontSize": 40,
       "color": "#EEEE20",
       "outline": {
-        "width_percent": 10,
+        "widthPercent": 10,
         "color": "#000000"
       },
       "timeCrop": {
@@ -179,7 +179,7 @@
         ]
       },
       "stroke": {
-        "width_percent": 0,
+        "widthPercent": 0,
         "color": "rgba(0, 0, 0, 1)"
       },
       "type": "text",
@@ -192,7 +192,7 @@
       "fontSize": 40,
       "color": "#EEEE20",
       "outline": {
-        "width_percent": 10,
+        "widthPercent": 10,
         "color": "#000000"
       },
       "timeCrop": {
@@ -250,7 +250,7 @@
         ]
       },
       "stroke": {
-        "width_percent": 0,
+        "widthPercent": 0,
         "color": "rgba(0, 0, 0, 1)"
       },
       "type": "text",
@@ -263,7 +263,7 @@
       "fontSize": 40,
       "color": "#EEEE20",
       "outline": {
-        "width_percent": 10,
+        "widthPercent": 10,
         "color": "#000000"
       },
       "timeCrop": {

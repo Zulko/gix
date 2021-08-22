@@ -78,7 +78,7 @@
       "xAlign": "center",
       "yAlign": "center",
       "stroke": {
-        "width_percent": 0,
+        "widthPercent": 0,
         "color": "#000000"
       },
       "opacity": 1,
@@ -164,7 +164,7 @@
       "xAlign": "center",
       "yAlign": "center",
       "stroke": {
-        "width_percent": 0,
+        "widthPercent": 0,
         "color": "#000000"
       },
       "opacity": 1,

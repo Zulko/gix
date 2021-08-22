@@ -5,6 +5,7 @@
   .home-section: home-new-project
   .home-section(v-if="isElectron"): home-project-url
   .home-section: home-remix-project
+  .home-section: social-sharing-badges
 </template>
 
 <script>
@@ -13,6 +14,7 @@ import HomeNewProject from './sections/NewProject.vue';
 import HomeRemixProject from './sections/RemixProject.vue';
 import HomeProjectUrl from './sections/ProjectFromURL.vue';
 import HomeTitle from './sections/HomeTitle.vue';
+import SocialSharingBadges from './sections/SocialSharingBadges.vue';
 
 function isElectron() {
   // Renderer process
@@ -42,6 +44,7 @@ export default {
     'home-new-project': HomeNewProject,
     'home-remix-project': HomeRemixProject,
     'home-project-url': HomeProjectUrl,
+    'social-sharing-badges': SocialSharingBadges,
   },
 };
 </script>

@@ -25,6 +25,11 @@ yarn serve  # compiles and hot-reloads for development
 yarn build  # compiles and minifies for production
 ```
 
-## Contribute.
+## Contribute!
 
-Gix is open source software originally written by Zulko and released on Github under the MIT License. This is still work in progress. Expect no stability. At this point, bug reports, bug fixes, and feature requests are welcome.
+Gix is open source software originally written by Zulko and released on Github under the MIT License. This is still work in progress. Expect only medium stability at this point.
+
+You can contribute by:
+
+- Reporting bugs, requesting new features, suggesting new ideas. Open a new issue for that.
+- Tackling any of the open issues marked "enhancement" of "bug" that is not assigned to someone else (comment on the issue so others know you are working on it).

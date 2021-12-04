@@ -1,5 +1,8 @@
 module.exports = {
   publicPath: '/gix/',
+  configureWebpack: (config) => {
+    config.node = { fs: 'empty' };
+  },
   chainWebpack: (config) => {
     const svgRule = config.module.rule('svg');
     svgRule.uses.clear();
@@ -10,6 +13,7 @@ module.exports = {
       .loader('url-loader')
       .tap((options) =>
         // modify the options...
-        ({ ...options, limit: 100000 }));
+        ({ ...options, limit: 100000 }),
+      );
   },
 };

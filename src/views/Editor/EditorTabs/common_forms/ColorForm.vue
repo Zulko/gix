@@ -19,7 +19,7 @@ section.element-color-form
         b-numberinput.number-input(
           controls-position="compact",
           :value="element.outline.widthPercent",
-          @input="(v) => updateElement({ outline: { width: v } })",
+          @input="(v) => updateElement({ outline: { widthPercent: v } })",
           :min="0",
           :step="1",
           size="is-small"
@@ -34,7 +34,7 @@ section.element-color-form
         b-numberinput.number-input(
           controls-position="compact",
           :value="element.stroke.widthPercent",
-          @input="(v) => updateElement({ stroke: { width: v } })",
+          @input="(v) => updateElement({ stroke: { widthPercent: v } })",
           :min="0",
           :step="1",
           size="is-small"

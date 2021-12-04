@@ -23,7 +23,6 @@ export default {
   watch: {
     url(val) {
       if (val.indexOf('projectData') === -1) {
-        console.log('ignoring URL');
         return;
       }
       this.isLoading = true;

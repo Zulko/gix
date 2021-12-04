@@ -7,4 +7,5 @@ export const state = {
   freezeGifPreview: false,
   activeEditorElementTab: 0,
   editorPlayerTime: 0,
+  editorPlayerTimeCrop: [0, 1],
 };

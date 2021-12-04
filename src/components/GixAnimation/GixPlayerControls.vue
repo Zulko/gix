@@ -87,6 +87,7 @@ export default {
     playTimeCrop(val, oldVal) {
       const [oldStart, oldEnd] = oldVal;
       const [start, end] = val;
+      this.$store.commit('setEditorPlayerTimeCrop', val);
       if (start !== oldStart) {
         this.$emit('update:time', start);
       }
@@ -112,7 +113,7 @@ export default {
     timeCropSliderWidth() {
       const baseWidth = this.project.canvas ? this.project.canvas.width : 200;
       const previewWidth = baseWidth * this.parameters.scale;
-      return Math.min(800, Math.max(this.project.duration * 100, previewWidth));
+      return Math.min(650, Math.max(this.project.duration * 100, previewWidth));
     },
     playButtonAction() {
       return this.parameters.status === 'play' ? 'pause' : 'play';

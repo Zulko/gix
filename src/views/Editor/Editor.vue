@@ -44,7 +44,7 @@ export default {
       if (!this.$store.state.project.canvas) {
         return 1700;
       }
-      return this.$store.state.project.canvas.width + 850 + 100;
+      return 650 + 850;
     },
   },
   beforeDestroy() {

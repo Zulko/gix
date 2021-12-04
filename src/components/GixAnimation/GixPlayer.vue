@@ -47,7 +47,6 @@ export default {
       playTimeCrop: [0, this.project.duration],
       loop: true,
       status: this.status,
-
     };
     return {
       parameters,
@@ -100,6 +99,7 @@ export default {
   },
   mounted() {
     const self = this;
+    this.$store.commit('setEditorPlayerTimeCrop', [0, this.project.duration]);
     setTimeout(() => {
       self.fontsInProject.forEach((font) => {
         WebFont.load({
@@ -162,7 +162,7 @@ export default {
     '$store.state.editorPlayerTime': function preview(time) {
       if (time !== null) {
         this.currentTime = time;
-        this.parameters = { ...this.parameters, status: 'pause' };
+        this.parameters = { ...this.parameters };
         this.$store.commit('updateEditorPlayerTime', null);
       }
     },

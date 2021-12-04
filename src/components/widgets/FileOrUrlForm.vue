@@ -70,7 +70,6 @@ export default {
           this.$emit('urlInput', { url });
         }
       } catch (error) {
-        console.error(error);
         this.$emit('urlInput', { url });
       }
       this.isLoading = false;

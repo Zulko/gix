@@ -34,11 +34,15 @@
         size="mini",
         v-model="range",
         :min="0",
-        :max="$store.state.project.duration"
+        :max="$store.state.project.duration",
+        @dragstart="setFreezeGifPreview(true)",
+        @dragend="setFreezeGifPreview(false)"
       )
+    b-button(@click="setToPlayerCrop") Set to the player control's time segment
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import ElementComponentMixin from '../ElementComponentMixin.vue';
 
 export default {
@@ -49,8 +53,12 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(['setFreezeGifPreview']),
     updateTimeSegment(val) {
       this.updateElement({ timeSegment: { start: val[0], end: val[1] } });
+    },
+    setToPlayerCrop() {
+      this.updateTimeSegment(this.$store.state.editorPlayerTimeCrop);
     },
   },
   computed: {
@@ -81,8 +89,7 @@ export default {
         }
         if (start !== oldStart) {
           this.$store.commit('updateEditorPlayerTime', start);
-        }
-        if (end !== oldEnd) {
+        } else if (end !== oldEnd) {
           this.$store.commit('updateEditorPlayerTime', end);
         }
       },

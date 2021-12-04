@@ -5,7 +5,7 @@
       b-field(label="Format", label-position="on-border")
         b-select(v-model="exportFormat")
           option(value="GIF", label="GIF because I'm a purist")
-          option(value="mp4", label="MP4 because let's face it")
+          option(value="mp4", label="MP4 because I can")
 
     p.control
       b-field(label="Speed", label-position="on-border")

@@ -1,4 +1,3 @@
-import * as HME from 'h264-mp4-encoder';
 import GIF from 'gif.js';
 import Canvg from 'canvg';
 import gifWorker from 'url-loader!./gif.worker.txt'; // eslint-disable-line
@@ -7,6 +6,8 @@ import {
   initiateMissingFrameServers,
   findAssetUrlsWithoutFrameServer,
 } from './FrameServer/autoDetectedFrameServer';
+
+const getHME = () => import(/* webpackChunkName: "HME" */ 'h264-mp4-encoder');
 
 async function renderGixToGif(gix, params, progressCallback) {
   const missingUrlDataList = findAssetUrlsWithoutFrameServer(
@@ -117,7 +118,7 @@ async function renderGixToMp4(gix, params, progressCallback) {
     (e) => timeBetweenFrames * e * (params.speedFactor || 1),
   );
 
-  const encoder = await HME.createH264MP4Encoder();
+  const encoder = await getHME().createH264MP4Encoder();
 
   encoder.width = roundToEven(params.scale * canvas.width);
   encoder.height = roundToEven(params.scale * canvas.height);

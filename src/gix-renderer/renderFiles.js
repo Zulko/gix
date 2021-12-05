@@ -117,8 +117,8 @@ async function renderGixToMp4(gix, params, progressCallback) {
   const frameTimes = [...Array(numberOfFrames).keys()].map(
     (e) => timeBetweenFrames * e * (params.speedFactor || 1),
   );
-
-  const encoder = await getHME().createH264MP4Encoder();
+  const HME = await getHME();
+  const encoder = await HME.createH264MP4Encoder();
 
   encoder.width = roundToEven(params.scale * canvas.width);
   encoder.height = roundToEven(params.scale * canvas.height);

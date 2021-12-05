@@ -96,7 +96,7 @@
 <script>
 import { mapMutations } from 'vuex';
 import GixPlayer from '../../../components/GixAnimation/GixPlayer.vue';
-import { renderGixToGif, renderGixToMp4 } from '../../../gix-renderer/index';
+import { renderGixToGif, renderGixToMp4 } from '../../../gix-renderer/renderFiles';
 
 export default {
   props: {

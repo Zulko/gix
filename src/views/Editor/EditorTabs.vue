@@ -73,9 +73,8 @@ import AssetSettings from './EditorTabs/AssetSettings/AssetSettings.vue';
 import ElementAdder from './EditorTabs/ElementAdder/ElementAdder.vue';
 import ElementToolbar from './EditorTabs/ElementToolbar/ElementToolbar.vue';
 import ProjectSettings from './EditorTabs/ProjectSettings.vue';
+import ExportGif from './EditorTabs/ExportGif.vue';
 import SaveAndShare from './EditorTabs/SaveAndShare.vue';
-
-const ExportGif = () => import(/* webpackChunkName: "ExportGifMp4" */ './EditorTabs/ExportGif.vue');
 
 // TODO: deleting an element tab should bring to the next element tab.
 export default {

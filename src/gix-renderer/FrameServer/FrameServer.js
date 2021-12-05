@@ -6,7 +6,7 @@ class FrameServer {
     this.projectionCanvas = document.createElement('canvas');
     this.projectionCanvasCtx = this.projectionCanvas.getContext('2d');
     this.hasTransparency = false;
-    this.lruCache = new LRU(10);
+    this.lruCache = new LRU(300);
     const self = this;
     this.frameBase64DatarequestsQueue = async.queue(
       async (params, callback) => {
@@ -36,7 +36,6 @@ class FrameServer {
 
   async getFrame(params) {
     const lruFrame = this.lruCache.getFromParams(params);
-
     if (lruFrame) {
       return lruFrame;
     }
@@ -86,14 +85,14 @@ class FrameServer {
     if (canvasHasAlpha !== undefined) {
       return canvasHasAlpha
         ? canvas.toDataURL('image/png')
-        : canvas.toDataURL('image/jpeg', 0.7);
+        : canvas.toDataURL('image/jpeg', 0.8);
     }
     if (!this.hasTransparency) {
-      return canvas.toDataURL('image/jpeg', 0.7);
+      return canvas.toDataURL('image/jpeg', 0.8);
     }
     return FrameServer.canvasHasAlpha(context, canvas)
       ? canvas.toDataURL('image/png')
-      : canvas.toDataURL('image/jpeg', 0.7);
+      : canvas.toDataURL('image/jpeg', 0.8);
   }
 }
 

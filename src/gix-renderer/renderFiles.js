@@ -58,7 +58,6 @@ async function renderGixToGif(gix, params, progressCallback) {
     canvasCtx.fillRect(0, 0, gix.canvas.width, gix.canvas.height);
     const svg = await Canvg.fromString(canvasCtx, frameSvg); //eslint-disable-line
     await svg.render(); //eslint-disable-line
-    // await svg.ready(); //eslint-disable-line
 
     gif.addFrame(canvasCtx, {
       copy: true,
@@ -123,6 +122,7 @@ async function renderGixToMp4(gix, params, progressCallback) {
   encoder.width = roundToEven(params.scale * canvas.width);
   encoder.height = roundToEven(params.scale * canvas.height);
   encoder.frameRate = fps;
+  encoder.speed = 10;
   encoder.initialize();
   /* eslint-disable  */
   for (const [i, time] of frameTimes.entries()) {
@@ -138,7 +138,7 @@ async function renderGixToMp4(gix, params, progressCallback) {
     canvasCtx.fillRect(0, 0, gix.canvas.width, gix.canvas.height);
     const svg = await Canvg.fromString(canvasCtx, frameSvg); //eslint-disable-line
 
-    await svg.render(); //eslint-disable-line
+    await svg.render();
     encoder.addFrameRgba(
       canvasCtx.getImageData(0, 0, canvas.width, canvas.height).data,
     );
